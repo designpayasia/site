@@ -1,43 +1,66 @@
-# Astro Starter Kit: Minimal
+# Design Pay Asia site
+
+Design Pay Asia is Southeast Asia's design pay conversation: a public, cited, and open website for reports, editorial context, and community-facing pay transparency work.
+
+This repository contains the Astro site for `designpay.asia`.
+
+## Status
+
+The rebuild is in early active development. The design-language direction is locked, and the first coded surfaces are being built from the local design spec.
+
+## Stack
+
+- Astro
+- pnpm
+- Plain CSS custom properties for design tokens
+- Static-first publishing, with report content modelled as structured files
+
+## Local development
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Build the production site:
 
-## 🚀 Project Structure
+```sh
+pnpm build
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+Preview a production build:
+
+```sh
+pnpm preview
+```
+
+## Git conventions
+
+Use Conventional Commits so release history can map cleanly to SemVer.
+
+Common commit types:
+
+- `feat:` for user-facing site features
+- `fix:` for bug fixes
+- `docs:` for documentation-only changes
+- `style:` for formatting-only changes
+- `refactor:` for code changes that do not change behaviour
+- `test:` for test coverage
+- `chore:` for maintenance, tooling, and dependency work
+
+Breaking changes must include `!` after the type or a `BREAKING CHANGE:` footer.
+
+Examples:
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+feat: add report content collection
+fix: correct homepage metadata
+docs: add licensing notes
+feat!: change report URL schema
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Licensing
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Code in this repository is licensed under the MIT License. See `LICENSE`.
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Content, report text, design writing, and published data are licensed under Creative Commons Attribution 4.0 International unless noted otherwise. See `LICENSE-CONTENT.md`.
