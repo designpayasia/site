@@ -34,9 +34,17 @@ Preview a production build:
 pnpm preview
 ```
 
-## Git conventions
+## Versioning and git conventions
 
-Use Conventional Commits so release history can map cleanly to SemVer.
+Versions follow Semantic Versioning 2.0.0: `MAJOR.MINOR.PATCH`.
+
+- `MAJOR` changes are for incompatible changes to the public site contract.
+- `MINOR` changes are for backward-compatible new functionality.
+- `PATCH` changes are for backward-compatible fixes.
+
+For this site, the public contract includes permanent URL structure, published content and data schemas, and documented integration points. During `0.y.z` initial development, anything may change. `1.0.0` marks the first stable public launch.
+
+Git history uses Conventional Commits so release notes can map cleanly to SemVer. This is a commit-message convention, not a replacement for SemVer.
 
 Common commit types:
 
