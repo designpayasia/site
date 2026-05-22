@@ -1,0 +1,75 @@
+/* ==========================================================================
+   DPA — Global styles
+   Import order matters: primitives → semantic → dark overrides → base.
+   ========================================================================== */
+
+@import './tokens/_primitives.css';
+@import './tokens/_semantic.css';
+@import './tokens/_dark.css';
+
+/* --------------------------------------------------------------------------
+   Base reset & sensible defaults
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  line-height: var(--leading-editorial);
+  color: var(--color-workhorse);
+  background-color: var(--color-ambient);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   Italic stress utility classes (§5 — two classes only, never ad-hoc)
+   .display-italic  → muted ink, for editorial stress without signal weight
+   .display-signal  → crimson, for the one signal moment per section
+   -------------------------------------------------------------------------- */
+.display-italic {
+  font-style: italic;
+  color: var(--color-ink-muted);
+}
+
+.display-signal {
+  font-style: italic;
+  color: var(--color-signal-text);
+}
+
+/* --------------------------------------------------------------------------
+   Mono label treatment (§5 — UPPERCASE via transform, never in copy)
+   -------------------------------------------------------------------------- */
+.label-mono {
+  font-family: var(--font-data);
+  font-size: var(--ui-meta);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  line-height: var(--leading-ui);
+}
+
+/* --------------------------------------------------------------------------
+   Prose line-length constraint
+   -------------------------------------------------------------------------- */
+.prose {
+  max-width: var(--zone-prose);
+}
+
+.prose-editorial {
+  max-width: var(--zone-editorial);
+}

@@ -1,0 +1,321 @@
+---
+import Base from '../layouts/Base.astro';
+import BigStat from '../components/BigStat.astro';
+
+/* Placeholder stats — will be replaced by content collection data files */
+const stats = [
+  { value: '847', unit: '+', label: 'Designers surveyed across Southeast Asia', color: 'workhorse' as const },
+  { value: '38',  unit: '%', label: 'Report a gender pay gap in their team',   color: 'signal'    as const },
+  { value: '11',  unit: '+', label: 'Markets covered in the 2024 report',      color: 'workhorse' as const },
+];
+---
+
+<Base
+  title="Design Pay Asia — Southeast Asia's design pay conversation."
+  description="Because pay is never just a number — it's context, power, and where the industry is going."
+>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__inner">
+      <h1 class="hero__heading">
+        Southeast Asia's design pay <em class="display-signal">conversation.</em>
+      </h1>
+      <p class="hero__sub">
+        Because pay is never just a number — it's context, power, and where the industry is going.
+      </p>
+      <a href="/reports" class="hero__cta">Read the 2024 report</a>
+    </div>
+  </section>
+
+  <!-- Big-stat row -->
+  <section class="stats-row" aria-label="Key findings">
+    <div class="stats-row__inner">
+      {stats.map(s => (
+        <BigStat
+          value={s.value}
+          unit={s.unit}
+          label={s.label}
+          color={s.color}
+          countUp
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Editorial provocation -->
+  <section class="provocation">
+    <div class="provocation__inner">
+      <h2 class="provocation__heading">
+        The transparency argument has largely been won.
+        <em class="display-italic">What happens next</em> is the harder question.
+      </h2>
+      <div class="provocation__body">
+        <p>
+          Three years of DPA data tell a consistent story: designers across Southeast Asia
+          know their salaries are unequal. The question the 2024 report raises isn't whether
+          a gap exists — it's what the industry is willing to do about it.
+        </p>
+        <p>
+          DPA exists to keep that question alive. Not as an annual data dump, but as an
+          ongoing conversation that the community owns.
+        </p>
+      </div>
+      <a href="/contribute" class="provocation__cta">Contribute your data</a>
+    </div>
+  </section>
+
+  <!-- Latest report entry -->
+  <section class="report-entry">
+    <div class="report-entry__inner">
+      <p class="label-mono report-entry__eyebrow">Latest report</p>
+      <h2 class="report-entry__heading">The 2024 DPA Report</h2>
+      <p class="report-entry__desc">
+        847 designers. 11 markets. The most complete picture of design pay in Southeast Asia yet.
+      </p>
+      <a href="/reports/2024" class="report-entry__link">
+        Read the report <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  /* ------------------------------------------------------------------ Hero */
+  .hero {
+    padding-block: var(--space-24) var(--space-16);
+    padding-inline: var(--space-8);
+  }
+
+  .hero__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .hero__heading {
+    font-family: var(--type-hero-face);
+    font-size: var(--type-hero-size);
+    line-height: var(--type-hero-leading);
+    letter-spacing: var(--type-hero-tracking);
+    color: var(--color-workhorse);
+    max-width: 13ch;
+  }
+
+  .hero__heading em {
+    font-style: italic;
+  }
+
+  .hero__sub {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-xl);
+    line-height: var(--leading-body);
+    color: var(--color-grey-600);
+    max-width: var(--zone-prose);
+    margin-top: var(--space-8);
+  }
+
+  .hero__cta {
+    display: inline-block;
+    margin-top: var(--space-8);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: var(--weight-semibold);
+    color: var(--color-ambient);
+    background: var(--color-signal-fill);
+    padding: var(--space-3) var(--space-6);
+    text-decoration: none;
+    transition: opacity var(--transition-hover);
+  }
+
+  .hero__cta:hover {
+    opacity: 0.88;
+  }
+
+  /* --------------------------------------------------------------- Stats */
+  .stats-row {
+    border-top: 1px solid var(--color-grey-200);
+    padding-block: var(--space-16);
+    padding-inline: var(--space-8);
+  }
+
+  .stats-row__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+
+  /* ---------------------------------------------------------- Provocation */
+  .provocation {
+    padding-block: var(--space-16);
+    padding-inline: var(--space-8);
+    border-top: 1px solid var(--color-grey-200);
+  }
+
+  .provocation__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .provocation__heading {
+    font-family: var(--type-h2-face);
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-leading);
+    letter-spacing: var(--type-h2-tracking);
+    color: var(--color-workhorse);
+    max-width: 22ch;
+  }
+
+  .provocation__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    line-height: var(--leading-editorial);
+    color: var(--color-workhorse);
+    max-width: var(--zone-prose);
+    margin-top: var(--space-8);
+  }
+
+  .provocation__cta {
+    display: inline-block;
+    margin-top: var(--space-8);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: var(--weight-semibold);
+    color: var(--color-action);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--transition-hover);
+  }
+
+  .provocation__cta:hover {
+    color: var(--color-signal-text);
+  }
+
+  /* -------------------------------------------------------- Report entry */
+  .report-entry {
+    padding-block: var(--space-16) var(--space-24);
+    padding-inline: var(--space-8);
+    border-top: 1px solid var(--color-grey-200);
+  }
+
+  .report-entry__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .report-entry__eyebrow {
+    color: var(--color-grey-500);
+    margin-bottom: var(--space-4);
+  }
+
+  .report-entry__heading {
+    font-family: var(--type-h2-face);
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-leading);
+    letter-spacing: var(--type-h2-tracking);
+    color: var(--color-workhorse);
+  }
+
+  .report-entry__desc {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-body);
+    color: var(--color-grey-600);
+    max-width: var(--zone-prose);
+    margin-top: var(--space-4);
+  }
+
+  .report-entry__link {
+    display: inline-block;
+    margin-top: var(--space-6);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: var(--weight-semibold);
+    color: var(--color-signal-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity var(--transition-hover);
+  }
+
+  .report-entry__link:hover {
+    opacity: 0.75;
+  }
+
+  /* ---------------------------------------------------------- Responsive */
+  @media (max-width: 768px) {
+    .hero {
+      padding-block: var(--space-16) var(--space-12);
+      padding-inline: var(--space-4);
+    }
+
+    .hero__heading {
+      font-size: clamp(3.5rem, 16vw, var(--type-hero-size));
+    }
+
+    .hero__sub {
+      font-size: var(--font-size-base);
+    }
+
+    .stats-row,
+    .provocation,
+    .report-entry {
+      padding-inline: var(--space-4);
+    }
+
+    .stats-row__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+    }
+
+    .provocation__heading {
+      font-size: clamp(2rem, 10vw, var(--type-h2-size));
+    }
+
+    .report-entry__heading {
+      font-size: clamp(2rem, 10vw, var(--type-h2-size));
+    }
+  }
+</style>
+
+<!-- Count-up animation — Intersection Observer, respects prefers-reduced-motion -->
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const animateCount = (el: HTMLElement, target: number, prefix: string) => {
+      const duration = 1600;
+      const start = performance.now();
+
+      const tick = (now: number) => {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.round(easeOut(progress) * target);
+        el.textContent = prefix + current.toLocaleString();
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        const target = parseInt(el.dataset.countTarget ?? '', 10);
+        const prefix = el.dataset.countPrefix ?? '';
+        if (!isNaN(target)) animateCount(el, target, prefix);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll<HTMLElement>('[data-count-target]')
+      .forEach(el => observer.observe(el));
+  }
+</script>

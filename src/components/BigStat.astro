@@ -1,0 +1,64 @@
+---
+interface Props {
+  value: string;         /* the formatted number, e.g. "847", "38", "4,200" */
+  unit?: string;         /* suffix only: %, ×, pts, k — currency prefix goes in value */
+  label: string;
+  color?: 'workhorse' | 'signal';
+  countUp?: boolean;     /* enable Intersection Observer count-up animation */
+}
+
+const { value, unit, label, color = 'workhorse', countUp = false } = Astro.props;
+
+/* Strip non-numeric chars so JS can count up to the right target */
+const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
+---
+
+<div class:list={['bigstat', `bigstat--${color}`]}>
+  <p
+    class="bigstat__figure"
+    aria-label={`${value}${unit ?? ''}`}
+  >
+    <span
+      class="bigstat__value"
+      data-count-target={countUp && !isNaN(numericValue) ? numericValue : undefined}
+      data-count-prefix={countUp ? value.replace(/[0-9,]+/, '') : undefined}
+    >{value}</span>{unit && (
+      <span class="bigstat__unit" aria-hidden="true">{unit}</span>
+    )}
+  </p>
+  <p class="bigstat__label">{label}</p>
+</div>
+
+<style>
+  .bigstat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .bigstat__figure {
+    font-family: var(--type-stat-face);
+    font-size: var(--type-stat-size);
+    line-height: var(--type-stat-leading);
+    letter-spacing: var(--type-stat-tracking);
+    font-variant-numeric: lining-nums tabular-nums;
+    display: flex;
+    align-items: baseline;
+    gap: var(--type-stat-unit-gap);
+  }
+
+  .bigstat--workhorse .bigstat__figure { color: var(--color-workhorse); }
+  .bigstat--signal   .bigstat__figure { color: var(--color-signal-text); }
+
+  .bigstat__unit {
+    font-size: var(--type-stat-unit-size);
+  }
+
+  .bigstat__label {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    color: var(--color-grey-500);
+    line-height: var(--leading-ui);
+    max-width: 24ch;
+  }
+</style>

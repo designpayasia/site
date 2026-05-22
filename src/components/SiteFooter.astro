@@ -1,0 +1,98 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__mark">
+      <!-- D″ icon mark — small scale -->
+      <svg
+        class="site-footer__blob"
+        viewBox="0 0 400 400"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M0 400 V133.14 A80 80 0 0 1 23.43 76.57 L76.57 23.43 A80 80 0 0 1 133.14 0 H200 A200 200 0 0 1 200 400 Z" />
+      </svg>
+      <span class="site-footer__name">Design Pay Asia</span>
+    </div>
+
+    <p class="site-footer__licence">
+      MIT (code) · CC-BY 4.0 (content &amp; data) ·
+      <a href="https://github.com/designpayasia/site" class="site-footer__link">
+        GitHub
+      </a>
+      · {year}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-grey-200);
+    margin-top: var(--space-32);
+    padding-block: var(--space-8);
+    padding-inline: var(--space-8);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    flex-wrap: wrap;
+  }
+
+  .site-footer__mark {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .site-footer__blob {
+    height: 1.25rem;
+    width: auto;
+    fill: var(--color-signal);
+    opacity: 0.7;
+  }
+
+  .site-footer__name {
+    font-family: var(--font-sans);
+    font-size: var(--ui-meta);
+    font-weight: var(--weight-medium);
+    color: var(--color-workhorse);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  .site-footer__licence {
+    font-family: var(--font-sans);
+    font-size: var(--ui-meta);
+    color: var(--color-grey-500);
+    line-height: var(--leading-ui);
+  }
+
+  .site-footer__link {
+    color: var(--color-grey-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--transition-hover);
+  }
+
+  .site-footer__link:hover {
+    color: var(--color-signal-text);
+  }
+
+  @media (max-width: 640px) {
+    .site-footer {
+      padding-inline: var(--space-4);
+    }
+
+    .site-footer__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+  }
+</style>

@@ -1,0 +1,110 @@
+/* ==========================================================================
+   DPA — Semantic tokens
+   Role-based aliases. These are what components and layouts reference.
+   Never reference primitives directly in component CSS.
+
+   Changing a value here changes it everywhere. This is the succession lever.
+   ========================================================================== */
+
+:root {
+
+  /* --------------------------------------------------------------------------
+     Colour roles (§4 — Track B)
+     signal   = crimson; CTAs, mark, data highlights, key links
+     workhorse = near-black; primary text at every level
+     ambient  = warm cream; background surfaces, quiet containers
+     action   = navy-derived; secondary interactive, hover, focus
+     -------------------------------------------------------------------------- */
+  --color-signal:      var(--color-crimson-600);
+  --color-signal-fill: var(--color-crimson-600); /* surfaces, badges, buttons */
+  --color-signal-text: var(--color-crimson-600); /* links, inline emphasis */
+  --color-workhorse:   var(--color-grey-900);
+  --color-ambient:     var(--color-cream-50);
+  --color-action:      var(--color-navy-700);
+
+  /* Muted ink — for .display-italic stress (not full signal, not full workhorse) */
+  --color-ink-muted:   var(--color-grey-500);
+
+  /* --------------------------------------------------------------------------
+     Typography — face roles (§5)
+     -------------------------------------------------------------------------- */
+  --font-display: var(--font-family-display); /* Instrument Serif — editorial only */
+  --font-sans:    var(--font-family-sans);    /* Plus Jakarta Sans — body + UI */
+  --font-data:    var(--font-family-mono);    /* DM Mono — numbers, tables */
+
+  /* --------------------------------------------------------------------------
+     Four display moments — locked exact values (§5 type treatment)
+     Do not invent new display moments. Collapse anything that feels like a
+     new size into --type-h2. Ask before creating new moments.
+     -------------------------------------------------------------------------- */
+
+  /* Hero: 132px / 0.88 / −0.018em */
+  --type-hero-size:     var(--font-size-display);
+  --type-hero-leading:  var(--leading-hero);
+  --type-hero-tracking: var(--tracking-display);
+  --type-hero-face:     var(--font-display);
+
+  /* H2: 64px / 1.00 / −0.018em (italic stress & signal colour allowed) */
+  --type-h2-size:       var(--font-size-h2);
+  --type-h2-leading:    var(--leading-h2);
+  --type-h2-tracking:   var(--tracking-display);
+  --type-h2-face:       var(--font-display);
+
+  /* Stat: 132px / 0.92 / −0.005em (numerals breathe — never tight-track) */
+  --type-stat-size:        var(--font-size-display);
+  --type-stat-leading:     var(--leading-stat);
+  --type-stat-tracking:    var(--tracking-stat);
+  --type-stat-face:        var(--font-display);
+  --type-stat-unit-size:   var(--stat-unit-size);
+  --type-stat-unit-gap:    var(--stat-unit-gap);
+
+  /* Pull-quote: 36px / 1.18 / italic / crimson — the only italic-only moment */
+  --type-pullquote-size:    var(--font-size-pullquote);
+  --type-pullquote-leading: var(--leading-pullquote);
+  --type-pullquote-tracking: var(--tracking-normal);
+  --type-pullquote-face:    var(--font-display);
+  --type-pullquote-color:   var(--color-signal-text);
+
+  /* --------------------------------------------------------------------------
+     Editorial scale — below display moments
+     -------------------------------------------------------------------------- */
+  --type-body:     var(--font-size-base);  /* 16px */
+  --type-caption:  var(--font-size-sm);    /* 14px */
+  --type-footnote: var(--font-size-xs);    /* 12px */
+
+  /* Accessibility floor: 11px minimum for meta/eyebrow/label/footer copy.
+     Use --ui-meta everywhere you'd otherwise reach for a font-size < 14px. */
+  --ui-meta: var(--font-size-ui-meta); /* 11px */
+
+  /* --------------------------------------------------------------------------
+     Line heights — semantic aliases
+     -------------------------------------------------------------------------- */
+  --leading-editorial: var(--leading-body);    /* 1.625 — all running text */
+  --leading-ui:        var(--leading-caption);  /* 1.4 — labels, captions */
+
+  /* --------------------------------------------------------------------------
+     Layout zones (§7)
+     prose    = body text, max ~65–70 chars
+     editorial = section headings, wider editorial copy
+     full     = charts, images, hero moments, blob architecture
+     -------------------------------------------------------------------------- */
+  --zone-prose:    var(--width-prose);
+  --zone-editorial: var(--width-editorial);
+  --zone-full:     var(--width-full);
+  --site-max-width: var(--width-site-max);
+
+  /* --------------------------------------------------------------------------
+     Motion (§9)
+     -------------------------------------------------------------------------- */
+  --transition-hover:    var(--duration-fast)   var(--easing-standard);
+  --transition-reveal:   var(--duration-medium) var(--easing-out);
+  --duration-count-up:   var(--duration-slow);
+
+  /* --------------------------------------------------------------------------
+     Border radius — blob chamfer motif (§3 D″ geometry)
+     For CSS contexts that borrow the r=80 chamfer logic at reduced scale.
+     Full architectural use requires the SVG master path from §3.
+     -------------------------------------------------------------------------- */
+  --radius-blob-motif: 20px; /* scaled reference to the D″ chamfer character */
+
+}

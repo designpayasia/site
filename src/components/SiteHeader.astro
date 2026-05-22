@@ -1,0 +1,121 @@
+---
+const navLinks = [
+  { href: '/reports',   label: 'Reports' },
+  { href: '/about',     label: 'About' },
+  { href: '/contribute',label: 'Contribute' },
+  { href: '/resources', label: 'Resources' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <a href="/" class="site-header__mark" aria-label="Design Pay Asia — home">
+    <!-- D″ master blob (400×400 viewBox, r=80 soft chamfer) -->
+    <svg
+      class="site-header__blob"
+      viewBox="0 0 400 400"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M0 400 V133.14 A80 80 0 0 1 23.43 76.57 L76.57 23.43 A80 80 0 0 1 133.14 0 H200 A200 200 0 0 1 200 400 Z" />
+    </svg>
+    <span class="site-header__wordmark">Design Pay Asia</span>
+  </a>
+
+  <nav class="site-header__nav" aria-label="Main navigation">
+    <ul class="site-header__nav-list">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class:list={['site-header__nav-link', { 'is-active': currentPath.startsWith(href) }]}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding-block: var(--space-4);
+    padding-inline: var(--space-8);
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .site-header__mark {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-workhorse);
+    flex-shrink: 0;
+  }
+
+  .site-header__blob {
+    height: 2rem;
+    width: auto;
+    fill: var(--color-signal);
+    transition: opacity var(--transition-hover);
+  }
+
+  .site-header__mark:hover .site-header__blob {
+    opacity: 0.8;
+  }
+
+  .site-header__wordmark {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-normal);
+    line-height: 1;
+  }
+
+  .site-header__nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    list-style: none;
+  }
+
+  .site-header__nav-link {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-workhorse);
+    text-decoration: none;
+    padding-block: var(--space-1);
+    border-bottom: 1.5px solid transparent;
+    transition: color var(--transition-hover), border-color var(--transition-hover);
+  }
+
+  .site-header__nav-link:hover,
+  .site-header__nav-link.is-active {
+    color: var(--color-signal-text);
+    border-bottom-color: var(--color-signal-text);
+  }
+
+  /* Mobile — collapse wordmark, keep nav readable */
+  @media (max-width: 640px) {
+    .site-header {
+      padding-inline: var(--space-4);
+    }
+
+    .site-header__wordmark {
+      display: none;
+    }
+
+    .site-header__nav-list {
+      gap: var(--space-4);
+    }
+  }
+</style>

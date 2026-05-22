@@ -1,0 +1,191 @@
+/* ==========================================================================
+   DPA — Primitive tokens
+   Raw values only. No semantic meaning. Nothing references these directly
+   in components — always go through _semantic.css.
+
+   Colour ramp anchors are confirmed from the brand spec. Full tonal ranges
+   (100–900) are built on the artboard and filled in here when confirmed.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Colour — Crimson (signal family)
+   Anchor: #991844 at 600
+   -------------------------------------------------------------------------- */
+:root {
+  --color-crimson-50:  #fef2f5;
+  --color-crimson-100: #fce4ec;
+  --color-crimson-200: #f8bace;
+  --color-crimson-300: #f48baa; /* dark-mode signal-text */
+  --color-crimson-400: #e05878; /* dark-mode signal-fill */
+  --color-crimson-500: #c4295e;
+  --color-crimson-600: #991844; /* brand signal — confirmed */
+  --color-crimson-700: #7a1236;
+  --color-crimson-800: #5b0d28;
+  --color-crimson-900: #3d0818;
+}
+
+/* --------------------------------------------------------------------------
+   Colour — Navy (dark mode surface family)
+   Anchor: #0f1c2e at 900
+   Action aliases: 700 (light mode), 500 (dark mode)
+   -------------------------------------------------------------------------- */
+:root {
+  --color-navy-50:  #eef2f7;
+  --color-navy-100: #d5e0ec;
+  --color-navy-200: #aec3d8;
+  --color-navy-300: #84a5c4;
+  --color-navy-400: #5e8ab2;
+  --color-navy-500: #4a6e99; /* dark-mode action */
+  --color-navy-600: #3a5680;
+  --color-navy-700: #4a628f; /* light-mode action — confirmed */
+  --color-navy-800: #1f3a5f;
+  --color-navy-900: #0f1c2e; /* dark-mode ambient surface — confirmed */
+}
+
+/* --------------------------------------------------------------------------
+   Colour — Warm grey (workhorse / text family)
+   Anchor: #1a1a1a at 900
+   -------------------------------------------------------------------------- */
+:root {
+  --color-grey-50:  #f7f6f5;
+  --color-grey-100: #eeeceb;
+  --color-grey-200: #d8d5d2;
+  --color-grey-300: #b8b4b0;
+  --color-grey-400: #928d89;
+  --color-grey-500: #6d6865;
+  --color-grey-600: #4d4a47;
+  --color-grey-700: #332f2d;
+  --color-grey-800: #252220;
+  --color-grey-900: #1a1a1a; /* primary workhorse text — confirmed */
+}
+
+/* --------------------------------------------------------------------------
+   Colour — Cream (ambient / background family)
+   Anchor: #faf8f4 at 50
+   -------------------------------------------------------------------------- */
+:root {
+  --color-cream-50:  #faf8f4; /* primary light-mode background — confirmed */
+  --color-cream-100: #f5f1ea;
+  --color-cream-200: #ede5d5;
+  --color-cream-300: #e0d3bb;
+  --color-cream-400: #cfc09e;
+  --color-cream-500: #baa97e;
+  --color-cream-600: #9e8e62;
+  --color-cream-700: #7d7049;
+  --color-cream-800: #5c5136;
+  --color-cream-900: #3b3422;
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Families
+   -------------------------------------------------------------------------- */
+:root {
+  --font-family-display: 'Instrument Serif', Georgia, serif;
+  --font-family-sans:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-family-mono:    'DM Mono', 'Courier New', monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Sizes
+   Four display moments are locked with exact px values (§5 locked treatment).
+   Rem values assume 16px root.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Display moments — locked exact values */
+  --font-size-display:    8.25rem;  /* 132px — Hero & Stat */
+  --font-size-h2:         4rem;     /* 64px  — H2 */
+  --font-size-pullquote:  2.25rem;  /* 36px  — Pull-quote */
+
+  /* Editorial scale */
+  --font-size-xl:   1.5rem;    /* 24px */
+  --font-size-lg:   1.25rem;   /* 20px */
+  --font-size-base: 1rem;      /* 16px — body */
+  --font-size-sm:   0.875rem;  /* 14px — caption */
+  --font-size-xs:   0.75rem;   /* 12px — footnote */
+
+  /* Accessibility floor — never go smaller than this in UI */
+  --font-size-ui-meta: 0.6875rem; /* 11px — eyebrow, meta, labels */
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Line heights
+   -------------------------------------------------------------------------- */
+:root {
+  --leading-hero:       0.88; /* tight — deliberate, carries impact */
+  --leading-stat:       0.92; /* numerals breathe, still tight */
+  --leading-h2:         1.00; /* editorial headings */
+  --leading-pullquote:  1.18; /* pull-quote — open, readable at 36px */
+  --leading-body:       1.625; /* comfortable editorial reading */
+  --leading-caption:    1.4;
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Letter spacing
+   -------------------------------------------------------------------------- */
+:root {
+  --tracking-display: -0.018em; /* Hero & H2 — display compression */
+  --tracking-stat:    -0.005em; /* Stat — numerals must breathe */
+  --tracking-normal:   0em;
+  --tracking-mono:     0.02em;
+  --tracking-label:    0.08em;  /* UPPERCASE mono labels */
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Weights
+   -------------------------------------------------------------------------- */
+:root {
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+}
+
+/* --------------------------------------------------------------------------
+   Stat unit treatment (locked §5)
+   Unit (%, ×, pts) size and gap relative to the stat number
+   -------------------------------------------------------------------------- */
+:root {
+  --stat-unit-size: 0.42em;  /* unit is 0.42× the stat font-size */
+  --stat-unit-gap:  0.12em;  /* non-breaking space before unit */
+}
+
+/* --------------------------------------------------------------------------
+   Space scale
+   -------------------------------------------------------------------------- */
+:root {
+  --space-1:  0.25rem;  /* 4px  */
+  --space-2:  0.5rem;   /* 8px  */
+  --space-3:  0.75rem;  /* 12px */
+  --space-4:  1rem;     /* 16px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;     /* 32px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+}
+
+/* --------------------------------------------------------------------------
+   Layout — breakpoints and content widths
+   -------------------------------------------------------------------------- */
+:root {
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1280px;
+
+  --width-prose:    65ch;   /* body text max line length */
+  --width-editorial: 80ch;  /* section headings, wider editorial */
+  --width-full:     100%;
+  --width-site-max: 1280px; /* 12-column desktop grid outer bound */
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+:root {
+  --duration-fast:   150ms;  /* hover transitions */
+  --duration-medium: 400ms;  /* scroll reveals, editorial fades */
+  --duration-slow:   1800ms; /* big-stat count-up */
+
+  --easing-out:      cubic-bezier(0.0, 0.0, 0.2, 1); /* decelerate in */
+  --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1); /* general transitions */
+}
