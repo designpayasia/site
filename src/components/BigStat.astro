@@ -8,7 +8,8 @@ interface Props {
 }
 
 const { value, unit, label, color = 'workhorse', countUp = false } = Astro.props;
-const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
+const numericValue = parseFloat(value.replace(/,/g, ''));
+const decimals = value.includes('.') ? (value.split('.')[1].match(/\d+/)?.[0].length ?? 0) : 0;
 ---
 
 <div class:list={['bigstat', `bigstat--${color}`]}>
@@ -16,7 +17,7 @@ const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
     <span
       class="bigstat__value"
       data-count-target={countUp && !Number.isNaN(numericValue) ? numericValue : undefined}
-      data-count-prefix={countUp ? value.replace(/[0-9,]+/, '') : undefined}
+      data-count-decimals={countUp ? decimals : undefined}
     >
       {value}
     </span>
@@ -28,9 +29,15 @@ const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
 <script is:inline>
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const animateCount = (el, target, prefix = '') => {
+  const format = (n, decimals) =>
+    n.toLocaleString(undefined, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+
+  const animateCount = (el, target, decimals = 0) => {
     if (prefersReducedMotion) {
-      el.textContent = `${prefix}${target.toLocaleString()}`;
+      el.textContent = format(target, decimals);
       return;
     }
 
@@ -40,9 +47,9 @@ const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
     const tick = (now) => {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(target * eased);
+      const current = target * eased;
 
-      el.textContent = `${prefix}${current.toLocaleString()}`;
+      el.textContent = format(current, decimals);
 
       if (progress < 1) {
         requestAnimationFrame(tick);
@@ -60,11 +67,11 @@ const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
         }
 
         const el = entry.target;
-        const target = parseInt(el.dataset.countTarget ?? '', 10);
-        const prefix = el.dataset.countPrefix ?? '';
+        const target = parseFloat(el.dataset.countTarget ?? '');
+        const decimals = parseInt(el.dataset.countDecimals ?? '0', 10);
 
         if (!Number.isNaN(target)) {
-          animateCount(el, target, prefix);
+          animateCount(el, target, decimals);
         }
 
         observer.unobserve(el);
@@ -87,10 +94,16 @@ const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
     display: flex;
     align-items: baseline;
     gap: 0.08em;
-    font-family: var(--font-display);
+    font-family: var(--type-stat-face); /* R2 — DM Mono, not display serif */
     font-size: var(--type-stat-size);
     line-height: var(--type-stat-leading);
     letter-spacing: var(--type-stat-tracking);
+  }
+
+  @media (max-width: 767px) {
+    .bigstat__figure {
+      font-size: var(--t-display-mobile); /* R1 — narrow-viewport display size */
+    }
   }
 
   .bigstat__value {

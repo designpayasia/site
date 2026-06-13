@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 
 const files = [
   'src/components/BigStat.astro',
+  'src/components/Blob.astro',
   'src/components/ChartBlock.astro',
   'src/components/SiteFooter.astro',
   'src/components/SiteHeader.astro',
@@ -14,7 +15,6 @@ const files = [
   'src/pages/search.astro',
   'src/pages/reports/index.astro',
   'src/pages/reports/[slug].astro',
-  'src/pages/reports/2023.astro',
   'src/pages/docs/index.astro',
 ];
 

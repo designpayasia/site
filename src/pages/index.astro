@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 
 import BigStat from '../components/BigStat.astro';
+import Blob from '../components/Blob.astro';
 import Base from '../layouts/Base.astro';
 import { assertMetricsHaveEvidence, buildEvidenceMap, getVisibleMetrics } from '../lib/evidence';
 
@@ -27,6 +28,20 @@ const evidenceMap = buildEvidenceMap(evidenceEntries);
 assertMetricsHaveEvidence(homepage.data.stats, evidenceMap, 'site:homepage');
 
 const stats = getVisibleMetrics(homepage.data.stats);
+
+// Hero signal stat: 52.5% negotiate (one signal moment, cropped to the blob).
+const heroStat =
+  stats.find((stat) => stat.evidenceId === 'evidence:2024-negotiation') ?? stats[0];
+const stripStats = stats.filter((stat) => stat !== heroStat);
+const heroSampleSize = heroStat.sampleSize
+  ? Number(heroStat.sampleSize).toLocaleString('en-GB')
+  : null;
+const heroSource = heroSampleSize ? `n=${heroSampleSize} · 2024 DPA Report` : '2024 DPA Report';
+
+// One crimson stress word in the hero H1 (the last word). Italic stays for quotes only (R6).
+const titleWords = homepage.data.heroTitle.trim().split(/\s+/);
+const heroTitleHead = titleWords.slice(0, -1).join(' ');
+const heroTitleSignal = titleWords.at(-1);
 ---
 
 <Base
@@ -36,19 +51,46 @@ const stats = getVisibleMetrics(homepage.data.stats);
   <section class="hero">
     <div class="hero__inner">
       <div class="hero__copy">
-        <p class="label-mono">Public pay evidence</p>
-        <h1>{homepage.data.heroTitle}</h1>
+        <p class="label-mono hero__eyebrow">2024 survey · 1,797 designers</p>
+        <h1 class="t-hero hero__title">
+          {heroTitleHead} <span class="signal-word">{heroTitleSignal}</span>
+        </h1>
         <p class="hero__sub">{homepage.data.heroSummary}</p>
-        <a href={homepage.data.heroCtaHref} class="hero__cta">
-          {homepage.data.heroCtaLabel}
-        </a>
+        <div class="hero__ctas">
+          <a href={homepage.data.heroCtaHref} class="btn btn--primary">
+            {homepage.data.heroCtaLabel}
+          </a>
+          <a href={featuredReport.data.canonicalPath} class="btn btn--secondary">
+            Browse the 2024 evidence
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__stat">
+        <Blob
+          as="clip"
+          aspect={1}
+          opacity={0.55}
+          fill="var(--color-surface-muted)"
+          class="hero__stat-shape"
+        />
+        <div class="hero__stat-content">
+          <BigStat
+            value={heroStat.value}
+            unit={heroStat.unit}
+            label={heroStat.label}
+            color="workhorse"
+            countUp
+          />
+          <p class="hero__stat-source label-mono">{heroSource}</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="stats">
     <div class="stats__inner">
-      {stats.map((stat) => (
+      {stripStats.map((stat) => (
         <BigStat
           value={stat.value}
           unit={stat.unit}
@@ -101,7 +143,6 @@ const stats = getVisibleMetrics(homepage.data.stats);
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  .hero__inner,
   .stats__inner,
   .intro__inner,
   .report-entry__inner {
@@ -109,35 +150,112 @@ const stats = getVisibleMetrics(homepage.data.stats);
     margin-inline: auto;
   }
 
-  .hero__copy {
-    max-width: 72ch;
+  /* Hero — 8/4 grid: editorial copy left, blob-cropped signal stat right */
+  .hero__inner {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--space-8);
+    align-items: center;
+    max-width: var(--site-max-width);
+    margin-inline: auto;
   }
 
-  .hero__copy h1 {
-    margin-block: var(--space-6);
-    max-width: 12ch;
+  .hero__copy {
+    grid-column: 1 / 9;
+  }
+
+  .hero__eyebrow {
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-6);
+  }
+
+  .hero__title {
+    color: var(--color-workhorse);
+    margin-bottom: var(--space-16);
+    max-width: 14ch;
   }
 
   .hero__sub {
     max-width: 52ch;
     color: var(--color-ink-subtle);
+    margin-bottom: var(--space-12);
   }
 
-  .hero__cta,
-  .intro__cta,
-  .report-entry__link {
+  .hero__ctas {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .btn {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding-inline: var(--space-6);
-    border-radius: 8px;
+    padding: var(--space-4) var(--space-6);
+    font-weight: 600;
     text-decoration: none;
+    border: 1px solid transparent;
+    transition:
+      background var(--transition-hover),
+      color var(--transition-hover),
+      border-color var(--transition-hover);
   }
 
-  .hero__cta {
-    margin-top: var(--space-8);
+  .btn--primary {
+    background: var(--color-signal-fill);
+    color: var(--color-ambient);
+  }
+
+  .btn--primary:hover {
+    background: var(--color-action); /* R5 — navy hover */
+  }
+
+  .btn--secondary {
+    color: var(--color-action);
+    border-color: var(--color-border-strong);
+  }
+
+  .btn--secondary:hover {
     background: var(--color-action);
-    color: var(--color-action-ink);
+    color: var(--color-ambient);
+    border-color: var(--color-action);
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+  }
+
+  /* Hero blob-cropped stat (R8 — clip box is 1:1, shape faded behind the stat) */
+  .hero__stat {
+    grid-column: 9 / 13;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__stat-shape {
+    position: absolute;
+    width: 112%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero__stat-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-12);
+  }
+
+  .hero__stat-source {
+    color: var(--color-ink-muted);
+    margin-top: var(--space-4);
   }
 
   .stats {
@@ -187,9 +305,29 @@ const stats = getVisibleMetrics(homepage.data.stats);
   }
 
   @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__copy,
+    .hero__stat {
+      grid-column: 1 / -1;
+    }
+
+    .hero__stat {
+      max-width: 420px;
+    }
+
     .stats__inner,
     .intro__inner {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero__title {
+      font-size: var(--t-display-mobile); /* R1 — narrow-viewport display size */
+      line-height: var(--type-h2-leading);
     }
   }
 </style>
