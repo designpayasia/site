@@ -22,7 +22,7 @@
   --color-ambient:     var(--color-cream-50);
   --color-action:      var(--color-navy-700);
 
-  /* Muted ink — for .display-italic stress (not full signal, not full workhorse) */
+  /* Muted ink — reserved editorial support, not full signal or workhorse. */
   --color-ink-muted:   var(--color-grey-500);
 
   /* --------------------------------------------------------------------------
@@ -50,11 +50,11 @@
   --type-h2-tracking:   var(--tracking-display);
   --type-h2-face:       var(--font-display);
 
-  /* Stat: 132px / 0.92 / −0.005em (numerals breathe — never tight-track) */
+  /* Stat: 132px / 0.92 / −0.018em / DM Mono (R2, R7) */
   --type-stat-size:        var(--font-size-display);
   --type-stat-leading:     var(--leading-stat);
-  --type-stat-tracking:    var(--tracking-stat);
-  --type-stat-face:        var(--font-display);
+  --type-stat-tracking:    var(--tracking-display);
+  --type-stat-face:        var(--font-data);
   --type-stat-unit-size:   var(--stat-unit-size);
   --type-stat-unit-gap:    var(--stat-unit-gap);
 

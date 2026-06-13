@@ -74,6 +74,16 @@ const cloudflareToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
     <slot name="head" />
   </head>
   <body>
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+      <defs>
+        <clipPath id="dpa-blob" clipPathUnits="objectBoundingBox">
+          <path
+            transform="scale(0.0025)"
+            d="M0 400 V133.14 A80 80 0 0 1 23.43 76.57 L76.57 23.43 A80 80 0 0 1 133.14 0 H200 A200 200 0 0 1 200 400 Z"
+          />
+        </clipPath>
+      </defs>
+    </svg>
     <SiteHeader />
     <main>
       <slot />

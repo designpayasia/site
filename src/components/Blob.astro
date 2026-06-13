@@ -1,0 +1,97 @@
+---
+type BlobMode = 'clip' | 'fill';
+type BlobSize = number | string;
+
+interface Props {
+  [key: string]: unknown;
+  as?: BlobMode;
+  color?: string;
+  fill?: string;
+  mark?: boolean;
+  aspect?: number | string;
+  opacity?: number | string;
+  size?: BlobSize;
+  class?: string;
+  style?: string;
+  'aria-hidden'?: boolean | 'true' | 'false';
+}
+
+const BLOB_PATH =
+  'M0 400 V133.14 A80 80 0 0 1 23.43 76.57 L76.57 23.43 A80 80 0 0 1 133.14 0 H200 A200 200 0 0 1 200 400 Z';
+
+const {
+  as = 'clip',
+  color = 'currentColor',
+  fill,
+  mark = false,
+  aspect = 1,
+  opacity,
+  size,
+  class: className,
+  style: styleProp,
+  'aria-hidden': ariaHidden = true,
+  ...attrs
+} = Astro.props as Props;
+
+const formatSize = (value: BlobSize | undefined) =>
+  typeof value === 'number' ? `${value}px` : value;
+
+const blobStyle = [
+  styleProp,
+  `--blob-color: ${fill ?? color}`,
+  `--blob-aspect: ${aspect}`,
+  size !== undefined && `--blob-size: ${formatSize(size)}`,
+  opacity !== undefined && `--blob-opacity: ${opacity}`,
+]
+  .filter(Boolean)
+  .join('; ');
+---
+
+{
+  as === 'fill' ? (
+    <svg
+      {...attrs}
+      class:list={['dpa-blob', 'dpa-blob--fill', mark && 'dpa-blob--mark', className]}
+      width={formatSize(size ?? 400)}
+      height={formatSize(size ?? 400)}
+      viewBox="0 0 400 400"
+      aria-hidden={ariaHidden}
+      focusable="false"
+      style={blobStyle}
+    >
+      <path d={BLOB_PATH} fill="currentColor" />
+    </svg>
+  ) : (
+    <span
+      {...attrs}
+      class:list={['dpa-blob', 'dpa-blob--clip', mark && 'dpa-blob--mark', className]}
+      aria-hidden={ariaHidden}
+      style={blobStyle}
+    >
+      <slot />
+    </span>
+  )
+}
+
+<style>
+  .dpa-blob {
+    color: var(--blob-color);
+    opacity: var(--blob-opacity, 1);
+  }
+
+  .dpa-blob--clip {
+    display: block;
+    inline-size: var(--blob-size, 100%);
+    aspect-ratio: var(--blob-aspect);
+    background: currentColor;
+    clip-path: url('#dpa-blob');
+    overflow: hidden;
+  }
+
+  .dpa-blob--fill {
+    display: inline-block;
+    inline-size: var(--blob-size, auto);
+    block-size: auto;
+    vertical-align: middle;
+  }
+</style>

@@ -94,6 +94,7 @@
   /* Display moments — locked exact values */
   --font-size-display:    8.25rem;  /* 132px — Hero & Stat */
   --font-size-h2:         4rem;     /* 64px  — H2 */
+  --t-display-mobile:     64px;     /* R1 — mobile display fallback */
   --font-size-pullquote:  2.25rem;  /* 36px  — Pull-quote */
 
   /* Editorial scale */

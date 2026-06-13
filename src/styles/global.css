@@ -38,18 +38,42 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Italic stress utility classes (§5 — two classes only, never ad-hoc)
-   .display-italic  → muted ink, for editorial stress without signal weight
-   .display-signal  → crimson, for the one signal moment per section
+   Type moment utilities (§5)
    -------------------------------------------------------------------------- */
-.display-italic {
-  font-style: italic;
-  color: var(--color-ink-muted);
+.t-hero {
+  font-family: var(--type-hero-face);
+  font-size: var(--type-hero-size);
+  line-height: var(--type-hero-leading);
+  letter-spacing: var(--type-hero-tracking);
 }
 
-.display-signal {
+.t-h2 {
+  font-family: var(--type-h2-face);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-leading);
+  letter-spacing: var(--type-h2-tracking);
+}
+
+.t-stat {
+  font-family: var(--type-stat-face);
+  font-size: var(--type-stat-size);
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: var(--type-stat-leading);
+  letter-spacing: var(--type-stat-tracking);
+}
+
+.t-quote {
+  color: var(--type-pullquote-color);
+  font-family: var(--type-pullquote-face);
+  font-size: var(--type-pullquote-size);
   font-style: italic;
+  line-height: var(--type-pullquote-leading);
+  letter-spacing: var(--type-pullquote-tracking);
+}
+
+.signal-word {
   color: var(--color-signal-text);
+  font-style: normal;
 }
 
 /* --------------------------------------------------------------------------
