@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-job-market",
+  "title": "Regional job security concern and layoff exposure in 2024",
+  "summary": "74.8% of designers express concern about job security, and 22.9% report being directly affected by layoffs, across the 2024 regional Design Pay Asia survey sample.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported layoff exposure and job security concern in the anonymous regional online survey. Figures are taken from the Job Market section of the 2024 Design Pay Asia Report.",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

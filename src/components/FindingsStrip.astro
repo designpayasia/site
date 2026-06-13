@@ -1,0 +1,154 @@
+---
+import BigStat from './BigStat.astro';
+
+type StatColor = 'workhorse' | 'signal';
+
+interface Metric {
+  value: string | number;
+  unit?: string;
+  label: string;
+  color?: StatColor;
+  evidenceId: string;
+  sampleSize?: number | string;
+}
+
+interface Props {
+  metrics: Metric[];
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+}
+
+const {
+  metrics = [],
+  eyebrow = '2024 DPA report',
+  title = 'Three signals from the survey',
+  intro = 'Every figure is evidence-linked so readers can trace the signal back to the source.',
+} = Astro.props;
+
+const metricsToRender = metrics.slice(0, 3);
+const requestedSignalIndex = metricsToRender.findIndex((metric) => metric.color === 'signal');
+const signalIndex =
+  metricsToRender.length === 0
+    ? -1
+    : requestedSignalIndex >= 0
+      ? requestedSignalIndex
+      : Math.min(1, metricsToRender.length - 1);
+
+const displayMetrics = metricsToRender.map((metric, index) => ({
+  ...metric,
+  color: (index === signalIndex ? 'signal' : 'workhorse') as StatColor,
+  sourceLabel: buildSourceLabel(metric),
+}));
+
+function formatSampleSize(sampleSize?: number | string) {
+  if (sampleSize === undefined || sampleSize === null || sampleSize === '') {
+    return null;
+  }
+
+  const numericValue =
+    typeof sampleSize === 'number'
+      ? sampleSize
+      : Number.parseInt(String(sampleSize).replace(/,/g, ''), 10);
+
+  if (Number.isNaN(numericValue)) {
+    return String(sampleSize);
+  }
+
+  return numericValue.toLocaleString('en-GB');
+}
+
+function buildSourceLabel(metric: Metric) {
+  const sampleSize = formatSampleSize(metric.sampleSize);
+
+  if (sampleSize) {
+    return `n=${sampleSize} · 2024 DPA Report · ${metric.evidenceId}`;
+  }
+
+  return `2024 DPA Report · ${metric.evidenceId}`;
+}
+---
+
+{
+  displayMetrics.length > 0 && (
+    <section class="findings-strip" aria-labelledby="findings-strip-title">
+      <div class="findings-strip__intro">
+        <p class="findings-strip__eyebrow label-mono">{eyebrow}</p>
+        <h2 id="findings-strip-title" class="findings-strip__title">
+          {title}
+        </h2>
+        <p class="findings-strip__dek prose">{intro}</p>
+      </div>
+
+      <div class="findings-strip__grid">
+        {displayMetrics.map((metric) => (
+          <article class="findings-strip__item">
+            <BigStat
+              value={String(metric.value)}
+              unit={metric.unit}
+              label={metric.label}
+              color={metric.color}
+              countUp
+            />
+            <p class="findings-strip__source label-mono">{metric.sourceLabel}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .findings-strip {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .findings-strip__intro {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 40rem;
+  }
+
+  .findings-strip__eyebrow {
+    margin: 0;
+  }
+
+  .findings-strip__title {
+    margin: 0;
+    color: var(--color-workhorse);
+  }
+
+  .findings-strip__dek {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .findings-strip__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .findings-strip__item {
+    display: grid;
+    gap: 0.875rem;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border-subtle);
+    background: var(--color-surface-muted);
+  }
+
+  .findings-strip__source {
+    margin: 0;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--color-border-subtle);
+    color: var(--color-ink-subtle);
+    word-break: break-word;
+  }
+
+  @media (max-width: 959px) {
+    .findings-strip__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

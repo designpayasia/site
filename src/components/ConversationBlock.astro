@@ -1,0 +1,157 @@
+---
+import PullQuote from './PullQuote.astro';
+import StickyMeta from './StickyMeta.astro';
+
+interface MetaItem {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+interface Quote {
+  quote: string;
+  attribution?: string;
+  cite?: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  signalWord?: string;
+  intro?: string;
+  paragraphs: string[];
+  metaItems: MetaItem[];
+  metaEyebrow?: string;
+  metaTitle?: string;
+  metaNote?: string;
+  quote?: Quote;
+  id?: string;
+  draftState?: 'ai-draft' | 'review' | 'final';
+  draftLabel?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  signalWord,
+  intro,
+  paragraphs,
+  metaItems,
+  metaEyebrow = 'Conversation',
+  metaTitle,
+  metaNote,
+  quote,
+  id,
+  draftState = 'ai-draft',
+  draftLabel = 'AI draft',
+} = Astro.props;
+---
+
+<section
+  class="conversation-block"
+  id={id}
+  data-editorial-state={draftState}
+  data-ai-draft={draftState === 'ai-draft' ? 'true' : 'false'}
+>
+  <div class="conversation-block__grid">
+    <div class="conversation-block__meta">
+      <StickyMeta
+        eyebrow={metaEyebrow}
+        title={metaTitle}
+        items={metaItems}
+        note={metaNote}
+        draftState={draftState}
+        draftLabel={draftLabel}
+      />
+    </div>
+
+    <div class="conversation-block__body">
+      <header class="conversation-block__header">
+        <p class="label-mono">{eyebrow}</p>
+        <h2 class="t-h2">
+          {title}
+          {signalWord && <> <span class="signal-word">{signalWord}</span></>}
+        </h2>
+        {intro && <p class="conversation-block__intro prose-editorial">{intro}</p>}
+      </header>
+
+      <div class="conversation-block__copy prose">
+        {paragraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      {quote && (
+        <div class="conversation-block__quote">
+          <PullQuote
+            quote={quote.quote}
+            attribution={quote.attribution}
+            cite={quote.cite}
+            draftState={draftState}
+          />
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .conversation-block {
+    padding-block: var(--space-10);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .conversation-block__grid {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .conversation-block__body {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .conversation-block__header {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--zone-editorial);
+  }
+
+  .conversation-block__intro {
+    color: var(--color-ink-muted);
+  }
+
+  .conversation-block__copy {
+    display: grid;
+    gap: var(--space-5);
+    color: var(--color-ink);
+  }
+
+  .conversation-block__copy p {
+    margin: 0;
+  }
+
+  .conversation-block__quote {
+    max-width: var(--zone-editorial);
+  }
+
+  @media (min-width: 960px) {
+    .conversation-block__grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .conversation-block__meta {
+      grid-column: 1 / 4;
+    }
+
+    .conversation-block__body {
+      grid-column: 5 / 12;
+    }
+
+    .conversation-block__quote {
+      grid-column: 5 / 12;
+    }
+  }
+</style>

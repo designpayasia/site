@@ -1,0 +1,122 @@
+---
+interface MetaItem {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  items: MetaItem[];
+  note?: string;
+  draftState?: 'ai-draft' | 'review' | 'final';
+  draftLabel?: string;
+}
+
+const {
+  eyebrow = 'Section meta',
+  title,
+  items,
+  note,
+  draftState = 'ai-draft',
+  draftLabel = 'AI draft',
+} = Astro.props;
+
+const showDraftFlag = draftState !== 'final';
+---
+
+<aside
+  class="sticky-meta"
+  data-editorial-state={draftState}
+  data-ai-draft={draftState === 'ai-draft' ? 'true' : 'false'}
+>
+  <div class="sticky-meta__panel">
+    <p class="label-mono">{eyebrow}</p>
+
+    {title && <h3 class="sticky-meta__title">{title}</h3>}
+
+    {showDraftFlag && <p class="label-mono sticky-meta__draft">{draftLabel}</p>}
+
+    <dl class="sticky-meta__list">
+      {items.map((item) => (
+        <div class="sticky-meta__item">
+          <dt class="label-mono">{item.label}</dt>
+          <dd>
+            {item.href ? (
+              <a href={item.href}>{item.value}</a>
+            ) : (
+              <span>{item.value}</span>
+            )}
+          </dd>
+        </div>
+      ))}
+    </dl>
+
+    {note && <p class="sticky-meta__note">{note}</p>}
+  </div>
+</aside>
+
+<style>
+  .sticky-meta {
+    align-self: start;
+  }
+
+  .sticky-meta__panel {
+    display: grid;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-blob-motif);
+    background: var(--color-surface-muted);
+  }
+
+  .sticky-meta__title {
+    font: var(--type-body);
+    line-height: var(--leading-editorial);
+    color: var(--color-workhorse);
+  }
+
+  .sticky-meta__draft {
+    color: var(--color-signal-text);
+  }
+
+  .sticky-meta__list {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  .sticky-meta__item {
+    display: grid;
+    gap: var(--space-2);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .sticky-meta__item:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .sticky-meta__item dd {
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  .sticky-meta__item a {
+    color: var(--color-action);
+  }
+
+  .sticky-meta__note {
+    max-width: var(--zone-prose);
+    color: var(--color-ink-muted);
+  }
+
+  @media (min-width: 960px) {
+    .sticky-meta {
+      position: sticky;
+      top: var(--space-8);
+    }
+  }
+</style>

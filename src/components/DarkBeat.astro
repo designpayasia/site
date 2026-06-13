@@ -1,0 +1,206 @@
+---
+type ProvenanceStatus = 'proven' | 'draft' | 'unresolved';
+type PublishMode = 'published' | 'sample' | 'suppressed' | 'draft';
+
+interface MetricCard {
+  value?: string;
+  unit?: string;
+  label?: string;
+  evidenceLabel?: string;
+  evidenceId?: string;
+  note?: string;
+  publishMode?: PublishMode;
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  statement?: string;
+  statementDraft?: boolean;
+  draftLabel?: string;
+  metrics?: MetricCard[];
+  provenanceStatus?: ProvenanceStatus;
+  provenanceNote?: string;
+}
+
+const {
+  eyebrow = 'Dark beat',
+  title = '2024 feels like progress with precarity',
+  statement,
+  statementDraft = true,
+  draftLabel = 'Draft for Jon',
+  metrics = [],
+  provenanceStatus = 'proven',
+  provenanceNote,
+} = Astro.props;
+
+const cleanStatement = statement?.trim();
+const visibleMetrics = metrics
+  .filter((metric) => metric.publishMode !== 'suppressed')
+  .filter((metric) => metric.value?.trim() && metric.label?.trim())
+  .slice(0, 2);
+
+const showDraftFlag = statementDraft || provenanceStatus !== 'proven';
+const statusLabel =
+  provenanceStatus === 'unresolved'
+    ? 'Evidence pending'
+    : provenanceStatus === 'draft'
+      ? 'Draft figures'
+      : draftLabel;
+---
+
+<section class="dark-beat" data-theme="dark" aria-labelledby="dark-beat-title">
+  <div class="dark-beat__inner">
+    <header class="dark-beat__header">
+      <p class="dark-beat__eyebrow label-mono">{eyebrow}</p>
+      <h2 id="dark-beat-title" class="dark-beat__title t-h2">{title}</h2>
+    </header>
+
+    {(cleanStatement || showDraftFlag) && (
+      <div class="dark-beat__statement">
+        {cleanStatement && <p class="dark-beat__copy t-quote">{cleanStatement}</p>}
+        {showDraftFlag && <span class="dark-beat__flag label-mono">{statusLabel}</span>}
+      </div>
+    )}
+
+    {visibleMetrics.length > 0 && (
+      <div class="dark-beat__metrics" role="list" aria-label="Evidence-backed metrics">
+        {visibleMetrics.map((metric) => (
+          <article class="dark-beat__metric" role="listitem">
+            <p class="dark-beat__figure t-stat">
+              <span class="dark-beat__value">{metric.value}</span>
+              {metric.unit && <span class="dark-beat__unit">{metric.unit}</span>}
+            </p>
+            <p class="dark-beat__label">{metric.label}</p>
+            {(metric.evidenceLabel || metric.note) && (
+              <p class="dark-beat__evidence label-mono">
+                {metric.evidenceLabel ?? metric.note}
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
+    )}
+
+    {provenanceStatus !== 'proven' && provenanceNote && (
+      <p class="dark-beat__note label-mono">{provenanceNote}</p>
+    )}
+  </div>
+</section>
+
+<style>
+  .dark-beat {
+    background: var(--color-ambient);
+    color: var(--color-workhorse);
+  }
+
+  .dark-beat__inner {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid color-mix(in srgb, var(--color-workhorse) 18%, transparent);
+    border-radius: 8px;
+  }
+
+  .dark-beat__header {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .dark-beat__eyebrow {
+    margin: 0;
+    color: var(--color-ink-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dark-beat__title {
+    margin: 0;
+    max-width: 22ch;
+    color: var(--color-workhorse);
+  }
+
+  .dark-beat__statement {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  .dark-beat__copy {
+    margin: 0;
+    max-width: 40ch;
+    color: var(--color-workhorse);
+  }
+
+  .dark-beat__flag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid color-mix(in srgb, var(--color-signal-text) 55%, transparent);
+    border-radius: 999px;
+    color: var(--color-signal-text);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .dark-beat__metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .dark-beat__metric {
+    display: grid;
+    gap: 0.45rem;
+    padding-top: 1rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-workhorse) 14%, transparent);
+  }
+
+  .dark-beat__figure,
+  .dark-beat__label,
+  .dark-beat__evidence,
+  .dark-beat__note {
+    margin: 0;
+  }
+
+  .dark-beat__figure {
+    display: flex;
+    gap: 0.2rem;
+    align-items: baseline;
+    color: var(--color-workhorse);
+  }
+
+  .dark-beat__value {
+    line-height: 0.95;
+  }
+
+  .dark-beat__unit {
+    font-family: var(--type-h2-face);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    line-height: 1;
+    letter-spacing: var(--type-h2-tracking);
+    color: var(--color-signal-text);
+  }
+
+  .dark-beat__label {
+    max-width: 22ch;
+    font-size: var(--type-body);
+    line-height: var(--leading-editorial);
+    color: var(--color-workhorse);
+  }
+
+  .dark-beat__evidence,
+  .dark-beat__note {
+    color: var(--color-ink-muted);
+  }
+
+  @media (max-width: 720px) {
+    .dark-beat__metrics {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

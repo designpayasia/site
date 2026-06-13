@@ -23,6 +23,9 @@ interface Props {
   pngPath?: string;
 }
 
+const LABEL_COLUMN_WIDTH_PX = 220;
+const GRIDLINE_PERCENTAGES = [0, 25, 50, 75, 100] as const;
+
 const {
   title,
   caption,
@@ -35,6 +38,14 @@ const {
   bars,
   pngPath,
 } = Astro.props;
+
+const highlightedSignalIndex = bars.findIndex((bar) => bar.tone === 'signal');
+const renderedBars = bars.map((bar, index) => ({
+  ...bar,
+  tone:
+    highlightedSignalIndex !== -1 && index === highlightedSignalIndex ? 'signal' : 'workhorse',
+}));
+const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
 ---
 
 <figure class="chart-block">
@@ -45,32 +56,84 @@ const {
   </figcaption>
 
   <div class="chart-block__layout">
-    <div class="chart-block__visual" role="img" aria-label={summary}>
+    <div
+      class="chart-block__visual"
+      role="img"
+      aria-label={summary}
+      style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
+    >
       <p class="chart-block__summary">{summary}</p>
+
+      <div class="chart-block__axis" aria-hidden="true">
+        <div class="chart-block__axis-spacer"></div>
+        <div class="chart-block__ticks">
+          {GRIDLINE_PERCENTAGES.map((percentage) => (
+            <span style={`left: ${percentage}%;`}>{percentage}%</span>
+          ))}
+        </div>
+        <div class="chart-block__axis-value-spacer"></div>
+      </div>
+
       <div class="chart-block__bars">
-        {bars.map((bar) => (
-          <div class="chart-block__bar-row">
-            <div class="chart-block__bar-meta">
-              <span>{bar.label}</span>
-              <span>{bar.value}%</span>
+        {renderedBars.map((bar) => (
+          <div class="chart-block__row">
+            <div
+              class:list={[
+                'chart-block__label',
+                bar.tone === 'signal' && 'chart-block__label--signal',
+              ]}
+            >
+              {bar.label}
             </div>
+
             <div class="chart-block__track" aria-hidden="true">
+              <div class="chart-block__gridlines">
+                {GRIDLINE_PERCENTAGES.map((percentage) => (
+                  <span style={`left: ${percentage}%;`}></span>
+                ))}
+              </div>
+
               <div
                 class:list={[
                   'chart-block__fill',
-                  bar.tone === 'signal' ? 'chart-block__fill--signal' : 'chart-block__fill--workhorse',
+                  bar.tone === 'signal'
+                    ? 'chart-block__fill--signal'
+                    : 'chart-block__fill--workhorse',
                 ]}
                 style={`width: ${bar.value}%;`}
               />
             </div>
+
+            <div
+              class:list={[
+                'chart-block__value',
+                bar.tone === 'signal' && 'chart-block__value--signal',
+              ]}
+            >
+              {bar.value}%
+            </div>
           </div>
         ))}
       </div>
-      {pngPath && (
-        <a href={pngPath} class="chart-block__png-link">
-          Download PNG proof
-        </a>
-      )}
+
+      <div class="chart-block__meta">
+        <p class="chart-block__source">
+          Source:{' '}
+          <a href={sourceUrl} class="chart-block__source-link">
+            {sourceLabel}
+          </a>
+        </p>
+
+        <p class="chart-block__evidence">
+          {evidenceLabel}: {evidenceIds.join(', ')}
+        </p>
+
+        {pngPath && (
+          <a href={pngPath} class="chart-block__png-link">
+            Download PNG proof
+          </a>
+        )}
+      </div>
     </div>
 
     <div class="chart-block__support">
@@ -85,24 +148,12 @@ const {
           <tbody>
             {fallbackRows.map((row) => (
               <tr>
-                <td>{row.label}</td>
+                <th scope="row">{row.label}</th>
                 <td>{row.value}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-
-      <div class="chart-block__source">
-        <p class="label-mono">Evidence IDs</p>
-        <ul class="chart-block__evidence-list">
-          {evidenceIds.map((evidenceId) => (
-            <li>{evidenceId}</li>
-          ))}
-        </ul>
-        <a href={sourceUrl} class="chart-block__source-link">
-          Source: {sourceLabel}
-        </a>
       </div>
     </div>
   </div>
@@ -111,10 +162,6 @@ const {
 <style>
   .chart-block {
     margin: 0;
-    padding: var(--space-10);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 8px;
-    background: var(--color-surface);
   }
 
   .chart-block__header h2 {
@@ -123,37 +170,86 @@ const {
 
   .chart-block__layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
     gap: var(--space-8);
     margin-top: var(--space-8);
   }
 
+  .chart-block__visual {
+    display: grid;
+    gap: var(--space-5);
+  }
+
   .chart-block__summary {
+    margin: 0;
     color: var(--color-ink-muted);
+  }
+
+  .chart-block__axis,
+  .chart-block__row {
+    display: grid;
+    grid-template-columns: var(--chart-label-column) minmax(0, 1fr) auto;
+    column-gap: var(--space-4);
+    align-items: center;
+  }
+
+  .chart-block__axis {
+    color: var(--color-ink-muted);
+    font-size: 0.85rem;
+  }
+
+  .chart-block__ticks,
+  .chart-block__track {
+    position: relative;
+  }
+
+  .chart-block__ticks {
+    height: 1.5rem;
+  }
+
+  .chart-block__ticks span,
+  .chart-block__gridlines span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border-subtle);
+  }
+
+  .chart-block__ticks span {
+    background: none;
+    width: auto;
+    bottom: auto;
+    transform: translateX(-50%);
   }
 
   .chart-block__bars {
     display: grid;
-    gap: var(--space-5);
-    margin-top: var(--space-8);
+    gap: var(--space-4);
   }
 
-  .chart-block__bar-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-4);
-    margin-bottom: var(--space-2);
+  .chart-block__label {
+    color: var(--color-ink);
+    line-height: 1.4;
+  }
+
+  .chart-block__label--signal,
+  .chart-block__value--signal {
+    color: var(--color-signal-text);
   }
 
   .chart-block__track {
-    height: 18px;
-    border-radius: 999px;
-    background: var(--color-surface-muted);
-    overflow: hidden;
+    min-height: 1.25rem;
+  }
+
+  .chart-block__gridlines {
+    position: absolute;
+    inset: 0;
   }
 
   .chart-block__fill {
-    height: 100%;
+    position: relative;
+    z-index: 1;
+    height: 1.25rem;
     border-radius: 999px;
   }
 
@@ -165,12 +261,29 @@ const {
     background: var(--color-signal-fill);
   }
 
+  .chart-block__value {
+    min-width: 3ch;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chart-block__meta {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .chart-block__source,
+  .chart-block__evidence {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
   .chart-block__png-link,
   .chart-block__source-link {
     display: inline-flex;
-    margin-top: var(--space-8);
     color: var(--color-action);
     text-decoration: none;
+    width: fit-content;
   }
 
   .chart-block__png-link:hover,
@@ -196,14 +309,26 @@ const {
     vertical-align: top;
   }
 
-  .chart-block__evidence-list {
-    padding-left: 1.25rem;
-    color: var(--color-ink-muted);
+  @media (max-width: 900px) {
+    .chart-block__visual {
+      --chart-label-column: min(220px, 38vw);
+    }
   }
 
-  @media (max-width: 900px) {
-    .chart-block__layout {
+  @media (max-width: 720px) {
+    .chart-block__axis,
+    .chart-block__row {
       grid-template-columns: 1fr;
+      row-gap: var(--space-2);
+    }
+
+    .chart-block__axis-spacer,
+    .chart-block__axis-value-spacer {
+      display: none;
+    }
+
+    .chart-block__value {
+      text-align: left;
     }
   }
 </style>

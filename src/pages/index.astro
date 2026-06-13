@@ -3,8 +3,18 @@ import { getCollection } from 'astro:content';
 
 import BigStat from '../components/BigStat.astro';
 import Blob from '../components/Blob.astro';
+import ChartBlock from '../components/ChartBlock.astro';
+import ConversationBlock from '../components/ConversationBlock.astro';
+import DarkBeat from '../components/DarkBeat.astro';
+import FindingsStrip from '../components/FindingsStrip.astro';
+import Invitation from '../components/Invitation.astro';
 import Base from '../layouts/Base.astro';
-import { assertMetricsHaveEvidence, buildEvidenceMap, getVisibleMetrics } from '../lib/evidence';
+import {
+  assertEvidenceIdsExist,
+  assertMetricsHaveEvidence,
+  buildEvidenceMap,
+  getVisibleMetrics,
+} from '../lib/evidence';
 
 const [homepage] = await getCollection('site');
 
@@ -25,20 +35,80 @@ if (!featuredReport) {
 const evidenceEntries = await getCollection('evidence');
 const evidenceMap = buildEvidenceMap(evidenceEntries);
 
-assertMetricsHaveEvidence(homepage.data.stats, evidenceMap, 'site:homepage');
-
 const stats = getVisibleMetrics(homepage.data.stats);
+assertMetricsHaveEvidence(stats, evidenceMap, 'site/homepage');
 
-// Hero signal stat: 52.5% negotiate (one signal moment, cropped to the blob).
-const heroStat =
-  stats.find((stat) => stat.evidenceId === 'evidence:2024-negotiation') ?? stats[0];
-const stripStats = stats.filter((stat) => stat !== heroStat);
+const heroStat = stats.find((stat) => stat.evidenceId === 'evidence:2024-negotiation') ?? stats[0];
 const heroSampleSize = heroStat.sampleSize
   ? Number(heroStat.sampleSize).toLocaleString('en-GB')
-  : null;
+  : undefined;
 const heroSource = heroSampleSize ? `n=${heroSampleSize} · 2024 DPA Report` : '2024 DPA Report';
 
-// One crimson stress word in the hero H1 (the last word). Italic stays for quotes only (R6).
+const findingsEvidenceIds = [
+  'evidence:2024-total-respondents',
+  'evidence:2024-career-progression',
+  'evidence:2024-company-profile',
+];
+const findingsStats = findingsEvidenceIds.map((evidenceId) => {
+  const metric = stats.find((stat) => stat.evidenceId === evidenceId);
+
+  if (!metric) {
+    throw new Error(`Missing homepage metric for ${evidenceId}.`);
+  }
+
+  return {
+    ...metric,
+    unit: evidenceId === 'evidence:2024-total-respondents' ? '' : metric.unit,
+    color: evidenceId === 'evidence:2024-career-progression' ? ('signal' as const) : ('workhorse' as const),
+  };
+});
+
+const negotiationChart = featuredReport.data.charts.find(
+  (chart) => chart.id === 'negotiation-outcomes',
+);
+
+if (!negotiationChart) {
+  throw new Error('Missing negotiation-outcomes chart in the featured report.');
+}
+
+assertEvidenceIdsExist(
+  negotiationChart.evidenceIds,
+  evidenceMap,
+  `report:${featuredReport.id}:chart:${negotiationChart.id}`,
+);
+
+const negotiationFallbackColumns = negotiationChart.fallbackTable.columns as [string, string];
+
+const careerProgressionStat = findingsStats.find(
+  (stat) => stat.evidenceId === 'evidence:2024-career-progression',
+);
+const regionalJobMarketEvidence = evidenceMap.get('evidence:2024-job-market');
+
+if (!careerProgressionStat || !regionalJobMarketEvidence) {
+  throw new Error('Missing dark-beat progress or regional job-market evidence.');
+}
+
+const extractEvidencePercent = (summary: string, pattern: RegExp, label: string) => {
+  const match = summary.match(pattern);
+
+  if (!match?.[1]) {
+    throw new Error(`Missing ${label} percentage in evidence:2024-job-market.`);
+  }
+
+  return match[1];
+};
+
+const jobSecurityConcern = extractEvidencePercent(
+  regionalJobMarketEvidence.data.summary,
+  /(\d+(?:\.\d+)?)% of designers express concern about job security/,
+  'job-security concern',
+);
+const layoffExposure = extractEvidencePercent(
+  regionalJobMarketEvidence.data.summary,
+  /(\d+(?:\.\d+)?)% report being directly affected by layoffs/,
+  'layoff exposure',
+);
+
 const titleWords = homepage.data.heroTitle.trim().split(/\s+/);
 const heroTitleHead = titleWords.slice(0, -1).join(' ');
 const heroTitleSignal = titleWords.at(-1);
@@ -46,118 +116,158 @@ const heroTitleSignal = titleWords.at(-1);
 
 <Base
   title="Design Pay Asia - Southeast Asia's design pay conversation."
-  description="Because pay is never just a number. It is context, power, and where the industry is going."
+  description="Because pay is never just a number. It is context, power, and where the design industry is going."
 >
-  <section class="hero">
-    <div class="hero__inner">
-      <div class="hero__copy">
-        <p class="label-mono hero__eyebrow">2024 survey · 1,797 designers</p>
-        <h1 class="t-hero hero__title">
-          {heroTitleHead} <span class="signal-word">{heroTitleSignal}</span>
-        </h1>
-        <p class="hero__sub">{homepage.data.heroSummary}</p>
-        <div class="hero__ctas">
-          <a href={homepage.data.heroCtaHref} class="btn btn--primary">
-            {homepage.data.heroCtaLabel}
-          </a>
-          <a href={featuredReport.data.canonicalPath} class="btn btn--secondary">
-            Browse the 2024 evidence
-          </a>
+  <main class="homepage">
+    <section class="hero" aria-labelledby="homepage-title">
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <p class="hero__eyebrow label-mono">2024 DPA report</p>
+          <h1 id="homepage-title" class="hero__title t-hero">
+            {heroTitleHead} <span class="signal-word">{heroTitleSignal}</span>
+          </h1>
+          <p class="hero__sub">{homepage.data.heroSummary}</p>
+          <div class="hero__ctas">
+            <a href={homepage.data.heroCtaHref} class="btn btn--primary">
+              {homepage.data.heroCtaLabel}
+            </a>
+            <a href={featuredReport.data.canonicalPath} class="btn btn--secondary">
+              Browse the 2024 evidence
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div class="hero__stat">
-        <Blob
-          as="clip"
-          aspect={1}
-          opacity={0.55}
-          fill="var(--color-surface-muted)"
-          class="hero__stat-shape"
-        />
-        <div class="hero__stat-content">
-          <BigStat
-            value={heroStat.value}
-            unit={heroStat.unit}
-            label={heroStat.label}
-            color="workhorse"
-            countUp
+        <div class="hero__stat">
+          <Blob
+            as="clip"
+            aspect={1}
+            opacity={0.55}
+            fill="var(--color-surface-muted)"
+            class="hero__stat-shape"
           />
-          <p class="hero__stat-source label-mono">{heroSource}</p>
+          <div class="hero__stat-content">
+            <BigStat
+              value={heroStat.value}
+              unit={heroStat.unit}
+              label={heroStat.label}
+              color="workhorse"
+              countUp
+            />
+            <p class="hero__stat-source label-mono">{heroSource}</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="stats">
-    <div class="stats__inner">
-      {stripStats.map((stat) => (
-        <BigStat
-          value={stat.value}
-          unit={stat.unit}
-          label={stat.label}
-          color={stat.color}
-          countUp
+    <FindingsStrip
+      metrics={findingsStats}
+      eyebrow="2024 survey signals"
+      title="Three findings before the argument starts"
+      intro="The homepage keeps the numbers close to their evidence, so each signal can be checked against the report."
+    />
+
+    <ConversationBlock
+      id="conversation"
+      eyebrow="Editorial conversation"
+      title="Pay is a conversation about"
+      signalWord="power"
+      intro="AI-draft for Jon: the data is useful because it refuses to behave like a simple ranking table."
+      paragraphs={[
+        'Across the region, designers are advancing, negotiating, and taking on larger decisions. The evidence points to movement, but not always to security.',
+        'That gap matters. A pay report can show what people earn, but the sharper question is what they are expected to absorb while the market changes around them.',
+        'The homepage should leave that tension open: what counts as progress if the work grows faster than the protection around it?',
+      ]}
+      metaItems={[
+        { label: 'Source', value: '2024 DPA Report', href: featuredReport.data.canonicalPath },
+        { label: 'Sample', value: '1,797 designers' },
+        { label: 'Markets', value: featuredReport.data.markets.join(', ') },
+      ]}
+      metaEyebrow="Section 03"
+      metaTitle="Open argument"
+      metaNote="AI-draft copy. Jon approval required before final publishing."
+      quote={{
+        quote: 'Progress is easier to measure than the pressure it creates.',
+        attribution: 'Draft homepage line',
+      }}
+      draftState="ai-draft"
+      draftLabel="AI draft for Jon"
+    />
+
+    <section class="chart-section" aria-label="Negotiation outcomes">
+      <div class="chart-section__inner">
+        <ChartBlock
+          title={negotiationChart.title}
+          caption={negotiationChart.caption}
+          summary={negotiationChart.summary}
+          evidenceIds={negotiationChart.evidenceIds}
+          sourceLabel={negotiationChart.sourceLabel}
+          sourceUrl={negotiationChart.sourceUrl}
+          fallbackColumns={negotiationFallbackColumns}
+          fallbackRows={negotiationChart.fallbackTable.rows}
+          bars={negotiationChart.bars}
+          pngPath={negotiationChart.pngPath}
         />
-      ))}
-    </div>
-  </section>
-
-  <section class="intro">
-    <div class="intro__inner">
-      <div class="intro__copy">
-        <p class="label-mono">{homepage.data.intro.eyebrow}</p>
-        <h2>{homepage.data.intro.title}</h2>
-        <p class="prose">{homepage.data.intro.body}</p>
       </div>
-      <a href={homepage.data.intro.ctaHref} class="intro__cta">
-        {homepage.data.intro.ctaLabel}
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <section class="report-entry">
-    <div class="report-entry__inner">
-      <p class="report-entry__eyebrow">{featuredReport.data.eyebrow}</p>
-      <h2 class="report-entry__heading">{featuredReport.data.title}</h2>
-      <p class="report-entry__desc prose">{featuredReport.data.summary}</p>
-      <p class="report-entry__meta">
-        {featuredReport.data.year} · {featuredReport.data.markets.length} markets · evidence-linked
-      </p>
-      <a href={featuredReport.data.canonicalPath} class="report-entry__link">
-        {featuredReport.data.heroCtaLabel}
-      </a>
-    </div>
-  </section>
+    <DarkBeat
+      eyebrow="2024 dark beat"
+      title="Progress is not the same as safety"
+      statement="AI-draft for Jon: the year shows career movement and market strain at the same time."
+      statementDraft
+      draftLabel="AI draft for Jon"
+      provenanceStatus="proven"
+      provenanceNote="Regional job-market figures use evidence:2024-job-market, not the Singapore-only record."
+      metrics={[
+        {
+          value: careerProgressionStat.value,
+          unit: careerProgressionStat.unit,
+          label: careerProgressionStat.label,
+          evidenceId: careerProgressionStat.evidenceId,
+          evidenceLabel: 'Regional progress',
+        },
+        {
+          value: jobSecurityConcern,
+          unit: '%',
+          label: 'express concern about job security',
+          evidenceId: regionalJobMarketEvidence.data.id,
+          evidenceLabel: 'Regional job-market readout',
+        },
+        {
+          value: layoffExposure,
+          unit: '%',
+          label: 'report being directly affected by layoffs',
+          evidenceId: regionalJobMarketEvidence.data.id,
+          evidenceLabel: 'Regional job-market readout',
+        },
+      ]}
+    />
+
+    <Invitation question="What will you ask?" questionDraft draftLabel="AI draft for Jon" />
+  </main>
 </Base>
 
 <style>
-  .hero,
-  .stats,
-  .intro,
-  .report-entry {
-    padding-inline: var(--space-8);
+  .homepage {
+    background: var(--color-ambient);
   }
 
   .hero {
-    padding-block: var(--space-24) var(--space-12);
-    border-bottom: 1px solid var(--color-border-subtle);
+    padding: var(--space-24) 0 var(--space-16);
   }
 
-  .stats__inner,
-  .intro__inner,
-  .report-entry__inner {
-    max-width: var(--site-max-width);
-    margin-inline: auto;
+  .hero__inner,
+  .chart-section__inner {
+    width: min(1120px, calc(100% - var(--space-8)));
+    margin: 0 auto;
   }
 
-  /* Hero — 8/4 grid: editorial copy left, blob-cropped signal stat right */
   .hero__inner {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: var(--space-8);
+    gap: var(--space-6);
     align-items: center;
-    max-width: var(--site-max-width);
-    margin-inline: auto;
+    min-height: min(720px, calc(100vh - 160px));
   }
 
   .hero__copy {
@@ -165,169 +275,145 @@ const heroTitleSignal = titleWords.at(-1);
   }
 
   .hero__eyebrow {
+    margin: 0 0 var(--space-4);
     color: var(--color-ink-muted);
-    margin-bottom: var(--space-6);
   }
 
   .hero__title {
-    color: var(--color-workhorse);
-    margin-bottom: var(--space-16);
     max-width: 14ch;
   }
 
   .hero__sub {
     max-width: 52ch;
+    margin: var(--space-6) 0 0;
     color: var(--color-ink-subtle);
-    margin-bottom: var(--space-12);
+    font-size: var(--type-body-lg);
+    line-height: 1.55;
   }
 
   .hero__ctas {
     display: flex;
-    gap: var(--space-4);
     flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     min-height: 44px;
-    padding: var(--space-4) var(--space-6);
-    font-weight: 600;
+    padding: 0 var(--space-5);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: var(--type-label);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
     text-decoration: none;
-    border: 1px solid transparent;
+    text-transform: uppercase;
     transition:
-      background var(--transition-hover),
-      color var(--transition-hover),
-      border-color var(--transition-hover);
+      background-color 180ms ease,
+      color 180ms ease,
+      border-color 180ms ease;
   }
 
   .btn--primary {
-    background: var(--color-signal-fill);
-    color: var(--color-ambient);
+    background: var(--color-action);
+    color: var(--color-signal-text);
+    border-color: var(--color-action);
   }
 
   .btn--primary:hover {
-    background: var(--color-action); /* R5 — navy hover */
+    background: var(--color-workhorse);
   }
 
   .btn--secondary {
     color: var(--color-action);
-    border-color: var(--color-border-strong);
+    background: transparent;
   }
 
   .btn--secondary:hover {
+    color: var(--color-signal-text);
     background: var(--color-action);
-    color: var(--color-ambient);
     border-color: var(--color-action);
   }
 
   .btn:focus-visible {
-    outline: 2px solid var(--color-action);
-    outline-offset: 2px;
+    outline: 3px solid var(--color-signal-fill);
+    outline-offset: 3px;
   }
 
-  /* Hero blob-cropped stat (R8 — clip box is 1:1, shape faded behind the stat) */
+  /* Hero blob-cropped stat remains 1:1 so the locked silhouette is never distorted. */
   .hero__stat {
-    grid-column: 9 / 13;
     position: relative;
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    grid-column: 9 / -1;
+    aspect-ratio: 1;
+    min-width: 0;
   }
 
   .hero__stat-shape {
     position: absolute;
-    width: 112%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
   }
 
   .hero__stat-content {
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: var(--space-12);
+    display: grid;
+    align-content: center;
+    height: 100%;
+    padding: var(--space-10);
   }
 
   .hero__stat-source {
-    color: var(--color-ink-muted);
-    margin-top: var(--space-4);
-  }
-
-  .stats {
-    padding-block: var(--space-12) var(--space-16);
-  }
-
-  .stats__inner {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-6);
-  }
-
-  .intro {
-    padding-block: var(--space-8) var(--space-16);
-  }
-
-  .intro__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--space-8);
-    align-items: end;
-  }
-
-  .intro__copy h2,
-  .report-entry__heading {
-    margin-block: var(--space-4);
-  }
-
-  .intro__cta,
-  .report-entry__link {
-    border: 1px solid var(--color-border-strong);
-    color: var(--color-ink);
-  }
-
-  .report-entry {
-    padding-block: var(--space-16) var(--space-24);
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .report-entry__meta,
-  .report-entry__eyebrow {
+    margin: var(--space-4) 0 0;
     color: var(--color-ink-muted);
   }
 
-  .report-entry__link {
-    margin-top: var(--space-8);
+  .chart-section {
+    padding: var(--space-16) 0;
   }
 
   @media (max-width: 900px) {
     .hero__inner {
       grid-template-columns: 1fr;
+      min-height: auto;
     }
 
     .hero__copy,
     .hero__stat {
-      grid-column: 1 / -1;
+      grid-column: 1;
     }
 
     .hero__stat {
-      max-width: 420px;
-    }
-
-    .stats__inner,
-    .intro__inner {
-      grid-template-columns: 1fr;
+      width: min(100%, 420px);
+      margin: 0 auto;
     }
   }
 
   @media (max-width: 767px) {
+    .hero {
+      padding-top: var(--space-16);
+    }
+
+    .hero__inner,
+    .chart-section__inner {
+      width: min(100% - var(--space-6), 1120px);
+    }
+
     .hero__title {
-      font-size: var(--t-display-mobile); /* R1 — narrow-viewport display size */
-      line-height: var(--type-h2-leading);
+      font-size: var(--t-display-mobile);
+    }
+
+    .hero__stat-content {
+      padding: var(--space-8);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
     }
   }
 </style>
