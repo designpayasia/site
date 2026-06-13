@@ -1,0 +1,22 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Succession - Design Pay Asia" description="Public continuity notes for a future DPA maintainer.">
+  <GuidePage
+    eyebrow="Docs"
+    title="Succession handoff for a capable stranger."
+    summary="This public layer tells a future maintainer where routes, evidence, redirects, and release checks live. Private credentials and recovery paths stay outside the repo."
+    steps={[
+      'Start with /ops and /docs/architecture to understand the current public contract.',
+      'Use Node 22 and run the documented checks before changing routes or published figures.',
+      'Treat evidence and data-safety rules as trust floors; if provenance is weak, defer rather than publish.',
+      'Keep private account ownership, 2FA, and recovery packets outside this public repository.',
+    ]}
+    links={[
+      { label: 'Ops spine', href: '/ops' },
+      { label: 'Docs index', href: '/docs' },
+    ]}
+  />
+</Base>

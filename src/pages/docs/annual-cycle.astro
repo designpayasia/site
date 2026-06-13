@@ -1,0 +1,22 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Annual cycle - Design Pay Asia" description="Public guide for repeating the DPA annual report cycle.">
+  <GuidePage
+    eyebrow="Docs"
+    title="Run the annual cycle without redesigning the platform."
+    summary="A new year should mean new content entries and evidence files, not a new architecture."
+    steps={[
+      'Prepare the new survey-year evidence records first, including methodology, sample size, and caveats.',
+      'Create a new report content entry under src/content/reports with the year-namespaced canonical path.',
+      'Add redirect updates only if a new alias or latest-report pattern changes.',
+      'Review homepage featured-report wiring and /ops route inventory if the public surface changes.',
+    ]}
+    links={[
+      { label: 'Edit report guide', href: '/docs/edit-report' },
+      { label: 'Report index', href: '/reports' },
+    ]}
+  />
+</Base>

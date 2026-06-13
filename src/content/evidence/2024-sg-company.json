@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-company",
+  "title": "Singapore companies: higher enterprise presence, hybrid-dominant, financial hub",
+  "summary": "Singapore shows a more mature market with 32.8% enterprise (vs 20.8% regional), 21.8% startup (vs 30.3%), and 7.5% government (vs 4.9%). Industry: Financial services ecosystem at 26.9% combined across banking, insurance, financial services (vs 14.8% regional), Tech at 32.8%, Public sector 10.3%. Fewer solo designers at 12.5% (vs 22.6% regional). Larger average design team sizes. Hybrid work at 70.1% (vs 36% regional), remote at 14.4% (vs 24.9%).",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Self-reported company type, industry, team size, and work arrangement in anonymous online survey, filtered to Singapore-based respondents",
+  "sampleSize": 174,
+  "sensitivity": "small-cohort"
+}

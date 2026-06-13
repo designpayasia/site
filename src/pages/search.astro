@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Search - Design Pay Asia"
+  description="Static on-site search across reports, docs, and public continuity notes."
+>
+  <section class="search-page">
+    <div class="search-page__inner">
+      <p class="label-mono">Search</p>
+      <h1>Search public reports and runbooks.</h1>
+      <p class="prose">
+        This search index is generated at build time with Pagefind. In local dev, results appear
+        after a production build has generated `/pagefind/`.
+      </p>
+
+      <div id="search" class="search-page__ui" />
+    </div>
+  </section>
+
+  <script slot="head" is:inline type="module">
+    window.addEventListener('DOMContentLoaded', () => {
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = '/pagefind/pagefind-ui.css';
+      document.head.appendChild(css);
+
+      import('/pagefind/pagefind-ui.js').then(({ default: PagefindUI }) => {
+        new PagefindUI({
+          element: '#search',
+          showSubResults: true,
+          highlightParam: 'highlight',
+        });
+      });
+    });
+  </script>
+</Base>
+
+<style>
+  .search-page {
+    padding-inline: var(--space-8);
+    padding-block: var(--space-24);
+  }
+
+  .search-page__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .search-page__inner h1 {
+    margin-block: var(--space-6);
+    max-width: 14ch;
+  }
+
+  .search-page__ui {
+    margin-top: var(--space-10);
+  }
+</style>

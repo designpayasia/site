@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-roles-experience",
+  "title": "Design roles dominated by digital and product design with mid-level experience",
+  "summary": "Digital design accounts for 61.8% of roles, with Product/UX at 41.7%. Mid-level ICs form the largest group at 42.6%, while leadership roles are limited at 5.9%. Formal design education reported by 77.5%, with 14.19% having international exposure.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported primary field of work, career level, education background, and international experience in anonymous online survey",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

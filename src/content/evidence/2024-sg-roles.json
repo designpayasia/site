@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-roles",
+  "title": "Singapore roles: higher Product/UX concentration, more senior distribution",
+  "summary": "Singapore employment is more formalised with 87.4% full-time (vs 79.3% regional), 9.8% contract, and only 1.7% freelance. Career levels: Mid-level IC 32.2% (vs 42.6% regional), Senior IC 25.9% (vs 20.5%), Leadership 11.5% combined (vs 5.9%). Primary fields: Product/UX 42.0% (significantly above regional), Marketing 6.9%, Visual/UI 6.3%. Design leadership at 5.2% (vs 3.7% regional).",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Self-reported employment type, career level, and primary field of work in anonymous online survey, filtered to Singapore-based respondents",
+  "sampleSize": 174,
+  "sensitivity": "small-cohort"
+}

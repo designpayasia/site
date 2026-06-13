@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-median-compensation",
+  "title": "Median annual total compensation by country (2024)",
+  "summary": "Approximate median annual total compensation: Indonesia IDR 92.35M, Singapore SGD 79,200, Malaysia MYR 97,200, Vietnam VND 260M, Thailand THB 652,000. Wide variance at leadership levels across all markets.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported annual total compensation in local currency, converted to annual figures where needed. Medians calculated per country.",
+  "sampleSize": 1797,
+  "sensitivity": "aggregate-only"
+}

@@ -108,3 +108,10 @@
   --radius-blob-motif: 20px; /* scaled reference to the D″ chamfer character */
 
 }
+
+:root {
+  --color-border-subtle: var(--color-grey-200);
+  --color-border-strong: var(--color-grey-300);
+  --color-surface-muted: var(--color-grey-100);
+  --color-ink-subtle: var(--color-grey-600);
+}

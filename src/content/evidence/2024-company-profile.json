@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-company-profile",
+  "title": "Companies dominated by startups and tech with lean design teams",
+  "summary": "Startup and tech companies account for 63.1% of respondents combined. Design teams are lean: 81.9% have fewer than 10 people, with 22.6% working as solo designers. Hybrid work is the most common at 36%, with 24.9% fully remote.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported company type, design team size, and work arrangement in anonymous online survey",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

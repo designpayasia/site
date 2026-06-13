@@ -1,0 +1,22 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Edit report - Design Pay Asia" description="Public guide for editing a DPA report safely.">
+  <GuidePage
+    eyebrow="Docs"
+    title="Edit a report without breaking the evidence contract."
+    summary="Reports are structured content entries. Each claim, metric, and chart must stay tied to evidence records and publish rules."
+    steps={[
+      'Open the target report entry in src/content/reports and keep the year route stable.',
+      'Add or update evidence JSON records in src/content/evidence before introducing new public figures.',
+      'Keep every stat or chart wired to evidenceIds; if source certainty is weak, mark the figure as sample or defer publication.',
+      'Run pnpm run check and pnpm build before merging so collection schema and report routes stay valid.',
+    ]}
+    links={[
+      { label: 'Report index', href: '/reports' },
+      { label: 'Architecture notes', href: '/docs/architecture' },
+    ]}
+  />
+</Base>

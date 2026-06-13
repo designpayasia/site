@@ -18,6 +18,7 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const cloudflareToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
 ---
 
 <!doctype html>
@@ -61,8 +62,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
     />
 
-    <!-- Cloudflare Web Analytics — replace TOKEN when Cloudflare Pages is connected -->
-    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"TOKEN"}'></script> -->
+    {cloudflareToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cloudflareToken })}
+      />
+    )}
 
     <slot name="head" />
   </head>

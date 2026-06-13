@@ -1,0 +1,23 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Publish - Design Pay Asia" description="Public guide for publishing the DPA site safely.">
+  <GuidePage
+    eyebrow="Docs"
+    title="Publish the site in boring, reversible steps."
+    summary="Publishing should prove the route contract, evidence layer, redirects, search index, and static build before anything goes live."
+    steps={[
+      'Use Node 22 via .nvmrc, then run pnpm install if dependencies changed.',
+      'Run pnpm run redirects:check, pnpm run audit:tokens, and pnpm run audit:ops before building.',
+      'Run pnpm build, then pnpm run check-links, then pnpm run check.',
+      'Review the generated public/_redirects and dist output for any route-contract change before pushing.',
+      'Push to the default branch only after manual approval for any trust-affecting content changes.',
+    ]}
+    links={[
+      { label: 'Operations spine', href: '/ops' },
+      { label: 'Search', href: '/search' },
+    ]}
+  />
+</Base>

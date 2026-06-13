@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-job-market",
+  "title": "Singapore job market: higher layoff impact on individuals, elevated security concerns",
+  "summary": "Singapore layoff impact is 22.2% (similar to 22.9% regional) but with higher personal layoffs at 16.7% (vs 11.1% regional). Job security concerns elevated at 77.5% expressing concern, with 58% at high concern intensity (6-7). Role-skill alignment is stronger at 83.9% (vs 77.3% regional). Career advancement opportunities seen as moderate: 47.1% see sufficient opportunities (vs 46.3% regional), with only 5.1% strongly optimistic.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Self-reported layoff experience, job security concerns, role alignment, and opportunity perception in anonymous online survey, filtered to Singapore",
+  "sampleSize": 174,
+  "sensitivity": "small-cohort"
+}

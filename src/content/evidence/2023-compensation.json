@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-compensation",
+  "title": "2023 DPA Compensation Data",
+  "summary": "Designers are almost universally paid in local currency. Median annual total compensation: Singapore S$84,000 (N=223), Malaysia RM83,000 (N=46), Indonesia Rp84,000,000 (N=27). Annual bonuses are a significant component with 54.8% of respondents receiving them. The five standard non-pay benefits are: paid medical leave (83.3%), paid time off (77.4%), health insurance (76.5%), flexible working arrangement (68.7%), and budget for equipment/home office setup (68.7%). Singapore compensation by level: Junior IC median S$54,000, Mid-level IC S$75,800, Senior IC S$119,500, Lead/Staff IC S$103,200, People Manager S$139,100, Director S$238,900, VP S$176,500.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore", "Malaysia", "Indonesia"],
+  "methodology": "Self-reported annual total compensation figures in local currency, including base salary, annual bonus, annual stock grants, and other compensation. Figures are self-reported and have not been independently verified. Singapore data has high confidence across all levels (N=223). Malaysia data has medium confidence for Junior to Senior ICs. Indonesia data has medium confidence for Junior ICs only due to smaller sample.",
+  "sampleSize": 323,
+  "sensitivity": "public"
+}

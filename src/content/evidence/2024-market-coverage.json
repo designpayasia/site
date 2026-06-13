@@ -1,0 +1,12 @@
+{
+  "id": "evidence:2024-market-coverage",
+  "title": "2024 market coverage count",
+  "summary": "Count of markets represented in the 2024 regional report.",
+  "sourceName": "Design Pay Asia 2024 survey",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle",
+  "geography": ["Singapore", "Indonesia", "Philippines", "Malaysia", "Thailand", "Vietnam", "Cambodia", "Laos", "Myanmar", "Brunei", "Remote"],
+  "methodology": "Count of published market slices included in the public report.",
+  "sensitivity": "public"
+}

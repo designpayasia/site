@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-methodology",
+  "title": "2024 DPA survey methodology and known biases",
+  "summary": "Anonymous voluntary online survey distributed through design communities and partnerships across Southeast Asia. Data cleaning performed to remove invalid or incomplete responses. Known biases: community reach (skews towards digitally active designers), geographic skew (79% Indonesia), English language limits participation, and digital access requirements exclude those without reliable internet.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Survey design and distribution methodology self-documented by DPA research team",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

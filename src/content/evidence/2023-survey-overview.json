@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-survey-overview",
+  "title": "2023 DPA Survey Overview & Demographics",
+  "summary": "The inaugural 2023 Design Pay Asia survey captured 323 responses from designers across Southeast Asia between December 2022 and February 2023. Singapore led with 224 responses (69.4%), followed by Malaysia (46, 14.2%) and Indonesia (29, 8.9%). Gender distribution was nearly equal with 54.5% women and 43.9% men. The majority of respondents were under 35 years old, with 43% in the 25-30 age bracket. Respondents from 9 additional countries also participated in smaller numbers.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore", "Malaysia", "Indonesia", "Philippines", "Vietnam", "Thailand", "India", "Taiwan", "Romania", "Japan"],
+  "methodology": "Anonymous voluntary online survey distributed through design community channels, social media, and design organisations. Self-reported data collected via Tally.so form.",
+  "sampleSize": 323,
+  "sensitivity": "public"
+}

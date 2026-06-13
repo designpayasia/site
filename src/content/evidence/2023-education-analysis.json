@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-education-analysis",
+  "title": "2023 DPA Education Impact Analysis",
+  "summary": "Design education may not be the primary driver of salary outcomes; experience is more influential. Those with no design education earn 23.6% more than formally design-trained peers despite slightly less design experience. 90.2% of non-traditional designers hold non-design tertiary education. Bachelor's degree holders earn S$82,400 median, Master's S$102,000. In-person certification correlates to 20% higher pay than having no design education. Larger companies and certain industries (Consumer Products) are more accommodating of non-traditional hires. Non-local companies pay 91.5% more for designers without design education. International experience links to 99.1% more pay for this group.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "Analysis of compensation outcomes by education type (formal design education, bootcamp, online certification, in-person certification, no design education), highest formal education level, and design education combinations. Deep-dive analysis on the 22.3% of respondents without formal design education, examining demographics, company profiles, seniority, and compensation factors.",
+  "sampleSize": 323,
+  "sensitivity": "public"
+}

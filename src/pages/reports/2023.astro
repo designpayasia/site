@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const archivedLinks = [
+  { label: 'Current report index', href: '/reports' },
+  { label: 'Operations and continuity notes', href: '/ops' },
+];
+---
+
+<Base
+  title="2023 DPA Report - Design Pay Asia"
+  description="Canonical archive stub for the 2023 Design Pay Asia report during the rebuild."
+>
+  <section class="archive-stub">
+    <div class="archive-stub__inner">
+      <p class="label-mono">Archive stub</p>
+      <h1>2023 report route held stable during migration.</h1>
+      <p class="prose">
+        The 2023 report remains part of the public contract, but its rebuild migration has not
+        landed yet. This stub preserves the canonical year route while content, redirects, and
+        archive handling settle.
+      </p>
+
+      <div class="archive-stub__links">
+        {archivedLinks.map((link) => (
+          <a href={link.href} class="archive-stub__link">
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .archive-stub {
+    padding-inline: var(--space-8);
+    padding-block: var(--space-24);
+  }
+
+  .archive-stub__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .archive-stub__inner h1 {
+    margin-block: var(--space-6);
+    max-width: 14ch;
+  }
+
+  .archive-stub__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .archive-stub__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: var(--space-6);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .archive-stub__link:hover {
+    color: var(--color-action);
+  }
+</style>

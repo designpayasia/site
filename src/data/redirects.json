@@ -1,0 +1,22 @@
+[
+  {
+    "from": "/reports/latest",
+    "to": "/reports/2024",
+    "status": 302
+  },
+  {
+    "from": "/report/2023",
+    "to": "/reports/2023",
+    "status": 301
+  },
+  {
+    "from": "/report/2024",
+    "to": "/reports/2024",
+    "status": 301
+  },
+  {
+    "from": "/latest-report",
+    "to": "/reports/2024",
+    "status": 302
+  }
+]

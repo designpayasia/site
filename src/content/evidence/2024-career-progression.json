@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-career-progression",
+  "title": "70.3% report career advancement but 46.2% saw no pay increase",
+  "summary": "70.3% of designers report career advancement in the past year, with soft skills leading growth: 64.3% increased project influence. However, 46.2% saw no pay increase despite career progress. Overall career satisfaction is moderate at 42.1% rating highly satisfied.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported career progress types, compensation changes, and satisfaction ratings in anonymous online survey",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

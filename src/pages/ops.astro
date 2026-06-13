@@ -1,0 +1,207 @@
+---
+import Base from '../layouts/Base.astro';
+
+const ownershipRows = [
+  {
+    surface: 'Publication approvals',
+    owner: 'Jonathan',
+    backup: 'Decision stays manual',
+    status: 'Active',
+  },
+  {
+    surface: 'Schema and content migration',
+    owner: 'Repo maintainers + AI drafting',
+    backup: 'Git history and public ops page',
+    status: 'Active',
+  },
+  {
+    surface: 'Editorial cadence',
+    owner: 'Decision pending',
+    backup: 'Not yet assigned',
+    status: 'Open gate',
+  },
+  {
+    surface: 'Infrastructure and deploy',
+    owner: 'GitHub repo maintainers',
+    backup: 'Node 22 + CI contract',
+    status: 'Active',
+  },
+];
+
+const routeRows = [
+  { route: '/', purpose: 'Homepage backed by structured site data', state: 'Live' },
+  { route: '/reports', purpose: 'Report index', state: 'Live' },
+  { route: '/reports/2024', purpose: 'Current structured report', state: 'Live' },
+  { route: '/reports/2023', purpose: 'Archive stub', state: 'Stub' },
+  { route: '/about', purpose: 'Positioning and purpose stub', state: 'Stub' },
+  { route: '/contribute', purpose: 'Contribution workflow stub', state: 'Stub' },
+  { route: '/resources', purpose: 'Reference hub for reports, docs, search, and ops', state: 'Live' },
+  { route: '/docs', purpose: 'Public runbooks', state: 'Live' },
+  { route: '/search', purpose: 'Static site search', state: 'Live' },
+  { route: '/ops', purpose: 'Continuity spine', state: 'Live' },
+];
+---
+
+<Base
+  title="Ops - Design Pay Asia"
+  description="Public continuity notes, ownership matrix, and publication contract for Design Pay Asia."
+>
+  <section class="ops-hero">
+    <div class="ops-hero__inner">
+      <p class="label-mono">Ops</p>
+      <h1>Public continuity spine for the site.</h1>
+      <p class="prose">
+        This page names the public contract: structured content, evidence-backed claims,
+        Node 22 runtime, and manual approval for publish decisions that affect trust.
+      </p>
+    </div>
+  </section>
+
+  <section class="ops-grid">
+    <div class="ops-grid__inner">
+      <article class="ops-card">
+        <h2>Publication contract</h2>
+        <ul>
+          <li>Every published homepage or report metric needs an `evidenceId`.</li>
+          <li>Cohorts smaller than 10 must be sampled or suppressed.</li>
+          <li>Reports publish at year-namespaced routes under `/reports/`.</li>
+          <li>Redirect changes must update the redirect manifest and generated `_redirects` file.</li>
+        </ul>
+      </article>
+
+      <article class="ops-card">
+        <h2>Recovery floor</h2>
+        <ul>
+          <li>Run `nvm use` to match `.nvmrc` before local work.</li>
+          <li>CI runs on Node 22 and checks build, routes, and content diagnostics.</li>
+          <li>GitHub history is the public rollback path for content and route contracts.</li>
+          <li>Private handoff packets stay outside this repo.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="ops-ownership">
+    <div class="ops-ownership__inner">
+      <h2>Ownership matrix</h2>
+      <div class="ops-table-wrap">
+        <table class="ops-table">
+          <thead>
+            <tr>
+              <th>Surface</th>
+              <th>Owner</th>
+              <th>Fallback</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ownershipRows.map((row) => (
+              <tr>
+                <td>{row.surface}</td>
+                <td>{row.owner}</td>
+                <td>{row.backup}</td>
+                <td>{row.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="ops-ownership">
+    <div class="ops-ownership__inner">
+      <h2>Route inventory</h2>
+      <div class="ops-table-wrap">
+        <table class="ops-table">
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>Purpose</th>
+              <th>State</th>
+            </tr>
+          </thead>
+          <tbody>
+            {routeRows.map((row) => (
+              <tr>
+                <td>{row.route}</td>
+                <td>{row.purpose}</td>
+                <td>{row.state}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ops-hero,
+  .ops-grid,
+  .ops-ownership {
+    padding-inline: var(--space-8);
+  }
+
+  .ops-hero {
+    padding-block: var(--space-24) var(--space-12);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .ops-hero__inner,
+  .ops-grid__inner,
+  .ops-ownership__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .ops-hero__inner h1 {
+    margin-block: var(--space-6);
+    max-width: 12ch;
+  }
+
+  .ops-grid {
+    padding-block: var(--space-12);
+  }
+
+  .ops-grid__inner {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+
+  .ops-card {
+    padding: var(--space-10);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    background: var(--color-surface);
+  }
+
+  .ops-card ul {
+    padding-left: 1.25rem;
+    color: var(--color-ink-muted);
+  }
+
+  .ops-ownership {
+    padding-block: var(--space-12) var(--space-24);
+  }
+
+  .ops-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .ops-table th,
+  .ops-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-border-subtle);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  @media (max-width: 900px) {
+    .ops-grid__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-geographic-distribution",
+  "title": "Respondent geographic distribution heavily concentrated in Indonesia",
+  "summary": "Indonesia accounts for 79.0% (1,419) of respondents, followed by Singapore 9.7% (174), Malaysia 5.1% (92), Vietnam 2.9% (53), and Thailand 2.4% (44). Urban concentration is strong with Jakarta alone at 48.4%.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported country and city of residence in anonymous online survey",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

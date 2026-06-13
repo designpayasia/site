@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-no-pay-increase",
+  "title": "2024 no-pay-increase signal",
+  "summary": "Share of respondents across six markets who reported receiving no pay increase in 2024.",
+  "sourceName": "2024 DPA Report, section 4",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle",
+  "geography": ["Southeast Asia"],
+  "methodology": "Aggregate survey response across six published markets, cited in the DPA voice spec as report section 4 source text.",
+  "sampleSize": 847,
+  "sensitivity": "aggregate-only"
+}

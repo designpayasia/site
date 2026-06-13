@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-negotiation",
+  "title": "52.5% of designers negotiate offers, with senior leaders 2.1x more likely",
+  "summary": "Regionally, 52.5% of designers actively negotiate job offers. Senior leaders are 2.1x more likely to negotiate than junior ICs. The typical increase achieved through negotiation is 5-10%. Salary history disclosure remains a persistent issue affecting outcomes.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported negotiation behavior, outcomes, and confidence levels in anonymous online survey",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

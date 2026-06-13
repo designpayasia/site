@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-experience-salary",
+  "title": "2023 DPA Experience & Salary Growth Analysis",
+  "summary": "Salaries grow steadily with experience, increasing an average of S$10,839 per year of design experience. Management track pays more overall with more experienced designers filling those roles. International working experience translates to 85.5% higher median salaries and greater career progression. Designers with overseas experience have more average years of design experience (7.1 vs 4.4 years for locals). Negotiation has more impact at mid-to-late career stages: leads and managers see 10-16% increases, and those with 7+ years experience see 11-22% more when they negotiate.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "Analysis of compensation data correlated with years of design experience (YOE), overseas experience, and negotiation behaviour among Singapore respondents. Salary growth rate derived from linear regression of median compensation against YOE brackets. Analysis limited to Singapore due to sample size constraints in other markets.",
+  "sampleSize": 323,
+  "sensitivity": "public"
+}

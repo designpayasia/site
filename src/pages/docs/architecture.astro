@@ -1,0 +1,22 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Architecture - Design Pay Asia" description="One-page public architecture map for the DPA site.">
+  <GuidePage
+    eyebrow="Docs"
+    title="Architecture in one page."
+    summary="The site is a static Astro build with structured collections for site data, reports, and evidence, plus generated redirects and CI audits."
+    steps={[
+      'Routes live under src/pages and should stay year-namespaced for published reports.',
+      'Collections are defined in src/content.config.ts and loaded from src/content/site, src/content/reports, and src/content/evidence.',
+      'Redirect rules live in src/data/redirects.json and generate public/_redirects through scripts/redirects.mjs.',
+      'CI proves redirects, token usage, ops freshness, link integrity, content checks, and full static build.',
+    ]}
+    links={[
+      { label: 'Ops spine', href: '/ops' },
+      { label: 'Publish guide', href: '/docs/publish' },
+    ]}
+  />
+</Base>

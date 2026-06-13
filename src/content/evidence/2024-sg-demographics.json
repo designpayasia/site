@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-demographics",
+  "title": "Singapore demographics: 65.5% female, older workforce, higher education",
+  "summary": "Singapore shows a distinct demographic profile vs the region. Gender: 65.52% female vs 39.84% regional. Age: 25-30 bracket 43.1% (vs 57% regional), 31-35 at 29.3% (vs 13.8%), and 36-45 at 20.7% combined (vs 6.0%). Education: 71.8% Bachelor's, 13.8% Master's (vs 5.2% regional), 77.6% design-related education. Overseas working experience at 27.0% (vs 14.2% regional).",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Self-reported demographics in anonymous online survey, filtered to Singapore-based respondents",
+  "sampleSize": 174,
+  "sensitivity": "small-cohort"
+}

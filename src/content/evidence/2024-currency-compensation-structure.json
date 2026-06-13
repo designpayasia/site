@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-currency-compensation-structure",
+  "title": "Regional compensation structure: 97% local currency, base-salary dominant, monthly reporting",
+  "summary": "Regional currency usage shows 97% of payments in Southeast Asian currencies (IDR 76.2%, SGD 10.0%, MYR 5.2%). Monthly pay reporting at 94.55%. Base salary dominates at 83% across all levels, with variable components increasing at senior positions (bonus up to 11.3% at Head level). Healthcare leads benefits at 52%, with growing focus on flexibility.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported compensation currency, frequency, structure components, and benefits in anonymous online survey",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

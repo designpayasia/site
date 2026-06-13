@@ -1,0 +1,209 @@
+---
+interface TableRow {
+  label: string;
+  value: string;
+}
+
+interface Bar {
+  label: string;
+  value: number;
+  tone?: 'workhorse' | 'signal';
+}
+
+interface Props {
+  title: string;
+  caption: string;
+  summary: string;
+  evidenceIds: string[];
+  sourceLabel: string;
+  sourceUrl: string;
+  fallbackColumns: [string, string];
+  fallbackRows: TableRow[];
+  bars: Bar[];
+  pngPath?: string;
+}
+
+const {
+  title,
+  caption,
+  summary,
+  evidenceIds,
+  sourceLabel,
+  sourceUrl,
+  fallbackColumns,
+  fallbackRows,
+  bars,
+  pngPath,
+} = Astro.props;
+---
+
+<figure class="chart-block">
+  <figcaption class="chart-block__header">
+    <p class="label-mono">Chart proof</p>
+    <h2>{title}</h2>
+    <p class="prose">{caption}</p>
+  </figcaption>
+
+  <div class="chart-block__layout">
+    <div class="chart-block__visual" role="img" aria-label={summary}>
+      <p class="chart-block__summary">{summary}</p>
+      <div class="chart-block__bars">
+        {bars.map((bar) => (
+          <div class="chart-block__bar-row">
+            <div class="chart-block__bar-meta">
+              <span>{bar.label}</span>
+              <span>{bar.value}%</span>
+            </div>
+            <div class="chart-block__track" aria-hidden="true">
+              <div
+                class:list={[
+                  'chart-block__fill',
+                  bar.tone === 'signal' ? 'chart-block__fill--signal' : 'chart-block__fill--workhorse',
+                ]}
+                style={`width: ${bar.value}%;`}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      {pngPath && (
+        <a href={pngPath} class="chart-block__png-link">
+          Download PNG proof
+        </a>
+      )}
+    </div>
+
+    <div class="chart-block__support">
+      <div class="chart-block__table-wrap">
+        <table class="chart-block__table">
+          <thead>
+            <tr>
+              <th>{fallbackColumns[0]}</th>
+              <th>{fallbackColumns[1]}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fallbackRows.map((row) => (
+              <tr>
+                <td>{row.label}</td>
+                <td>{row.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="chart-block__source">
+        <p class="label-mono">Evidence IDs</p>
+        <ul class="chart-block__evidence-list">
+          {evidenceIds.map((evidenceId) => (
+            <li>{evidenceId}</li>
+          ))}
+        </ul>
+        <a href={sourceUrl} class="chart-block__source-link">
+          Source: {sourceLabel}
+        </a>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .chart-block {
+    margin: 0;
+    padding: var(--space-10);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    background: var(--color-surface);
+  }
+
+  .chart-block__header h2 {
+    margin-block: var(--space-4);
+  }
+
+  .chart-block__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+  }
+
+  .chart-block__summary {
+    color: var(--color-ink-muted);
+  }
+
+  .chart-block__bars {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-8);
+  }
+
+  .chart-block__bar-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .chart-block__track {
+    height: 18px;
+    border-radius: 999px;
+    background: var(--color-surface-muted);
+    overflow: hidden;
+  }
+
+  .chart-block__fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+
+  .chart-block__fill--workhorse {
+    background: var(--color-workhorse);
+  }
+
+  .chart-block__fill--signal {
+    background: var(--color-signal-fill);
+  }
+
+  .chart-block__png-link,
+  .chart-block__source-link {
+    display: inline-flex;
+    margin-top: var(--space-8);
+    color: var(--color-action);
+    text-decoration: none;
+  }
+
+  .chart-block__png-link:hover,
+  .chart-block__source-link:hover {
+    text-decoration: underline;
+  }
+
+  .chart-block__support {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .chart-block__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .chart-block__table th,
+  .chart-block__table td {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border-subtle);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .chart-block__evidence-list {
+    padding-left: 1.25rem;
+    color: var(--color-ink-muted);
+  }
+
+  @media (max-width: 900px) {
+    .chart-block__layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-roles-experience",
+  "title": "2023 DPA Roles & Experience Data",
+  "summary": "Job titles predominantly contained 'design' (90%), with 40.8% indicating a specific job level. The vast majority (87%) were individual contributors, with two-thirds (67.5%) focused on product design. Nearly half (48.4%) had six or fewer years of design experience. The median total working experience was 10 years versus 6 years median design experience, suggesting many designers are career switchers. Formal design education was the most common background (49.8%), followed by online certification (29.1%) and bootcamps (27.9%). 22.3% had no formal design education, showing education is not a barrier to employment. 28.5% had overseas working experience.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore", "Malaysia", "Indonesia"],
+  "methodology": "Self-reported survey data on current role, seniority level, primary field of work, years of design and total work experience, education background, and overseas experience. Seniority levels: Junior IC (31.3%), Mid-level IC (23.5%), Senior IC (22.3%), Lead/Staff/Principal IC (9.9%), People Manager (8.4%), Director (3.4%), VP (1.2%).",
+  "sampleSize": 323,
+  "sensitivity": "public"
+}

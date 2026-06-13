@@ -1,0 +1,242 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
+import BigStat from '../../components/BigStat.astro';
+import ChartBlock from '../../components/ChartBlock.astro';
+import Base from '../../layouts/Base.astro';
+import {
+  assertEvidenceIdsExist,
+  assertMetricsHaveEvidence,
+  buildEvidenceMap,
+  collectEvidenceByIds,
+  getVisibleMetrics,
+  MIN_SAFE_COHORT,
+} from '../../lib/evidence';
+
+export async function getStaticPaths() {
+  const reports = await getCollection('reports', ({ data }) => data.status === 'published');
+
+  return reports.map((report) => ({
+    params: { slug: report.id },
+    props: { report },
+  }));
+}
+
+interface Props {
+  report: CollectionEntry<'reports'>;
+}
+
+const { report } = Astro.props;
+const { Content } = await render(report);
+const evidenceEntries = await getCollection('evidence');
+const evidenceMap = buildEvidenceMap(evidenceEntries);
+
+assertMetricsHaveEvidence(report.data.stats, evidenceMap, `report:${report.id}`);
+for (const chart of report.data.charts) {
+  assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
+}
+
+const stats = getVisibleMetrics(report.data.stats);
+const chartEvidenceIds = report.data.charts.flatMap((chart) => chart.evidenceIds);
+const evidenceList = collectEvidenceByIds(
+  [...stats.map((stat) => stat.evidenceId), ...chartEvidenceIds],
+  evidenceMap,
+);
+
+const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
+  report.data.publishedAt,
+);
+---
+
+<Base title={`${report.data.title} - Design Pay Asia`} description={report.data.summary} ogType="article">
+  <section class="report-hero">
+    <div class="report-hero__inner">
+      <p class="label-mono">{report.data.eyebrow}</p>
+      <h1>{report.data.title}</h1>
+      <p class="prose">{report.data.summary}</p>
+      <p class="report-hero__meta">
+        Published {publishedDate} · {report.data.markets.join(', ')}
+      </p>
+    </div>
+  </section>
+
+  <section class="report-stats">
+    <div class="report-stats__inner">
+      {stats.map((stat) => (
+        <BigStat
+          value={stat.value}
+          unit={stat.unit}
+          label={stat.label}
+          color={stat.color}
+          countUp
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="report-body">
+    <div class="report-body__inner">
+      {report.data.charts.length > 0 && (
+        <div class="report-charts">
+          {report.data.charts.map((chart) => (
+            <ChartBlock
+              title={chart.title}
+              caption={chart.caption}
+              summary={chart.summary}
+              evidenceIds={chart.evidenceIds}
+              sourceLabel={chart.sourceLabel}
+              sourceUrl={chart.sourceUrl}
+              pngPath={chart.pngPath}
+              fallbackColumns={chart.fallbackTable.columns as [string, string]}
+              fallbackRows={chart.fallbackTable.rows}
+              bars={chart.bars}
+            />
+          ))}
+        </div>
+      )}
+
+      <article class="report-copy prose">
+        <Content />
+      </article>
+
+      <div class="report-sections">
+        {report.data.sections.map((section) => (
+          <section class="report-section" id={section.id}>
+            <h2>{section.title}</h2>
+            <p class="report-section__summary">{section.summary}</p>
+            <p>{section.body}</p>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="report-evidence">
+    <div class="report-evidence__inner">
+      <h2>Evidence references</h2>
+      <p class="prose">
+        Metrics below must link to a named evidence record before they can publish.
+        Cohorts smaller than {MIN_SAFE_COHORT} must be sampled or suppressed.
+      </p>
+      <ul class="evidence-list">
+        {evidenceList.map((evidence) => (
+          <li class="evidence-list__item">
+            <h3>{evidence.data.title}</h3>
+            <p class="prose">{evidence.data.summary}</p>
+            <p class="evidence-list__meta">
+              {evidence.data.sourceName} · {evidence.data.year} · {evidence.data.sensitivity}
+            </p>
+            <a href={evidence.data.sourceUrl} class="evidence-list__link">
+              Open source
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .report-hero,
+  .report-stats,
+  .report-body,
+  .report-evidence {
+    padding-inline: var(--space-8);
+  }
+
+  .report-hero {
+    padding-block: var(--space-24) var(--space-12);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .report-hero__inner,
+  .report-stats__inner,
+  .report-body__inner,
+  .report-evidence__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .report-hero__inner h1 {
+    margin-block: var(--space-6);
+    max-width: 12ch;
+  }
+
+  .report-hero__meta {
+    color: var(--color-ink-muted);
+  }
+
+  .report-stats {
+    padding-block: var(--space-12) var(--space-16);
+  }
+
+  .report-stats__inner {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .report-body {
+    padding-block: 0 var(--space-20);
+  }
+
+  .report-body__inner {
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  .report-copy,
+  .report-charts,
+  .report-sections,
+  .report-evidence__inner {
+    max-width: 72ch;
+  }
+
+  .report-charts {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .report-section + .report-section {
+    margin-top: var(--space-12);
+  }
+
+  .report-section__summary,
+  .evidence-list__meta {
+    color: var(--color-ink-muted);
+  }
+
+  .report-evidence {
+    padding-block: var(--space-16) var(--space-24);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .evidence-list {
+    display: grid;
+    gap: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .evidence-list__item {
+    padding: var(--space-8);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    background: var(--color-surface);
+  }
+
+  .evidence-list__link {
+    color: var(--color-action);
+    text-decoration: none;
+  }
+
+  .evidence-list__link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .report-stats__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

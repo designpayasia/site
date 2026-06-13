@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-gender-pay-gap",
+  "title": "2023 DPA Gender Pay Gap Analysis",
+  "summary": "Women earn 42% less than men overall in Singapore's design industry. The pay gap varies across job levels, correlating with responsibility. At the IC track, women earn 11-21% less than men across most levels, except at Junior IC where women earn 11% more. Men have nearly double the average years of design experience (7.47 vs 3.86 years for women). Men are more likely to negotiate (61% vs 51%), feel more fairly compensated, and report higher market rate awareness. Men report higher formal job levelling progress (62% vs 52%). Women lead both the highest (>20%) and no-pay-increase brackets. Women are slightly more likely to actively seek new jobs.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "Analysis of gender-based compensation differences among Singapore respondents. Total compensation comparisons include base salary, bonuses, stock, and other compensation. Controlled for level of seniority, years of design experience, negotiation behaviour, and career progression indicators. Analysis limited to Singapore due to sample size constraints in other markets.",
+  "sampleSize": 323,
+  "sensitivity": "public"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-career",
+  "title": "Singapore career progression: stronger pay recognition but lower satisfaction",
+  "summary": "Singapore career progress rate is 66.1% (vs 70.3% regional). Progression types: Influence growth 61.4%, Decision-making authority 48.2%, Leadership responsibilities 43.9%, Skills/certifications 37.7%, Traditional promotion 31.6% (vs 25.3% regional). Compensation recognition is stronger at 69.7% receiving increases (vs 53.8% regional), with 39.5% getting 5-10% increases. However career satisfaction is polarized: high satisfaction (6-7) at 15.4% but low satisfaction (1-3) at 40.8%.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Self-reported career progress, compensation changes, and satisfaction ratings in anonymous online survey, filtered to Singapore",
+  "sampleSize": 174,
+  "sensitivity": "small-cohort"
+}

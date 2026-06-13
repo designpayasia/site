@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+
+import Base from '../../layouts/Base.astro';
+
+const reports = (await getCollection('reports', ({ data }) => data.status === 'published')).sort(
+  (left, right) => right.data.publishedAt.getTime() - left.data.publishedAt.getTime(),
+);
+---
+
+<Base
+  title="Reports - Design Pay Asia"
+  description="Structured reports, evidence-backed metrics, and publication-ready routes for Design Pay Asia."
+>
+  <section class="reports-hero">
+    <div class="reports-hero__inner">
+      <p class="label-mono">Reports</p>
+      <h1>Evidence-backed reports for the public site.</h1>
+      <p class="prose">
+        Reports now resolve from structured content entries, not homepage-only copy.
+        This is the first step toward a stable publication contract.
+      </p>
+    </div>
+  </section>
+
+  <section class="reports-list">
+    <div class="reports-list__inner">
+      {reports.map((report) => (
+        <article class="report-card">
+          <p class="report-card__eyebrow">{report.data.eyebrow}</p>
+          <h2 class="report-card__title">
+            <a href={report.data.canonicalPath} class="report-card__link">
+              {report.data.title}
+            </a>
+          </h2>
+          <p class="report-card__meta">
+            {report.data.year} · {report.data.markets.length} markets
+          </p>
+          <p class="prose">{report.data.summary}</p>
+        </article>
+      ))}
+
+      <article class="report-card report-card--stub">
+        <p class="report-card__eyebrow">Archive stub</p>
+        <h2 class="report-card__title">
+          <a href="/reports/2023" class="report-card__link">
+            2023 DPA Report
+          </a>
+        </h2>
+        <p class="report-card__meta">Archive route · canonical stub</p>
+        <p class="prose">
+          Preserved route for the pre-rebuild report while migration and redirect rules settle.
+        </p>
+      </article>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .reports-hero,
+  .reports-list {
+    padding-inline: var(--space-8);
+  }
+
+  .reports-hero {
+    padding-block: var(--space-24) var(--space-12);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .reports-hero__inner,
+  .reports-list__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .reports-hero__inner h1 {
+    margin-top: var(--space-6);
+    max-width: 12ch;
+  }
+
+  .reports-list {
+    padding-block: var(--space-16) var(--space-24);
+  }
+
+  .reports-list__inner {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .report-card {
+    padding: var(--space-10);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    background: var(--color-surface);
+  }
+
+  .report-card--stub {
+    border-style: dashed;
+  }
+
+  .report-card__eyebrow,
+  .report-card__meta {
+    color: var(--color-ink-muted);
+  }
+
+  .report-card__title {
+    margin-block: var(--space-4);
+  }
+
+  .report-card__link {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .report-card__link:hover {
+    color: var(--color-action);
+  }
+</style>

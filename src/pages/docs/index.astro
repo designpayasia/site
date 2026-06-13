@@ -1,0 +1,106 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const guides = [
+  {
+    href: '/docs/edit-report',
+    title: 'Edit a report',
+    summary: 'Add or revise content entries, evidence records, and chart contracts.',
+  },
+  {
+    href: '/docs/publish',
+    title: 'Publish release',
+    summary: 'Run checks, build search index, and push the static site contract safely.',
+  },
+  {
+    href: '/docs/annual-cycle',
+    title: 'Run annual cycle',
+    summary: 'Repeat the yearly survey and report workflow without rebuilding architecture.',
+  },
+  {
+    href: '/docs/architecture',
+    title: 'Architecture',
+    summary: 'One-page map of routes, collections, redirects, and audits.',
+  },
+  {
+    href: '/docs/succession',
+    title: 'Succession handoff',
+    summary: 'Public continuity notes for a capable stranger or future maintainer.',
+  },
+];
+---
+
+<Base
+  title="Docs - Design Pay Asia"
+  description="Public runbooks for editing, publishing, and sustaining the Design Pay Asia site."
+>
+  <section class="docs-index">
+    <div class="docs-index__inner">
+      <p class="label-mono">Docs</p>
+      <h1>Public runbooks for the site contract.</h1>
+      <p class="prose">
+        These guides keep the rebuild legible: edit reports, publish safely, run the annual
+        cycle, and understand the architecture without private context.
+      </p>
+
+      <div class="docs-index__grid">
+        {guides.map((guide) => (
+          <article class="docs-card">
+            <h2>
+              <a href={guide.href} class="docs-card__link">
+                {guide.title}
+              </a>
+            </h2>
+            <p class="prose">{guide.summary}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .docs-index {
+    padding-inline: var(--space-8);
+    padding-block: var(--space-24);
+  }
+
+  .docs-index__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .docs-index__inner h1 {
+    margin-block: var(--space-6);
+    max-width: 14ch;
+  }
+
+  .docs-index__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin-top: var(--space-10);
+  }
+
+  .docs-card {
+    padding: var(--space-10);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 8px;
+    background: var(--color-surface);
+  }
+
+  .docs-card__link {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .docs-card__link:hover {
+    color: var(--color-action);
+  }
+
+  @media (max-width: 900px) {
+    .docs-index__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

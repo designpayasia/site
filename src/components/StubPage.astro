@@ -1,0 +1,55 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  summary: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { eyebrow, title, summary, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="stub-page">
+  <div class="stub-page__inner">
+    <p class="label-mono">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="prose">{summary}</p>
+    <a href={ctaHref} class="stub-page__cta">
+      {ctaLabel}
+    </a>
+  </div>
+</section>
+
+<style>
+  .stub-page {
+    padding-inline: var(--space-8);
+    padding-block: var(--space-24);
+  }
+
+  .stub-page__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .stub-page__inner h1 {
+    margin-block: var(--space-6);
+    max-width: 14ch;
+  }
+
+  .stub-page__cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: var(--space-8);
+    padding-inline: var(--space-6);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .stub-page__cta:hover {
+    color: var(--color-action);
+  }
+</style>

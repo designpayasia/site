@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-negotiation",
+  "title": "Singapore negotiation: 50.6% negotiate, 80.2% achieve increase, higher salary history pressure",
+  "summary": "Singapore negotiation rate is 50.6% (vs 52.5% regional). By level: Junior IC 47.5%, Mid-level IC 44.6%, Senior IC 62.2%, Leadership 50-60%. Outcomes: 80.2% achieve some increase (vs 79.5% regional), with 5-10% increases at 30.2% (vs 25.6%) and 11-20% at 18.6% (vs 19.5%). Negotiation confidence: 62.8% rate 4+ (vs 65.9% regional). Salary history disclosure required for 62.2% (vs 58.1% regional), with 85.9% reporting high pressure.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Self-reported negotiation behavior, outcomes, confidence, and salary history disclosure experience in anonymous online survey, filtered to Singapore",
+  "sampleSize": 174,
+  "sensitivity": "small-cohort"
+}

@@ -1,64 +1,118 @@
 ---
 interface Props {
-  value: string;         /* the formatted number, e.g. "847", "38", "4,200" */
-  unit?: string;         /* suffix only: %, ×, pts, k — currency prefix goes in value */
+  value: string;
+  unit?: string;
   label: string;
   color?: 'workhorse' | 'signal';
-  countUp?: boolean;     /* enable Intersection Observer count-up animation */
+  countUp?: boolean;
 }
 
 const { value, unit, label, color = 'workhorse', countUp = false } = Astro.props;
-
-/* Strip non-numeric chars so JS can count up to the right target */
 const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
 ---
 
 <div class:list={['bigstat', `bigstat--${color}`]}>
-  <p
-    class="bigstat__figure"
-    aria-label={`${value}${unit ?? ''}`}
-  >
+  <p class="bigstat__figure" aria-label={`${value}${unit ? unit : ''} ${label}`}>
     <span
       class="bigstat__value"
-      data-count-target={countUp && !isNaN(numericValue) ? numericValue : undefined}
+      data-count-target={countUp && !Number.isNaN(numericValue) ? numericValue : undefined}
       data-count-prefix={countUp ? value.replace(/[0-9,]+/, '') : undefined}
-    >{value}</span>{unit && (
-      <span class="bigstat__unit" aria-hidden="true">{unit}</span>
-    )}
+    >
+      {value}
+    </span>
+    {unit && <span class="bigstat__unit">{unit}</span>}
   </p>
   <p class="bigstat__label">{label}</p>
 </div>
 
+<script is:inline>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const animateCount = (el, target, prefix = '') => {
+    if (prefersReducedMotion) {
+      el.textContent = `${prefix}${target.toLocaleString()}`;
+      return;
+    }
+
+    const duration = 1400;
+    const start = performance.now();
+
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(target * eased);
+
+      el.textContent = `${prefix}${current.toLocaleString()}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      }
+    };
+
+    requestAnimationFrame(tick);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        const el = entry.target;
+        const target = parseInt(el.dataset.countTarget ?? '', 10);
+        const prefix = el.dataset.countPrefix ?? '';
+
+        if (!Number.isNaN(target)) {
+          animateCount(el, target, prefix);
+        }
+
+        observer.unobserve(el);
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  document.querySelectorAll('[data-count-target]').forEach((el) => observer.observe(el));
+</script>
+
 <style>
   .bigstat {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: var(--space-2);
   }
 
   .bigstat__figure {
-    font-family: var(--type-stat-face);
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.08em;
+    font-family: var(--font-display);
     font-size: var(--type-stat-size);
     line-height: var(--type-stat-leading);
     letter-spacing: var(--type-stat-tracking);
-    font-variant-numeric: lining-nums tabular-nums;
-    display: flex;
-    align-items: baseline;
-    gap: var(--type-stat-unit-gap);
   }
 
-  .bigstat--workhorse .bigstat__figure { color: var(--color-workhorse); }
-  .bigstat--signal   .bigstat__figure { color: var(--color-signal-text); }
+  .bigstat__value {
+    font-variant-numeric: tabular-nums;
+  }
 
   .bigstat__unit {
-    font-size: var(--type-stat-unit-size);
+    font-size: 0.9em;
   }
 
   .bigstat__label {
-    font-family: var(--font-sans);
-    font-size: var(--font-size-sm);
-    color: var(--color-grey-500);
+    margin: 0;
+    font-size: var(--ui-meta);
     line-height: var(--leading-ui);
-    max-width: 24ch;
+    color: var(--color-ink-muted);
+  }
+
+  .bigstat--workhorse .bigstat__figure {
+    color: var(--color-workhorse);
+  }
+
+  .bigstat--signal .bigstat__figure {
+    color: var(--color-signal-text);
   }
 </style>

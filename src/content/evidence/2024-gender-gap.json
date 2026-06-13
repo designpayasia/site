@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-gender-gap",
+  "title": "2024 reported gender pay gap signal",
+  "summary": "Share of respondents who reported a gender pay gap in their team.",
+  "sourceName": "Design Pay Asia 2024 survey",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle",
+  "geography": ["Southeast Asia"],
+  "methodology": "Aggregate survey response across all published markets.",
+  "sampleSize": 847,
+  "sensitivity": "aggregate-only"
+}

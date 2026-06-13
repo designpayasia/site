@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-total-respondents",
+  "title": "1,797 valid survey responses in 2024 DPA survey cycle",
+  "summary": "The 2024 Design Pay Asia survey collected 1,797 valid responses from designers across Southeast Asia during the Oct-Nov 2024 survey cycle, after data cleaning.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Anonymous voluntary online survey distributed through design communities and partnerships. Data cleaning performed to remove invalid or incomplete responses.",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

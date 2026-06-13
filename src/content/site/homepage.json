@@ -1,0 +1,61 @@
+{
+  "heroTitle": "Southeast Asia's design pay conversation",
+  "heroSummary": "Because pay is never just a number. It is context, power, and where the industry is going. 1,797 designers surveyed across 5 markets in 2024.",
+  "heroCtaLabel": "Read the 2024 report",
+  "heroCtaHref": "/reports/2024",
+  "featuredReportSlug": "2024",
+  "stats": [
+    {
+      "value": "1,797",
+      "unit": "+",
+      "label": "Designers surveyed across Southeast Asia in 2024",
+      "color": "workhorse",
+      "evidenceId": "evidence:2024-total-respondents",
+      "sampleSize": 1797,
+      "publishMode": "published"
+    },
+    {
+      "value": "52.5",
+      "unit": "%",
+      "label": "of designers negotiate compensation offers",
+      "color": "signal",
+      "evidenceId": "evidence:2024-negotiation",
+      "sampleSize": 1797,
+      "publishMode": "published"
+    },
+    {
+      "value": "70.3",
+      "unit": "%",
+      "label": "report career advancement in the past year",
+      "color": "signal",
+      "evidenceId": "evidence:2024-career-progression",
+      "sampleSize": 1797,
+      "publishMode": "published"
+    },
+    {
+      "value": "63.1",
+      "unit": "%",
+      "label": "work in startups or tech companies",
+      "color": "workhorse",
+      "evidenceId": "evidence:2024-company-profile",
+      "sampleSize": 1797,
+      "publishMode": "published"
+    },
+    {
+      "value": "5",
+      "unit": "+",
+      "label": "Markets with published compensation data",
+      "color": "workhorse",
+      "evidenceId": "evidence:2024-geographic-distribution",
+      "sampleSize": 1797,
+      "publishMode": "published"
+    }
+  ],
+  "intro": {
+    "eyebrow": "2024 survey cycle",
+    "title": "Data from 1,797 designers across five Southeast Asian markets",
+    "body": "The 2024 DPA survey captured compensation, career progression, negotiation behaviour, and job market sentiment from Indonesia, Singapore, Malaysia, Vietnam, and Thailand. Every published figure links to a named evidence record. This is first-draft data from the 2024 report source text; sample sizes will be confirmed against the ObservableHQ source sheet in a later pass.",
+    "ctaLabel": "Contribute data",
+    "ctaHref": "/contribute"
+  }
+}

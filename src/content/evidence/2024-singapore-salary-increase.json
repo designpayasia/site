@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-singapore-salary-increase",
+  "title": "2024 Singapore salary increase signal",
+  "summary": "Share of Singapore respondents who reported a salary increase in 2024.",
+  "sourceName": "2024 DPA Report, section 3",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle",
+  "geography": ["Singapore"],
+  "methodology": "Aggregate survey response for Singapore respondents, cited in the DPA copy spec as report section 3 source text.",
+  "sampleSize": 412,
+  "sensitivity": "aggregate-only"
+}

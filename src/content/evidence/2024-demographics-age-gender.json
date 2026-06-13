@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-demographics-age-gender",
+  "title": "Regional demographics: young workforce with improving gender balance",
+  "summary": "80% of respondents are under 35, concentrated in the 25-30 age bracket (57%). Gender split is 59% male and 40% female regionally, with stronger gender balance in early-career groups. Strong urban concentration across all markets.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported age range and gender identity in anonymous online survey",
+  "sampleSize": 1797,
+  "sensitivity": "public"
+}

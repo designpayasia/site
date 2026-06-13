@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-compensation",
+  "title": "Singapore compensation: SGD-dominated, structured pay mix, comprehensive benefits",
+  "summary": "SGD dominance at 98.3%, with monthly reporting at 94.6%. Base salary share decreases with seniority from 90.5% (Junior IC) to 83.7% (Head/Senior Leadership). Stock options peak at 4.3% for Heads, bonus peaks at 11.3% at Head level. Benefits are more comprehensive than region: Health insurance 52.0%, Leave benefits 32.4%, Professional development 23.5%, Dental 23.3%, Flexible work 22.1%, Transport 12.6%, Home office 10.7%.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Self-reported compensation structure, currency, benefits, and pay frequency in anonymous online survey, filtered to Singapore-based respondents",
+  "sampleSize": 174,
+  "sensitivity": "small-cohort"
+}

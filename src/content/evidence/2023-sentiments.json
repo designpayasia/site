@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-sentiments",
+  "title": "2023 DPA Sentiments Data",
+  "summary": "Designers report moderate sentiment across multiple dimensions. 55.7% made career levelling progress in the past year; 31.8% increased pay by more than 15%. Company support for career growth averaged 4.54/7. 56% negotiated their current compensation, and 61.4% felt fairly compensated for their role (ratings 4-7). Market rate awareness averaged 4.71/7, but only 32% agreed there are good resources to stay informed (average 3.86/7). Negotiation confidence averaged 4.51/7. Work arrangement comfort is high at 5.57/7. 67.2% work extra hours, with 16.4% working more than 5 extra hours per week. Over half are actively open to switching jobs.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore", "Malaysia", "Indonesia"],
+  "methodology": "Self-reported Likert-scale sentiment questions (1-7 scale) covering career progression, compensation fairness, negotiation behaviour and confidence, market rate awareness, resource availability, work arrangement comfort, extra hours, and job search intentions.",
+  "sampleSize": 323,
+  "sensitivity": "public"
+}
