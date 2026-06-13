@@ -38,7 +38,7 @@ const cleanStatement = statement?.trim();
 const visibleMetrics = metrics
   .filter((metric) => metric.publishMode !== 'suppressed')
   .filter((metric) => metric.value?.trim() && metric.label?.trim())
-  .slice(0, 2);
+  .slice(0, 3);
 
 const showDraftFlag = statementDraft || provenanceStatus !== 'proven';
 const statusLabel =
@@ -90,15 +90,15 @@ const statusLabel =
 
 <style>
   .dark-beat {
-    background: var(--color-ambient);
-    color: var(--color-workhorse);
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
   }
 
   .dark-beat__inner {
     display: grid;
     gap: 1.5rem;
     padding: clamp(1.5rem, 3vw, 2.5rem);
-    border: 1px solid color-mix(in srgb, var(--color-workhorse) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-inverse-text) 18%, transparent);
     border-radius: 8px;
   }
 
@@ -109,7 +109,7 @@ const statusLabel =
 
   .dark-beat__eyebrow {
     margin: 0;
-    color: var(--color-ink-muted);
+    color: var(--color-inverse-signal-text);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
@@ -117,7 +117,7 @@ const statusLabel =
   .dark-beat__title {
     margin: 0;
     max-width: 22ch;
-    color: var(--color-workhorse);
+    color: var(--color-inverse-text);
   }
 
   .dark-beat__statement {
@@ -131,7 +131,7 @@ const statusLabel =
   .dark-beat__copy {
     margin: 0;
     max-width: 40ch;
-    color: var(--color-workhorse);
+    color: var(--color-inverse-text);
   }
 
   .dark-beat__flag {
@@ -139,9 +139,9 @@ const statusLabel =
     align-items: center;
     min-height: 2rem;
     padding: 0.2rem 0.65rem;
-    border: 1px solid color-mix(in srgb, var(--color-signal-text) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-inverse-signal-text) 55%, transparent);
     border-radius: 999px;
-    color: var(--color-signal-text);
+    color: var(--color-inverse-signal-text);
     letter-spacing: 0.04em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -157,7 +157,7 @@ const statusLabel =
     display: grid;
     gap: 0.45rem;
     padding-top: 1rem;
-    border-top: 1px solid color-mix(in srgb, var(--color-workhorse) 14%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--color-inverse-text) 14%, transparent);
   }
 
   .dark-beat__figure,
@@ -171,7 +171,7 @@ const statusLabel =
     display: flex;
     gap: 0.2rem;
     align-items: baseline;
-    color: var(--color-workhorse);
+    color: var(--color-inverse-text);
   }
 
   .dark-beat__value {
@@ -183,19 +183,19 @@ const statusLabel =
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     line-height: 1;
     letter-spacing: var(--type-h2-tracking);
-    color: var(--color-signal-text);
+    color: var(--color-inverse-signal-fill);
   }
 
   .dark-beat__label {
     max-width: 22ch;
     font-size: var(--type-body);
     line-height: var(--leading-editorial);
-    color: var(--color-workhorse);
+    color: var(--color-inverse-text);
   }
 
   .dark-beat__evidence,
   .dark-beat__note {
-    color: var(--color-ink-muted);
+    color: color-mix(in srgb, var(--color-inverse-text) 72%, transparent);
   }
 
   @media (max-width: 720px) {

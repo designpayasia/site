@@ -1,47 +1,26 @@
-/* ==========================================================================
-   DPA — Dark mode semantic overrides
-   Applied at the semantic tier only. No component changes needed.
+/* ================ DPA — Dark mode semantic overrides =================
+   Applied at the semantic tier only.
 
    Toggle: data-theme="dark" on <html>.
-   Default: respects prefers-color-scheme if no explicit toggle is set.
-   Navy (#0f1c2e) is the dark surface — already decided in §4.
+   V1 does not follow OS colour-scheme preference automatically. The homepage
+   has one intentional dark inversion, handled by inverse tokens in _semantic.css.
 
-   signal is one role in the design language. The fill/text split is a
-   dark-surface readability measure — not a new design role.
-   ========================================================================== */
+   Navy (#0f1c2e) is the dark surface — decided in §4.
+   Crimson remains the signal role, split for dark-surface readability.
+*/
 
 [data-theme="dark"] {
-  /* signal-fill: stronger crimson for buttons, badges, chart highlights */
   --color-signal-fill: var(--color-crimson-400);
-
-  /* signal-text: lighter rose for links, inline emphasis, icon strokes on navy */
   --color-signal-text: var(--color-crimson-300);
+  --color-signal: var(--color-crimson-400);
 
-  /* Keep --color-signal itself pointing at fill for single-value contexts */
-  --color-signal:      var(--color-crimson-400);
+  --color-workhorse: var(--color-cream-50);
+  --color-ambient: var(--color-navy-900);
+  --color-action: var(--color-navy-500);
 
-  /* workhorse inverts to warm cream — not pure white */
-  --color-workhorse:   var(--color-cream-50);
-
-  /* ambient becomes the navy surface */
-  --color-ambient:     var(--color-navy-900);
-
-  /* action: mid-light navy, readable on dark surface */
-  --color-action:      var(--color-navy-500);
-
-  /* muted ink inverts */
-  --color-ink-muted:   var(--color-grey-400);
-}
-
-/* System default — respect OS preference when no explicit toggle is set */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --color-signal-fill: var(--color-crimson-400);
-    --color-signal-text: var(--color-crimson-300);
-    --color-signal:      var(--color-crimson-400);
-    --color-workhorse:   var(--color-cream-50);
-    --color-ambient:     var(--color-navy-900);
-    --color-action:      var(--color-navy-500);
-    --color-ink-muted:   var(--color-grey-400);
-  }
+  --color-ink-muted: var(--color-grey-400);
+  --color-surface: var(--color-navy-800);
+  --color-surface-muted: var(--color-navy-700);
+  --color-border-subtle: var(--color-navy-600);
+  --color-border-strong: var(--color-cream-500);
 }

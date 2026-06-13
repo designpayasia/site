@@ -151,4 +151,40 @@ function buildSourceLabel(metric: Metric) {
       grid-template-columns: 1fr;
     }
   }
+  .findings-strip {
+    width: min(var(--site-max-width), calc(100% - var(--space-8)));
+    margin-inline: auto;
+  }
+
+  .findings-strip__item {
+    min-width: 0;
+  }
+
+  .findings-strip__source {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-break: anywhere;
+  }
+
+  @media (max-width: 767px) {
+    .findings-strip {
+      width: min(100% - var(--space-6), var(--site-max-width));
+      overflow-x: clip;
+    }
+
+    .findings-strip__source {
+      max-width: 100%;
+      overflow: hidden;
+      word-break: break-word;
+      font-size: 0.6rem;
+    }
+
+    .findings-strip :global(.bigstat__figure) {
+      font-size: clamp(3.75rem, 18vw, var(--t-display-mobile));
+    }
+
+    .findings-strip :global(.bigstat__label) {
+      overflow-wrap: anywhere;
+    }
+  }
 </style>

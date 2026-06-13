@@ -416,4 +416,26 @@ const heroTitleSignal = titleWords.at(-1);
       transition: none;
     }
   }
+  .homepage {
+    color: var(--color-workhorse);
+    overflow-x: clip;
+  }
+
+  .homepage :global(*) {
+    min-width: 0;
+  }
+
+  .hero__copy {
+    min-width: 0;
+  }
+
+  .hero__title {
+    overflow-wrap: break-word;
+  }
+
+  @media (max-width: 767px) {
+    .hero__title {
+      font-size: clamp(2.9rem, 14vw, var(--t-display-mobile));
+    }
+  }
 </style>

@@ -331,4 +331,31 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
       text-align: left;
     }
   }
+  .chart-block,
+  .chart-block__visual,
+  .chart-block__row,
+  .chart-block__support {
+    min-width: 0;
+  }
+
+  @media (max-width: 720px) {
+    .chart-block {
+      overflow-x: clip;
+    }
+
+    .chart-block__axis {
+      display: none;
+    }
+
+    .chart-block__ticks span:last-child,
+    .chart-block__gridlines span:last-child {
+      transform: translateX(-100%);
+    }
+
+    .chart-block__summary,
+    .chart-block__source,
+    .chart-block__evidence {
+      overflow-wrap: anywhere;
+    }
+  }
 </style>

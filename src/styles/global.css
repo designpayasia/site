@@ -33,6 +33,7 @@ body {
   line-height: var(--leading-editorial);
   color: var(--color-workhorse);
   background-color: var(--color-ambient);
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

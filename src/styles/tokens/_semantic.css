@@ -20,6 +20,12 @@
   --color-signal-text: var(--color-crimson-600); /* links, inline emphasis */
   --color-workhorse:   var(--color-grey-900);
   --color-ambient:     var(--color-cream-50);
+
+  /* Inverse surface — single dark-beat band (§05). */
+  --color-inverse-surface: var(--color-navy-900);
+  --color-inverse-text: var(--color-cream-50);
+  --color-inverse-signal-text: var(--color-crimson-300);
+  --color-inverse-signal-fill: var(--color-crimson-400);
   --color-action:      var(--color-navy-700);
 
   /* Muted ink — reserved editorial support, not full signal or workhorse. */
