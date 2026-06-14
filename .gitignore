@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # serena tool cache
 .serena/
+
+# Screenshot verification artifacts
+screenshots/
