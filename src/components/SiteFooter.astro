@@ -41,7 +41,7 @@ const linkGroups = [
         >
           <path d="M0 400 V133.14 A80 80 0 0 1 23.43 76.57 L76.57 23.43 A80 80 0 0 1 133.14 0 H200 A200 200 0 0 1 200 400 Z" />
         </svg>
-        <span class="site-footer__name">Design Pay Asia</span>
+        <span class="site-footer__name label-mono">Design Pay Asia</span>
       </a>
       <p class="site-footer__summary">
         Public reports, operational notes, and continuity docs for Southeast Asia&apos;s
@@ -53,7 +53,7 @@ const linkGroups = [
       {
         linkGroups.map((group, index) => (
           <section class="site-footer__group" aria-labelledby={`footer-group-${index}`}>
-            <h2 id={`footer-group-${index}`} class="site-footer__heading">
+            <h2 id={`footer-group-${index}`} class="site-footer__heading label-mono">
               {group.heading}
             </h2>
             <ul class="site-footer__list">
@@ -82,20 +82,21 @@ const linkGroups = [
 
 <style>
   .site-footer {
-    /* R3: the footer reuses the shared navy chrome via the dark-surface role, so we do not invent a footer-only background token. */
-    --color-dark: var(--color-ambient);
-    --color-dark-signal-fill: var(--color-signal-fill);
-    --color-dark-signal-text: var(--color-signal-text);
+    /* R3: the footer uses the shared navy chrome via the inverse-surface role. */
+    --color-dark: var(--color-inverse-surface);
+    --color-dark-signal-fill: var(--color-inverse-signal-fill);
+    --color-dark-signal-text: var(--color-inverse-signal-text);
 
     background: var(--color-dark);
-    color: var(--color-workhorse);
-    margin-top: var(--space-10);
+    color: var(--color-inverse-text);
+    margin-top: var(--space-12);
   }
 
   .site-footer__inner {
-    width: min(100% - 2rem, var(--container-full));
+    max-width: var(--site-max-width);
     margin: 0 auto;
-    padding-block: var(--space-8);
+    padding-inline: var(--space-8);
+    padding-block: var(--space-16);
     display: grid;
     gap: var(--space-6);
   }
@@ -123,15 +124,14 @@ const linkGroups = [
   }
 
   .site-footer__name {
-    font: var(--type-label);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    color: var(--color-dark-signal-text);
   }
 
   .site-footer__summary {
     margin: 0;
     max-width: 42rem;
-    color: var(--color-workhorse);
+    color: var(--color-inverse-text);
+    overflow-wrap: break-word;
   }
 
   .site-footer__nav {
@@ -147,10 +147,8 @@ const linkGroups = [
 
   .site-footer__heading {
     margin: 0;
-    font: var(--type-label);
     color: var(--color-dark-signal-text);
-    letter-spacing: 0.06em;
-    text-transform: none;
+    text-transform: uppercase;
   }
 
   .site-footer__list {
@@ -162,8 +160,9 @@ const linkGroups = [
   }
 
   .site-footer__link {
-    color: var(--color-workhorse);
+    color: var(--color-inverse-text);
     text-decoration: none;
+    overflow-wrap: break-word;
   }
 
   .site-footer__link:hover,
@@ -175,10 +174,14 @@ const linkGroups = [
     margin: 0;
     padding-top: var(--space-4);
     border-top: 1px solid var(--color-dark-signal-text);
-    color: var(--color-workhorse);
+    color: var(--color-inverse-text);
+    overflow-wrap: break-word;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 767px) {
+    .site-footer__inner {
+      padding-inline: var(--space-4);
+    }
     .site-footer__nav {
       grid-template-columns: 1fr;
     }
