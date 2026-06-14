@@ -73,7 +73,7 @@ const cloudflareToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
 
     <slot name="head" />
   </head>
-  <body>
+  <body class="site-body">
     <svg width="0" height="0" aria-hidden="true" style="position:absolute">
       <defs>
         <clipPath id="dpa-blob" clipPathUnits="objectBoundingBox">
@@ -90,4 +90,16 @@ const cloudflareToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
     </main>
     <SiteFooter />
   </body>
+
+<style>
+  .site-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .site-body > main {
+    flex: 1;
+  }
+</style>
 </html>
