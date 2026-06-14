@@ -46,6 +46,8 @@ body {
   font-size: var(--type-hero-size);
   line-height: var(--type-hero-leading);
   letter-spacing: var(--type-hero-tracking);
+  font-weight: var(--weight-regular);
+  text-rendering: auto;
 }
 
 .t-h2 {
@@ -53,12 +55,14 @@ body {
   font-size: var(--type-h2-size);
   line-height: var(--type-h2-leading);
   letter-spacing: var(--type-h2-tracking);
+  font-weight: var(--weight-regular);
+  text-rendering: auto;
 }
 
 .t-stat {
   font-family: var(--type-stat-face);
   font-size: var(--type-stat-size);
-  font-variant-numeric: lining-nums tabular-nums;
+  font-variant-numeric: lining-nums;
   line-height: var(--type-stat-leading);
   letter-spacing: var(--type-stat-tracking);
 }
@@ -68,6 +72,7 @@ body {
   font-family: var(--type-pullquote-face);
   font-size: var(--type-pullquote-size);
   font-style: italic;
+  font-weight: var(--weight-regular);
   line-height: var(--type-pullquote-leading);
   letter-spacing: var(--type-pullquote-tracking);
 }
@@ -97,4 +102,62 @@ body {
 
 .prose-editorial {
   max-width: var(--zone-editorial);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons — global pill style
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  font-family: var(--font-data);
+  font-size: var(--font-size-base);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-label);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-signal-fill);
+  outline-offset: 3px;
+}
+
+/* Primary: crimson fill → navy hover */
+.btn--primary {
+  background: var(--color-signal-fill);
+  color: var(--color-ambient);
+  border-color: var(--color-signal-fill);
+}
+
+.btn--primary:hover {
+  background: var(--color-action);
+  border-color: var(--color-action);
+}
+
+/* Secondary: navy outline */
+.btn--secondary {
+  color: var(--color-action);
+  background: transparent;
+  border-color: var(--color-action);
+}
+
+.btn--secondary:hover {
+  color: var(--color-ambient);
+  background: var(--color-action);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
 }
