@@ -20,18 +20,25 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <script slot="head" is:inline type="module">
-    window.addEventListener('DOMContentLoaded', () => {
-      const css = document.createElement('link');
-      css.rel = 'stylesheet';
-      css.href = '/pagefind/pagefind-ui.css';
-      document.head.appendChild(css);
+    window.addEventListener('DOMContentLoaded', async () => {
+      if (!document.querySelector('link[data-pagefind-ui]')) {
+        const css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = '/pagefind/pagefind-ui.css';
+        css.dataset.pagefindUi = 'true';
+        document.head.appendChild(css);
+      }
 
-      import('/pagefind/pagefind-ui.js').then(({ default: PagefindUI }) => {
-        new PagefindUI({
-          element: '#search',
-          showSubResults: true,
-          highlightParam: 'highlight',
-        });
+      await import('/pagefind/pagefind-ui.js');
+      const PagefindUI = window.PagefindUI;
+      if (typeof PagefindUI !== 'function') {
+        return;
+      }
+
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        highlightParam: 'highlight',
       });
     });
   </script>
