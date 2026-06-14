@@ -9,79 +9,105 @@ interface Props {
 }
 
 const { value, unit, label, color = 'workhorse', countUp = false, variant = 'finding' } = Astro.props;
-const numericValue = parseFloat(value.replace(/,/g, ''));
-const decimals = value.includes('.') ? (value.split('.')[1].match(/\d+/)?.[0].length ?? 0) : 0;
+const displayValue = value.trim();
+const normalizedUnit = unit?.trim();
+const valueMatch = displayValue.match(/^([^0-9]*)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+const valuePrefix = valueMatch?.[1] ?? '';
+const valueCore = valueMatch?.[2] ?? displayValue;
+const valueSuffix = valueMatch?.[3]?.trim() ?? '';
+const numericValue = parseFloat(valueCore.replace(/,/g, ''));
+const decimals = valueCore.includes('.') ? (valueCore.split('.')[1].match(/\d+/)?.[0].length ?? 0) : 0;
+const stackUnit = Boolean(normalizedUnit && (normalizedUnit.length > 8 || /\s/.test(normalizedUnit)));
 ---
 
-<div class:list={['bigstat', `bigstat--${color}`]}>
-  <p class="bigstat__figure" aria-label={`${value}${unit ? unit : ''} ${label}`}>
+<div
+  class:list={[
+    'bigstat',
+    `bigstat--${color}`,
+    `bigstat--${variant}`,
+    {
+      'bigstat--unit-stacked': stackUnit,
+    },
+  ]}
+>
+  <p class="bigstat__figure" aria-label={`${value}${normalizedUnit ? ` ${normalizedUnit}` : ''} ${label}`}>
+    {valuePrefix && <span class="bigstat__affix bigstat__affix--prefix">{valuePrefix}</span>}
     <span
       class="bigstat__value"
       data-count-target={countUp && !Number.isNaN(numericValue) ? numericValue : undefined}
       data-count-decimals={countUp ? decimals : undefined}
     >
-      {value}
+      {valueCore}
     </span>
-    {unit && <span class="bigstat__unit">{unit}</span>}
+    {valueSuffix && <span class="bigstat__affix bigstat__affix--suffix">{valueSuffix}</span>}
+    {normalizedUnit && <span class="bigstat__unit">{normalizedUnit}</span>}
   </p>
   <p class="bigstat__label">{label}</p>
 </div>
 
 <script is:inline>
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const format = (n, decimals) =>
-    n.toLocaleString(undefined, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    });
-
-  const animateCount = (el, target, decimals = 0) => {
-    if (prefersReducedMotion) {
-      el.textContent = format(target, decimals);
+  (() => {
+    const root = document.currentScript?.previousElementSibling;
+    const countTarget = root?.querySelector('[data-count-target]');
+    if (!(countTarget instanceof HTMLElement)) {
       return;
     }
 
-    const duration = 1400;
-    const start = performance.now();
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = target * eased;
+    const format = (n, decimals) =>
+      n.toLocaleString(undefined, {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      });
 
-      el.textContent = format(current, decimals);
-
-      if (progress < 1) {
-        requestAnimationFrame(tick);
+    const animateCount = (el, target, decimals = 0) => {
+      if (prefersReducedMotion) {
+        el.textContent = format(target, decimals);
+        return;
       }
+
+      const duration = 1400;
+      const start = performance.now();
+
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = target * eased;
+
+        el.textContent = format(current, decimals);
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      };
+
+      requestAnimationFrame(tick);
     };
 
-    requestAnimationFrame(tick);
-  };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
+          const el = entry.target;
+          const target = parseFloat(el.dataset.countTarget ?? '');
+          const decimals = parseInt(el.dataset.countDecimals ?? '0', 10);
 
-        const el = entry.target;
-        const target = parseFloat(el.dataset.countTarget ?? '');
-        const decimals = parseInt(el.dataset.countDecimals ?? '0', 10);
+          if (!Number.isNaN(target)) {
+            animateCount(el, target, decimals);
+          }
 
-        if (!Number.isNaN(target)) {
-          animateCount(el, target, decimals);
-        }
+          observer.unobserve(el);
+        });
+      },
+      { threshold: 0.5 },
+    );
 
-        observer.unobserve(el);
-      });
-    },
-    { threshold: 0.5 },
-  );
-
-  document.querySelectorAll('[data-count-target]').forEach((el) => observer.observe(el));
+    observer.observe(countTarget);
+  })();
 </script>
 
 <style>
@@ -122,7 +148,8 @@ const decimals = value.includes('.') ? (value.split('.')[1].match(/\d+/)?.[0].le
     margin: 0;
     display: flex;
     align-items: baseline;
-    gap: 0.08em;
+    flex-wrap: wrap;
+    gap: 0.12em;
     overflow: hidden;
     min-width: 0;
     font-family: var(--type-stat-face); /* R2 — DM Mono, not display serif */
@@ -142,11 +169,26 @@ const decimals = value.includes('.') ? (value.split('.')[1].match(/\d+/)?.[0].le
     min-width: 0;
   }
 
-  .bigstat__unit {
+  .bigstat__affix {
+    min-width: 0;
+    max-width: 100%;
     font-size: var(--_unit-size, 0.42em);
-    overflow-wrap: break-word;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .bigstat__unit {
+    line-height: 1.2;
+    font-size: var(--_unit-size, 0.42em);
+    overflow-wrap: anywhere;
     max-width: 100%;
     min-width: 0;
+    white-space: nowrap;
+  }
+
+  .bigstat--unit-stacked .bigstat__unit {
+    flex-basis: 100%;
+    white-space: normal;
   }
 
   .bigstat__label {
