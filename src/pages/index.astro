@@ -131,9 +131,7 @@ const heroTitleSignal = titleWords.at(-1);
             <a href={homepage.data.heroCtaHref} class="btn btn--primary">
               {homepage.data.heroCtaLabel}
             </a>
-            <a href={featuredReport.data.canonicalPath} class="btn btn--secondary">
-              Browse the 2024 evidence
-            </a>
+
           </div>
         </div>
 
@@ -146,7 +144,7 @@ const heroTitleSignal = titleWords.at(-1);
             class="hero__stat-shape"
           />
           <div class="hero__stat-content">
-            <BigStat
+            <BigStat variant="hero"
               value={heroStat.value}
               unit={heroStat.unit}
               label={heroStat.label}
@@ -250,16 +248,18 @@ const heroTitleSignal = titleWords.at(-1);
 <style>
   .homepage {
     background: var(--color-ambient);
+    color: var(--color-workhorse);
   }
 
   .hero {
-    padding: var(--space-24) 0 var(--space-16);
+    padding: var(--space-24) 0 var(--space-24);
   }
 
   .hero__inner,
   .chart-section__inner {
-    width: min(1120px, calc(100% - var(--space-8)));
-    margin: 0 auto;
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
   }
 
   .hero__inner {
@@ -287,7 +287,7 @@ const heroTitleSignal = titleWords.at(-1);
     max-width: 52ch;
     margin: var(--space-6) 0 0;
     color: var(--color-ink-subtle);
-    font-size: var(--type-body-lg);
+    font-size: var(--font-size-lg);
     line-height: 1.55;
   }
 
@@ -298,51 +298,7 @@ const heroTitleSignal = titleWords.at(-1);
     margin-top: var(--space-8);
   }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    padding: 0 var(--space-5);
-    border: 1px solid var(--color-border-strong);
-    border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: var(--type-label);
-    font-weight: 700;
-    letter-spacing: var(--tracking-label);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition:
-      background-color 180ms ease,
-      color 180ms ease,
-      border-color 180ms ease;
-  }
-
-  .btn--primary {
-    background: var(--color-action);
-    color: var(--color-signal-text);
-    border-color: var(--color-action);
-  }
-
-  .btn--primary:hover {
-    background: var(--color-workhorse);
-  }
-
-  .btn--secondary {
-    color: var(--color-action);
-    background: transparent;
-  }
-
-  .btn--secondary:hover {
-    color: var(--color-signal-text);
-    background: var(--color-action);
-    border-color: var(--color-action);
-  }
-
-  .btn:focus-visible {
-    outline: 3px solid var(--color-signal-fill);
-    outline-offset: 3px;
-  }
+  /* Buttons are now defined globally in src/styles/global.css */
 
   /* Hero blob-cropped stat remains 1:1 so the locked silhouette is never distorted. */
   .hero__stat {
@@ -350,6 +306,7 @@ const heroTitleSignal = titleWords.at(-1);
     grid-column: 9 / -1;
     aspect-ratio: 1;
     min-width: 0;
+    overflow: hidden;
   }
 
   .hero__stat-shape {
@@ -363,7 +320,14 @@ const heroTitleSignal = titleWords.at(-1);
     display: grid;
     align-content: center;
     height: 100%;
-    padding: var(--space-10);
+    min-height: 0;
+    padding: var(--space-8);
+    overflow-wrap: break-word;
+  }
+
+  .hero__stat-content > * {
+    max-width: 100%;
+    min-width: 0;
   }
 
   .hero__stat-source {
@@ -372,13 +336,13 @@ const heroTitleSignal = titleWords.at(-1);
   }
 
   .chart-section {
-    padding: var(--space-16) 0;
+    padding: var(--space-24) 0;
   }
 
   @media (max-width: 900px) {
     .hero__inner {
       grid-template-columns: 1fr;
-      min-height: auto;
+      min-height: min(720px, calc(100vh - 160px));
     }
 
     .hero__copy,
@@ -399,30 +363,16 @@ const heroTitleSignal = titleWords.at(-1);
 
     .hero__inner,
     .chart-section__inner {
-      width: min(100% - var(--space-6), 1120px);
+      padding-inline: var(--space-4);
     }
 
     .hero__title {
-      font-size: var(--t-display-mobile);
+      font-size: clamp(2.9rem, 14vw, var(--t-display-mobile));
     }
 
     .hero__stat-content {
-      padding: var(--space-8);
+      padding: var(--space-5);
     }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .btn {
-      transition: none;
-    }
-  }
-  .homepage {
-    color: var(--color-workhorse);
-    overflow-x: clip;
-  }
-
-  .homepage :global(*) {
-    min-width: 0;
   }
 
   .hero__copy {
@@ -431,11 +381,6 @@ const heroTitleSignal = titleWords.at(-1);
 
   .hero__title {
     overflow-wrap: break-word;
-  }
-
-  @media (max-width: 767px) {
-    .hero__title {
-      font-size: clamp(2.9rem, 14vw, var(--t-display-mobile));
-    }
+    hyphens: auto;
   }
 </style>
