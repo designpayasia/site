@@ -28,7 +28,7 @@ const cleanQuestion = question?.trim();
   />
 
     {cleanQuestion && (
-      <h2 id="invitation-question" class="invitation__question">
+      <h2 id="invitation-question" class="invitation__question t-h2">
         {cleanQuestion}
       </h2>
     )}
@@ -40,6 +40,7 @@ const cleanQuestion = question?.trim();
 <style>
   .invitation {
     color: var(--color-workhorse);
+    padding-block: var(--space-32);
   }
 
   .invitation__inner {
@@ -47,6 +48,9 @@ const cleanQuestion = question?.trim();
     justify-items: center;
     gap: 0.9rem;
     text-align: center;
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
   }
 
   .invitation__marker {
@@ -58,11 +62,7 @@ const cleanQuestion = question?.trim();
   .invitation__question {
     margin: 0;
     max-width: 20ch;
-    font-family: var(--type-h2-face);
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    line-height: 1.05;
-    letter-spacing: var(--type-h2-tracking);
-    color: var(--color-workhorse);
+    overflow-wrap: break-word;
   }
 
   .invitation__flag {
@@ -75,5 +75,14 @@ const cleanQuestion = question?.trim();
     letter-spacing: 0.04em;
     text-transform: uppercase;
     white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 767px) {
+    .invitation__inner {
+      padding-inline: var(--space-4);
+    }
   }
 </style>

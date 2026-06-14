@@ -166,6 +166,12 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
 
   .chart-block__header h2 {
     margin-block: var(--space-4);
+    font-family: var(--type-h2-face);
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-leading);
+    letter-spacing: var(--type-h2-tracking);
+    font-weight: var(--weight-regular);
+    text-rendering: auto;
   }
 
   .chart-block__layout {
@@ -182,6 +188,7 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
   .chart-block__summary {
     margin: 0;
     color: var(--color-ink-muted);
+    overflow-wrap: anywhere;
   }
 
   .chart-block__axis,
@@ -230,6 +237,7 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
   .chart-block__label {
     color: var(--color-ink);
     line-height: 1.4;
+    overflow-wrap: break-word;
   }
 
   .chart-block__label--signal,
@@ -254,7 +262,8 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
   }
 
   .chart-block__fill--workhorse {
-    background: var(--color-workhorse);
+    background: transparent;
+    border: 1.5px solid var(--color-border-strong);
   }
 
   .chart-block__fill--signal {
@@ -276,6 +285,7 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
   .chart-block__evidence {
     margin: 0;
     color: var(--color-ink-muted);
+    overflow-wrap: anywhere;
   }
 
   .chart-block__png-link,
@@ -307,15 +317,16 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
     border-bottom: 1px solid var(--color-border-subtle);
     text-align: left;
     vertical-align: top;
+    overflow-wrap: break-word;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
     .chart-block__visual {
       --chart-label-column: min(220px, 38vw);
     }
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 767px) {
     .chart-block__axis,
     .chart-block__row {
       grid-template-columns: 1fr;
@@ -338,11 +349,7 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
     min-width: 0;
   }
 
-  @media (max-width: 720px) {
-    .chart-block {
-      overflow-x: clip;
-    }
-
+  @media (max-width: 767px) {
     .chart-block__axis {
       display: none;
     }

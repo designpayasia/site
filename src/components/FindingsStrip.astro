@@ -101,7 +101,11 @@ function buildSourceLabel(metric: Metric) {
 <style>
   .findings-strip {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-12);
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+    padding-block: var(--space-24);
   }
 
   .findings-strip__intro {
@@ -117,6 +121,11 @@ function buildSourceLabel(metric: Metric) {
   .findings-strip__title {
     margin: 0;
     color: var(--color-workhorse);
+    font-family: var(--type-h2-face);
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-leading);
+    letter-spacing: var(--type-h2-tracking);
+    font-weight: var(--weight-regular);
   }
 
   .findings-strip__dek {
@@ -126,16 +135,14 @@ function buildSourceLabel(metric: Metric) {
 
   .findings-strip__grid {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-8);
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .findings-strip__item {
     display: grid;
     gap: 0.875rem;
-    padding: 1.25rem;
-    border: 1px solid var(--color-border-subtle);
-    background: var(--color-surface-muted);
+    min-width: 0;
   }
 
   .findings-strip__source {
@@ -143,40 +150,24 @@ function buildSourceLabel(metric: Metric) {
     padding-top: 0.875rem;
     border-top: 1px solid var(--color-border-subtle);
     color: var(--color-ink-subtle);
-    word-break: break-word;
-  }
-
-  @media (max-width: 959px) {
-    .findings-strip__grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  .findings-strip {
-    width: min(var(--site-max-width), calc(100% - var(--space-8)));
-    margin-inline: auto;
-  }
-
-  .findings-strip__item {
-    min-width: 0;
-  }
-
-  .findings-strip__source {
     overflow-wrap: anywhere;
     word-break: break-word;
-    line-break: anywhere;
   }
 
   @media (max-width: 767px) {
     .findings-strip {
-      width: min(100% - var(--space-6), var(--site-max-width));
-      overflow-x: clip;
+      padding-inline: var(--space-4);
+      padding-block: var(--space-16);
+      gap: var(--space-8);
+    }
+
+    .findings-strip__grid {
+      grid-template-columns: 1fr;
     }
 
     .findings-strip__source {
       max-width: 100%;
       overflow: hidden;
-      word-break: break-word;
-      font-size: 0.6rem;
     }
 
     .findings-strip :global(.bigstat__figure) {
