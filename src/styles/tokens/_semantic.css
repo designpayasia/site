@@ -31,6 +31,12 @@
   /* Muted ink — reserved editorial support, not full signal or workhorse. */
   --color-ink-muted:   var(--color-grey-500);
 
+  /* ink — general text colour for components (ConversationBlock, ChartBlock, StickyMeta, PullQuote) */
+  --color-ink: var(--color-workhorse);
+
+  /* surface — light-mode background surface token (dark mode overrides via _dark.css) */
+  --color-surface: var(--color-cream-50);
+
   /* --------------------------------------------------------------------------
      Typography — face roles (§5)
      -------------------------------------------------------------------------- */
@@ -59,7 +65,7 @@
   /* Stat: 132px / 0.92 / −0.018em / DM Mono (R2, R7) */
   --type-stat-size:        var(--font-size-display);
   --type-stat-leading:     var(--leading-stat);
-  --type-stat-tracking:    var(--tracking-display);
+  --type-stat-tracking:    -0.03em;
   --type-stat-face:        var(--font-data);
   --type-stat-unit-size:   var(--stat-unit-size);
   --type-stat-unit-gap:    var(--stat-unit-gap);
