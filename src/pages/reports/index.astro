@@ -15,7 +15,7 @@ const reports = (await getCollection('reports', ({ data }) => data.status === 'p
   <section class="reports-hero">
     <div class="reports-hero__inner">
       <p class="label-mono">Reports</p>
-      <h1>Evidence-backed reports for the public site.</h1>
+      <h1 class="t-h2">Evidence-backed reports for the public site.</h1>
       <p class="prose">
         Reports now resolve from structured content entries, not homepage-only copy.
         This is the first step toward a stable publication contract.
@@ -27,13 +27,13 @@ const reports = (await getCollection('reports', ({ data }) => data.status === 'p
     <div class="reports-list__inner">
       {reports.map((report) => (
         <article class="report-card">
-          <p class="report-card__eyebrow">{report.data.eyebrow}</p>
+          <p class="report-card__eyebrow label-mono">{report.data.eyebrow}</p>
           <h2 class="report-card__title">
             <a href={report.data.canonicalPath} class="report-card__link">
               {report.data.title}
             </a>
           </h2>
-          <p class="report-card__meta">
+          <p class="report-card__meta label-mono">
             {report.data.year} · {report.data.markets.length} markets
           </p>
           <p class="prose">{report.data.summary}</p>
@@ -41,13 +41,13 @@ const reports = (await getCollection('reports', ({ data }) => data.status === 'p
       ))}
 
       <article class="report-card report-card--stub">
-        <p class="report-card__eyebrow">Archive stub</p>
+        <p class="report-card__eyebrow label-mono">Archive stub</p>
         <h2 class="report-card__title">
           <a href="/reports/2023" class="report-card__link">
             2023 DPA Report
           </a>
         </h2>
-        <p class="report-card__meta">Archive route · canonical stub</p>
+        <p class="report-card__meta label-mono">Archive route · canonical stub</p>
         <p class="prose">
           Preserved route for the pre-rebuild report while migration and redirect rules settle.
         </p>
@@ -71,6 +71,7 @@ const reports = (await getCollection('reports', ({ data }) => data.status === 'p
   .reports-list__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
+    padding-inline: var(--space-8);
   }
 
   .reports-hero__inner h1 {
@@ -114,5 +115,20 @@ const reports = (await getCollection('reports', ({ data }) => data.status === 'p
 
   .report-card__link:hover {
     color: var(--color-action);
+  }
+
+  @media (max-width: 767px) {
+    .reports-hero,
+    .reports-list {
+      padding-inline: var(--space-4);
+    }
+
+    .reports-hero {
+      padding-block: var(--space-16);
+    }
+
+    .report-card {
+      padding: var(--space-8);
+    }
   }
 </style>

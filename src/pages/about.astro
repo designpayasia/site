@@ -1,5 +1,4 @@
 ---
-import StubPage from '../components/StubPage.astro';
 import Base from '../layouts/Base.astro';
 ---
 
@@ -7,11 +6,48 @@ import Base from '../layouts/Base.astro';
   title="About - Design Pay Asia"
   description="Why Design Pay Asia publishes evidence-backed salary reporting for Southeast Asia."
 >
-  <StubPage
-    eyebrow="About"
-    title="Why this work stays public, cited, and boring."
-    summary="Design Pay Asia publishes salary reporting with explicit sources, stable routes, and a bias toward reversible publication decisions."
-    ctaLabel="Read the report"
-    ctaHref="/reports/2024"
-  />
+  <section class="stub-page">
+    <div class="stub-page__inner">
+      <p class="label-mono">About</p>
+      <h1 class="t-h2">Why this work stays public, cited, and boring.</h1>
+      <p class="prose">
+        Design Pay Asia publishes salary reporting with explicit sources, stable routes,
+        and a bias toward reversible publication decisions.
+      </p>
+      <a href="/reports/2024" class="btn btn--primary">
+        Read the report
+      </a>
+    </div>
+  </section>
 </Base>
+
+<style>
+  .stub-page {
+    padding-block: var(--space-24);
+  }
+
+  .stub-page__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+  }
+
+  .stub-page__inner h1 {
+    margin-block: var(--space-6);
+    max-width: 14ch;
+  }
+
+  .stub-page__inner .btn {
+    margin-top: var(--space-8);
+  }
+
+  @media (max-width: 767px) {
+    .stub-page {
+      padding-block: var(--space-16);
+    }
+
+    .stub-page__inner {
+      padding-inline: var(--space-4);
+    }
+  }
+</style>

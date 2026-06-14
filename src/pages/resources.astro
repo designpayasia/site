@@ -32,7 +32,7 @@ const resources = [
   <section class="resources-page">
     <div class="resources-page__inner">
       <p class="label-mono">Resources</p>
-      <h1>Public reference surface for the site.</h1>
+      <h1 class="t-h2">Public reference surface for the site.</h1>
       <p class="prose">
         Reports are the public evidence layer. Docs and ops pages make the platform legible
         enough to sustain without private context.
@@ -56,13 +56,13 @@ const resources = [
 
 <style>
   .resources-page {
-    padding-inline: var(--space-8);
     padding-block: var(--space-24);
   }
 
   .resources-page__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
+    padding-inline: var(--space-8);
   }
 
   .resources-page__inner h1 {
@@ -93,9 +93,18 @@ const resources = [
     color: var(--color-action);
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
+    .resources-page {
+      padding-inline: var(--space-4);
+      padding-block: var(--space-16);
+    }
+
     .resources-page__grid {
       grid-template-columns: 1fr;
+    }
+
+    .resource-card {
+      padding: var(--space-8);
     }
   }
 </style>

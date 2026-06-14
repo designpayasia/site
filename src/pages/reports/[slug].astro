@@ -52,9 +52,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   <section class="report-hero">
     <div class="report-hero__inner">
       <p class="label-mono">{report.data.eyebrow}</p>
-      <h1>{report.data.title}</h1>
+      <h1 class="t-h2">{report.data.title}</h1>
       <p class="prose">{report.data.summary}</p>
-      <p class="report-hero__meta">
+      <p class="report-hero__meta label-mono">
         Published {publishedDate} · {report.data.markets.join(', ')}
       </p>
     </div>
@@ -64,6 +64,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     <div class="report-stats__inner">
       {stats.map((stat) => (
         <BigStat
+          variant="compact"
           value={stat.value}
           unit={stat.unit}
           label={stat.label}
@@ -102,9 +103,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       <div class="report-sections">
         {report.data.sections.map((section) => (
           <section class="report-section" id={section.id}>
-            <h2>{section.title}</h2>
-            <p class="report-section__summary">{section.summary}</p>
-            <p>{section.body}</p>
+            <h2 class="t-h2">{section.title}</h2>
+            <p class="report-section__summary label-mono">{section.summary}</p>
+            <p class="prose">{section.body}</p>
           </section>
         ))}
       </div>
@@ -113,7 +114,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   <section class="report-evidence">
     <div class="report-evidence__inner">
-      <h2>Evidence references</h2>
+      <h2 class="t-h2">Evidence references</h2>
       <p class="prose">
         Metrics below must link to a named evidence record before they can publish.
         Cohorts smaller than {MIN_SAFE_COHORT} must be sampled or suppressed.
@@ -123,7 +124,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <li class="evidence-list__item">
             <h3>{evidence.data.title}</h3>
             <p class="prose">{evidence.data.summary}</p>
-            <p class="evidence-list__meta">
+            <p class="evidence-list__meta label-mono">
               {evidence.data.sourceName} · {evidence.data.year} · {evidence.data.sensitivity}
             </p>
             <a href={evidence.data.sourceUrl} class="evidence-list__link">
@@ -137,15 +138,10 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 </Base>
 
 <style>
-  .report-hero,
-  .report-stats,
-  .report-body,
-  .report-evidence {
-    padding-inline: var(--space-8);
-  }
+
 
   .report-hero {
-    padding-block: var(--space-24) var(--space-12);
+    padding-block: var(--space-24) var(--space-16);
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
@@ -155,6 +151,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .report-evidence__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
+    padding-inline: var(--space-8);
   }
 
   .report-hero__inner h1 {
@@ -163,11 +160,12 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .report-hero__meta {
+    margin-top: var(--space-6);
     color: var(--color-ink-muted);
   }
 
   .report-stats {
-    padding-block: var(--space-12) var(--space-16);
+    padding-block: var(--space-16);
   }
 
   .report-stats__inner {
@@ -177,19 +175,19 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .report-body {
-    padding-block: 0 var(--space-20);
+    padding-block: 0 var(--space-24);
   }
 
   .report-body__inner {
     display: grid;
-    gap: var(--space-12);
+    gap: var(--space-16);
   }
 
   .report-copy,
   .report-charts,
   .report-sections,
   .report-evidence__inner {
-    max-width: 72ch;
+    max-width: var(--zone-editorial);
   }
 
   .report-charts {
@@ -201,9 +199,13 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     margin-top: var(--space-12);
   }
 
-  .report-section__summary,
-  .evidence-list__meta {
+  .report-section__summary {
+    margin-block: var(--space-4) var(--space-6);
     color: var(--color-ink-muted);
+  }
+
+  .report-section h2 {
+    margin-bottom: var(--space-4);
   }
 
   .report-evidence {
@@ -211,10 +213,15 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     border-top: 1px solid var(--color-border-subtle);
   }
 
+  .report-evidence h2 {
+    margin-bottom: var(--space-6);
+  }
+
   .evidence-list {
     display: grid;
     gap: var(--space-6);
     padding: 0;
+    margin-top: var(--space-8);
     list-style: none;
   }
 
@@ -223,6 +230,15 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     border: 1px solid var(--color-border-subtle);
     border-radius: 8px;
     background: var(--color-surface);
+  }
+
+  .evidence-list__item h3 {
+    margin-bottom: var(--space-3);
+  }
+
+  .evidence-list__meta {
+    margin-block: var(--space-4) var(--space-5);
+    color: var(--color-ink-muted);
   }
 
   .evidence-list__link {
@@ -234,9 +250,27 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     text-decoration: underline;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
+    .report-hero,
+    .report-stats,
+    .report-body,
+    .report-evidence {
+
+    }
+
+    .report-hero {
+      padding-block: var(--space-16) var(--space-8);
+    }
+
     .report-stats__inner {
       grid-template-columns: 1fr;
+    }
+
+    .report-copy,
+    .report-charts,
+    .report-sections,
+    .report-evidence__inner {
+      max-width: none;
     }
   }
 </style>
