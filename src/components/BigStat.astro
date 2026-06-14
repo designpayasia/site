@@ -5,9 +5,10 @@ interface Props {
   label: string;
   color?: 'workhorse' | 'signal';
   countUp?: boolean;
+  variant?: 'hero' | 'finding' | 'compact';
 }
 
-const { value, unit, label, color = 'workhorse', countUp = false } = Astro.props;
+const { value, unit, label, color = 'workhorse', countUp = false, variant = 'finding' } = Astro.props;
 const numericValue = parseFloat(value.replace(/,/g, ''));
 const decimals = value.includes('.') ? (value.split('.')[1].match(/\d+/)?.[0].length ?? 0) : 0;
 ---
@@ -87,6 +88,34 @@ const decimals = value.includes('.') ? (value.split('.')[1].match(/\d+/)?.[0].le
   .bigstat {
     display: grid;
     gap: var(--space-2);
+    overflow: hidden;
+    min-width: 0;
+    max-width: 100%;
+    container-type: inline-size;
+  }
+
+  /* Variant: hero — maximum impact, homepage hero blob */
+  .bigstat--hero {
+    --_bigstat-size: clamp(4rem, 5vw, var(--type-stat-size));
+    --_unit-size: 0.42em;
+    --_label-size: var(--type-body);
+    --_label-lh: var(--leading-body);
+  }
+
+  /* Variant: finding — medium, findings strip + dark beat (default) */
+  .bigstat--finding {
+    --_bigstat-size: clamp(2.5rem, 3.5vw, 5rem);
+    --_unit-size: 0.35em;
+    --_label-size: var(--font-size-sm);
+    --_label-lh: var(--leading-caption);
+  }
+
+  /* Variant: compact — small, report page grid cells, no overflow */
+  .bigstat--compact {
+    --_bigstat-size: clamp(1.75rem, 2.5vw, 3rem);
+    --_unit-size: 0.32em;
+    --_label-size: var(--font-size-xs);
+    --_label-lh: 1.3;
   }
 
   .bigstat__figure {
@@ -94,8 +123,10 @@ const decimals = value.includes('.') ? (value.split('.')[1].match(/\d+/)?.[0].le
     display: flex;
     align-items: baseline;
     gap: 0.08em;
+    overflow: hidden;
+    min-width: 0;
     font-family: var(--type-stat-face); /* R2 — DM Mono, not display serif */
-    font-size: var(--type-stat-size);
+    font-size: var(--_bigstat-size, var(--type-stat-size));
     line-height: var(--type-stat-leading);
     letter-spacing: var(--type-stat-tracking);
   }
@@ -107,17 +138,23 @@ const decimals = value.includes('.') ? (value.split('.')[1].match(/\d+/)?.[0].le
   }
 
   .bigstat__value {
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums;
+    min-width: 0;
   }
 
   .bigstat__unit {
-    font-size: 0.9em;
+    font-size: var(--_unit-size, 0.42em);
+    overflow-wrap: break-word;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .bigstat__label {
     margin: 0;
-    font-size: var(--ui-meta);
-    line-height: var(--leading-ui);
+    font-size: var(--_label-size, var(--type-body));
+    overflow-wrap: break-word;
+    max-width: 100%;
+    line-height: var(--_label-lh, var(--leading-body));
     color: var(--color-ink-muted);
   }
 
