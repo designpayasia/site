@@ -20,6 +20,9 @@ jobs:
       - run: pnpm run redirects:check
       - run: pnpm run audit:tokens
       - run: pnpm run audit:ops
+      - run: pnpm run audit:pii
+      - run: pnpm run a11y:charts
       - run: pnpm run build
       - run: pnpm run check-links
       - run: pnpm run check
+      - run: pnpm run a11y:contrast
