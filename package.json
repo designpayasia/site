@@ -14,6 +14,7 @@
     "check-links": "node ./scripts/check-links.mjs",
     "audit:tokens": "node ./scripts/check-token-usage.mjs",
     "audit:ops": "node ./scripts/check-ops-freshness.mjs",
+    "audit:pii": "node ./scripts/audit-pii.mjs",
     "redirects:sync": "node ./scripts/redirects.mjs",
     "redirects:check": "node ./scripts/redirects.mjs --check",
     "preview": "astro preview",
