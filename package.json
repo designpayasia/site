@@ -16,6 +16,7 @@
     "audit:ops": "node ./scripts/check-ops-freshness.mjs",
     "audit:pii": "node ./scripts/audit-pii.mjs",
     "a11y:charts": "node ./scripts/a11y-charts.mjs",
+    "a11y:contrast": "node ./scripts/a11y-contrast.mjs",
     "redirects:sync": "node ./scripts/redirects.mjs",
     "redirects:check": "node ./scripts/redirects.mjs --check",
     "preview": "astro preview",
