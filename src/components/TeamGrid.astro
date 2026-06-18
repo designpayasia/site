@@ -1,0 +1,133 @@
+---
+interface TeamMember {
+  name: string;
+  country: string;
+  linkedin: string;
+  photo: string;
+}
+
+interface Props {
+  intro?: string;
+  members: TeamMember[];
+}
+
+const { intro, members } = Astro.props;
+---
+
+{intro && <p class="team-grid__intro prose">{intro}</p>}
+<ul class="team-grid" role="list">
+  {members.map((member) => (
+    <li class="team-card">
+      <a
+        href={member.linkedin}
+        class="team-card__link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${member.name} on LinkedIn`}
+      >
+        <img
+          class="team-card__photo"
+          src={member.photo}
+          alt={member.name}
+          width="120"
+          height="120"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="team-card__name">{member.name}</span>
+        <span class="team-card__country" aria-label={`Country: ${member.country}`}>{member.country}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .team-grid__intro {
+    margin-bottom: var(--space-8);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: var(--space-5);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .team-card {
+    display: contents;
+  }
+
+  .team-card__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-ink);
+    padding: var(--space-4);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .team-card__link:hover,
+  .team-card__link:focus-visible {
+    border-color: var(--color-border-subtle);
+    background-color: var(--color-surface);
+    outline: none;
+  }
+
+  .team-card__link:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+  }
+
+  .team-card__photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    background-color: var(--color-surface);
+  }
+
+  .team-card__name {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-align: center;
+    line-height: var(--leading-caption);
+    color: var(--color-ink);
+  }
+
+  .team-card__country {
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  /* Collapse the single desktop row in stages on narrower viewports. */
+  @media (max-width: 1023px) {
+    .team-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    .team-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .team-card__photo {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .team-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

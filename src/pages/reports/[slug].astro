@@ -3,14 +3,13 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 import BigStat from '../../components/BigStat.astro';
 import ChartBlock from '../../components/ChartBlock.astro';
+import TeamGrid from '../../components/TeamGrid.astro';
 import Base from '../../layouts/Base.astro';
 import {
   assertEvidenceIdsExist,
   assertMetricsHaveEvidence,
   buildEvidenceMap,
-  collectEvidenceByIds,
   getVisibleMetrics,
-  MIN_SAFE_COHORT,
 } from '../../lib/evidence';
 
 export async function getStaticPaths() {
@@ -36,12 +35,38 @@ for (const chart of report.data.charts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
 }
 
+// Trust-core validation still runs (stats + charts validate against evidence
+// records); we only removed the visual evidence list, not the asserts.
 const stats = getVisibleMetrics(report.data.stats);
-const chartEvidenceIds = report.data.charts.flatMap((chart) => chart.evidenceIds);
-const evidenceList = collectEvidenceByIds(
-  [...stats.map((stat) => stat.evidenceId), ...chartEvidenceIds],
-  evidenceMap,
+const methodologySection = report.data.sections.find((section) => section.id === 'methodology');
+
+// Grouped, scannable section list. Two buckets mirror the source Notion hub.
+const EXCLUDED_IDS = new Set(['executive-summary', 'methodology']);
+const CLOSING_ID = 'closing';
+const LANDSCAPE_IDS = ['demographics', 'roles-and-experiences', 'compensation', 'company-landscape'];
+const SENTIMENT_IDS = ['offer-and-negotiation', 'career-progression', 'value-of-design', 'job-market'];
+
+const routableSections = report.data.sections.filter(
+  (section) => !EXCLUDED_IDS.has(section.id) && section.id !== CLOSING_ID,
 );
+const closingSection = report.data.sections.find((section) => section.id === CLOSING_ID);
+
+const landscapeSections = routableSections.filter((section) => LANDSCAPE_IDS.includes(section.id));
+const sentimentSections = routableSections.filter((section) => SENTIMENT_IDS.includes(section.id));
+const otherSections = routableSections.filter(
+  (section) => !LANDSCAPE_IDS.includes(section.id) && !SENTIMENT_IDS.includes(section.id),
+);
+
+// Methodology — pull the data/bias limitation points (markdown bullets) from
+// the methodology section body for the slim strip; fall back to prose lines.
+const methodologyPoints = methodologySection
+  ? methodologySection.body
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line.startsWith('- '))
+      .map((line) => line.slice(2).trim())
+      .filter(Boolean)
+  : [];
 
 const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
   report.data.publishedAt,
@@ -91,6 +116,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               fallbackColumns={chart.fallbackTable.columns as [string, string]}
               fallbackRows={chart.fallbackTable.rows}
               bars={chart.bars}
+              hideTable
             />
           ))}
         </div>
@@ -101,40 +127,140 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       </article>
 
       <div class="report-sections">
-        {report.data.sections.map((section) => (
-          <section class="report-section" id={section.id}>
-            <h2 class="t-h2">{section.title}</h2>
-            <p class="report-section__summary label-mono">{section.summary}</p>
-            <p class="prose">{section.body}</p>
-          </section>
-        ))}
+        {landscapeSections.length > 0 && (
+          <div class="report-section-group">
+            <h2 class="report-section-group__heading label-mono">The landscape</h2>
+            {landscapeSections.map((section) => (
+              <section class="report-section" id={section.id}>
+                <h3 class="report-section__title t-h2">{section.title}</h3>
+                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                  <ul class="report-section__findings prose">
+                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                  </ul>
+                ) : (
+                  <p class="report-section__summary prose">{section.summary}</p>
+                )}
+                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                  Read section
+                </a>
+              </section>
+            ))}
+          </div>
+        )}
+
+        {sentimentSections.length > 0 && (
+          <div class="report-section-group">
+            <h2 class="report-section-group__heading label-mono">Sentiment and perceptions</h2>
+            {sentimentSections.map((section) => (
+              <section class="report-section" id={section.id}>
+                <h3 class="report-section__title t-h2">{section.title}</h3>
+                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                  <ul class="report-section__findings prose">
+                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                  </ul>
+                ) : (
+                  <p class="report-section__summary prose">{section.summary}</p>
+                )}
+                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                  Read section
+                </a>
+              </section>
+            ))}
+          </div>
+        )}
+
+        {otherSections.length > 0 && (
+          <div class="report-section-group">
+            {otherSections.map((section) => (
+              <section class="report-section" id={section.id}>
+                <h3 class="report-section__title t-h2">{section.title}</h3>
+                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                  <ul class="report-section__findings prose">
+                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                  </ul>
+                ) : (
+                  <p class="report-section__summary prose">{section.summary}</p>
+                )}
+                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                  Read section
+                </a>
+              </section>
+            ))}
+          </div>
+        )}
+
+        {closingSection && (
+          <div class="report-closing-link">
+            <a href={`${report.data.canonicalPath}/${closingSection.id}`} class="report-section__link">
+              {closingSection.title}
+            </a>
+          </div>
+        )}
       </div>
+
+      {methodologySection && (
+        <aside class="report-methodology" aria-labelledby="report-methodology-title">
+          <p class="label-mono">Methodology</p>
+          <h2 id="report-methodology-title" class="report-methodology__heading">How to read this report</h2>
+          {methodologyPoints.length > 0 ? (
+            <ul class="report-methodology__list prose">
+              {methodologyPoints.map((point) => <li>{point}</li>)}
+            </ul>
+          ) : (
+            <p class="report-methodology__summary prose">{methodologySection.summary}</p>
+          )}
+        </aside>
+      )}
     </div>
   </section>
 
-  <section class="report-evidence">
-    <div class="report-evidence__inner">
-      <h2 class="t-h2">Evidence references</h2>
-      <p class="prose">
-        Metrics below must link to a named evidence record before they can publish.
-        Cohorts smaller than {MIN_SAFE_COHORT} must be sampled or suppressed.
-      </p>
-      <ul class="evidence-list">
-        {evidenceList.map((evidence) => (
-          <li class="evidence-list__item">
-            <h3>{evidence.data.title}</h3>
-            <p class="prose">{evidence.data.summary}</p>
-            <p class="evidence-list__meta label-mono">
-              {evidence.data.sourceName} · {evidence.data.year} · {evidence.data.sensitivity}
+  {(report.data.team || report.data.communityPartners || report.data.support) && (
+    <section class="report-human">
+      <div class="report-human__inner">
+
+        {report.data.team && report.data.team.length > 0 && (
+          <div class="report-team">
+            <h2 class="t-h2">The team</h2>
+            <TeamGrid
+              intro="Special thanks to our volunteers this year who put this together:"
+              members={report.data.team}
+            />
+          </div>
+        )}
+
+        {report.data.communityPartners && report.data.communityPartners.length > 0 && (
+          <div class="report-community">
+            <h2 class="t-h2">A heartfelt thank you to our community partners and participants across Southeast Asia</h2>
+            <p class="prose">
+This report was built through a regional community effort. Our partners helped extend the survey's reach, and every participant added lived experience that made the findings stronger.
             </p>
-            <a href={evidence.data.sourceUrl} class="evidence-list__link">
-              Open source
+            <p class="prose">For suggestions or feedback, please reach out to our team.</p>
+            <ul class="partner-chips" role="list">
+              {report.data.communityPartners.map((partner) => (
+                <li class="partner-chip">{partner}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {report.data.support && (
+          <div class="report-support">
+            <h2 class="t-h2">{report.data.support.heading}</h2>
+            <p class="prose">{report.data.support.body}</p>
+            <a
+              href={report.data.support.ctaUrl}
+              class="report-support__cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {report.data.support.ctaLabel}
             </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+          </div>
+        )}
+
+      </div>
+    </section>
+  )}
 </Base>
 
 <style>
@@ -147,8 +273,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .report-hero__inner,
   .report-stats__inner,
-  .report-body__inner,
-  .report-evidence__inner {
+  .report-body__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
     padding-inline: var(--space-8);
@@ -186,7 +311,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .report-copy,
   .report-charts,
   .report-sections,
-  .report-evidence__inner {
+  .report-methodology {
     max-width: var(--zone-editorial);
   }
 
@@ -195,69 +320,172 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     gap: var(--space-8);
   }
 
-  .report-section + .report-section {
+  .report-section-group {
     margin-top: var(--space-12);
   }
 
-  .report-section__summary {
-    margin-block: var(--space-4) var(--space-6);
+  .report-section-group__heading {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border-subtle);
     color: var(--color-ink-muted);
   }
 
-  .report-section h2 {
+  .report-section-group + .report-section-group {
+    margin-top: var(--space-16);
+  }
+
+  .report-closing-link {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .report-section + .report-section {
+    margin-top: var(--space-10);
+    padding-top: var(--space-10);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .report-section__title {
     margin-bottom: var(--space-4);
   }
 
-  .report-evidence {
+  .report-section__summary {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .report-section__findings {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .report-section__link {
+    display: inline-flex;
+    margin-top: var(--space-5);
+    color: var(--color-action);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .report-section__link:hover {
+    text-decoration: underline;
+  }
+
+  /* Methodology — slim, quiet strip below the section list. Deliberately
+     lighter than the section cards: no heavy border box, muted divider only. */
+  .report-methodology {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-subtle);
+    color: var(--color-ink-muted);
+  }
+
+  .report-methodology .label-mono {
+    color: var(--color-ink-muted);
+  }
+
+  .report-methodology__heading {
+    margin-block: var(--space-3) var(--space-5);
+    font-family: var(--type-h2-face);
+    font-size: var(--font-size-lg);
+    font-weight: var(--weight-regular);
+    color: var(--color-ink);
+  }
+
+  .report-methodology__list {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: grid;
+    gap: var(--space-3);
+    color: var(--color-ink-muted);
+  }
+
+  .report-methodology__summary {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  /* Human layer — team, community partners, support */
+  .report-human {
     padding-block: var(--space-16) var(--space-24);
     border-top: 1px solid var(--color-border-subtle);
   }
 
-  .report-evidence h2 {
+  .report-human__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+    display: grid;
+    gap: var(--space-16);
+  }
+
+  .report-team,
+  .report-community,
+  .report-support {
+    max-width: var(--zone-editorial);
+  }
+
+  .report-team h2,
+  .report-community h2,
+  .report-support h2 {
     margin-bottom: var(--space-6);
   }
 
-  .evidence-list {
-    display: grid;
-    gap: var(--space-6);
-    padding: 0;
-    margin-top: var(--space-8);
+  .partner-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
     list-style: none;
+    padding: 0;
+    margin-top: var(--space-6);
   }
 
-  .evidence-list__item {
-    padding: var(--space-8);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 8px;
-    background: var(--color-surface);
+  .partner-chip {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-signal);
+    border-radius: 999px;
+    font-size: var(--type-caption);
+    color: var(--color-signal-text);
+    background: var(--color-ambient);
+    white-space: nowrap;
   }
 
-  .evidence-list__item h3 {
-    margin-bottom: var(--space-3);
+  .report-community .prose {
+    margin-top: var(--space-4);
   }
 
-  .evidence-list__meta {
-    margin-block: var(--space-4) var(--space-5);
-    color: var(--color-ink-muted);
+  .report-support .prose {
+    margin-top: var(--space-4);
   }
 
-  .evidence-list__link {
-    color: var(--color-action);
+  .report-support__cta {
+    display: inline-flex;
+    align-items: center;
+    margin-top: var(--space-6);
+    padding: var(--space-3) var(--space-6);
+    background: var(--color-signal-fill);
+    color: var(--color-inverse-text);
+    font-weight: 700;
+    font-size: var(--type-caption);
+    border-radius: 6px;
     text-decoration: none;
+    transition: opacity 0.15s ease;
   }
 
-  .evidence-list__link:hover {
-    text-decoration: underline;
+  .report-support__cta:hover {
+    opacity: 0.85;
+  }
+
+  .report-support__cta:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
   }
 
   @media (max-width: 767px) {
-    .report-hero,
-    .report-stats,
-    .report-body,
-    .report-evidence {
-
-    }
-
     .report-hero {
       padding-block: var(--space-16) var(--space-8);
     }
@@ -269,7 +497,10 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     .report-copy,
     .report-charts,
     .report-sections,
-    .report-evidence__inner {
+    .report-methodology,
+    .report-team,
+    .report-community,
+    .report-support {
       max-width: none;
     }
   }

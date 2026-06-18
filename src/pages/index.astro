@@ -63,21 +63,21 @@ const findingsStats = findingsEvidenceIds.map((evidenceId) => {
   };
 });
 
-const negotiationChart = featuredReport.data.charts.find(
-  (chart) => chart.id === 'negotiation-outcomes',
+const featuredChart = featuredReport.data.charts.find(
+  (chart) => chart.id === 'compensation-mix',
 );
 
-if (!negotiationChart) {
-  throw new Error('Missing negotiation-outcomes chart in the featured report.');
+if (!featuredChart) {
+  throw new Error('Missing compensation-mix chart in the featured report.');
 }
 
 assertEvidenceIdsExist(
-  negotiationChart.evidenceIds,
+  featuredChart.evidenceIds,
   evidenceMap,
-  `report:${featuredReport.id}:chart:${negotiationChart.id}`,
+  `report:${featuredReport.id}:chart:${featuredChart.id}`,
 );
 
-const negotiationFallbackColumns = negotiationChart.fallbackTable.columns as [string, string];
+const featuredChartFallbackColumns = featuredChart.fallbackTable.columns as [string, string];
 
 const careerProgressionStat = findingsStats.find(
   (stat) => stat.evidenceId === 'evidence:2024-career-progression',
@@ -191,19 +191,19 @@ const heroTitleSignal = titleWords.at(-1);
       draftLabel="AI draft for Jon"
     />
 
-    <section class="chart-section" aria-label="Negotiation outcomes">
+    <section class="chart-section" aria-label="Compensation mix">
       <div class="chart-section__inner">
         <ChartBlock
-          title={negotiationChart.title}
-          caption={negotiationChart.caption}
-          summary={negotiationChart.summary}
-          evidenceIds={negotiationChart.evidenceIds}
-          sourceLabel={negotiationChart.sourceLabel}
-          sourceUrl={negotiationChart.sourceUrl}
-          fallbackColumns={negotiationFallbackColumns}
-          fallbackRows={negotiationChart.fallbackTable.rows}
-          bars={negotiationChart.bars}
-          pngPath={negotiationChart.pngPath}
+          title={featuredChart.title}
+          caption={featuredChart.caption}
+          summary={featuredChart.summary}
+          evidenceIds={featuredChart.evidenceIds}
+          sourceLabel={featuredChart.sourceLabel}
+          sourceUrl={featuredChart.sourceUrl}
+          fallbackColumns={featuredChartFallbackColumns}
+          fallbackRows={featuredChart.fallbackTable.rows}
+          bars={featuredChart.bars}
+          pngPath={featuredChart.pngPath}
         />
       </div>
     </section>
