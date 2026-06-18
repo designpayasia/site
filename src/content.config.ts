@@ -131,6 +131,15 @@ const reports = defineCollection({
         ctaUrl: z.url(),
       })
       .optional(),
+    methodologyStrip: z
+      .object({
+        intro: z.string().min(1),
+        process: z.array(z.string().min(1)).min(1),
+        biasIntro: z.string().min(1),
+        biasPoints: z.array(z.string().min(1)).min(1),
+        caveat: z.string().min(1),
+      })
+      .optional(),
     sections: z
       .array(
         z.object({

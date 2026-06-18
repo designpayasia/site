@@ -68,6 +68,16 @@ const methodologyPoints = methodologySection
       .filter(Boolean)
   : [];
 
+const methodologyStrip = report.data.methodologyStrip;
+
+const methodologyBody = methodologySection?.body;
+const methodologyFallbackParagraphs = methodologyBody
+  ? methodologyBody
+      .split('\n')
+      .map((line: string) => line.trim())
+      .filter(Boolean)
+  : [];
+
 const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
   report.data.publishedAt,
 );
@@ -198,16 +208,32 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         )}
       </div>
 
-      {methodologySection && (
+      {(methodologySection || methodologyStrip) && (
         <aside class="report-methodology" aria-labelledby="report-methodology-title">
           <p class="label-mono">Methodology</p>
-          <h2 id="report-methodology-title" class="report-methodology__heading">How to read this report</h2>
-          {methodologyPoints.length > 0 ? (
+          <h2 id="report-methodology-title" class="report-methodology__heading">Methodology</h2>
+          {methodologyStrip ? (
+            <>
+              <p class="report-methodology__intro prose">{methodologyStrip.intro}</p>
+              <p class="report-methodology__subheading label-mono">Our process</p>
+              <ul class="report-methodology__list prose">
+                {methodologyStrip.process.map((step) => <li>{step}</li>)}
+              </ul>
+              <div class="report-methodology__note">
+                <p class="report-methodology__note-heading label-mono">A note on data and bias</p>
+                <p class="report-methodology__note-intro prose">{methodologyStrip.biasIntro}</p>
+                <ul class="report-methodology__list prose">
+                  {methodologyStrip.biasPoints.map((point) => <li>{point}</li>)}
+                </ul>
+              </div>
+              <p class="report-methodology__caveat prose">{methodologyStrip.caveat}</p>
+            </>
+          ) : methodologyFallbackParagraphs.length > 0 ? (
             <ul class="report-methodology__list prose">
-              {methodologyPoints.map((point) => <li>{point}</li>)}
+              {methodologyFallbackParagraphs.map((para) => <li>{para}</li>)}
             </ul>
           ) : (
-            <p class="report-methodology__summary prose">{methodologySection.summary}</p>
+            <p class="report-methodology__summary prose">{methodologySection?.summary}</p>
           )}
         </aside>
       )}
@@ -396,12 +422,48 @@ This report was built through a regional community effort. Our partners helped e
     color: var(--color-ink);
   }
 
+  .report-methodology__intro {
+    margin: 0 0 var(--space-5);
+    color: var(--color-ink-muted);
+  }
+
+  .report-methodology__subheading {
+    margin: var(--space-5) 0 var(--space-3);
+    color: var(--color-ink);
+  }
+
   .report-methodology__list {
     margin: 0;
     padding-left: var(--space-5);
     display: grid;
     gap: var(--space-3);
     color: var(--color-ink-muted);
+  }
+
+  .report-methodology__note {
+    margin-top: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    border-left: 3px solid var(--color-border-subtle);
+    color: var(--color-ink-muted);
+  }
+
+  .report-methodology__note-heading {
+    margin: 0 0 var(--space-2);
+    color: var(--color-ink);
+  }
+
+  .report-methodology__note-intro {
+    margin: 0 0 var(--space-3);
+  }
+
+  .report-methodology__note .report-methodology__list {
+    padding-left: var(--space-5);
+  }
+
+  .report-methodology__caveat {
+    margin: var(--space-5) 0 0;
+    color: var(--color-ink-muted);
+    font-size: var(--font-size-sm);
   }
 
   .report-methodology__summary {
