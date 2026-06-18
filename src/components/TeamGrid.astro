@@ -43,7 +43,7 @@ const countryFlag: Record<string, string> = {
           decoding="async"
         />
         <span class="team-card__name">{member.name}</span>
-        <span class="team-card__country" aria-label={`Country: ${member.country}`}>{member.country}</span>
+        <span class="team-card__country" aria-label={`Country: ${member.country}`}>{countryFlag[member.country] || member.country}</span>
       </a>
     </li>
   ))}
