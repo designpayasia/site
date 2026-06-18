@@ -21,6 +21,13 @@ interface Props {
   fallbackRows: TableRow[];
   bars: Bar[];
   pngPath?: string;
+  /**
+   * When true (report hub overview), the visible fallback table is suppressed
+   * and the treatment tightens. The table is still rendered as a
+   * visually-hidden accessible alternative so screen-reader and no-JS users
+   * keep the full data. Detail pages omit this prop and keep the full table.
+   */
+  hideTable?: boolean;
 }
 
 const LABEL_COLUMN_WIDTH_PX = 220;
@@ -37,6 +44,7 @@ const {
   fallbackRows,
   bars,
   pngPath,
+  hideTable = false,
 } = Astro.props;
 
 const highlightedSignalIndex = bars.findIndex((bar) => bar.tone === 'signal');
@@ -48,7 +56,7 @@ const renderedBars = bars.map((bar, index) => ({
 const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
 ---
 
-<figure class="chart-block">
+<figure class:list={['chart-block', hideTable && 'chart-block--compact']}>
   <figcaption class="chart-block__header">
     <p class="label-mono">Chart proof</p>
     <h2>{title}</h2>
@@ -136,7 +144,7 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
       </div>
     </div>
 
-    <div class="chart-block__support">
+    <div class:list={['chart-block__support', hideTable && 'visually-hidden']}>
       <div class="chart-block__table-wrap">
         <table class="chart-block__table">
           <thead>
@@ -162,6 +170,30 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
 <style>
   .chart-block {
     margin: 0;
+  }
+
+  /* Compact (report hub overview): tighter rhythm, table suppressed visually
+     but kept in the DOM as a screen-reader / no-JS accessible alternative. */
+  .chart-block--compact .chart-block__layout {
+    gap: var(--space-5);
+    margin-top: var(--space-6);
+  }
+
+  .chart-block--compact .chart-block__visual {
+    gap: var(--space-4);
+  }
+
+  /* Accessible table alternative — removed from the visual flow only. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .chart-block__header h2 {

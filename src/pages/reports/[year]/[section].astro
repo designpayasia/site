@@ -1,0 +1,673 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+import ChartBlock from '../../../components/ChartBlock.astro';
+import DarkBeat from '../../../components/DarkBeat.astro';
+import Base from '../../../layouts/Base.astro';
+import {
+  assertEvidenceIdsExist,
+  buildEvidenceMap,
+  collectEvidenceByIds,
+} from '../../../lib/evidence';
+
+export async function getStaticPaths() {
+  const reports = await getCollection('reports', ({ data }) => data.status === 'published');
+  const excludedSectionIds = new Set(['executive-summary', 'methodology']);
+
+  return reports.flatMap((report) =>
+    report.data.sections
+      .filter((section) => !excludedSectionIds.has(section.id))
+      .map((section) => ({
+        params: {
+          year: String(report.data.year),
+          section: section.id,
+        },
+        props: {
+          report,
+          section,
+        },
+      })),
+  );
+}
+
+interface Props {
+  report: CollectionEntry<'reports'>;
+  section: CollectionEntry<'reports'>['data']['sections'][number];
+}
+
+const { report, section } = Astro.props;
+const evidenceEntries = await getCollection('evidence');
+const evidenceMap = buildEvidenceMap(evidenceEntries);
+const chartIds = new Set(section.charts);
+const sectionCharts = report.data.charts.filter((chart) => chartIds.has(chart.id));
+const missingChartIds = section.charts.filter(
+  (chartId) => !report.data.charts.some((chart) => chart.id === chartId),
+);
+
+if (missingChartIds.length > 0) {
+  throw new Error(
+    `report:${report.id}:section:${section.id} references missing charts: ${missingChartIds.join(', ')}`,
+  );
+}
+
+for (const chart of sectionCharts) {
+  assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
+}
+
+const getFallbackColumns = (columns: string[]): [string, string] => {
+  if (columns.length !== 2) {
+    throw new Error(
+      `report:${report.id}:section:${section.id} charts must provide exactly two fallback columns.`,
+    );
+  }
+  return [columns[0], columns[1]];
+};
+
+const sectionEvidenceIds = sectionCharts.flatMap((chart) => chart.evidenceIds);
+const evidenceList = collectEvidenceByIds(sectionEvidenceIds, evidenceMap);
+
+/** Split text on double-newline into trimmed non-empty paragraphs. */
+const asParagraphs = (value: string | undefined) =>
+  value?.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean) ?? [];
+
+/** Split text on single newlines into trimmed non-empty lines (for bullet lists). */
+const asLines = (value: string | undefined) =>
+  value?.split('\n').map((l) => l.trim()).filter(Boolean) ?? [];
+
+const paragraphs = asParagraphs(section.body);
+
+/* ── Editorial block data ─────────────────────────────────────────── */
+
+const individualNotes = asLines(section.whatThisMeansIndividuals);
+const leaderNotes = asLines(section.whatThisMeansLeaders);
+const whatThisMeansNotes = asLines(section.whatThisMeans);
+
+// Commentary lead: strip embedded audience bullets (present in some sections).
+// asParagraphs fails when commentary uses single newlines; fall back to
+// asLines and slice before any "If you're a…" audience marker.
+const commentaryRaw = asParagraphs(section.commentary);
+let commentaryLead = commentaryRaw[0] ?? null;
+if (commentaryLead) {
+  const audienceMarkers = ['If you\'re a', 'If you\'re leading', 'If you\'re running'];
+  for (const marker of audienceMarkers) {
+    const idx = commentaryLead.indexOf(marker);
+    if (idx > 0) { commentaryLead = commentaryLead.slice(0, idx).trim(); break; }
+  }
+}
+
+const [leadQuestion, ...supportingQuestions] = section.questions;
+
+// Suppress "What this could mean for you" when it is just audience guidance
+// repeated from the columns above (starts with "If you're a…").
+const isAudienceGuidance = whatThisMeansNotes.length > 0 &&
+  /^If you\'re a/i.test(whatThisMeansNotes[0]);
+
+const hasAudienceGuidance = individualNotes.length > 0 || leaderNotes.length > 0;
+const hasEditorialBlock =
+  !!commentaryLead || hasAudienceGuidance || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0;
+
+/* ── Navigation ───────────────────────────────────────────────────── */
+
+const excludedSectionIds = new Set(['executive-summary', 'methodology']);
+const navigableSections = report.data.sections.filter((item) => !excludedSectionIds.has(item.id));
+const sectionIndex = navigableSections.findIndex((item) => item.id === section.id);
+const previousSection = sectionIndex > 0 ? navigableSections[sectionIndex - 1] : undefined;
+const nextSection =
+  sectionIndex >= 0 && sectionIndex < navigableSections.length - 1
+    ? navigableSections[sectionIndex + 1]
+    : undefined;
+const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
+  report.data.publishedAt,
+);
+---
+
+<Base
+  title={`${section.title} - ${report.data.title} - Design Pay Asia`}
+  description={section.summary}
+  ogType="article"
+>
+  <main class="section-page">
+    <section class="section-hero" aria-labelledby="section-title">
+      <div class="section-hero__inner">
+        <a href={report.data.canonicalPath} class="section-hero__back label-mono">Back to report</a>
+        <p class="section-hero__eyebrow label-mono">
+          {report.data.eyebrow} / {report.data.year}
+        </p>
+        <h1 id="section-title" class="section-hero__title t-h2">{section.title}</h1>
+        <p class="section-hero__summary prose-editorial">{section.summary}</p>
+        <p class="section-hero__meta label-mono">
+          Published {publishedDate} · {report.data.markets.join(', ')}
+        </p>
+      </div>
+    </section>
+
+    <section class="section-body" aria-label={`${section.title} analysis`}>
+      <div class="section-body__inner">
+        <article class="section-copy prose">
+          {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </article>
+      </div>
+    </section>
+
+    {sectionCharts.length > 0 && (
+      <section class="section-charts" aria-labelledby="section-charts-title">
+        <div class="section-charts__inner">
+          <h2 id="section-charts-title" class="t-h2">Charts</h2>
+          <div class="section-charts__grid">
+            {sectionCharts.map((chart) => (
+              <ChartBlock
+                title={chart.title}
+                caption={chart.caption}
+                summary={chart.summary}
+                evidenceIds={chart.evidenceIds}
+                sourceLabel={chart.sourceLabel}
+                sourceUrl={chart.sourceUrl}
+                fallbackColumns={getFallbackColumns(chart.fallbackTable.columns)}
+                fallbackRows={chart.fallbackTable.rows}
+                bars={chart.bars}
+                pngPath={chart.pngPath}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* ── Unified editorial block ──────────────────────────────────── */}
+
+    {hasEditorialBlock && (
+      <section class="section-editorial" aria-label="Commentary and guidance">
+        <div class="section-editorial__inner">
+
+          {/* Commentary lead */}
+          {commentaryLead && (
+            <div class="section-editorial__commentary">
+              <h2 class="section-editorial__heading t-h2">Commentary</h2>
+              <p class="section-editorial__lead">{commentaryLead}</p>
+            </div>
+          )}
+
+          {/* Audience guidance — 50:50 grid */}
+          {hasAudienceGuidance && (
+            <div class="section-editorial__audience">
+              <div class="section-editorial__audience-grid">
+                {individualNotes.length > 0 && (
+                  <div class="section-editorial__audience-col">
+                    <p class="section-editorial__audience-label label-mono">If you're a designer</p>
+                    <ul class="section-editorial__list">
+                      {individualNotes.map((note) => <li>{note}</li>)}
+                    </ul>
+                  </div>
+                )}
+                {leaderNotes.length > 0 && (
+                  <div class="section-editorial__audience-col">
+                    <p class="section-editorial__audience-label label-mono">If you're leading a team or organisation</p>
+                    <ul class="section-editorial__list">
+                      {leaderNotes.map((note) => <li>{note}</li>)}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+          {/* What this could mean for you — only when distinct from audience columns */}
+          {whatThisMeansNotes.length > 0 && !isAudienceGuidance && (
+            <div class="section-editorial__meaning">
+              <h3 class="section-editorial__subheading t-h3">What this could mean for you</h3>
+              <ul class="section-editorial__list">
+                {whatThisMeansNotes.map((note) => <li>{note}</li>)}
+              </ul>
+            </div>
+          )}
+
+          {/* References — collapsible, inside editorial inner, before DarkBeat */}
+          {section.references.length > 0 && (
+            <div class="section-editorial__references">
+              <details class="section-source-group">
+                <summary>Additional reading and references</summary>
+                <ul>
+                  {section.references.map((reference) => (
+                    <li>
+                      {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </div>
+          )}
+        </div>
+
+        {/* Questions — DarkBeat, kept as a visual beat within editorial flow */}
+        {section.questions.length > 0 && (
+          leadQuestion ? (
+            <div class="section-editorial__questions">
+              <DarkBeat
+                eyebrow="Questions worth exploring"
+                title={leadQuestion}
+                statementDraft={false}
+              />
+              {supportingQuestions.length > 0 && (
+                <section class="section-questions__more" data-theme="dark" aria-label="Supporting questions">
+                  <div class="section-questions__inner">
+                    <p class="section-questions__more-label label-mono">Worth exploring next</p>
+                    <ul class="section-questions__list">
+                      {supportingQuestions.map((question) => <li>{question}</li>)}
+                    </ul>
+                  </div>
+                </section>
+              )}
+            </div>
+          ) : (
+            <section class="section-questions__more section-questions__more--standalone" data-theme="dark" aria-labelledby="section-questions-title">
+              <div class="section-questions__inner">
+                <p class="label-mono">Questions worth exploring</p>
+                <h2 id="section-questions-title" class="section-questions__heading t-h2">
+                  Questions worth exploring
+                </h2>
+                <ul class="section-questions__list">
+                  {supportingQuestions.map((question) => <li>{question}</li>)}
+                </ul>
+              </div>
+            </section>
+          )
+        )}
+      </section>
+    )}
+
+    {/* ── Evidence sources ──────────────────────────────────────────── */}
+
+    {evidenceList.length > 0 && (
+      <section class="section-sources" aria-label="Sources">
+        <div class="section-sources__inner">
+          <details class="section-source-group">
+            <summary>View sources</summary>
+            <ul class="evidence-list">
+              {evidenceList.map((evidence) => (
+                <li class="evidence-list__item">
+                  <h3>{evidence.data.title}</h3>
+                  <p>{evidence.data.summary}</p>
+                  <p class="evidence-list__meta label-mono">
+                    {evidence.data.sourceName} · {evidence.data.year} · {evidence.data.sensitivity}
+                  </p>
+                  <a href={evidence.data.sourceUrl} class="evidence-list__link">Open source</a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </div>
+      </section>
+    )}
+
+    {/* ── Section navigation ────────────────────────────────────────── */}
+
+    <nav class="section-nav" aria-label="Report section navigation">
+      <div class="section-nav__inner">
+        {previousSection ? (
+          <a href={`${report.data.canonicalPath}/${previousSection.id}`} class="section-nav__link">
+            <span class="label-mono">Previous</span>
+            {previousSection.title}
+          </a>
+        ) : (
+          <span></span>
+        )}
+
+        <a href={report.data.canonicalPath} class="section-nav__link section-nav__link--center">
+          <span class="label-mono">Index</span>
+          Full report
+        </a>
+
+        {nextSection ? (
+          <a href={`${report.data.canonicalPath}/${nextSection.id}`} class="section-nav__link">
+            <span class="label-mono">Next</span>
+            {nextSection.title}
+          </a>
+        ) : (
+          <span></span>
+        )}
+      </div>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  /* ----------------------------------------------------------------------
+     Section detail page layout. Width zones follow reports/[slug].astro.
+     ---------------------------------------------------------------------- */
+
+  .section-hero {
+    padding-block: var(--space-16) var(--space-12);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .section-hero__inner,
+  .section-body__inner,
+  .section-charts__inner,
+  .section-editorial__inner,
+  .section-questions__inner,
+  .section-sources__inner,
+  .section-nav__inner {
+    width: min(100% - var(--space-8), var(--zone-editorial));
+    margin-inline: auto;
+  }
+
+  .section-hero__back {
+    display: inline-flex;
+    margin-bottom: var(--space-8);
+    color: var(--color-ink-muted);
+    text-decoration: none;
+  }
+
+  .section-hero__back:hover {
+    color: var(--color-ink);
+  }
+
+  .section-hero__eyebrow,
+  .section-hero__meta {
+    color: var(--color-ink-muted);
+  }
+
+  .section-hero__title {
+    margin-block: var(--space-5);
+    max-width: 16ch;
+  }
+
+  .section-hero__summary {
+    margin-block: var(--space-5) 0;
+    color: var(--color-ink-subtle);
+    font-size: var(--font-size-lg);
+    line-height: 1.55;
+  }
+
+  .section-hero__meta {
+    margin-top: var(--space-6);
+  }
+
+  /* ── Body copy ─────────────────────────────────────────────────── */
+
+  .section-body,
+  .section-charts,
+  .section-sources {
+    padding-block: var(--space-14);
+  }
+
+  .section-body__inner {
+    display: grid;
+    gap: var(--space-12);
+    padding-block: var(--space-16) var(--space-24);
+  }
+
+  .section-copy p {
+    margin-block: 0 var(--space-4);
+  }
+
+  .section-copy p:last-child {
+    margin-block-end: 0;
+  }
+
+  /* ── Charts ─────────────────────────────────────────────────────── */
+
+  .section-charts {
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .section-charts__grid {
+    display: grid;
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+  }
+
+  .section-charts h2 {
+    margin-block: var(--space-2) 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════
+     Unified editorial block — commentary → audience grid →
+     what-this-means → DarkBeat questions → references.
+     Light tinted wrapper, variety treatments per sub-part.
+     ═══════════════════════════════════════════════════════════════════ */
+
+  .section-editorial {
+    background: var(--color-surface-muted);
+    padding-block: var(--space-14);
+  }
+
+  .section-editorial__inner {
+    display: grid;
+    gap: var(--space-10);
+    padding-block: var(--space-16) var(--space-24);
+  }
+
+  /* Commentary lead — editorial prose, no quote styling */
+  .section-editorial__commentary {
+    /* intentionally clean — no border, no accent */
+  }
+
+  .section-editorial__heading {
+    margin-block: 0;
+  }
+
+  .section-editorial__lead {
+    margin-block: var(--space-4) 0;
+    padding-left: var(--space-6);
+    border-left: 3px solid var(--color-signal-text);
+    color: var(--color-ink-subtle);
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-editorial);
+  }
+
+  /* Audience guidance — 50:50 grid, labelled columns */
+  .section-editorial__audience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+
+  .section-editorial__audience-col {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .section-editorial__audience-label {
+    margin: 0 0 var(--space-4);
+    color: var(--color-ink-muted);
+  }
+
+  /* What this means — distinct sub-section with breathing room */
+  .section-editorial__meaning {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .section-editorial__subheading {
+    margin-block: 0 var(--space-4);
+  }
+
+  /* Shared list style for audience + what-this-means */
+  .section-editorial__list {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: var(--space-3);
+    list-style: disc;
+    max-width: var(--zone-prose);
+  }
+
+  .section-editorial__list li {
+    line-height: var(--leading-editorial);
+    color: var(--color-ink);
+  }
+
+  /* Questions — DarkBeat kept as editorial beat.
+     Sits inside the wrapper; no forced seam. */
+
+  .section-editorial__questions {
+    /* DarkBeat handles its own padding + background; nothing extra needed */
+  }
+
+  /* DarkBeat supporting questions — inverse editorial list */
+  .section-questions__more {
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
+    padding-block-end: var(--space-16);
+  }
+
+  .section-questions__more--standalone {
+    padding-block-start: var(--space-14);
+  }
+
+  /* When DarkBeat carries the lead question, supporting list shares the
+     same inverse surface directly beneath — continuous beat. */
+  .section-editorial__questions .section-questions__more {
+    padding-block-start: 0;
+  }
+
+  .section-questions__more-label,
+  .section-questions__more .label-mono {
+    color: var(--color-inverse-signal-text);
+  }
+
+  .section-questions__heading {
+    margin-block: var(--space-2) var(--space-6);
+    color: var(--color-inverse-text);
+  }
+
+  .section-questions__list {
+    display: grid;
+    gap: var(--space-4);
+    margin: var(--space-6) 0 0;
+    padding-left: 1.25rem;
+    max-width: var(--zone-prose);
+  }
+
+  .section-questions__list li {
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-editorial);
+    color: var(--color-inverse-text);
+  }
+
+  .section-questions__list li::marker {
+    color: var(--color-inverse-signal-fill);
+  }
+
+  /* References — collapsible, sits in editorial inner grid flow */
+  .section-editorial__references {
+    /* gap from parent grid handles spacing */
+  }
+
+  .section-editorial__references a {
+    color: var(--color-ink);
+    text-underline-offset: 0.2em;
+  }
+
+  .section-editorial__references a:hover {
+    color: var(--color-ink-muted);
+  }
+
+  /* ── Sources ────────────────────────────────────────────────────── */
+
+  .section-sources__inner {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .section-source-group {
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .section-source-group + .section-source-group {
+    border-top: 0;
+  }
+
+  .section-source-group summary {
+    cursor: pointer;
+    padding-block: var(--space-4);
+    font-weight: 700;
+  }
+
+  .section-source-group summary:hover {
+    color: var(--color-ink-muted);
+  }
+
+  .section-source-group ul {
+    padding-left: 1.25rem;
+  }
+
+  .section-source-group li {
+    margin-top: var(--space-3);
+  }
+
+  .evidence-list {
+    display: grid;
+    gap: var(--space-4);
+    margin-block: 0 var(--space-6);
+    padding-left: 1.25rem;
+  }
+
+  .evidence-list__item h3 {
+    margin: 0;
+  }
+
+  .evidence-list__item p {
+    margin-block: var(--space-2) 0;
+  }
+
+  .evidence-list__meta {
+    color: var(--color-ink-muted);
+  }
+
+  .evidence-list__link {
+    display: inline-flex;
+    margin-top: var(--space-2);
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  /* ── Section nav ────────────────────────────────────────────────── */
+
+  .section-nav {
+    padding-block: var(--space-12);
+    margin-block-start: var(--space-8);
+  }
+
+  .section-nav__inner {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .section-nav__link {
+    color: var(--color-ink);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .section-nav__link span {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--color-ink-muted);
+  }
+
+  .section-nav__link--center {
+    text-align: center;
+  }
+
+  .section-nav__link:last-child {
+    text-align: right;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────────── */
+
+  @media (max-width: 720px) {
+    .section-editorial__audience-grid,
+    .section-nav__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .section-nav__link,
+    .section-nav__link--center,
+    .section-nav__link:last-child {
+      text-align: left;
+    }
+  }
+</style>

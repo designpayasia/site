@@ -100,6 +100,13 @@ const site = defineCollection({
   }),
 });
 
+const teamMemberSchema = z.object({
+  name: z.string().min(1),
+  country: z.string().min(1),
+  linkedin: z.url(),
+  photo: z.string().regex(/^\/team\/\d{4}\/.+\.jpg$/),
+});
+
 const reports = defineCollection({
   loader: glob({ base: './src/content/reports', pattern: '**/*.md' }),
   schema: z.object({
@@ -109,11 +116,21 @@ const reports = defineCollection({
     publishedAt: z.coerce.date(),
     markets: z.array(z.string().min(1)).min(1),
     status: z.enum(['published', 'draft']).default('published'),
-    canonicalPath: z.string().regex(/^\/reports\/[a-z0-9-]+$/),
+    canonicalPath: z.string().regex(/^\/reports\/[a-z0-9-]+(\/[a-z0-9-]+)?$/),
     eyebrow: z.string().default('Report'),
     heroCtaLabel: z.string().default('Read report'),
     stats: z.array(metricSchema).min(1),
     charts: z.array(chartSchema).default([]),
+    team: z.array(teamMemberSchema).optional(),
+    communityPartners: z.array(z.string().min(1)).optional(),
+    support: z
+      .object({
+        heading: z.string().min(1),
+        body: z.string().min(1),
+        ctaLabel: z.string().min(1),
+        ctaUrl: z.url(),
+      })
+      .optional(),
     sections: z
       .array(
         z.object({
@@ -121,6 +138,21 @@ const reports = defineCollection({
           title: z.string().min(1),
           summary: z.string().min(1),
           body: z.string().min(1),
+          commentary: z.string().min(1).optional(),
+          questions: z.array(z.string().min(1)).default([]),
+          whatThisMeans: z.string().min(1).optional(),
+          whatThisMeansIndividuals: z.string().min(1).optional(),
+          whatThisMeansLeaders: z.string().min(1).optional(),
+          keyFindings: z.array(z.string()).optional(),
+          references: z
+            .array(
+              z.object({
+                label: z.string().min(1),
+                url: z.url().optional(),
+              }),
+            )
+            .default([]),
+          charts: z.array(z.string().regex(/^[a-z0-9-]+$/)).default([]),
         }),
       )
       .min(1),
