@@ -12,6 +12,14 @@ interface Props {
 }
 
 const { intro, members } = Astro.props;
+
+const countryFlag: Record<string, string> = {
+  Singapore: "🇸🇬",
+  Malaysia: "🇲🇾",
+  Vietnam: "🇻🇳",
+  Indonesia: "🇮🇩",
+  Thailand: "🇹🇭",
+};
 ---
 
 {intro && <p class="team-grid__intro prose">{intro}</p>}
