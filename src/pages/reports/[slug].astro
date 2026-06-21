@@ -40,6 +40,12 @@ for (const chart of report.data.charts) {
 const stats = getVisibleMetrics(report.data.stats);
 const methodologySection = report.data.sections.find((section) => section.id === 'methodology');
 
+// Hub renders only three signature charts; all 7 remain in frontmatter data.
+const SIGNATURE_CHART_IDS = ['geo-distribution', 'career-levels', 'compensation-mix'];
+const signatureCharts = report.data.charts.filter((chart) =>
+  SIGNATURE_CHART_IDS.includes(chart.id),
+);
+
 // Grouped, scannable section list. Two buckets mirror the source Notion hub.
 const EXCLUDED_IDS = new Set(['executive-summary', 'methodology']);
 const CLOSING_ID = 'closing';
@@ -88,7 +94,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     <div class="report-hero__inner">
       <p class="label-mono">{report.data.eyebrow}</p>
       <h1 class="t-h2">{report.data.title}</h1>
-      <p class="prose">{report.data.summary}</p>
+      {report.data.summary.split('\n\n').map(paragraph => (
+        <p class="prose">{paragraph}</p>
+      ))}
       <p class="report-hero__meta label-mono">
         Published {publishedDate} · {report.data.markets.join(', ')}
       </p>
@@ -110,11 +118,15 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     </div>
   </section>
 
-  <section class="report-body">
+  <section class="report-body report-body--findings">
     <div class="report-body__inner">
-      {report.data.charts.length > 0 && (
+      <div class="report-findings-header">
+        <h2 class="report-findings-title t-h2">Key findings</h2>
+      </div>
+
+      {signatureCharts.length > 0 && (
         <div class="report-charts">
-          {report.data.charts.map((chart) => (
+          {signatureCharts.map((chart) => (
             <ChartBlock
               title={chart.title}
               caption={chart.caption}
@@ -132,69 +144,98 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         </div>
       )}
 
-      <article class="report-copy prose">
-        <Content />
-      </article>
-
       <div class="report-sections">
         {landscapeSections.length > 0 && (
-          <div class="report-section-group">
-            <h2 class="report-section-group__heading label-mono">The landscape</h2>
+          <div class="report-section-bucket">
+            <h3 class="report-section-bucket__heading label-mono">The landscape</h3>
             {landscapeSections.map((section) => (
-              <section class="report-section" id={section.id}>
-                <h3 class="report-section__title t-h2">{section.title}</h3>
-                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                  <ul class="report-section__findings prose">
-                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                  </ul>
-                ) : (
-                  <p class="report-section__summary prose">{section.summary}</p>
-                )}
-                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                  Read section
-                </a>
-              </section>
+              <article class="report-section-row" id={section.id}>
+                <div class="report-section-row__left">
+                  <h4 class="report-section-row__title t-h2">{section.title}</h4>
+                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                    <ul class="report-section__findings prose">
+                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                    </ul>
+                  ) : (
+                    <p class="report-section__summary prose">{section.summary}</p>
+                  )}
+                </div>
+                <div class="report-section-row__right">
+                  {section.commentary && (
+                    <div class="report-section-row__commentary-block">
+                      {section.commentary.split('\n\n').map((para) => (
+                        <p class="report-section-row__commentary prose">{para}</p>
+                      ))}
+                    </div>
+                  )}
+                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                    Read section
+                  </a>
+                </div>
+              </article>
             ))}
           </div>
         )}
 
         {sentimentSections.length > 0 && (
-          <div class="report-section-group">
-            <h2 class="report-section-group__heading label-mono">Sentiment and perceptions</h2>
+          <div class="report-section-bucket">
+            <h3 class="report-section-bucket__heading label-mono">Sentiment and perceptions</h3>
             {sentimentSections.map((section) => (
-              <section class="report-section" id={section.id}>
-                <h3 class="report-section__title t-h2">{section.title}</h3>
-                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                  <ul class="report-section__findings prose">
-                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                  </ul>
-                ) : (
-                  <p class="report-section__summary prose">{section.summary}</p>
-                )}
-                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                  Read section
-                </a>
-              </section>
+              <article class="report-section-row" id={section.id}>
+                <div class="report-section-row__left">
+                  <h4 class="report-section-row__title t-h2">{section.title}</h4>
+                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                    <ul class="report-section__findings prose">
+                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                    </ul>
+                  ) : (
+                    <p class="report-section__summary prose">{section.summary}</p>
+                  )}
+                </div>
+                <div class="report-section-row__right">
+                  {section.commentary && (
+                    <div class="report-section-row__commentary-block">
+                      {section.commentary.split('\n\n').map((para) => (
+                        <p class="report-section-row__commentary prose">{para}</p>
+                      ))}
+                    </div>
+                  )}
+                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                    Read section
+                  </a>
+                </div>
+              </article>
             ))}
           </div>
         )}
 
         {otherSections.length > 0 && (
-          <div class="report-section-group">
+          <div class="report-section-bucket">
             {otherSections.map((section) => (
-              <section class="report-section" id={section.id}>
-                <h3 class="report-section__title t-h2">{section.title}</h3>
-                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                  <ul class="report-section__findings prose">
-                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                  </ul>
-                ) : (
-                  <p class="report-section__summary prose">{section.summary}</p>
-                )}
-                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                  Read section
-                </a>
-              </section>
+              <article class="report-section-row" id={section.id}>
+                <div class="report-section-row__left">
+                  <h4 class="report-section-row__title t-h2">{section.title}</h4>
+                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                    <ul class="report-section__findings prose">
+                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                    </ul>
+                  ) : (
+                    <p class="report-section__summary prose">{section.summary}</p>
+                  )}
+                </div>
+                <div class="report-section-row__right">
+                  {section.commentary && (
+                    <div class="report-section-row__commentary-block">
+                      {section.commentary.split('\n\n').map((para) => (
+                        <p class="report-section-row__commentary prose">{para}</p>
+                      ))}
+                    </div>
+                  )}
+                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                    Read section
+                  </a>
+                </div>
+              </article>
             ))}
           </div>
         )}
@@ -210,7 +251,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
       {(methodologySection || methodologyStrip) && (
         <aside class="report-methodology" aria-labelledby="report-methodology-title">
-          <h2 id="report-methodology-title" class="report-methodology__heading">Methodology</h2>
+          <h2 id="report-methodology-title" class="report-methodology__heading t-h2">Methodology</h2>
           {methodologyStrip ? (
             <>
               <p class="report-methodology__intro prose">{methodologyStrip.intro}</p>
@@ -239,15 +280,19 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     </div>
   </section>
 
-  {(report.data.team || report.data.communityPartners || report.data.support) && (
-    <section class="report-human">
+  {(report.data.team || report.data.communityPartners) && (
+    <section class="report-human" data-theme="dark">
       <div class="report-human__inner">
+
+        <header class="report-human__header">
+          <p class="report-human__eyebrow label-mono">Thank you</p>
+          <h2 class="report-human__title t-h2">Built by the community, for the community</h2>
+        </header>
 
         {report.data.team && report.data.team.length > 0 && (
           <div class="report-team">
-            <h2 class="t-h2">The team</h2>
+            <p class="report-team__intro prose">Special thanks to our volunteers this year who put this together:</p>
             <TeamGrid
-              intro="Special thanks to our volunteers this year who put this together:"
               members={report.data.team}
             />
           </div>
@@ -255,9 +300,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
         {report.data.communityPartners && report.data.communityPartners.length > 0 && (
           <div class="report-community">
-            <h2 class="t-h2">A heartfelt thank you to our community partners and participants across Southeast Asia</h2>
+            <h3 class="report-community__heading">Our community partners and participants</h3>
             <p class="prose">
-This report was built through a regional community effort. Our partners helped extend the survey's reach, and every participant added lived experience that made the findings stronger.
+              This report was built through a regional community effort. Our partners helped extend the survey's reach, and every participant added lived experience that made the findings stronger.
             </p>
             <p class="prose">For suggestions or feedback, please reach out to our team.</p>
             <ul class="partner-chips" role="list">
@@ -268,28 +313,29 @@ This report was built through a regional community effort. Our partners helped e
           </div>
         )}
 
-        {report.data.support && (
-          <div class="report-support">
-            <h2 class="t-h2">{report.data.support.heading}</h2>
-            <p class="prose">{report.data.support.body}</p>
-            <a
-              href={report.data.support.ctaUrl}
-              class="report-support__cta"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {report.data.support.ctaLabel}
-            </a>
-          </div>
-        )}
-
       </div>
     </section>
+  )}
+
+  {report.data.support && (
+    <div class="report-support">
+      <div class="report-support__inner">
+        <h2 class="t-h2">{report.data.support.heading}</h2>
+        <p class="prose">{report.data.support.body}</p>
+        <a
+          href={report.data.support.ctaUrl}
+          class="btn btn--primary report-support__cta"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {report.data.support.ctaLabel}
+        </a>
+      </div>
+    </div>
   )}
 </Base>
 
 <style>
-
 
   .report-hero {
     padding-block: var(--space-24) var(--space-16);
@@ -314,6 +360,10 @@ This report was built through a regional community effort. Our partners helped e
     color: var(--color-ink-muted);
   }
 
+  .report-hero .prose + .prose {
+    margin-top: var(--space-4);
+  }
+
   .report-stats {
     padding-block: var(--space-16);
   }
@@ -328,75 +378,75 @@ This report was built through a regional community effort. Our partners helped e
     padding-block: 0 var(--space-24);
   }
 
+  .report-body--findings {
+    padding-block: var(--space-16) var(--space-24);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
   .report-body__inner {
     display: grid;
     gap: var(--space-16);
   }
 
   .report-copy,
-  .report-charts,
-  .report-sections,
-  .report-methodology {
+  .report-charts {
     max-width: var(--zone-editorial);
+  }
+
+  .report-copy.prose p {
+    margin-block: 0 var(--space-4);
+  }
+
+  .report-copy.prose p:last-child {
+    margin-block-end: 0;
   }
 
   .report-charts {
     display: grid;
-    gap: var(--space-8);
+    gap: var(--space-16);
   }
 
-  .report-section-group {
-    margin-top: var(--space-12);
+  /* Key findings heading */
+  .report-findings-header {
+    margin-bottom: var(--space-8);
   }
 
-  .report-section-group:first-of-type {
+  .report-findings-title {
+    margin: 0;
+  }
+
+  /* Section buckets — constrained to editorial column */
+  .report-section-bucket {
+    margin-top: var(--space-16);
+    max-width: var(--zone-editorial);
+  }
+
+  .report-section-bucket:first-of-type {
     margin-top: 0;
   }
 
-  @media (min-width: 720px) {
-    .report-sections {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-8) var(--space-12);
-      align-items: start;
-    }
-
-    .report-section-group:first-of-type,
-    .report-section-group:nth-of-type(2) {
-      margin-top: 0;
-    }
-
-    .report-section-group:nth-of-type(3),
-    .report-closing-link {
-      grid-column: 1 / -1;
-    }
-  }
-
-  .report-section-group__heading {
-    margin-bottom: var(--space-8);
-    padding-bottom: var(--space-4);
-    border-bottom: 1px solid var(--color-border-subtle);
+  .report-section-bucket__heading {
+    margin-bottom: var(--space-6);
     color: var(--color-ink-muted);
   }
 
-  .report-section-group + .report-section-group {
-    margin-top: var(--space-16);
+  /* Row: left=bullets, right=commentary */
+  .report-section-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding-block: var(--space-8);
   }
 
-  .report-closing-link {
-    margin-top: var(--space-12);
-    padding-top: var(--space-8);
+  .report-section-row + .report-section-row {
     border-top: 1px solid var(--color-border-subtle);
   }
 
-  .report-section + .report-section {
-    margin-top: var(--space-10);
-    padding-top: var(--space-10);
-    border-top: 1px solid var(--color-border-subtle);
-  }
 
-  .report-section__title {
-    margin-bottom: var(--space-4);
+
+  .report-section-row__title {
+    margin-bottom: var(--space-3);
+    color: var(--color-workhorse);
   }
 
   .report-section__summary {
@@ -411,9 +461,26 @@ This report was built through a regional community effort. Our partners helped e
     gap: var(--space-2);
   }
 
+  .report-section-row__commentary-block {
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-border-subtle);
+  }
+
+  .report-section-row__commentary {
+    margin: 0 0 var(--space-2);
+    color: var(--color-ink-muted);
+    font-size: var(--font-size-sm);
+    font-style: italic;
+    line-height: var(--leading-editorial);
+  }
+
+  .report-section-row__commentary:last-child {
+    margin-bottom: 0;
+  }
+
   .report-section__link {
     display: inline-flex;
-    margin-top: var(--space-5);
+    margin-top: var(--space-4);
     color: var(--color-action);
     font-weight: 700;
     text-decoration: none;
@@ -423,59 +490,68 @@ This report was built through a regional community effort. Our partners helped e
     text-decoration: underline;
   }
 
-  /* Methodology — slim, quiet strip below the section list. Deliberately
-     lighter than the section cards: no heavy border box, muted divider only. */
-  .report-methodology {
-    margin-top: var(--space-16);
+  .report-closing-link {
+    margin-top: var(--space-12);
     padding-top: var(--space-8);
     border-top: 1px solid var(--color-border-subtle);
-    color: var(--color-ink-muted);
   }
 
-  .report-methodology .label-mono {
-    color: var(--color-ink-muted);
+  /* Methodology — no box, lean on spacing over borders */
+  .report-methodology {
+    padding-block: var(--space-8);
+    background: transparent;
   }
 
   .report-methodology__heading {
-    margin-block: var(--space-3) var(--space-5);
-    font-family: var(--type-h2-face);
-    font-size: var(--font-size-lg);
-    font-weight: var(--weight-regular);
+    margin: 0 0 var(--space-4);
     color: var(--color-ink);
   }
 
   .report-methodology__intro {
-    margin: 0 0 var(--space-5);
+    margin: 0 0 var(--space-6);
     color: var(--color-ink-muted);
+    line-height: var(--leading-editorial);
   }
 
   .report-methodology__subheading {
-    margin: var(--space-5) 0 var(--space-3);
+    margin: 0 0 var(--space-3);
     color: var(--color-ink);
+    letter-spacing: 0.06em;
   }
 
   .report-methodology__list {
     margin: 0;
-    padding-left: var(--space-5);
+    padding-left: var(--space-6);
     display: grid;
     gap: var(--space-3);
     color: var(--color-ink-muted);
+    line-height: var(--leading-editorial);
+  }
+
+  .report-methodology__list li {
+    padding-left: var(--space-2);
   }
 
   .report-methodology__note {
-    margin-top: var(--space-6);
-    padding: var(--space-4) var(--space-5);
-    border-left: 3px solid var(--color-border-subtle);
-    color: var(--color-ink-muted);
+    margin-top: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background: var(--color-surface-muted);
+    border-radius: 6px;
+    display: inline-block;
+    max-width: 60ch;
+    width: auto;
   }
 
   .report-methodology__note-heading {
-    margin: 0 0 var(--space-2);
+    margin: 0 0 var(--space-3);
     color: var(--color-ink);
+    letter-spacing: 0.06em;
   }
 
   .report-methodology__note-intro {
-    margin: 0 0 var(--space-3);
+    margin: 0 0 var(--space-4);
+    color: var(--color-ink-muted);
+    line-height: var(--leading-editorial);
   }
 
   .report-methodology__note .report-methodology__list {
@@ -483,9 +559,10 @@ This report was built through a regional community effort. Our partners helped e
   }
 
   .report-methodology__caveat {
-    margin: var(--space-5) 0 0;
+    margin: var(--space-6) 0 0;
     color: var(--color-ink-muted);
-    font-size: var(--font-size-sm);
+    font-size: var(--type-caption);
+    line-height: var(--leading-editorial);
   }
 
   .report-methodology__summary {
@@ -493,10 +570,11 @@ This report was built through a regional community effort. Our partners helped e
     color: var(--color-ink-muted);
   }
 
-  /* Human layer — team, community partners, support */
+  /* Human layer — dark beat section (team + community partners) */
   .report-human {
-    padding-block: var(--space-16) var(--space-24);
-    border-top: 1px solid var(--color-border-subtle);
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
+    padding-block: var(--space-24);
   }
 
   .report-human__inner {
@@ -507,16 +585,52 @@ This report was built through a regional community effort. Our partners helped e
     gap: var(--space-16);
   }
 
-  .report-team,
-  .report-community,
-  .report-support {
+  .report-human__header {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .report-human__eyebrow {
+    margin: 0;
+    color: var(--color-inverse-signal-text);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .report-human__title {
+    margin: 0;
+    max-width: 22ch;
+    color: var(--color-inverse-text);
+  }
+
+  .report-team {
+    max-width: var(--zone-editorial);
+    --team-link-color: var(--color-inverse-text);
+    --team-hover-bg: color-mix(in srgb, var(--color-inverse-text) 8%, transparent);
+    --team-name-color: var(--color-inverse-text);
+    --team-photo-bg: var(--color-inverse-surface);
+  }
+
+  .report-team__intro {
+    margin-bottom: var(--space-8);
+    color: var(--color-inverse-text);
+  }
+
+  .report-community {
     max-width: var(--zone-editorial);
   }
 
-  .report-team h2,
-  .report-community h2,
-  .report-support h2 {
+  .report-community__heading {
     margin-bottom: var(--space-6);
+    font-family: var(--font-display);
+    font-size: var(--font-size-xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-inverse-text);
+  }
+
+  .report-human .prose {
+    color: color-mix(in srgb, var(--color-inverse-text) 80%, transparent);
+    margin-top: var(--space-4);
   }
 
   .partner-chips {
@@ -528,45 +642,44 @@ This report was built through a regional community effort. Our partners helped e
     margin-top: var(--space-6);
   }
 
+  /* Inverse chip variant — readable on dark background */
   .partner-chip {
     padding: var(--space-2) var(--space-4);
-    border: 1px solid var(--color-signal);
+    border: 1px solid color-mix(in srgb, var(--color-inverse-text) 35%, transparent);
     border-radius: 999px;
     font-size: var(--type-caption);
-    color: var(--color-signal-text);
-    background: var(--color-ambient);
+    color: var(--color-inverse-text);
+    background: color-mix(in srgb, var(--color-inverse-text) 10%, transparent);
     white-space: nowrap;
   }
 
-  .report-community .prose {
-    margin-top: var(--space-4);
+  /* Support block — light, centred, separate from dark beat */
+  .report-support {
+    padding-block: var(--space-16) var(--space-24);
+    text-align: center;
   }
 
-  .report-support .prose {
-    margin-top: var(--space-4);
+  .report-support__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    max-width: var(--zone-editorial);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+  }
+
+  .report-support__inner h2 {
+    margin: 0;
+  }
+
+  .report-support__inner .prose {
+    text-align: center;
   }
 
   .report-support__cta {
-    display: inline-flex;
-    align-items: center;
-    margin-top: var(--space-6);
-    padding: var(--space-3) var(--space-6);
-    background: var(--color-signal-fill);
-    color: var(--color-inverse-text);
-    font-weight: 700;
-    font-size: var(--type-caption);
-    border-radius: 6px;
+    margin-top: var(--space-2);
     text-decoration: none;
-    transition: opacity 0.15s ease;
-  }
-
-  .report-support__cta:hover {
-    opacity: 0.85;
-  }
-
-  .report-support__cta:focus-visible {
-    outline: 2px solid var(--color-action);
-    outline-offset: 2px;
   }
 
   @media (max-width: 767px) {
@@ -581,6 +694,7 @@ This report was built through a regional community effort. Our partners helped e
     .report-copy,
     .report-charts,
     .report-sections,
+    .report-section-bucket,
     .report-methodology,
     .report-team,
     .report-community,

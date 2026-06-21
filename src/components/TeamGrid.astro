@@ -73,7 +73,7 @@ const countryFlag: Record<string, string> = {
     align-items: center;
     gap: var(--space-3);
     text-decoration: none;
-    color: var(--color-ink);
+    color: var(--team-link-color, var(--color-ink));
     padding: var(--space-4);
     border-radius: 8px;
     border: 1px solid transparent;
@@ -82,8 +82,8 @@ const countryFlag: Record<string, string> = {
 
   .team-card__link:hover,
   .team-card__link:focus-visible {
-    border-color: var(--color-border-subtle);
-    background-color: var(--color-surface);
+    border-color: var(--team-hover-border, var(--color-border-subtle));
+    background-color: var(--team-hover-bg, var(--color-surface));
     outline: none;
   }
 
@@ -98,7 +98,7 @@ const countryFlag: Record<string, string> = {
     border-radius: 50%;
     object-fit: cover;
     object-position: top center;
-    background-color: var(--color-surface);
+    background-color: var(--team-photo-bg, var(--color-surface));
   }
 
   .team-card__name {
@@ -106,7 +106,7 @@ const countryFlag: Record<string, string> = {
     font-weight: 600;
     text-align: center;
     line-height: var(--leading-caption);
-    color: var(--color-ink);
+    color: var(--team-name-color, var(--color-ink));
   }
 
   .team-card__country {
