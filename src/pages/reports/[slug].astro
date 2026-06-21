@@ -92,14 +92,18 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 <Base title={`${report.data.title} - Design Pay Asia`} description={report.data.summary} ogType="article">
   <section class="report-hero">
     <div class="report-hero__inner">
-      <p class="label-mono">{report.data.eyebrow}</p>
-      <h1 class="t-h2">{report.data.title}</h1>
-      {report.data.summary.split('\n\n').map(paragraph => (
-        <p class="prose">{paragraph}</p>
-      ))}
-      <p class="report-hero__meta label-mono">
-        Published {publishedDate} · {report.data.markets.join(', ')}
-      </p>
+      <div class="report-hero__copy">
+        <p class="label-mono">{report.data.eyebrow}</p>
+        <h1 class="t-h2">{report.data.title}</h1>
+        <p class="report-hero__meta label-mono">
+          Published {publishedDate} &middot; {report.data.markets.join(', ')}
+        </p>
+      </div>
+      <div class="report-hero__lede">
+        {report.data.summary.split('\n\n').map(paragraph => (
+          <p class="report-hero__lede-p">{paragraph}</p>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -241,9 +245,10 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         )}
 
         {closingSection && (
-          <div class="report-closing-link">
-            <a href={`${report.data.canonicalPath}/${closingSection.id}`} class="report-section__link">
-              {closingSection.title}
+          <div class="report-invitation">
+            <p class="report-invitation__q t-h2">Where do you sit in this data, <span class="signal-word">and does it match</span> how you feel about the value of your work?</p>
+            <a href={`${report.data.canonicalPath}/${closingSection.id}`} class="report-invitation__eyebrow">
+              {closingSection.title} &rarr;
             </a>
           </div>
         )}
@@ -342,7 +347,16 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  .report-hero__inner,
+  .report-hero__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
   .report-stats__inner,
   .report-body__inner {
     max-width: var(--site-max-width);
@@ -350,7 +364,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     padding-inline: var(--space-8);
   }
 
-  .report-hero__inner h1 {
+  .report-hero__copy h1 {
     margin-block: var(--space-6);
     max-width: 12ch;
   }
@@ -358,6 +372,17 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .report-hero__meta {
     margin-top: var(--space-6);
     color: var(--color-ink-muted);
+  }
+
+  .report-hero__lede-p {
+    margin: 0 0 var(--space-4);
+    font-size: var(--font-size-lg);
+    line-height: 1.55;
+    color: var(--color-ink-subtle);
+  }
+
+  .report-hero__lede-p:last-child {
+    margin-bottom: 0;
   }
 
   .report-hero .prose + .prose {
@@ -379,7 +404,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .report-body--findings {
-    padding-block: var(--space-16) var(--space-24);
+    padding-block: var(--space-16) var(--space-32);
     border-top: 1px solid var(--color-border-subtle);
   }
 
@@ -463,7 +488,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .report-section-row__commentary-block {
     padding-left: var(--space-4);
-    border-left: 2px solid var(--color-border-subtle);
+    border-left: 2px solid var(--color-signal-text);
   }
 
   .report-section-row__commentary {
@@ -490,10 +515,33 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     text-decoration: underline;
   }
 
-  .report-closing-link {
-    margin-top: var(--space-12);
-    padding-top: var(--space-8);
+  .report-invitation {
+    padding-block: var(--space-16) var(--space-24);
+    text-align: center;
     border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .report-invitation__eyebrow {
+    display: inline-block;
+    margin: var(--space-6) 0 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+    text-decoration: none;
+  }
+
+  .report-invitation__eyebrow:visited {
+    color: var(--color-ink-muted);
+  }
+
+  .report-invitation__eyebrow:hover {
+    color: var(--color-signal-text);
+  }
+
+  .report-invitation__q {
+    max-width: 24ch;
+    margin: 0 auto;
+    font-style: italic;
+    text-wrap: balance;
   }
 
   /* Methodology — no box, lean on spacing over borders */
@@ -685,6 +733,11 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   @media (max-width: 767px) {
     .report-hero {
       padding-block: var(--space-16) var(--space-8);
+    }
+
+    .report-hero__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
     }
 
     .report-stats__inner {
