@@ -126,6 +126,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     <div class="report-body__inner">
       <div class="report-findings-header">
         <h2 class="report-findings-title t-h2">Key findings</h2>
+        <p class="report-findings-header__lede">{routableSections.length} sections drawing from {stats[0].value} survey responses — each with data-backed findings and community commentary.</p>
       </div>
 
       {signatureCharts.length > 0 && (
@@ -437,7 +438,14 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .report-findings-title {
+    margin: 0 0 var(--space-3);
+  }
+
+  .report-findings-header__lede {
     margin: 0;
+    font-size: var(--font-size-sm);
+    line-height: 1.55;
+    color: var(--color-ink-subtle);
   }
 
   /* Section buckets — constrained to editorial column */
@@ -540,7 +548,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .report-invitation__q {
     max-width: 24ch;
     margin: 0 auto;
-    font-style: italic;
     text-wrap: balance;
   }
 
