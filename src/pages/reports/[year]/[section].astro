@@ -142,74 +142,26 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     </section>
 
     <!-- ── Top section navigation ───────────────────────────────────── -->
-    {(() => {
-      const landscapeSections = navigableSections.slice(0, 4);
-      const sentimentSections = navigableSections.slice(4, 8);
-      const closingSection = navigableSections[8]; // closing is always last
-
-      return (
-        <nav class="section-top-nav" aria-label="Report sections">
-          <div class="section-top-nav__inner">
-            <div class="section-top-nav__groups">
-              {/* ── Landscape ───────────────────────────────────────── */}
-              <div class="section-top-nav__group">
-                <p class="section-top-nav__group-heading label-mono">The landscape</p>
-                <ul class="section-top-nav__links" role="list">
-                  {landscapeSections.map((item) => {
-                    const isCurrent = item.id === section.id;
-                    return (
-                      <li>
-                        <a
-                          href={`${report.data.canonicalPath}/${item.id}`}
-                          class={`section-top-nav__link${isCurrent ? ' section-top-nav__link--current' : ''}`}
-                          aria-current={isCurrent ? 'page' : undefined}
-                        >
-                          {item.title}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-
-              {/* ── Sentiment ────────────────────────────────────────── */}
-              <div class="section-top-nav__group">
-                <p class="section-top-nav__group-heading label-mono">Sentiment &amp; perceptions</p>
-                <ul class="section-top-nav__links" role="list">
-                  {sentimentSections.map((item) => {
-                    const isCurrent = item.id === section.id;
-                    return (
-                      <li>
-                        <a
-                          href={`${report.data.canonicalPath}/${item.id}`}
-                          class={`section-top-nav__link${isCurrent ? ' section-top-nav__link--current' : ''}`}
-                          aria-current={isCurrent ? 'page' : undefined}
-                        >
-                          {item.title}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-
-            {/* ── Closing ────────────────────────────────────────────── */}
-            {closingSection && (
-              <div class="section-top-nav__closing">
+    <nav class="section-top-nav" aria-label="Report sections">
+      <div class="section-top-nav__inner">
+        <ul class="section-top-nav__chips" role="list">
+          {navigableSections.map((item) => {
+            const isCurrent = item.id === section.id;
+            return (
+              <li>
                 <a
-                  href={`${report.data.canonicalPath}/${closingSection.id}`}
-                  class={`section-top-nav__link section-top-nav__link--closing${closingSection.id === section.id ? ' section-top-nav__link--current' : ''}`}
-                  aria-current={closingSection.id === section.id ? 'page' : undefined}
+                  href={`${report.data.canonicalPath}/${item.id}`}
+                  class={`section-top-nav__chip${isCurrent ? ' section-top-nav__chip--current' : ''}`}
+                  aria-current={isCurrent ? 'page' : undefined}
                 >
-                  {closingSection.title}
+                  {item.title}
                 </a>
-              </div>
-            )}
-          </div>
-        </nav>
-      );
-    })()}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </nav>
 
     <section class="section-body" aria-label={`${section.title} analysis`}>
       <div class="section-body__inner">
@@ -727,62 +679,43 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     padding-block: var(--space-8);
   }
 
-  .section-top-nav__groups {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-5);
-  }
-
-  .section-top-nav__group-heading {
-    margin: 0 0 var(--space-3);
-    color: var(--color-ink-muted);
-  }
-
-  .section-top-nav__links {
+  .section-top-nav__chips {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-1);
+    gap: var(--space-2);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .section-top-nav__link {
+  .section-top-nav__chip {
     display: inline-block;
     padding: var(--space-1) var(--space-3);
     font-size: var(--font-size-sm);
     color: var(--color-ink-muted);
     text-decoration: none;
-    border-radius: 4px;
-    transition: color 0.15s ease, background 0.15s ease;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 6px;
+    background: var(--color-surface);
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
   }
 
-  .section-top-nav__link:hover {
+  .section-top-nav__chip:hover {
     color: var(--color-ink);
+    border-color: var(--color-border);
     background: var(--color-surface-muted);
   }
 
-  .section-top-nav__link:focus-visible {
+  .section-top-nav__chip:focus-visible {
     outline: 2px solid var(--color-signal-fill);
     outline-offset: 2px;
   }
 
-  .section-top-nav__link--current {
+  .section-top-nav__chip--current {
     color: var(--color-ink);
     font-weight: 700;
-    background: var(--color-surface-muted);
-  }
-
-  /* Closing — centred below groups, separated by a thin rule */
-  .section-top-nav__closing {
-    margin-top: var(--space-5);
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--color-border-subtle);
-    text-align: center;
-  }
-
-  .section-top-nav__link--closing {
-    font-weight: 700;
+    border-color: var(--color-signal-fill);
+    background: var(--color-surface);
   }
 
 
