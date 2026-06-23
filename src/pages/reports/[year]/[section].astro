@@ -104,7 +104,7 @@ const isAudienceGuidance = whatThisMeansNotes.length > 0 &&
 
 const hasAudienceGuidance = individualNotes.length > 0 || leaderNotes.length > 0;
 const hasEditorialBlock =
-  !!commentaryLead || hasAudienceGuidance || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0;
+  commentaryRaw.length > 0 || hasAudienceGuidance || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0;
 
 /* ── Navigation ───────────────────────────────────────────────────── */
 
@@ -179,17 +179,30 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       <section class="section-editorial" aria-label="Commentary and guidance">
         <div class="section-editorial__inner">
 
-          {/* Commentary lead */}
-          {commentaryLead && (
+          {/* Commentary: crimson-border lead + body bullets */}
+          {commentaryRaw.length > 0 && (
             <div class="section-editorial__commentary">
               <h2 class="section-editorial__heading t-h2">Commentary</h2>
-              <p class="section-editorial__lead">{commentaryLead}</p>
+              <p class="section-editorial__lead">{commentaryRaw[0]}</p>
+              {/* Body: whatThisMeans bullets (e.g. demographics) OR remaining commentary paragraphs */}
+              {whatThisMeansNotes.length > 0 ? (
+                <ul class="section-editorial__commentary-body">
+                  {whatThisMeansNotes.map(item => <li>{item}</li>)}
+                </ul>
+              ) : commentaryRaw.length > 1 ? (
+                <ul class="section-editorial__commentary-body">
+                  {commentaryRaw.slice(1).flatMap(para => para.split('\n').filter(Boolean)).map(item => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           )}
 
-          {/* Audience guidance — 50:50 grid */}
+          {/* What this means for you — heading + 50:50 audience grid */}
           {hasAudienceGuidance && (
             <div class="section-editorial__audience">
+              <h3 class="section-editorial__subheading">What this means for you</h3>
               <div class="section-editorial__audience-grid">
                 {individualNotes.length > 0 && (
                   <div class="section-editorial__audience-col">
@@ -208,15 +221,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                   </div>
                 )}
               </div>
-            </div>
-          )}
-          {/* What this could mean for you — only when distinct from audience columns */}
-          {whatThisMeansNotes.length > 0 && !isAudienceGuidance && (
-            <div class="section-editorial__meaning">
-              <h3 class="section-editorial__subheading t-h3">What this could mean for you</h3>
-              <ul class="section-editorial__list">
-                {whatThisMeansNotes.map((note) => <li>{note}</li>)}
-              </ul>
             </div>
           )}
 
@@ -439,7 +443,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   /* Commentary lead — editorial prose, no quote styling */
   .section-editorial__commentary {
-    /* intentionally clean — no border, no accent */
+    max-width: var(--zone-prose);
   }
 
   .section-editorial__heading {
@@ -455,6 +459,21 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     line-height: var(--leading-editorial);
   }
 
+  .section-editorial__commentary-body {
+    margin-block: var(--space-4) 0;
+    padding-left: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: disc;
+  }
+
+  .section-editorial__commentary-body li {
+    font-size: var(--type-body);
+    color: var(--color-workhorse);
+    line-height: var(--leading-body);
+  }
+
   /* Audience guidance — 50:50 grid, labelled columns */
   .section-editorial__audience-grid {
     display: grid;
@@ -465,6 +484,10 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-editorial__audience-col {
     padding-top: var(--space-5);
     border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .section-editorial__subheading {
+    margin: var(--space-8) 0 var(--space-6);
   }
 
   .section-editorial__audience-label {
@@ -572,6 +595,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-source-group {
     border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .section-source-group + .section-source-group {
@@ -581,7 +605,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-source-group summary {
     cursor: pointer;
     padding-block: var(--space-4);
-    font-weight: var(--weight-bold);
+    font-weight: 700;
   }
 
   .section-source-group summary:hover {
@@ -595,17 +619,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-source-group li {
     margin-top: var(--space-3);
-  }
-
-  .section-source-group a {
-    color: var(--color-ink);
-    text-underline-offset: 0.2em;
-    text-decoration-color: var(--color-border-strong);
-    transition: color var(--duration-fast) var(--easing-standard);
-  }
-
-  .section-source-group a:hover {
-    color: var(--color-signal-text);
   }
 
   .evidence-list {
