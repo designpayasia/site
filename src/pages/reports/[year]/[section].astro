@@ -140,12 +140,12 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       </div>
     </section>
 
-    <a href={report.data.canonicalPath} class="section-back-link label-mono">
-      ← Back to 2024 report
-    </a>
     <!-- ── Top section navigation ───────────────────────────────────── -->
     <nav class="section-top-nav" aria-label="Report sections">
       <div class="section-top-nav__inner">
+        <a href={report.data.canonicalPath} class="section-top-nav__back label-mono">
+          ← Back to 2024 report
+        </a>
         <ul class="section-top-nav__chips" role="list">
           {navigableSections.map((item) => {
             const isCurrent = item.id === section.id;
@@ -341,8 +341,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <span></span>
         )}
 
-        <a href={report.data.canonicalPath} class="section-bottom-nav__hub">
-          Back to report
+        <a href={report.data.canonicalPath} class="section-bottom-nav__hub label-mono">
+          ← Back to 2024 report
         </a>
 
         {nextSection ? (
@@ -402,19 +402,16 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     margin-top: var(--space-6);
   }
 
-  /* ── Back link above chip nav ──────────────────────────────────── */
+  /* ── Back link inside chip nav ──────────────────────────────────── */
 
-  .section-back-link {
-    display: block;
-    width: min(100% - var(--space-8), var(--zone-editorial));
-    margin-inline: auto;
-    margin-top: var(--space-6);
-    margin-bottom: var(--space-2);
+  .section-top-nav__back {
+    display: inline-flex;
+    margin-bottom: var(--space-3);
     color: var(--color-ink-muted);
     text-decoration: none;
   }
 
-  .section-back-link:hover {
+  .section-top-nav__back:hover {
     color: var(--color-ink);
   }
 
@@ -773,7 +770,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .section-bottom-nav__hub {
-    font-size: var(--font-size-sm);
     color: var(--color-ink-muted);
     text-decoration: none;
   }
