@@ -59,7 +59,7 @@ src/
       _dark.css         # data-theme="dark" overrides only
     global.css          # import order: primitives → semantic → dark → base
 public/
-  charts/2024/<section>/ # archived chart PNGs (50 total)
+  charts/2024/<section>/ # archived chart PNGs (68 total across 8 sections)
   team/2024/              # team member headshots
 ```
 
@@ -81,7 +81,7 @@ Rules:
 - **Never reference `_primitives.css` tokens directly in components.** Always use semantic tokens from `_semantic.css`.
 - No hardcoded hex/rgb/px values that have a token equivalent. If a design value is not in the token system, it does not exist in the brand system.
 - Changing a semantic token value changes it everywhere. That is the succession lever.
-- Space scale is `--space-1` through `--space-32` (multiples of 4px from 4px to 128px). Nothing in between.
+- Space scale tokens: `--space-1` through `--space-6` (consecutive, 4px–24px), then `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-24`, `--space-32`. Tailwind-style stops — no intermediate values.
 
 ### Colour roles (design spec §4 — Track B resolved)
 
@@ -188,7 +188,7 @@ Each evidence JSON file in `src/content/evidence/` requires: `id`, `title`, `sum
 - All redirects tracked in `src/data/redirects.json`. Array of `{ from, to, status }` objects.
 - Run `pnpm run redirects:sync` after adding or changing redirects, then `pnpm run redirects:check` to verify.
 - Redirects use 301 (permanent) for structural URL changes and 302 (temporary) for convenience aliases.
-- Current redirects: `/reports/latest` → `/reports/2024` (302), `/report/*` → `/reports/*` (301).
+- Current redirects: `/reports/latest` → `/reports/2024` (302), `/latest-report` → `/reports/2024` (302), `/report/2023` → `/reports/2023` (301), `/report/2024` → `/reports/2024` (301).
 
 ### Data visualisation (design spec §6)
 
