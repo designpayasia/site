@@ -729,8 +729,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-top-nav__groups {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-6);
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
   }
 
   .section-top-nav__group-heading {
@@ -785,11 +785,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     font-weight: 700;
   }
 
-  @media (max-width: 640px) {
-    .section-top-nav__groups {
-      grid-template-columns: 1fr;
-    }
-  }
+
 
   /* ── Section nav ────────────────────────────────────────────────── */
 
