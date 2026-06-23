@@ -324,38 +324,24 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       </section>
     )}
 
-    {/* ── Section navigation ────────────────────────────────────────── */}
+    {/* ── Merged bottom nav: chips centre, prev/next on sides ────────── */}
 
-    <nav class="section-nav" aria-label="Report section navigation">
-      <div class="section-nav__inner">
+    <nav class="section-bottom-nav" aria-label="Report section navigation">
+      <div class="section-bottom-nav__inner">
+        {/* ── Prev ─────────────────────────────────────────────────── */}
         {previousSection ? (
-          <a href={`${report.data.canonicalPath}/${previousSection.id}`} class="section-nav__link">
-            <span class="label-mono">Previous</span>
-            {previousSection.title}
+          <a
+            href={`${report.data.canonicalPath}/${previousSection.id}`}
+            class="section-bottom-nav__side section-bottom-nav__side--prev"
+          >
+            <span class="section-bottom-nav__arrow" aria-hidden="true">←</span>
+            <span class="section-bottom-nav__label">{previousSection.title}</span>
           </a>
         ) : (
-          <span></span>
+          <span class="section-bottom-nav__side"></span>
         )}
 
-        <a href={report.data.canonicalPath} class="section-nav__link section-nav__link--center">
-          <span class="label-mono">Index</span>
-          Full report
-        </a>
-
-        {nextSection ? (
-          <a href={`${report.data.canonicalPath}/${nextSection.id}`} class="section-nav__link">
-            <span class="label-mono">Next</span>
-            {nextSection.title}
-          </a>
-        ) : (
-          <span></span>
-        )}
-      </div>
-    </nav>
-
-    <!-- ── Bottom section jump nav ────────────────────────────────────── -->
-    <nav class="section-top-nav" aria-label="Jump to section">
-      <div class="section-top-nav__inner">
+        {/* ── Chips ────────────────────────────────────────────────── */}
         <ul class="section-top-nav__chips" role="list">
           {navigableSections.map((item) => {
             const isCurrent = item.id === section.id;
@@ -372,6 +358,19 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             );
           })}
         </ul>
+
+        {/* ── Next ─────────────────────────────────────────────────── */}
+        {nextSection ? (
+          <a
+            href={`${report.data.canonicalPath}/${nextSection.id}`}
+            class="section-bottom-nav__side section-bottom-nav__side--next"
+          >
+            <span class="section-bottom-nav__label">{nextSection.title}</span>
+            <span class="section-bottom-nav__arrow" aria-hidden="true">→</span>
+          </a>
+        ) : (
+          <span class="section-bottom-nav__side"></span>
+        )}
       </div>
     </nav>
   </main>
@@ -746,51 +745,89 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
 
 
-  /* ── Section nav ────────────────────────────────────────────────── */
+  /* ── Merged bottom nav ──────────────────────────────────────────── */
 
-  .section-nav {
-    padding-block: var(--space-12);
-    margin-block: var(--space-16) 0;
+  .section-bottom-nav {
+    border-top: 1px solid var(--color-border-subtle);
+    margin-top: var(--space-16);
+    padding-block: var(--space-10);
   }
 
-  .section-nav__inner {
+  .section-bottom-nav__inner {
+    width: min(100% - var(--space-8), var(--zone-editorial));
+    margin-inline: auto;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
     gap: var(--space-4);
   }
 
-  .section-nav__link {
+  .section-bottom-nav__side {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
     color: var(--color-ink);
     font-weight: 700;
     text-decoration: none;
+    white-space: nowrap;
   }
 
-  .section-nav__link span {
-    display: block;
-    margin-bottom: var(--space-2);
+  .section-bottom-nav__side:hover {
     color: var(--color-ink-muted);
   }
 
-  .section-nav__link--center {
-    text-align: center;
+  .section-bottom-nav__side:focus-visible {
+    outline: 2px solid var(--color-signal-fill);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
-  .section-nav__link:last-child {
+  .section-bottom-nav__arrow {
+    font-size: var(--font-size-lg);
+  }
+
+  .section-bottom-nav__label {
+    max-width: 12ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .section-bottom-nav__side--prev {
+    justify-self: start;
+  }
+
+  .section-bottom-nav__side--next {
+    justify-self: end;
     text-align: right;
+  }
+
+  /* Chips inside bottom nav — centre naturally via auto grid column */
+  .section-bottom-nav__inner .section-top-nav__chips {
+    justify-content: center;
+  }
+
+  /* Bottom instance — border-top already on parent, no extra needed */
+  .section-nav + .section-top-nav {
+    display: none;
   }
 
   /* ── Responsive ─────────────────────────────────────────────────── */
 
   @media (max-width: 720px) {
-    .section-editorial__audience-grid,
-    .section-nav__inner {
+    .section-editorial__audience-grid {
       grid-template-columns: 1fr;
     }
 
-    .section-nav__link,
-    .section-nav__link--center,
-    .section-nav__link:last-child {
-      text-align: left;
+    .section-bottom-nav__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+      justify-items: center;
+    }
+
+    .section-bottom-nav__side--prev,
+    .section-bottom-nav__side--next {
+      justify-self: center;
+      text-align: center;
     }
   }
 </style>
