@@ -141,6 +141,39 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       </div>
     </section>
 
+    <!-- ── Top section navigation ───────────────────────────────────── -->
+    <nav class="section-top-nav" aria-label="Section progress">
+      <div class="section-top-nav__inner">
+        <div class="section-top-nav__progress" aria-hidden="true">
+          <div
+            class="section-top-nav__bar"
+            style={`--filled: ${(sectionIndex / (navigableSections.length - 1)) * 100}%`}
+          ></div>
+        </div>
+        <div class="section-top-nav__header">
+          <p class="section-top-nav__indicator label-mono">
+            Section {sectionIndex + 1} of {navigableSections.length}
+          </p>
+        </div>
+        <ul class="section-top-nav__jump" role="list">
+          {navigableSections.map((item, _idx) => {
+            const isCurrent = item.id === section.id;
+            return (
+              <li>
+                <a
+                  href={`${report.data.canonicalPath}/${item.id}`}
+                  class={`section-top-nav__jump-link${isCurrent ? ' section-top-nav__jump-link--current' : ''}`}
+                  aria-current={isCurrent ? 'page' : undefined}
+                >
+                  {item.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </nav>
+
     <section class="section-body" aria-label={`${section.title} analysis`}>
       <div class="section-body__inner">
         <article class="section-copy prose">
@@ -645,11 +678,85 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     font-weight: 700;
   }
 
+  /* ── Top section nav ────────────────────────────────────────────── */
+
+  .section-top-nav {
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .section-top-nav__inner {
+    width: min(100% - var(--space-8), var(--zone-editorial));
+    margin-inline: auto;
+    padding-block: var(--space-8);
+  }
+
+  .section-top-nav__progress {
+    height: 3px;
+    margin-bottom: var(--space-4);
+    background: var(--color-border-subtle);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .section-top-nav__bar {
+    height: 100%;
+    width: var(--filled);
+    background: var(--color-signal-fill);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  .section-top-nav__header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  .section-top-nav__indicator {
+    color: var(--color-ink-muted);
+  }
+
+  .section-top-nav__jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .section-top-nav__jump-link {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .section-top-nav__jump-link:hover {
+    color: var(--color-ink);
+    background: var(--color-surface-muted);
+  }
+
+  .section-top-nav__jump-link:focus-visible {
+    outline: 2px solid var(--color-signal-fill);
+    outline-offset: 2px;
+  }
+
+  .section-top-nav__jump-link--current {
+    color: var(--color-ink);
+    font-weight: 700;
+    background: var(--color-surface-muted);
+  }
+
   /* ── Section nav ────────────────────────────────────────────────── */
 
   .section-nav {
     padding-block: var(--space-12);
-    margin-block-start: var(--space-8);
+    margin-block: var(--space-16) 0;
   }
 
   .section-nav__inner {
