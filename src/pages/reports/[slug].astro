@@ -461,31 +461,15 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .report-section-row {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-areas:
-      "title"
-      "intro"
-      "content";
-    gap: var(--space-6);
-    padding-block: var(--space-8);
-  }
-
-  .report-section-row__title {
-    grid-area: title;
+    gap: var(--space-8);
+    padding-block: var(--space-10);
   }
 
   .report-section-row__intro,
   .report-section-row__content {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-5);
     align-content: start;
-  }
-
-  .report-section-row__intro {
-    grid-area: intro;
-  }
-
-  .report-section-row__content {
-    grid-area: content;
   }
 
   .report-section-row + .report-section-row {
@@ -495,7 +479,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
 
   .report-section-row__title {
-    margin-bottom: 0;
+    margin-bottom: var(--space-2);
     color: var(--color-workhorse);
   }
 
@@ -508,7 +492,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     margin: 0;
     padding-left: var(--space-5);
     display: grid;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
 
   .report-section-row__commentary-block {
@@ -538,18 +522,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .report-section__link:hover {
     text-decoration: underline;
-  }
-
-  @media (min-width: 960px) {
-    .report-section-row {
-      grid-template-columns: 8fr 4fr;
-      grid-template-areas:
-        "title title"
-        "content intro";
-      column-gap: var(--space-10);
-      row-gap: var(--space-4);
-      align-items: start;
-    }
   }
 
   .report-invitation {
