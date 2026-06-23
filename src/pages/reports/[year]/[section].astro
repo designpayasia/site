@@ -142,37 +142,74 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     </section>
 
     <!-- ── Top section navigation ───────────────────────────────────── -->
-    <nav class="section-top-nav" aria-label="Section progress">
-      <div class="section-top-nav__inner">
-        <div class="section-top-nav__progress" aria-hidden="true">
-          <div
-            class="section-top-nav__bar"
-            style={`--filled: ${(sectionIndex / (navigableSections.length - 1)) * 100}%`}
-          ></div>
-        </div>
-        <div class="section-top-nav__header">
-          <p class="section-top-nav__indicator label-mono">
-            Section {sectionIndex + 1} of {navigableSections.length}
-          </p>
-        </div>
-        <ul class="section-top-nav__jump" role="list">
-          {navigableSections.map((item, _idx) => {
-            const isCurrent = item.id === section.id;
-            return (
-              <li>
+    {(() => {
+      const landscapeSections = navigableSections.slice(0, 4);
+      const sentimentSections = navigableSections.slice(4, 8);
+      const closingSection = navigableSections[8]; // closing is always last
+
+      return (
+        <nav class="section-top-nav" aria-label="Report sections">
+          <div class="section-top-nav__inner">
+            <div class="section-top-nav__groups">
+              {/* ── Landscape ───────────────────────────────────────── */}
+              <div class="section-top-nav__group">
+                <p class="section-top-nav__group-heading label-mono">The landscape</p>
+                <ul class="section-top-nav__links" role="list">
+                  {landscapeSections.map((item) => {
+                    const isCurrent = item.id === section.id;
+                    return (
+                      <li>
+                        <a
+                          href={`${report.data.canonicalPath}/${item.id}`}
+                          class={`section-top-nav__link${isCurrent ? ' section-top-nav__link--current' : ''}`}
+                          aria-current={isCurrent ? 'page' : undefined}
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              {/* ── Sentiment ────────────────────────────────────────── */}
+              <div class="section-top-nav__group">
+                <p class="section-top-nav__group-heading label-mono">Sentiment &amp; perceptions</p>
+                <ul class="section-top-nav__links" role="list">
+                  {sentimentSections.map((item) => {
+                    const isCurrent = item.id === section.id;
+                    return (
+                      <li>
+                        <a
+                          href={`${report.data.canonicalPath}/${item.id}`}
+                          class={`section-top-nav__link${isCurrent ? ' section-top-nav__link--current' : ''}`}
+                          aria-current={isCurrent ? 'page' : undefined}
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+
+            {/* ── Closing ────────────────────────────────────────────── */}
+            {closingSection && (
+              <div class="section-top-nav__closing">
                 <a
-                  href={`${report.data.canonicalPath}/${item.id}`}
-                  class={`section-top-nav__jump-link${isCurrent ? ' section-top-nav__jump-link--current' : ''}`}
-                  aria-current={isCurrent ? 'page' : undefined}
+                  href={`${report.data.canonicalPath}/${closingSection.id}`}
+                  class={`section-top-nav__link section-top-nav__link--closing${closingSection.id === section.id ? ' section-top-nav__link--current' : ''}`}
+                  aria-current={closingSection.id === section.id ? 'page' : undefined}
                 >
-                  {item.title}
+                  {closingSection.title}
                 </a>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </nav>
+              </div>
+            )}
+          </div>
+        </nav>
+      );
+    })()}
 
     <section class="section-body" aria-label={`${section.title} analysis`}>
       <div class="section-body__inner">
@@ -690,43 +727,27 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     padding-block: var(--space-8);
   }
 
-  .section-top-nav__progress {
-    height: 3px;
-    margin-bottom: var(--space-4);
-    background: var(--color-border-subtle);
-    border-radius: 2px;
-    overflow: hidden;
+  .section-top-nav__groups {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
   }
 
-  .section-top-nav__bar {
-    height: 100%;
-    width: var(--filled);
-    background: var(--color-signal-fill);
-    border-radius: 2px;
-    transition: width 0.3s ease;
-  }
-
-  .section-top-nav__header {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-3);
-    margin-bottom: var(--space-5);
-  }
-
-  .section-top-nav__indicator {
+  .section-top-nav__group-heading {
+    margin: 0 0 var(--space-3);
     color: var(--color-ink-muted);
   }
 
-  .section-top-nav__jump {
+  .section-top-nav__links {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-1) var(--space-2);
+    gap: var(--space-1);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .section-top-nav__jump-link {
+  .section-top-nav__link {
     display: inline-block;
     padding: var(--space-1) var(--space-3);
     font-size: var(--font-size-sm);
@@ -736,20 +757,38 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     transition: color 0.15s ease, background 0.15s ease;
   }
 
-  .section-top-nav__jump-link:hover {
+  .section-top-nav__link:hover {
     color: var(--color-ink);
     background: var(--color-surface-muted);
   }
 
-  .section-top-nav__jump-link:focus-visible {
+  .section-top-nav__link:focus-visible {
     outline: 2px solid var(--color-signal-fill);
     outline-offset: 2px;
   }
 
-  .section-top-nav__jump-link--current {
+  .section-top-nav__link--current {
     color: var(--color-ink);
     font-weight: 700;
     background: var(--color-surface-muted);
+  }
+
+  /* Closing — centred below groups, separated by a thin rule */
+  .section-top-nav__closing {
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border-subtle);
+    text-align: center;
+  }
+
+  .section-top-nav__link--closing {
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .section-top-nav__groups {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ── Section nav ────────────────────────────────────────────────── */
