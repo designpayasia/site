@@ -56,6 +56,8 @@ const routableSections = report.data.sections.filter(
   (section) => !EXCLUDED_IDS.has(section.id) && section.id !== CLOSING_ID,
 );
 const closingSection = report.data.sections.find((section) => section.id === CLOSING_ID);
+const allSections = [...routableSections];
+if (closingSection) allSections.push(closingSection);
 
 const landscapeSections = routableSections.filter((section) => LANDSCAPE_IDS.includes(section.id));
 const sentimentSections = routableSections.filter((section) => SENTIMENT_IDS.includes(section.id));
@@ -148,6 +150,23 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           ))}
         </div>
       )}
+
+      <nav class="section-top-nav" aria-label="Report sections">
+        <div class="section-top-nav__inner">
+          <ul class="section-top-nav__chips" role="list">
+            {allSections.map((item) => (
+              <li>
+                <a
+                  href={`${report.data.canonicalPath}/${item.id}`}
+                  class="section-top-nav__chip"
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
 
       <div class="report-sections">
         {landscapeSections.length > 0 && (
@@ -763,5 +782,49 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     .report-support {
       max-width: none;
     }
+  }
+
+  /* ── Chip nav ──────────────────────────────────────────────────────── */
+
+  .section-top-nav {
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .section-top-nav__inner {
+    width: min(100% - var(--space-8), var(--zone-editorial));
+    margin-inline: auto;
+    padding-block: var(--space-4) var(--space-8);
+  }
+
+  .section-top-nav__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .section-top-nav__chip {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 6px;
+    background: var(--color-surface);
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .section-top-nav__chip:hover {
+    color: var(--color-ink);
+    border-color: var(--color-border);
+    background: var(--color-surface-muted);
+  }
+
+  .section-top-nav__chip:focus-visible {
+    outline: 2px solid var(--color-signal-fill);
+    outline-offset: 2px;
   }
 </style>
