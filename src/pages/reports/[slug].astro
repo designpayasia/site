@@ -157,20 +157,24 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               <article class="report-section-row" id={section.id}>
                 <h4 class="report-section-row__title t-h2">{section.title}</h4>
                 {section.hubCommentary && (
-                  <div class="report-section-row__commentary-block">
-                    <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                  <div class="report-section-row__intro">
+                    <div class="report-section-row__commentary-block">
+                      <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                    </div>
                   </div>
                 )}
-                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                  <ul class="report-section__findings prose">
-                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                  </ul>
-                ) : (
-                  <p class="report-section__summary prose">{section.summary}</p>
-                )}
-                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                  Read section
-                </a>
+                <div class="report-section-row__content">
+                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                    <ul class="report-section__findings prose">
+                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                    </ul>
+                  ) : (
+                    <p class="report-section__summary prose">{section.summary}</p>
+                  )}
+                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                    Read section
+                  </a>
+                </div>
               </article>
             ))}
           </div>
@@ -183,20 +187,24 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               <article class="report-section-row" id={section.id}>
                 <h4 class="report-section-row__title t-h2">{section.title}</h4>
                 {section.hubCommentary && (
-                  <div class="report-section-row__commentary-block">
-                    <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                  <div class="report-section-row__intro">
+                    <div class="report-section-row__commentary-block">
+                      <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                    </div>
                   </div>
                 )}
-                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                  <ul class="report-section__findings prose">
-                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                  </ul>
-                ) : (
-                  <p class="report-section__summary prose">{section.summary}</p>
-                )}
-                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                  Read section
-                </a>
+                <div class="report-section-row__content">
+                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                    <ul class="report-section__findings prose">
+                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                    </ul>
+                  ) : (
+                    <p class="report-section__summary prose">{section.summary}</p>
+                  )}
+                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                    Read section
+                  </a>
+                </div>
               </article>
             ))}
           </div>
@@ -208,20 +216,24 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               <article class="report-section-row" id={section.id}>
                 <h4 class="report-section-row__title t-h2">{section.title}</h4>
                 {section.hubCommentary && (
-                  <div class="report-section-row__commentary-block">
-                    <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                  <div class="report-section-row__intro">
+                    <div class="report-section-row__commentary-block">
+                      <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                    </div>
                   </div>
                 )}
-                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                  <ul class="report-section__findings prose">
-                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                  </ul>
-                ) : (
-                  <p class="report-section__summary prose">{section.summary}</p>
-                )}
-                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                  Read section
-                </a>
+                <div class="report-section-row__content">
+                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                    <ul class="report-section__findings prose">
+                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                    </ul>
+                  ) : (
+                    <p class="report-section__summary prose">{section.summary}</p>
+                  )}
+                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                    Read section
+                  </a>
+                </div>
               </article>
             ))}
           </div>
@@ -449,8 +461,31 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .report-section-row {
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "intro"
+      "content";
     gap: var(--space-6);
     padding-block: var(--space-8);
+  }
+
+  .report-section-row__title {
+    grid-area: title;
+  }
+
+  .report-section-row__intro,
+  .report-section-row__content {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+  }
+
+  .report-section-row__intro {
+    grid-area: intro;
+  }
+
+  .report-section-row__content {
+    grid-area: content;
   }
 
   .report-section-row + .report-section-row {
@@ -460,7 +495,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
 
   .report-section-row__title {
-    margin-bottom: var(--space-3);
+    margin-bottom: 0;
     color: var(--color-workhorse);
   }
 
@@ -505,10 +540,23 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     text-decoration: underline;
   }
 
+  @media (min-width: 960px) {
+    .report-section-row {
+      grid-template-columns: 8fr 4fr;
+      grid-template-areas:
+        "title title"
+        "content intro";
+      column-gap: var(--space-10);
+      row-gap: var(--space-4);
+      align-items: start;
+    }
+  }
+
   .report-invitation {
-    padding-block: var(--space-16) var(--space-24);
+    padding-block: var(--space-32);
     text-align: center;
     border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .report-invitation__eyebrow {
