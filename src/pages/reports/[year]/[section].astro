@@ -352,6 +352,28 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         )}
       </div>
     </nav>
+
+    <!-- ── Bottom section jump nav ────────────────────────────────────── -->
+    <nav class="section-top-nav" aria-label="Jump to section">
+      <div class="section-top-nav__inner">
+        <ul class="section-top-nav__chips" role="list">
+          {navigableSections.map((item) => {
+            const isCurrent = item.id === section.id;
+            return (
+              <li>
+                <a
+                  href={`${report.data.canonicalPath}/${item.id}`}
+                  class={`section-top-nav__chip${isCurrent ? ' section-top-nav__chip--current' : ''}`}
+                  aria-current={isCurrent ? 'page' : undefined}
+                >
+                  {item.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </nav>
   </main>
 </Base>
 
@@ -716,6 +738,10 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     font-weight: 700;
     border-color: var(--color-signal-fill);
     background: var(--color-signal-fill);
+  }
+  /* Bottom instance — border-top for visual separation */
+  .section-nav + .section-top-nav {
+    border-top: 1px solid var(--color-border-subtle);
   }
 
 
