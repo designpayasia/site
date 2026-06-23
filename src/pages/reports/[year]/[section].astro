@@ -324,24 +324,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       </section>
     )}
 
-    {/* ── Merged bottom nav: chips centre, prev/next on sides ────────── */}
-
-    <nav class="section-bottom-nav" aria-label="Report section navigation">
-      <div class="section-bottom-nav__inner">
-        {/* ── Prev ─────────────────────────────────────────────────── */}
-        {previousSection ? (
-          <a
-            href={`${report.data.canonicalPath}/${previousSection.id}`}
-            class="section-bottom-nav__side section-bottom-nav__side--prev"
-          >
-            <span class="section-bottom-nav__arrow" aria-hidden="true">←</span>
-            <span class="section-bottom-nav__label">{previousSection.title}</span>
-          </a>
-        ) : (
-          <span class="section-bottom-nav__side"></span>
-        )}
-
-        {/* ── Chips ────────────────────────────────────────────────── */}
+    {/* ── Bottom chips ──────────────────────────────────────────────── */}
+    <nav class="section-top-nav" aria-label="Jump to section">
+      <div class="section-top-nav__inner">
         <ul class="section-top-nav__chips" role="list">
           {navigableSections.map((item) => {
             const isCurrent = item.id === section.id;
@@ -358,18 +343,38 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             );
           })}
         </ul>
+      </div>
+    </nav>
 
-        {/* ── Next ─────────────────────────────────────────────────── */}
+    {/* ── Bottom prev/next ──────────────────────────────────────────── */}
+    <nav class="section-bottom-nav" aria-label="Previous and next section">
+      <div class="section-bottom-nav__inner">
+        {previousSection ? (
+          <a
+            href={`${report.data.canonicalPath}/${previousSection.id}`}
+            class="section-bottom-nav__side"
+          >
+            <span aria-hidden="true">←</span>
+            <span>{previousSection.title}</span>
+          </a>
+        ) : (
+          <span></span>
+        )}
+
+        <a href={report.data.canonicalPath} class="section-bottom-nav__hub">
+          Back to report
+        </a>
+
         {nextSection ? (
           <a
             href={`${report.data.canonicalPath}/${nextSection.id}`}
-            class="section-bottom-nav__side section-bottom-nav__side--next"
+            class="section-bottom-nav__side"
           >
-            <span class="section-bottom-nav__label">{nextSection.title}</span>
-            <span class="section-bottom-nav__arrow" aria-hidden="true">→</span>
+            <span>{nextSection.title}</span>
+            <span aria-hidden="true">→</span>
           </a>
         ) : (
-          <span class="section-bottom-nav__side"></span>
+          <span></span>
         )}
       </div>
     </nav>
@@ -745,21 +750,19 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
 
 
-  /* ── Merged bottom nav ──────────────────────────────────────────── */
+  /* ── Bottom prev/next ──────────────────────────────────────────── */
 
   .section-bottom-nav {
-    border-top: 1px solid var(--color-border-subtle);
     margin-top: var(--space-16);
-    padding-block: var(--space-10);
+    padding-block: var(--space-8);
   }
 
   .section-bottom-nav__inner {
     width: min(100% - var(--space-8), var(--zone-editorial));
     margin-inline: auto;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
     align-items: center;
-    gap: var(--space-4);
+    justify-content: space-between;
   }
 
   .section-bottom-nav__side {
@@ -769,7 +772,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     color: var(--color-ink);
     font-weight: 700;
     text-decoration: none;
-    white-space: nowrap;
+    font-size: var(--font-size-sm);
   }
 
   .section-bottom-nav__side:hover {
@@ -782,33 +785,71 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     border-radius: 4px;
   }
 
-  .section-bottom-nav__arrow {
-    font-size: var(--font-size-lg);
+  .section-bottom-nav__hub {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+    text-decoration: none;
   }
 
-  .section-bottom-nav__label {
-    max-width: 12ch;
+  .section-bottom-nav__hub:hover {
+    color: var(--color-ink);
+  }
+
+  /* Section select dropdown + hub link */
+  .section-bottom-nav__center {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-shrink: 0;
+  }
+
+  .section-bottom-nav__select-wrapper {
+    flex-shrink: 0;
+  }
+
+  .section-bottom-nav__select {
+    padding: var(--space-1) var(--space-4) var(--space-1) var(--space-3);
+    font-size: var(--font-size-sm);
+    font-family: inherit;
+    color: var(--color-ink);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 6px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-2) center;
+    padding-right: var(--space-7);
+  }
+
+  .section-bottom-nav__select:focus-visible {
+    outline: 2px solid var(--color-signal-fill);
+    outline-offset: 2px;
+  }
+
+  .section-bottom-nav__hub-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .section-bottom-nav__hub-link:hover {
+    color: var(--color-ink);
+  }
+
+  /* Screen-reader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
     overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .section-bottom-nav__side--prev {
-    justify-self: start;
-  }
-
-  .section-bottom-nav__side--next {
-    justify-self: end;
-    text-align: right;
-  }
-
-  /* Chips inside bottom nav — centre naturally via auto grid column */
-  .section-bottom-nav__inner .section-top-nav__chips {
-    justify-content: center;
-  }
-
-  /* Bottom instance — border-top already on parent, no extra needed */
-  .section-nav + .section-top-nav {
-    display: none;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   /* ── Responsive ─────────────────────────────────────────────────── */
@@ -819,15 +860,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     }
 
     .section-bottom-nav__inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-5);
-      justify-items: center;
-    }
-
-    .section-bottom-nav__side--prev,
-    .section-bottom-nav__side--next {
-      justify-self: center;
-      text-align: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-4);
     }
   }
 </style>
