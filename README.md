@@ -6,7 +6,7 @@ This repository contains the Astro site for `designpay.asia`.
 
 ## Status
 
-The rebuild is in active development. Phase 1 design is coded, and the content foundation now uses Astro 6 structured collections for homepage, reports, evidence, redirects, docs, search, and public continuity notes.
+The 2024 report rebuild is complete on `main`. The site serves 31 pages: hub, 8 report detail sections, closing, 2023 archive, and supporting pages. Content is modelled as Astro 6 structured collections with evidence-backed metrics, editorial commentary, reader guidance, and community attribution.
 
 ## Stack
 
@@ -29,7 +29,7 @@ pnpm dev
 Build the production site and search index:
 
 ```sh
-pnpm build
+pnpm run build:site
 ```
 
 Run Astro diagnostics:
@@ -67,6 +67,18 @@ Regenerate `public/_redirects` from `src/data/redirects.json`:
 ```sh
 pnpm run redirects:sync
 ```
+
+## Quality gates
+
+```sh
+pnpm run a11y:charts          # verify all chart summaries are non-empty
+pnpm run a11y:contrast        # audit semantic colour-token contrast pairs
+pnpm run audit:pii            # scan content for email, phone, and IP leaks
+pnpm run check-links          # verify generated-site internal links
+pnpm run redirects:check      # validate redirect manifest
+```
+
+All audit scripts live under `scripts/` and are verified in CI.
 
 ## Public contract
 
