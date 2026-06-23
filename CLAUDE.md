@@ -158,7 +158,7 @@ Grid: 12 columns desktop (≥1280px), 8 mid (768–1279px), 4 mobile (<768px). T
 - Published metrics with `sampleSize < 10` are rejected by the Zod superRefine.
 - Non-published metrics (`sample` or `suppressed`) must include a `note` explaining why.
 - Report `canonicalPath` regex: `^/reports/[a-z0-9-]+(/[a-z0-9-]+)?$` — allows hub or hub+section.
-- Section `id`: `^[a-z0-9-]+$. Chart `id`: `^[a-z0-9-]+$`.
+- Section `id`: `^[a-z0-9-]+$`. Chart `id`: `^[a-z0-9-]+$`.
 - Team member `photo`: `^/team/\d{4}/.+\.jpg$`.
 
 ### Evidence entry schema

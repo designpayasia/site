@@ -167,7 +167,7 @@ charts:
 - `bars[].value` must be 0–100 (percentage scale). For raw values, use `fallbackTable`.
 - `fallbackTable` must have exactly 2 columns and at least 1 row.
 - `evidenceIds` must all reference existing entries in `src/content/evidence/`.
-- `id` format: `^[a-z0-9-]+$.
+- `id` format: `^[a-z0-9-]+$`.
 - Chart tone: `workhorse` (neutral fill) or `signal` (crimson fill). Default workhorse.
 
 ---
