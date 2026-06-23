@@ -129,9 +129,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   <main class="section-page">
     <section class="section-hero" aria-labelledby="section-title">
       <div class="section-hero__inner">
-        <p class="section-hero__eyebrow label-mono">
+        <a href={report.data.canonicalPath} class="section-hero__eyebrow label-mono">
           {report.data.eyebrow}
-        </p>
+        </a>
         <h1 id="section-title" class="section-hero__title t-h2">{section.title}</h1>
         <p class="section-hero__summary prose-editorial">{section.summary}</p>
         <p class="section-hero__meta label-mono">
@@ -143,9 +143,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     <!-- ── Top section navigation ───────────────────────────────────── -->
     <nav class="section-top-nav" aria-label="Report sections">
       <div class="section-top-nav__inner">
-        <a href={report.data.canonicalPath} class="section-top-nav__back label-mono">
-          ← Back to 2024 report
-        </a>
         <ul class="section-top-nav__chips" role="list">
           {navigableSections.map((item) => {
             const isCurrent = item.id === section.id;
@@ -342,7 +339,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         )}
 
         <a href={report.data.canonicalPath} class="section-bottom-nav__hub label-mono">
-          ← Back to 2024 report
+          Back to 2024 report
         </a>
 
         {nextSection ? (
@@ -381,7 +378,16 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     margin-inline: auto;
   }
 
-  .section-hero__eyebrow,
+  .section-hero__eyebrow {
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .section-hero__eyebrow:hover {
+    color: var(--color-ink);
+  }
+
   .section-hero__meta {
     color: var(--color-ink-muted);
   }
@@ -400,19 +406,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-hero__meta {
     margin-top: var(--space-6);
-  }
-
-  /* ── Back link inside chip nav ──────────────────────────────────── */
-
-  .section-top-nav__back {
-    display: inline-flex;
-    margin-bottom: var(--space-3);
-    color: var(--color-ink-muted);
-    text-decoration: none;
-  }
-
-  .section-top-nav__back:hover {
-    color: var(--color-ink);
   }
 
   /* ── Body copy ─────────────────────────────────────────────────── */
