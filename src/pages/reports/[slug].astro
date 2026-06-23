@@ -155,28 +155,22 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             <h3 class="report-section-bucket__heading label-mono">The landscape</h3>
             {landscapeSections.map((section) => (
               <article class="report-section-row" id={section.id}>
-                <div class="report-section-row__left">
-                  <h4 class="report-section-row__title t-h2">{section.title}</h4>
-                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                    <ul class="report-section__findings prose">
-                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                    </ul>
-                  ) : (
-                    <p class="report-section__summary prose">{section.summary}</p>
-                  )}
-                </div>
-                <div class="report-section-row__right">
-                  {section.commentary && (
-                    <div class="report-section-row__commentary-block">
-                      {section.commentary.split('\n\n').map((para) => (
-                        <p class="report-section-row__commentary prose">{para}</p>
-                      ))}
-                    </div>
-                  )}
-                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                    Read section
-                  </a>
-                </div>
+                <h4 class="report-section-row__title t-h2">{section.title}</h4>
+                {section.hubCommentary && (
+                  <div class="report-section-row__commentary-block">
+                    <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                  </div>
+                )}
+                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                  <ul class="report-section__findings prose">
+                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                  </ul>
+                ) : (
+                  <p class="report-section__summary prose">{section.summary}</p>
+                )}
+                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                  Read section
+                </a>
               </article>
             ))}
           </div>
@@ -187,28 +181,22 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             <h3 class="report-section-bucket__heading label-mono">Sentiment and perceptions</h3>
             {sentimentSections.map((section) => (
               <article class="report-section-row" id={section.id}>
-                <div class="report-section-row__left">
-                  <h4 class="report-section-row__title t-h2">{section.title}</h4>
-                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                    <ul class="report-section__findings prose">
-                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                    </ul>
-                  ) : (
-                    <p class="report-section__summary prose">{section.summary}</p>
-                  )}
-                </div>
-                <div class="report-section-row__right">
-                  {section.commentary && (
-                    <div class="report-section-row__commentary-block">
-                      {section.commentary.split('\n\n').map((para) => (
-                        <p class="report-section-row__commentary prose">{para}</p>
-                      ))}
-                    </div>
-                  )}
-                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                    Read section
-                  </a>
-                </div>
+                <h4 class="report-section-row__title t-h2">{section.title}</h4>
+                {section.hubCommentary && (
+                  <div class="report-section-row__commentary-block">
+                    <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                  </div>
+                )}
+                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                  <ul class="report-section__findings prose">
+                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                  </ul>
+                ) : (
+                  <p class="report-section__summary prose">{section.summary}</p>
+                )}
+                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                  Read section
+                </a>
               </article>
             ))}
           </div>
@@ -218,28 +206,22 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <div class="report-section-bucket">
             {otherSections.map((section) => (
               <article class="report-section-row" id={section.id}>
-                <div class="report-section-row__left">
-                  <h4 class="report-section-row__title t-h2">{section.title}</h4>
-                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                    <ul class="report-section__findings prose">
-                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                    </ul>
-                  ) : (
-                    <p class="report-section__summary prose">{section.summary}</p>
-                  )}
-                </div>
-                <div class="report-section-row__right">
-                  {section.commentary && (
-                    <div class="report-section-row__commentary-block">
-                      {section.commentary.split('\n\n').map((para) => (
-                        <p class="report-section-row__commentary prose">{para}</p>
-                      ))}
-                    </div>
-                  )}
-                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                    Read section
-                  </a>
-                </div>
+                <h4 class="report-section-row__title t-h2">{section.title}</h4>
+                {section.hubCommentary && (
+                  <div class="report-section-row__commentary-block">
+                    <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                  </div>
+                )}
+                {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                  <ul class="report-section__findings prose">
+                    {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                  </ul>
+                ) : (
+                  <p class="report-section__summary prose">{section.summary}</p>
+                )}
+                <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                  Read section
+                </a>
               </article>
             ))}
           </div>
@@ -463,7 +445,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     color: var(--color-ink-muted);
   }
 
-  /* Row: left=bullets, right=commentary */
+  /* Section rows are single-column stacks. */
   .report-section-row {
     display: grid;
     grid-template-columns: 1fr;
@@ -495,15 +477,14 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .report-section-row__commentary-block {
-    padding-left: var(--space-4);
-    border-left: 2px solid var(--color-signal-text);
+    padding-left: var(--space-6);
+    border-left: 3px solid var(--color-signal-text);
   }
 
   .report-section-row__commentary {
-    margin: 0 0 var(--space-2);
-    color: var(--color-ink-muted);
-    font-size: var(--font-size-sm);
-    font-style: italic;
+    margin: 0;
+    color: var(--color-ink-subtle);
+    font-size: var(--font-size-lg);
     line-height: var(--leading-editorial);
   }
 

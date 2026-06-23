@@ -148,6 +148,7 @@ const reports = defineCollection({
           summary: z.string().min(1),
           body: z.string().min(1),
           commentary: z.string().min(1).optional(),
+          hubCommentary: z.string().optional(),
           questions: z.array(z.string().min(1)).default([]),
           whatThisMeans: z.string().min(1).optional(),
           whatThisMeansIndividuals: z.string().min(1).optional(),
