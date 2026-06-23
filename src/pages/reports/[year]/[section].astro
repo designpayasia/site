@@ -104,7 +104,7 @@ const isAudienceGuidance = whatThisMeansNotes.length > 0 &&
 
 const hasAudienceGuidance = individualNotes.length > 0 || leaderNotes.length > 0;
 const hasEditorialBlock =
-  commentaryRaw.length > 0 || hasAudienceGuidance || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0;
+  !!commentaryLead || hasAudienceGuidance || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0;
 
 /* ── Navigation ───────────────────────────────────────────────────── */
 
@@ -179,30 +179,17 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       <section class="section-editorial" aria-label="Commentary and guidance">
         <div class="section-editorial__inner">
 
-          {/* Commentary: crimson-border lead + body bullets */}
-          {commentaryRaw.length > 0 && (
+          {/* Commentary lead */}
+          {commentaryLead && (
             <div class="section-editorial__commentary">
               <h2 class="section-editorial__heading t-h2">Commentary</h2>
-              <p class="section-editorial__lead">{commentaryRaw[0]}</p>
-              {/* Body: whatThisMeans bullets (e.g. demographics) OR remaining commentary paragraphs */}
-              {whatThisMeansNotes.length > 0 ? (
-                <ul class="section-editorial__commentary-body">
-                  {whatThisMeansNotes.map(item => <li>{item}</li>)}
-                </ul>
-              ) : commentaryRaw.length > 1 ? (
-                <ul class="section-editorial__commentary-body">
-                  {commentaryRaw.slice(1).flatMap(para => para.split('\n').filter(Boolean)).map(item => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              ) : null}
+              <p class="section-editorial__lead">{commentaryLead}</p>
             </div>
           )}
 
-          {/* What this means for you — heading + 50:50 audience grid */}
+          {/* Audience guidance — 50:50 grid */}
           {hasAudienceGuidance && (
             <div class="section-editorial__audience">
-              <h3 class="section-editorial__subheading">What this means for you</h3>
               <div class="section-editorial__audience-grid">
                 {individualNotes.length > 0 && (
                   <div class="section-editorial__audience-col">
@@ -223,19 +210,30 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               </div>
             </div>
           )}
-
-          {/* References — collapsible, quiet */}
-          {section.references.length > 0 && (
-            <details class="section-references">
-              <summary class="section-references__summary">Additional reading and references</summary>
-              <ul class="section-references__list">
-                {section.references.map((reference) => (
-                  <li>
-                    {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
-                  </li>
-                ))}
+          {/* What this could mean for you — only when distinct from audience columns */}
+          {whatThisMeansNotes.length > 0 && !isAudienceGuidance && (
+            <div class="section-editorial__meaning">
+              <h3 class="section-editorial__subheading t-h3">What this could mean for you</h3>
+              <ul class="section-editorial__list">
+                {whatThisMeansNotes.map((note) => <li>{note}</li>)}
               </ul>
-            </details>
+            </div>
+          )}
+
+          {/* References — collapsible, inside editorial inner, before DarkBeat */}
+          {section.references.length > 0 && (
+            <div class="section-editorial__references">
+              <details class="section-source-group">
+                <summary>Additional reading and references</summary>
+                <ul>
+                  {section.references.map((reference) => (
+                    <li>
+                      {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </div>
           )}
         </div>
 
@@ -441,7 +439,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   /* Commentary lead — editorial prose, no quote styling */
   .section-editorial__commentary {
-    max-width: var(--zone-prose);
+    /* intentionally clean — no border, no accent */
   }
 
   .section-editorial__heading {
@@ -457,21 +455,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     line-height: var(--leading-editorial);
   }
 
-  .section-editorial__commentary-body {
-    margin-block: var(--space-4) 0;
-    padding-left: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    list-style: disc;
-  }
-
-  .section-editorial__commentary-body li {
-    font-size: var(--type-body);
-    color: var(--color-workhorse);
-    line-height: var(--leading-body);
-  }
-
   /* Audience guidance — 50:50 grid, labelled columns */
   .section-editorial__audience-grid {
     display: grid;
@@ -482,10 +465,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-editorial__audience-col {
     padding-top: var(--space-5);
     border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .section-editorial__subheading {
-    margin: var(--space-8) 0 var(--space-6);
   }
 
   .section-editorial__audience-label {
@@ -570,52 +549,30 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     color: var(--color-inverse-signal-fill);
   }
 
-  /* References — collapsible, quiet, minimal attention */
-  .section-references {
-    border-top: 1px solid var(--color-border-subtle);
-    padding-block: var(--space-3);
-    color: var(--color-ink-muted);
-    font-size: var(--type-caption);
+  /* References — collapsible, sits in editorial inner grid flow */
+  .section-editorial__references {
+    /* gap from parent grid handles spacing */
   }
 
-  .section-references__summary {
-    cursor: pointer;
-    color: var(--color-ink-muted);
-    font-weight: var(--weight-medium);
-    list-style: none;
-  }
-
-  .section-references__summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .section-references__summary::before {
-    content: '\25B6';
-    display: inline-block;
-    margin-right: var(--space-2);
-    font-size: 0.7em;
-    transition: transform var(--duration-fast) var(--easing-standard);
-  }
-
-  .section-references[open] .section-references__summary::before {
-    transform: rotate(90deg);
-  }
-
-  .section-references__list {
-    margin: var(--space-3) 0 0;
-    padding-left: var(--space-6);
-    display: grid;
-    gap: var(--space-2);
-    line-height: var(--leading-editorial);
-  }
-
-  .section-references__list a {
+  .section-editorial__references a {
     color: var(--color-ink);
-    text-underline-offset: 0.15em;
+    text-underline-offset: 0.2em;
   }
 
-  .section-references__list a:hover {
+  .section-editorial__references a:hover {
     color: var(--color-ink-muted);
+  }
+
+  /* ── Sources ────────────────────────────────────────────────────── */
+
+  .section-sources__inner {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .section-source-group {
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .section-source-group + .section-source-group {
