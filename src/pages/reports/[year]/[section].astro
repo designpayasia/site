@@ -129,7 +129,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   <main class="section-page">
     <section class="section-hero" aria-labelledby="section-title">
       <div class="section-hero__inner">
-        <a href={report.data.canonicalPath} class="section-hero__back label-mono">Back to report</a>
+        <a href={report.data.canonicalPath} class="section-hero__back label-mono">Back to 2024 report</a>
         <p class="section-hero__eyebrow label-mono">
           {report.data.eyebrow} / {report.data.year}
         </p>
@@ -734,9 +734,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-bottom-nav__inner {
     width: min(100% - var(--space-8), var(--zone-editorial));
     margin-inline: auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
   }
 
   .section-bottom-nav__side {
@@ -747,6 +747,12 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     font-weight: 700;
     text-decoration: none;
     font-size: var(--font-size-sm);
+    justify-self: start;
+  }
+
+  .section-bottom-nav__side:last-of-type {
+    justify-self: end;
+    text-align: right;
   }
 
   .section-bottom-nav__side:hover {
@@ -834,9 +840,15 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     }
 
     .section-bottom-nav__inner {
-      flex-wrap: wrap;
-      justify-content: center;
+      grid-template-columns: 1fr;
       gap: var(--space-4);
+      justify-items: center;
+    }
+
+    .section-bottom-nav__side,
+    .section-bottom-nav__side:last-of-type {
+      justify-self: center;
+      text-align: center;
     }
   }
 </style>
