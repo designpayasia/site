@@ -129,9 +129,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   <main class="section-page">
     <section class="section-hero" aria-labelledby="section-title">
       <div class="section-hero__inner">
-        <a href={report.data.canonicalPath} class="section-hero__back label-mono">Back to 2024 report</a>
         <p class="section-hero__eyebrow label-mono">
-          {report.data.eyebrow} / {report.data.year}
+          {report.data.eyebrow}
         </p>
         <h1 id="section-title" class="section-hero__title t-h2">{section.title}</h1>
         <p class="section-hero__summary prose-editorial">{section.summary}</p>
@@ -141,6 +140,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       </div>
     </section>
 
+    <a href={report.data.canonicalPath} class="section-back-link label-mono">
+      ← Back to 2024 report
+    </a>
     <!-- ── Top section navigation ───────────────────────────────────── -->
     <nav class="section-top-nav" aria-label="Report sections">
       <div class="section-top-nav__inner">
@@ -379,17 +381,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     margin-inline: auto;
   }
 
-  .section-hero__back {
-    display: inline-flex;
-    margin-bottom: var(--space-8);
-    color: var(--color-ink-muted);
-    text-decoration: none;
-  }
-
-  .section-hero__back:hover {
-    color: var(--color-ink);
-  }
-
   .section-hero__eyebrow,
   .section-hero__meta {
     color: var(--color-ink-muted);
@@ -409,6 +400,22 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-hero__meta {
     margin-top: var(--space-6);
+  }
+
+  /* ── Back link above chip nav ──────────────────────────────────── */
+
+  .section-back-link {
+    display: block;
+    width: min(100% - var(--space-8), var(--zone-editorial));
+    margin-inline: auto;
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+    color: var(--color-ink-muted);
+    text-decoration: none;
+  }
+
+  .section-back-link:hover {
+    color: var(--color-ink);
   }
 
   /* ── Body copy ─────────────────────────────────────────────────── */
