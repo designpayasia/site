@@ -572,7 +572,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-source-group {
     border-top: 1px solid var(--color-border-subtle);
-    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .section-source-group + .section-source-group {
@@ -582,7 +581,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-source-group summary {
     cursor: pointer;
     padding-block: var(--space-4);
-    font-weight: 700;
+    font-weight: var(--weight-bold);
   }
 
   .section-source-group summary:hover {
@@ -596,6 +595,17 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-source-group li {
     margin-top: var(--space-3);
+  }
+
+  .section-source-group a {
+    color: var(--color-ink);
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--color-border-strong);
+    transition: color var(--duration-fast) var(--easing-standard);
+  }
+
+  .section-source-group a:hover {
+    color: var(--color-signal-text);
   }
 
   .evidence-list {
