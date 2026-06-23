@@ -122,7 +122,7 @@ const stackUnit = Boolean(normalizedUnit && (normalizedUnit.length > 8 || /\s/.t
 
   /* Variant: hero — maximum impact, homepage hero blob */
   .bigstat--hero {
-    --_bigstat-size: clamp(4rem, 5vw, var(--type-stat-size));
+    --_bigstat-size: clamp(4rem, 5cqi, var(--type-stat-size));
     --_unit-size: 0.42em;
     --_label-size: var(--type-body);
     --_label-lh: var(--leading-body);
@@ -130,7 +130,7 @@ const stackUnit = Boolean(normalizedUnit && (normalizedUnit.length > 8 || /\s/.t
 
   /* Variant: finding — medium, findings strip + dark beat (default) */
   .bigstat--finding {
-    --_bigstat-size: clamp(2.5rem, 3.5vw, 5rem);
+    --_bigstat-size: clamp(2.5rem, 12cqi, 5rem);
     --_unit-size: 0.35em;
     --_label-size: var(--font-size-sm);
     --_label-lh: var(--leading-caption);
@@ -138,7 +138,7 @@ const stackUnit = Boolean(normalizedUnit && (normalizedUnit.length > 8 || /\s/.t
 
   /* Variant: compact — small, report page grid cells, no overflow */
   .bigstat--compact {
-    --_bigstat-size: clamp(1.75rem, 2.5vw, 3rem);
+    --_bigstat-size: clamp(1.75rem, 8cqi, 3rem);
     --_unit-size: 0.32em;
     --_label-size: var(--font-size-xs);
     --_label-lh: 1.3;
