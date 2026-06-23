@@ -224,19 +224,21 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             </div>
           )}
 
-          {/* References — collapsible, inside editorial inner, before DarkBeat */}
+          {/* References — card treatment, inside editorial inner, before DarkBeat */}
           {section.references.length > 0 && (
             <div class="section-editorial__references">
-              <details class="section-source-group">
-                <summary>Additional reading and references</summary>
-                <ul>
-                  {section.references.map((reference) => (
-                    <li>
-                      {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
-                    </li>
-                  ))}
-                </ul>
-              </details>
+              <h3 class="section-editorial__refs-heading label-mono">Additional reading and references</h3>
+              <ul class="section-editorial__refs-list">
+                {section.references.map((reference) => (
+                  <li class="section-editorial__refs-item">
+                    {reference.url ? (
+                      <a href={reference.url} class="section-editorial__refs-link">{reference.label}</a>
+                    ) : (
+                      <span class="section-editorial__refs-label">{reference.label}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </div>
@@ -572,30 +574,51 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     color: var(--color-inverse-signal-fill);
   }
 
-  /* References — collapsible, sits in editorial inner grid flow */
+  /* References — card treatment, inside editorial inner grid flow */
   .section-editorial__references {
-    /* gap from parent grid handles spacing */
-  }
-
-  .section-editorial__references a {
-    color: var(--color-ink);
-    text-underline-offset: 0.2em;
-  }
-
-  .section-editorial__references a:hover {
-    color: var(--color-ink-muted);
-  }
-
-  /* ── Sources ────────────────────────────────────────────────────── */
-
-  .section-sources__inner {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-blob-motif);
+    padding: var(--space-6) var(--space-8);
     display: grid;
     gap: var(--space-4);
   }
 
-  .section-source-group {
-    border-top: 1px solid var(--color-border-subtle);
-    border-bottom: 1px solid var(--color-border-subtle);
+  .section-editorial__refs-heading {
+    margin: 0;
+    color: var(--color-signal-text);
+  }
+
+  .section-editorial__refs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .section-editorial__refs-item {
+    margin: 0;
+    padding: 0;
+    line-height: var(--leading-editorial);
+  }
+
+  .section-editorial__refs-link {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--color-border-strong);
+    transition: color var(--duration-fast) var(--easing-standard),
+                text-decoration-color var(--duration-fast) var(--easing-standard);
+  }
+
+  .section-editorial__refs-link:hover {
+    color: var(--color-signal-text);
+    text-decoration-color: var(--color-signal-text);
+  }
+
+  .section-editorial__refs-label {
+    color: var(--color-ink-muted);
   }
 
   .section-source-group + .section-source-group {
