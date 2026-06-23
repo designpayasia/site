@@ -129,6 +129,18 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       <div class="report-findings-header">
         <h2 class="report-findings-title t-h2">Key findings</h2>
         <p class="report-findings-header__lede">{routableSections.length} sections drawing from {stats[0].value} survey responses — each with data-backed findings and community commentary.</p>
+        <ul class="report-findings-header__chips" role="list">
+          {allSections.map((item) => (
+            <li>
+              <a
+                href={`${report.data.canonicalPath}/${item.id}`}
+                class="section-top-nav__chip"
+              >
+                {item.title}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {signatureCharts.length > 0 && (
@@ -150,23 +162,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           ))}
         </div>
       )}
-
-      <nav class="section-top-nav" aria-label="Report sections">
-        <div class="section-top-nav__inner">
-          <ul class="section-top-nav__chips" role="list">
-            {allSections.map((item) => (
-              <li>
-                <a
-                  href={`${report.data.canonicalPath}/${item.id}`}
-                  class="section-top-nav__chip"
-                >
-                  {item.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
 
       <div class="report-sections">
         {landscapeSections.length > 0 && (
@@ -784,23 +779,13 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     }
   }
 
-  /* ── Chip nav ──────────────────────────────────────────────────────── */
+  /* ── Chip nav inside key findings header ───────────────────────────── */
 
-  .section-top-nav {
-    border-bottom: 1px solid var(--color-border-subtle);
-  }
-
-  .section-top-nav__inner {
-    width: min(100% - var(--space-8), var(--zone-editorial));
-    margin-inline: auto;
-    padding-block: var(--space-4) var(--space-8);
-  }
-
-  .section-top-nav__chips {
+  .report-findings-header__chips {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-    margin: 0;
+    margin: var(--space-5) 0 0;
     padding: 0;
     list-style: none;
   }
