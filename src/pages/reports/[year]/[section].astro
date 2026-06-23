@@ -224,22 +224,18 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             </div>
           )}
 
-          {/* References — card treatment, inside editorial inner, before DarkBeat */}
+          {/* References — collapsible, quiet */}
           {section.references.length > 0 && (
-            <div class="section-editorial__references">
-              <h3 class="section-editorial__refs-heading label-mono">Additional reading and references</h3>
-              <ul class="section-editorial__refs-list">
+            <details class="section-references">
+              <summary class="section-references__summary">Additional reading and references</summary>
+              <ul class="section-references__list">
                 {section.references.map((reference) => (
-                  <li class="section-editorial__refs-item">
-                    {reference.url ? (
-                      <a href={reference.url} class="section-editorial__refs-link">{reference.label}</a>
-                    ) : (
-                      <span class="section-editorial__refs-label">{reference.label}</span>
-                    )}
+                  <li>
+                    {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
                   </li>
                 ))}
               </ul>
-            </div>
+            </details>
           )}
         </div>
 
@@ -574,50 +570,51 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     color: var(--color-inverse-signal-fill);
   }
 
-  /* References — card treatment, inside editorial inner grid flow */
-  .section-editorial__references {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-blob-motif);
-    padding: var(--space-6) var(--space-8);
-    display: grid;
-    gap: var(--space-4);
+  /* References — collapsible, quiet, minimal attention */
+  .section-references {
+    border-top: 1px solid var(--color-border-subtle);
+    padding-block: var(--space-3);
+    color: var(--color-ink-muted);
+    font-size: var(--type-caption);
   }
 
-  .section-editorial__refs-heading {
-    margin: 0;
-    color: var(--color-signal-text);
-  }
-
-  .section-editorial__refs-list {
+  .section-references__summary {
+    cursor: pointer;
+    color: var(--color-ink-muted);
+    font-weight: var(--weight-medium);
     list-style: none;
-    margin: 0;
-    padding: 0;
+  }
+
+  .section-references__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .section-references__summary::before {
+    content: '\25B6';
+    display: inline-block;
+    margin-right: var(--space-2);
+    font-size: 0.7em;
+    transition: transform var(--duration-fast) var(--easing-standard);
+  }
+
+  .section-references[open] .section-references__summary::before {
+    transform: rotate(90deg);
+  }
+
+  .section-references__list {
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-6);
     display: grid;
     gap: var(--space-2);
-  }
-
-  .section-editorial__refs-item {
-    margin: 0;
-    padding: 0;
     line-height: var(--leading-editorial);
   }
 
-  .section-editorial__refs-link {
+  .section-references__list a {
     color: var(--color-ink);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-    text-decoration-color: var(--color-border-strong);
-    transition: color var(--duration-fast) var(--easing-standard),
-                text-decoration-color var(--duration-fast) var(--easing-standard);
+    text-underline-offset: 0.15em;
   }
 
-  .section-editorial__refs-link:hover {
-    color: var(--color-signal-text);
-    text-decoration-color: var(--color-signal-text);
-  }
-
-  .section-editorial__refs-label {
+  .section-references__list a:hover {
     color: var(--color-ink-muted);
   }
 
