@@ -126,7 +126,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   description={section.summary}
   ogType="article"
 >
-  <main class="section-page">
+  <main class={`section-page${section.id === 'closing' ? ' section-page--closing' : ''}`}>
     <section class="section-hero" aria-labelledby="section-title">
       <div class="section-hero__inner">
         <a href={report.data.canonicalPath} class="section-hero__eyebrow label-mono">
@@ -221,7 +221,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           )}
 
           {/* What this means for you — heading + 50:50 audience grid */}
-          {hasAudienceGuidance && (
+          {hasAudienceGuidance && section.id !== 'closing' && (
             <div class="section-editorial__audience">
               <h3 class="section-editorial__subheading">What this means for you</h3>
               <div class="section-editorial__audience-grid">
@@ -241,6 +241,40 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                     </ul>
                   </div>
                 )}
+              </div>
+            </div>
+          )}
+          {/* Closing section: tension cards instead of audience grid */}
+          {section.id === 'closing' && individualNotes.length > 0 && (
+            <div class="section-editorial__tensions">
+              <p class="section-editorial__tensions-label label-mono">Five tensions</p>
+              <div class="section-editorial__tensions-grid">
+                {individualNotes.map((card, idx) => {
+                  const parts = card.split('||');
+                  const header = parts[0] || '';
+                  const stat = parts[1] || '';
+                  const question = parts[2] || '';
+                  const numMatch = stat.match(/(\d+(?:\.\d+)?)\s*(%|×|x)?/);
+                  const statValue = numMatch ? numMatch[1] : '';
+                  const statUnit = numMatch ? (numMatch[2] || '') : '';
+                  const statDetail = stat.trim();
+                  return (
+                    <article class="tension-card">
+                      <p class="tension-card__index label-mono">{String(idx + 1).padStart(2, '0')}</p>
+                      <div class="tension-card__stat-block">
+                        <p class="tension-card__stat-value">
+                          {statValue}
+                          {statUnit && <span class="tension-card__stat-unit">{statUnit}</span>}
+                        </p>
+                        <p class="tension-card__stat-detail">{statDetail}</p>
+                      </div>
+                      <div class="tension-card__content">
+                        <h3 class="tension-card__header">{header}</h3>
+                        <p class="tension-card__question">{question}</p>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -269,10 +303,11 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               <DarkBeat
                 eyebrow="Questions worth exploring"
                 title={leadQuestion}
+                statement={section.id === 'closing' ? 'That question sits underneath every chart in this report. It is about money, but only partly. It is about whether the work is seen.\n\nAnd one admission before we go. Indonesia makes up close to 79% of who we heard from. A single market shapes much of what you have just read. Treat the regional picture as a sketch, not a census. We would rather tell you that than let you mistake it for the whole.' : undefined}
                 statementDraft={false}
               />
               {supportingQuestions.length > 0 && (
-                <section class="section-questions__more" data-theme="dark" aria-label="Supporting questions">
+                <section class="section-questions__more" data-theme="dark" aria-label={section.id === 'closing' ? 'Worth exploring next' : 'Supporting questions'}>
                   <div class="section-questions__inner">
                     <p class="section-questions__more-label label-mono">Worth exploring next</p>
                     <ul class="section-questions__list">
@@ -830,7 +865,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   /* ── Responsive ─────────────────────────────────────────────────── */
 
-  @media (max-width: 720px) {
+  @media (max-width: 768px) {
     .section-editorial__audience-grid {
       grid-template-columns: 1fr;
     }
@@ -847,4 +882,101 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       text-align: center;
     }
   }
+
+  /* ── Closing section — destination treatment ─────────────────────── */
+
+  /* DarkBeat statement — larger on closing.
+     :global() needed because .dark-beat__copy lives inside DarkBeat component scope. */
+  .section-page--closing :global(.dark-beat__copy) {
+    max-width: var(--zone-editorial);
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-editorial);
+  }
+
+  .section-page--closing :global(.dark-beat__copy--caveat) {
+    font-size: var(--type-body);
+    color: color-mix(in srgb, var(--color-inverse-text) 72%, transparent);
+  }
+
+  /* Tension cards — B treatment (stat as hero) */
+  .section-editorial__tensions-label {
+    margin-block: 0 var(--space-8);
+    color: var(--color-signal-text);
+  }
+
+  .section-editorial__tensions-grid {
+    display: grid;
+    gap: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .section-editorial__tensions-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .tension-card:first-child { grid-column: span 2; }
+  }
+
+  .tension-card {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-8);
+    padding-left: var(--space-6);
+    border-left: 2px solid var(--color-signal-text);
+  }
+
+  .tension-card__index {
+    color: var(--color-ink-muted);
+  }
+
+  .tension-card__stat-block {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .tension-card__stat-value {
+    font-family: var(--font-data);
+    font-size: clamp(2.75rem, 20cqi, 5.5rem);
+    line-height: var(--leading-stat);
+    letter-spacing: -0.03em;
+    font-variant-numeric: lining-nums;
+    color: var(--color-workhorse);
+  }
+
+  .tension-card__stat-unit {
+    font-size: 0.42em;
+    letter-spacing: var(--tracking-mono);
+  }
+
+  .tension-card__content {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .tension-card__stat-detail {
+    font-family: var(--font-data);
+    font-size: var(--type-caption);
+    color: var(--color-ink-muted);
+    line-height: var(--leading-caption);
+  }
+
+  .tension-card__header {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 7cqi, var(--font-size-pullquote));
+    font-weight: var(--weight-regular);
+    line-height: 1.15;
+    color: var(--color-workhorse);
+  }
+
+  .tension-card__question {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--font-size-lg);
+    font-style: italic;
+    font-weight: var(--weight-regular);
+    line-height: 1.4;
+    color: var(--color-signal-text);
+  }
+
 </style>

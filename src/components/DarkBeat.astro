@@ -57,8 +57,12 @@ const statusLabel =
     </header>
 
     {(cleanStatement || showDraftFlag) && (
-      <div class="dark-beat__statement">
-        {cleanStatement && <p class="dark-beat__copy">{cleanStatement}</p>}
+      <div class="dark-beat__statement prose">
+        {cleanStatement && cleanStatement.split(/\n{2,}/).map((para, idx, arr) => (
+          <p class={`dark-beat__copy${idx === arr.length - 1 && arr.length > 1 ? ' dark-beat__copy--caveat' : ''}`}>
+            {para.trim()}
+          </p>
+        ))}
         {showDraftFlag && <span class="dark-beat__flag label-mono">{statusLabel}</span>}
       </div>
     )}
@@ -123,23 +127,27 @@ const statusLabel =
   }
 
   .dark-beat__statement {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    display: grid;
+    gap: var(--space-4);
     align-items: start;
-    justify-content: space-between;
   }
 
   .dark-beat__copy {
     margin: 0;
-    max-width: 40ch;
+    max-width: 55ch;
     font-size: var(--type-caption);
     line-height: 1.5;
     color: var(--color-inverse-text);
     overflow-wrap: break-word;
   }
 
+  .dark-beat__copy--caveat {
+    font-size: var(--type-footnote);
+    color: color-mix(in srgb, var(--color-inverse-text) 72%, transparent);
+  }
+
   .dark-beat__flag {
+    justify-self: start;
     display: inline-flex;
     align-items: center;
     min-height: 2rem;
