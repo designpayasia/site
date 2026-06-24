@@ -66,63 +66,73 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
   <div class="chart-block__layout">
     <div
       class="chart-block__visual"
-      role="img"
-      aria-label={summary}
+      {...(!pngPath && { role: 'img', 'aria-label': summary })}
       style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
     >
       <p class="chart-block__summary">{summary}</p>
 
-      <div class="chart-block__axis" aria-hidden="true">
-        <div class="chart-block__axis-spacer"></div>
-        <div class="chart-block__ticks">
-          {GRIDLINE_PERCENTAGES.map((percentage) => (
-            <span style={`left: ${percentage}%;`}>{percentage}%</span>
-          ))}
-        </div>
-        <div class="chart-block__axis-value-spacer"></div>
-      </div>
-
-      <div class="chart-block__bars">
-        {renderedBars.map((bar) => (
-          <div class="chart-block__row">
-            <div
-              class:list={[
-                'chart-block__label',
-                bar.tone === 'signal' && 'chart-block__label--signal',
-              ]}
-            >
-              {bar.label}
+      {pngPath ? (
+        <img
+          src={pngPath}
+          alt={summary}
+          class="chart-block__png-image"
+          loading="lazy"
+        />
+      ) : (
+        <>
+          <div class="chart-block__axis" aria-hidden="true">
+            <div class="chart-block__axis-spacer"></div>
+            <div class="chart-block__ticks">
+              {GRIDLINE_PERCENTAGES.map((percentage) => (
+                <span style={`left: ${percentage}%;`}>{percentage}%</span>
+              ))}
             </div>
-
-            <div class="chart-block__track" aria-hidden="true">
-              <div class="chart-block__gridlines">
-                {GRIDLINE_PERCENTAGES.map((percentage) => (
-                  <span style={`left: ${percentage}%;`}></span>
-                ))}
-              </div>
-
-              <div
-                class:list={[
-                  'chart-block__fill',
-                  bar.tone === 'signal'
-                    ? 'chart-block__fill--signal'
-                    : 'chart-block__fill--workhorse',
-                ]}
-                style={`width: ${bar.value}%;`}
-              />
-            </div>
-
-            <div
-              class:list={[
-                'chart-block__value',
-                bar.tone === 'signal' && 'chart-block__value--signal',
-              ]}
-            >
-              {bar.value}%
-            </div>
+            <div class="chart-block__axis-value-spacer"></div>
           </div>
-        ))}
-      </div>
+
+          <div class="chart-block__bars">
+            {renderedBars.map((bar) => (
+              <div class="chart-block__row">
+                <div
+                  class:list={[
+                    'chart-block__label',
+                    bar.tone === 'signal' && 'chart-block__label--signal',
+                  ]}
+                >
+                  {bar.label}
+                </div>
+
+                <div class="chart-block__track" aria-hidden="true">
+                  <div class="chart-block__gridlines">
+                    {GRIDLINE_PERCENTAGES.map((percentage) => (
+                      <span style={`left: ${percentage}%;`}></span>
+                    ))}
+                  </div>
+
+                  <div
+                    class:list={[
+                      'chart-block__fill',
+                      bar.tone === 'signal'
+                        ? 'chart-block__fill--signal'
+                        : 'chart-block__fill--workhorse',
+                    ]}
+                    style={`width: ${bar.value}%;`}
+                  />
+                </div>
+
+                <div
+                  class:list={[
+                    'chart-block__value',
+                    bar.tone === 'signal' && 'chart-block__value--signal',
+                  ]}
+                >
+                  {bar.value}%
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <div class="chart-block__meta">
         <p class="chart-block__source">
@@ -396,5 +406,11 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
     .chart-block__evidence {
       overflow-wrap: anywhere;
     }
+  }
+
+  .chart-block__png-image {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 </style>

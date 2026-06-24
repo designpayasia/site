@@ -61,7 +61,15 @@ const chartSchema = z.object({
         tone: z.enum(['workhorse', 'signal']).default('workhorse'),
       }),
     )
-    .min(1),
+    .default([]),
+}).superRefine((data, ctx) => {
+  if (!data.pngPath && data.bars.length === 0) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'bars is required when pngPath is not provided',
+      path: ['bars'],
+    });
+  }
 });
 
 const evidence = defineCollection({
