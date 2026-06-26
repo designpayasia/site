@@ -1,4 +1,6 @@
 ---
+import { isSelfHostedSource } from '../lib/evidence';
+
 interface TableRow {
   label: string;
   value: string;
@@ -17,6 +19,7 @@ interface Props {
   evidenceIds: string[];
   sourceLabel: string;
   sourceUrl: string;
+  reportPath?: string;
   fallbackColumns: [string, string];
   fallbackRows: TableRow[];
   bars: Bar[];
@@ -40,6 +43,7 @@ const {
   evidenceIds,
   sourceLabel,
   sourceUrl,
+  reportPath,
   fallbackColumns,
   fallbackRows,
   bars,
@@ -54,6 +58,7 @@ const renderedBars = bars.map((bar, index) => ({
     highlightedSignalIndex !== -1 && index === highlightedSignalIndex ? 'signal' : 'workhorse',
 }));
 const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
+const showSource = !isSelfHostedSource(sourceUrl, reportPath);
 ---
 
 <figure class:list={['chart-block', hideTable && 'chart-block--compact']}>
@@ -135,12 +140,14 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
       )}
 
       <div class="chart-block__meta">
-        <p class="chart-block__source">
-          Source:{' '}
-          <a href={sourceUrl} class="chart-block__source-link">
-            {sourceLabel}
-          </a>
-        </p>
+        {showSource && (
+          <p class="chart-block__source">
+            Source:{' '}
+            <a href={sourceUrl} class="chart-block__source-link">
+              {sourceLabel}
+            </a>
+          </p>
+        )}
 
         <p class="chart-block__evidence">
           {evidenceLabel}: {evidenceIds.join(', ')}
@@ -327,6 +334,9 @@ const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
   .chart-block__evidence {
     margin: 0;
     color: var(--color-ink-muted);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    line-height: var(--leading-ui);
     overflow-wrap: anywhere;
   }
 

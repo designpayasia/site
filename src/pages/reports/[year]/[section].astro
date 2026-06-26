@@ -8,6 +8,7 @@ import {
   assertEvidenceIdsExist,
   buildEvidenceMap,
   collectEvidenceByIds,
+  isSelfHostedSource,
 } from '../../../lib/evidence';
 
 export async function getStaticPaths() {
@@ -38,6 +39,7 @@ interface Props {
 const { report, section } = Astro.props;
 const evidenceEntries = await getCollection('evidence');
 const evidenceMap = buildEvidenceMap(evidenceEntries);
+const reportPath = report.data.canonicalPath;
 const chartIds = new Set(section.charts);
 const sectionCharts = report.data.charts.filter((chart) => chartIds.has(chart.id));
 const missingChartIds = section.charts.filter(
@@ -183,6 +185,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 evidenceIds={chart.evidenceIds}
                 sourceLabel={chart.sourceLabel}
                 sourceUrl={chart.sourceUrl}
+                reportPath={reportPath}
                 fallbackColumns={getFallbackColumns(chart.fallbackTable.columns)}
                 fallbackRows={chart.fallbackTable.rows}
                 bars={chart.bars}
@@ -283,7 +286,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           {section.references.length > 0 && (
             <div class="section-editorial__references">
               <details class="section-source-group">
-                <summary>Additional reading and references</summary>
+                <summary>Further reading and context</summary>
                 <ul>
                   {section.references.map((reference) => (
                     <li>
@@ -337,21 +340,31 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     {/* ── Evidence sources ──────────────────────────────────────────── */}
 
     {evidenceList.length > 0 && (
-      <section class="section-sources" aria-label="Sources">
+      <section class="section-sources" aria-label="Evidence and references">
         <div class="section-sources__inner">
           <details class="section-source-group">
-            <summary>View sources</summary>
+            <summary>Evidence used in this section</summary>
             <ul class="evidence-list">
-              {evidenceList.map((evidence) => (
-                <li class="evidence-list__item">
-                  <h3>{evidence.data.title}</h3>
-                  <p>{evidence.data.summary}</p>
-                  <p class="evidence-list__meta label-mono">
-                    {evidence.data.sourceName} · {evidence.data.year} · {evidence.data.sensitivity}
-                  </p>
-                  <a href={evidence.data.sourceUrl} class="evidence-list__link">Open source</a>
-                </li>
-              ))}
+              {evidenceList.map((evidence) => {
+                const selfSourced = isSelfHostedSource(evidence.data.sourceUrl, reportPath);
+
+                return (
+                  <li class="evidence-list__item">
+                    <h3>{evidence.data.title}</h3>
+                    <p>{evidence.data.summary}</p>
+                    <p class="evidence-list__meta label-mono">
+                      {selfSourced
+                        ? `${evidence.id} · ${evidence.data.sensitivity}`
+                        : `${evidence.id} · ${evidence.data.sourceName} · ${evidence.data.year} · ${evidence.data.sensitivity}`}
+                    </p>
+                    {!selfSourced && (
+                      <a href={evidence.data.sourceUrl} class="evidence-list__link label-mono">
+                        Open source
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </details>
         </div>

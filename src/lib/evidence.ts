@@ -85,3 +85,27 @@ export function collectEvidenceByIds(
 
   return entries;
 }
+
+function normaliseSourcePath(value: string) {
+  const pathname = new URL(value, 'https://designpay.asia').pathname.replace(/\/$/, '');
+
+  return pathname || '/';
+}
+
+function normaliseSourceHost(value: string) {
+  return new URL(value, 'https://designpay.asia').hostname.replace(/^www\./, '');
+}
+
+export function isSelfHostedSource(sourceUrl: string | undefined, reportPath: string | undefined) {
+  if (!sourceUrl || !reportPath) {
+    return false;
+  }
+
+  const sourceHost = normaliseSourceHost(sourceUrl);
+
+  if (sourceHost === 'designpay.asia') {
+    return true;
+  }
+
+  return normaliseSourcePath(sourceUrl) === normaliseSourcePath(reportPath);
+}

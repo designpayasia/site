@@ -41,16 +41,26 @@ const stats = getVisibleMetrics(report.data.stats);
 const methodologySection = report.data.sections.find((section) => section.id === 'methodology');
 
 // Hub renders only three signature charts; all 7 remain in frontmatter data.
-const SIGNATURE_CHART_IDS = ['geo-distribution', 'career-levels', 'compensation-mix'];
+const SIGNATURE_CHART_IDS = ['geo-distribution', 'career-levels', 'compensation-mix', 'compensation-by-level'];
 const signatureCharts = report.data.charts.filter((chart) =>
   SIGNATURE_CHART_IDS.includes(chart.id),
 );
 
-// Grouped, scannable section list. Two buckets mirror the source Notion hub.
+// Grouped, scannable section list. Three buckets: Landscape, Sentiments, Analysis.
+// SENTIMENT_IDS and ANALYSIS_IDS are year-keyed to prevent cross-report bleed.
 const EXCLUDED_IDS = new Set(['executive-summary', 'methodology']);
 const CLOSING_ID = 'closing';
 const LANDSCAPE_IDS = ['demographics', 'roles-and-experiences', 'compensation', 'company-landscape'];
-const SENTIMENT_IDS = ['offer-and-negotiation', 'career-progression', 'value-of-design', 'job-market'];
+const SENTIMENT_IDS_BY_SLUG: Record<string, string[]> = {
+  '2024': ['offer-and-negotiation', 'career-progression', 'value-of-design', 'job-market'],
+  '2023': ['sentiments-negotiations', 'sentiments-work-setup', 'sentiments-career-progression'],
+};
+const SENTIMENT_IDS = SENTIMENT_IDS_BY_SLUG[report.id] ?? [];
+const ANALYSIS_IDS_BY_SLUG: Record<string, string[]> = {
+  '2023': ['analysis-gender', 'analysis-experience', 'analysis-company', 'analysis-education'],
+};
+const ANALYSIS_IDS = ANALYSIS_IDS_BY_SLUG[report.id] ?? [];
+const ANALYSIS_LABEL = 'Singapore deep dive';
 
 const routableSections = report.data.sections.filter(
   (section) => !EXCLUDED_IDS.has(section.id) && section.id !== CLOSING_ID,
@@ -61,9 +71,19 @@ if (closingSection) allSections.push(closingSection);
 
 const landscapeSections = routableSections.filter((section) => LANDSCAPE_IDS.includes(section.id));
 const sentimentSections = routableSections.filter((section) => SENTIMENT_IDS.includes(section.id));
+const analysisSections = routableSections.filter((section) => ANALYSIS_IDS.includes(section.id));
 const otherSections = routableSections.filter(
-  (section) => !LANDSCAPE_IDS.includes(section.id) && !SENTIMENT_IDS.includes(section.id),
+  (section) =>
+    !LANDSCAPE_IDS.includes(section.id) &&
+    !SENTIMENT_IDS.includes(section.id) &&
+    !ANALYSIS_IDS.includes(section.id),
 );
+const hasSectionCommentary = routableSections.some(
+  (section) => Boolean(section.hubCommentary ?? section.commentary),
+);
+const findingsLede = hasSectionCommentary
+  ? `${routableSections.length} sections drawing from ${stats[0].value} survey responses — each with data-backed findings and community commentary.`
+  : `${routableSections.length} sections drawing from ${stats[0].value} survey responses — each with data-backed findings from the report source.`;
 
 // Methodology — pull the data/bias limitation points (markdown bullets) from
 // the methodology section body for the slim strip; fall back to prose lines.
@@ -128,7 +148,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     <div class="report-body__inner">
       <div class="report-findings-header">
         <h2 class="report-findings-title t-h2">Key findings</h2>
-        <p class="report-findings-header__lede">{routableSections.length} sections drawing from {stats[0].value} survey responses — each with data-backed findings and community commentary.</p>
+        <p class="report-findings-header__lede">{findingsLede}</p>
         <ul class="report-findings-header__chips" role="list">
           {allSections.map((item) => (
             <li>
@@ -153,6 +173,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               evidenceIds={chart.evidenceIds}
               sourceLabel={chart.sourceLabel}
               sourceUrl={chart.sourceUrl}
+              reportPath={report.data.canonicalPath}
               pngPath={chart.pngPath}
               fallbackColumns={chart.fallbackTable.columns as [string, string]}
               fallbackRows={chart.fallbackTable.rows}
@@ -198,6 +219,36 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <div class="report-section-bucket">
             <h3 class="report-section-bucket__heading label-mono">Sentiment and perceptions</h3>
             {sentimentSections.map((section) => (
+              <article class="report-section-row" id={section.id}>
+                <h4 class="report-section-row__title t-h2">{section.title}</h4>
+                {section.hubCommentary && (
+                  <div class="report-section-row__intro">
+                    <div class="report-section-row__commentary-block">
+                      <p class="report-section-row__commentary">{section.hubCommentary}</p>
+                    </div>
+                  </div>
+                )}
+                <div class="report-section-row__content">
+                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                    <ul class="report-section__findings prose">
+                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
+                    </ul>
+                  ) : (
+                    <p class="report-section__summary prose">{section.summary}</p>
+                  )}
+                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
+                    Read section
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+
+        {analysisSections.length > 0 && (
+          <div class="report-section-bucket">
+            <h3 class="report-section-bucket__heading label-mono">{ANALYSIS_LABEL}</h3>
+            {analysisSections.map((section) => (
               <article class="report-section-row" id={section.id}>
                 <h4 class="report-section-row__title t-h2">{section.title}</h4>
                 {section.hubCommentary && (
