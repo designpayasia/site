@@ -287,19 +287,12 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             <div class="section-editorial__references">
               <details class="section-source-group">
                 <summary>
-                  {section.references.length > 0
-                    ? 'Further reading and context'
-                    : 'Evidence used in this section'}
+                  {section.references.length > 0 && evidenceList.length > 0
+                    ? 'Evidence and further reading'
+                    : section.references.length > 0
+                      ? 'Further reading and context'
+                      : 'Evidence used in this section'}
                 </summary>
-                {section.references.length > 0 && (
-                  <ul>
-                    {section.references.map((reference) => (
-                      <li>
-                        {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
-                      </li>
-                    ))}
-                  </ul>
-                )}
                 {evidenceList.length > 0 && (
                   <>
                     {section.references.length > 0 && (
@@ -326,6 +319,20 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                           </li>
                         );
                       })}
+                    </ul>
+                  </>
+                )}
+                {section.references.length > 0 && (
+                  <>
+                    {evidenceList.length > 0 && (
+                      <p class="section-source-subhead label-mono">Further reading and context</p>
+                    )}
+                    <ul>
+                      {section.references.map((reference) => (
+                        <li>
+                          {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
+                        </li>
+                      ))}
                     </ul>
                   </>
                 )}
@@ -372,10 +379,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       </section>
     )}
 
-    {/* ── Evidence sources ──────────────────────────────────────────── */}
-
-    {evidenceList.length > 0 && (
-    )}
 
     {/* ── Bottom prev/next ──────────────────────────────────────────── */}
     <nav class="section-bottom-nav" aria-label="Previous and next section">
@@ -689,7 +692,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-source-group ul {
     padding-left: 1.25rem;
-    margin-bottom: var(--space-6);
   }
 
   .section-source-subhead {
@@ -703,7 +705,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .evidence-list {
     display: grid;
     gap: var(--space-4);
-    margin-block: 0 var(--space-6);
+    margin-block: 0 var(--space-12);
     padding-left: 1.25rem;
   }
 

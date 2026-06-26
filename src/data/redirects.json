@@ -18,5 +18,20 @@
     "from": "/latest-report",
     "to": "/reports/2024",
     "status": 302
+  },
+  {
+    "from": "/reports/2023/gender-pay-gap",
+    "to": "/reports/2023/analysis-gender",
+    "status": 301
+  },
+  {
+    "from": "/reports/2023/what-drives-higher-pay",
+    "to": "/reports/2023/analysis-experience",
+    "status": 301
+  },
+  {
+    "from": "/reports/2023/career-progression",
+    "to": "/reports/2023/sentiments-career-progression",
+    "status": 301
   }
 ]
