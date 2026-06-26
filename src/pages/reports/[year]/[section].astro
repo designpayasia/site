@@ -283,17 +283,52 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           )}
 
           {/* References — collapsible, inside editorial inner, before DarkBeat */}
-          {section.references.length > 0 && (
+          {(section.references.length > 0 || evidenceList.length > 0) && (
             <div class="section-editorial__references">
               <details class="section-source-group">
-                <summary>Further reading and context</summary>
-                <ul>
-                  {section.references.map((reference) => (
-                    <li>
-                      {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
-                    </li>
-                  ))}
-                </ul>
+                <summary>
+                  {section.references.length > 0
+                    ? 'Further reading and context'
+                    : 'Evidence used in this section'}
+                </summary>
+                {section.references.length > 0 && (
+                  <ul>
+                    {section.references.map((reference) => (
+                      <li>
+                        {reference.url ? <a href={reference.url}>{reference.label}</a> : reference.label}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {evidenceList.length > 0 && (
+                  <>
+                    {section.references.length > 0 && (
+                      <p class="section-source-subhead label-mono">Evidence used in this section</p>
+                    )}
+                    <ul class="evidence-list">
+                      {evidenceList.map((evidence) => {
+                        const selfSourced = isSelfHostedSource(evidence.data.sourceUrl, reportPath);
+
+                        return (
+                          <li class="evidence-list__item">
+                            <h3>{evidence.data.title}</h3>
+                            <p>{evidence.data.summary}</p>
+                            <p class="evidence-list__meta label-mono">
+                              {selfSourced
+                                ? `${evidence.id} · ${evidence.data.sensitivity}`
+                                : `${evidence.id} · ${evidence.data.sourceName} · ${evidence.data.year} · ${evidence.data.sensitivity}`}
+                            </p>
+                            {!selfSourced && (
+                              <a href={evidence.data.sourceUrl} class="evidence-list__link label-mono">
+                                Open source
+                              </a>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                )}
               </details>
             </div>
           )}
@@ -340,35 +375,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     {/* ── Evidence sources ──────────────────────────────────────────── */}
 
     {evidenceList.length > 0 && (
-      <section class="section-sources" aria-label="Evidence and references">
-        <div class="section-sources__inner">
-          <details class="section-source-group">
-            <summary>Evidence used in this section</summary>
-            <ul class="evidence-list">
-              {evidenceList.map((evidence) => {
-                const selfSourced = isSelfHostedSource(evidence.data.sourceUrl, reportPath);
-
-                return (
-                  <li class="evidence-list__item">
-                    <h3>{evidence.data.title}</h3>
-                    <p>{evidence.data.summary}</p>
-                    <p class="evidence-list__meta label-mono">
-                      {selfSourced
-                        ? `${evidence.id} · ${evidence.data.sensitivity}`
-                        : `${evidence.id} · ${evidence.data.sourceName} · ${evidence.data.year} · ${evidence.data.sensitivity}`}
-                    </p>
-                    {!selfSourced && (
-                      <a href={evidence.data.sourceUrl} class="evidence-list__link label-mono">
-                        Open source
-                      </a>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </details>
-        </div>
-      </section>
     )}
 
     {/* ── Bottom prev/next ──────────────────────────────────────────── */}
@@ -684,6 +690,10 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-source-group ul {
     padding-left: 1.25rem;
     margin-bottom: var(--space-6);
+  }
+
+  .section-source-subhead {
+    margin: var(--space-5) 0 0;
   }
 
   .section-source-group li {
