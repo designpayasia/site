@@ -130,6 +130,7 @@ const reports = defineCollection({
     stats: z.array(metricSchema).min(1),
     charts: z.array(chartSchema).default([]),
     team: z.array(teamMemberSchema).optional(),
+    acknowledgement: z.string().optional(),
     communityPartners: z.array(z.string().min(1)).optional(),
     support: z
       .object({

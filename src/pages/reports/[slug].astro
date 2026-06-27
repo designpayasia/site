@@ -366,6 +366,10 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           </div>
         )}
 
+        {report.data.acknowledgement && (
+          <p class="report-human__acknowledgement">{report.data.acknowledgement}</p>
+        )}
+
         {report.data.communityPartners && report.data.communityPartners.length > 0 && (
           <div class="report-community">
             <h3 class="report-community__heading">Our community partners and participants</h3>
