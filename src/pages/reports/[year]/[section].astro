@@ -480,22 +480,24 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     padding-block: var(--space-16) var(--space-24);
   }
 
-  .section-copy p {
+  /* set:html injects content outside Astro's scope — use :global() for all
+     .section-copy descendants so scoped CSS reaches the injected elements. */
+  .section-copy :global(p) {
     margin-block: 0 var(--space-4);
   }
 
-  .section-copy p:last-child {
+  .section-copy :global(p:last-child) {
     margin-block-end: 0;
   }
 
   /* Lead paragraph — larger, ink-subtle: frames the section before detail body */
-  .section-copy > p:first-child {
+  .section-copy :global(> p:first-child) {
     font-size: var(--font-size-lg);
     line-height: var(--leading-editorial);
     color: var(--color-ink-subtle);
   }
 
-  .section-copy h2 {
+  .section-copy :global(h2) {
     margin-block: var(--space-10) var(--space-3);
     font-family: var(--font-display);
     font-size: var(--font-size-xl);
@@ -504,7 +506,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     color: var(--color-workhorse);
   }
 
-  .section-copy h3 {
+  .section-copy :global(h3) {
     margin-block: var(--space-8) var(--space-2);
     font-family: var(--font-sans);
     font-size: var(--type-body);
@@ -513,38 +515,38 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     color: var(--color-workhorse);
   }
 
-  .section-copy ul,
-  .section-copy ol {
+  .section-copy :global(ul),
+  .section-copy :global(ol) {
     margin-block: 0 var(--space-4);
     padding-left: var(--space-6);
     display: grid;
     gap: var(--space-2);
   }
 
-  .section-copy li {
+  .section-copy :global(li) {
     line-height: var(--leading-body);
     color: var(--color-ink);
   }
 
-  .section-copy a {
+  .section-copy :global(a) {
     color: var(--color-action);
     text-underline-offset: 0.2em;
   }
 
-  .section-copy a:hover {
+  .section-copy :global(a:hover) {
     text-decoration: none;
   }
 
-  .section-copy strong {
+  .section-copy :global(strong) {
     font-weight: var(--weight-bold);
     color: var(--color-workhorse);
   }
 
-  .section-copy em {
+  .section-copy :global(em) {
     font-style: italic;
   }
 
-  .section-copy code {
+  .section-copy :global(code) {
     font-family: var(--font-data);
     font-size: 0.875em;
     background: var(--color-surface-muted);
@@ -553,13 +555,13 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   /* Blockquote uses the locked pull-quote moment — spec §5 */
-  .section-copy blockquote {
+  .section-copy :global(blockquote) {
     margin-block: var(--space-10) var(--space-6);
     padding: 0;
     border: none;
   }
 
-  .section-copy blockquote p {
+  .section-copy :global(blockquote p) {
     font-family: var(--type-pullquote-face);
     font-size: var(--type-pullquote-size);
     font-style: italic;
