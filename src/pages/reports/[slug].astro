@@ -804,18 +804,19 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     text-decoration: none;
   }
 
-  .report-methodology__body p {
+  /* set:html injects outside Astro scope — :global() needed for all descendants */
+  .report-methodology__body :global(p) {
     margin-block: 0 var(--space-4);
     color: var(--color-ink-muted);
     line-height: var(--leading-editorial);
   }
 
-  .report-methodology__body p:last-child {
+  .report-methodology__body :global(p:last-child) {
     margin-block-end: 0;
   }
 
-  .report-methodology__body ul,
-  .report-methodology__body ol {
+  .report-methodology__body :global(ul),
+  .report-methodology__body :global(ol) {
     margin-block: 0 var(--space-4);
     padding-left: var(--space-6);
     display: grid;
@@ -824,24 +825,34 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     line-height: var(--leading-editorial);
   }
 
-  .report-methodology__body li {
+  .report-methodology__body :global(li) {
     padding-left: var(--space-2);
   }
 
-  .report-methodology__body h2,
-  .report-methodology__body h3 {
+  .report-methodology__body :global(h2) {
     margin-block: var(--space-6) var(--space-3);
+    font-family: var(--font-sans);
     font-size: var(--font-size-sm);
+    font-weight: var(--weight-bold);
     letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--color-ink);
   }
 
-  .report-methodology__body strong {
-    font-weight: 700;
+  .report-methodology__body :global(h3) {
+    margin-block: var(--space-5) var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--type-body);
+    font-weight: var(--weight-bold);
     color: var(--color-ink);
   }
 
-  .report-methodology__body a {
+  .report-methodology__body :global(strong) {
+    font-weight: var(--weight-bold);
+    color: var(--color-ink);
+  }
+
+  .report-methodology__body :global(a) {
     color: var(--color-action);
     text-underline-offset: 0.2em;
   }
