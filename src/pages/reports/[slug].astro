@@ -41,9 +41,12 @@ const stats = getVisibleMetrics(report.data.stats);
 const methodologySection = report.data.sections.find((section) => section.id === 'methodology');
 
 // Hub renders only three signature charts; all 7 remain in frontmatter data.
-const SIGNATURE_CHART_IDS = ['geo-distribution', 'career-levels', 'compensation-mix', 'compensation-by-level'];
+const SIGNATURE_CHART_IDS_BY_SLUG: Record<string, string[]> = {
+  '2024': ['geo-distribution', 'career-levels', 'compensation-mix', 'compensation-by-level'],
+  '2023': ['chart-geographic-distribution', 'chart-career-level-distribution', 'chart-compensation-by-level', 'chart-gender-pay-gap'],
+};
 const signatureCharts = report.data.charts.filter((chart) =>
-  SIGNATURE_CHART_IDS.includes(chart.id),
+  (SIGNATURE_CHART_IDS_BY_SLUG[report.id] ?? []).includes(chart.id),
 );
 
 // Grouped, scannable section list. Three buckets: Landscape, Sentiments, Analysis.
