@@ -471,7 +471,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-body,
   .section-charts,
   .section-sources {
-    padding-block: var(--space-14);
+    padding-block: var(--space-12);
   }
 
   .section-body__inner {
@@ -488,12 +488,28 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     margin-block-end: 0;
   }
 
-  .section-copy h2,
-  .section-copy h3 {
-    margin-block: var(--space-8) var(--space-3);
+  /* Lead paragraph — larger, ink-subtle: frames the section before detail body */
+  .section-copy > p:first-child {
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-editorial);
+    color: var(--color-ink-subtle);
+  }
+
+  .section-copy h2 {
+    margin-block: var(--space-10) var(--space-3);
     font-family: var(--font-display);
     font-size: var(--font-size-xl);
     font-weight: var(--weight-regular);
+    line-height: 1.2;
+    color: var(--color-workhorse);
+  }
+
+  .section-copy h3 {
+    margin-block: var(--space-8) var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--type-body);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-body);
     color: var(--color-workhorse);
   }
 
@@ -520,7 +536,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .section-copy strong {
-    font-weight: 700;
+    font-weight: var(--weight-bold);
     color: var(--color-workhorse);
   }
 
@@ -536,17 +552,22 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     border-radius: 3px;
   }
 
+  /* Blockquote uses the locked pull-quote moment — spec §5 */
   .section-copy blockquote {
-    margin-block: var(--space-6);
-    padding-left: var(--space-6);
-    border-left: 3px solid var(--color-signal-text);
-    color: var(--color-ink-subtle);
-    font-size: var(--font-size-lg);
-    line-height: var(--leading-editorial);
+    margin-block: var(--space-10) var(--space-6);
+    padding: 0;
+    border: none;
   }
 
   .section-copy blockquote p {
-    margin-block: 0;
+    font-family: var(--type-pullquote-face);
+    font-size: var(--type-pullquote-size);
+    font-style: italic;
+    font-weight: var(--weight-regular);
+    line-height: var(--type-pullquote-leading);
+    letter-spacing: var(--type-pullquote-tracking);
+    color: var(--type-pullquote-color);
+    margin: 0;
   }
 
   /* ── Charts ─────────────────────────────────────────────────────── */
