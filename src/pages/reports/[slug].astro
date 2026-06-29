@@ -360,7 +360,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         )}
 
         {report.data.acknowledgement && (
-          <p class="report-human__acknowledgement">{report.data.acknowledgement}</p>
+          <p class="report-human__acknowledgement prose">{report.data.acknowledgement}</p>
         )}
 
         {report.data.communityPartners && report.data.communityPartners.length > 0 && (
