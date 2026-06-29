@@ -65,88 +65,16 @@ public/
 
 ## Non-obvious constraints
 
-### CSS token architecture (3-tier, from design spec §10)
+### Design system → DESIGN.md
 
-Tokens are organised in three tiers, each referencing the tier below it:
+All visual design rules live in **DESIGN.md** (repo root). Read it before any style or component change. It covers: colour roles + exact hex values, dark mode, typography scale + faces, layout zones, shapes (D-blob SVG path), component visual specs, and do's and don'ts.
 
-```
-Primitive tokens (_primitives.css)
-      ↓  (never referenced in component CSS)
-Semantic tokens (_semantic.css)
-      ↓  (always used in components)
-Component tokens (in component scope, when a semantic alias is too generic)
-```
-
-Rules:
-- **Never reference `_primitives.css` tokens directly in components.** Always use semantic tokens from `_semantic.css`.
-- No hardcoded hex/rgb/px values that have a token equivalent. If a design value is not in the token system, it does not exist in the brand system.
-- Changing a semantic token value changes it everywhere. That is the succession lever.
-- Space scale tokens: `--space-1` through `--space-6` (consecutive, 4px–24px), then `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-24`, `--space-32`. Tailwind-style stops — no intermediate values.
-
-### Colour roles (design spec §4 — Track B resolved)
-
-| Role | Token prefix | Usage | Hex anchor |
-|------|-------------|-------|------------|
-| Signal | `--color-signal-*` | Crimson — CTAs, mark, data highlights, key links | `#991844` |
-| Workhorse | `--color-workhorse` | Near-black — primary text at every level | `#1a1a1a` |
-| Ambient | `--color-ambient` | Warm cream — background surfaces | `#faf8f4` |
-| Action | `--color-action` | Navy-derived — secondary interactive, hover, focus | `#4a628f` |
-| Ink muted | `--color-ink-muted` | Reserved editorial support — not full signal or workhorse | `#6d6865` |
-
-Colour ramps are complete: crimson, navy, warm grey, cream — each 50–900.
-
-### Dark mode (design spec §4, encoded in _dark.css)
-
-- Toggle: `data-theme="dark"` on `<html>` element.
-- **V1 does NOT follow `prefers-color-scheme` automatically.** Dark mode is intentional, not automatic.
-- Dark surface: navy `#0f1c2e` (resolved in §4).
-- Crimson split for dark-surface readability: signal-fill `--color-crimson-400`, signal-text `--color-crimson-300`.
-- Overrides exist only in `_dark.css` — never sprinkle dark-mode overrides in component files.
-- The homepage has one intentional dark inversion beat (see `DarkBeat.astro`), handled by inverse tokens (`--color-inverse-surface`, `--color-inverse-text`).
-
-### Typography — 4 locked display moments (design spec §5)
-
-Do not invent new display sizes. Collapse anything that feels like a new size into `--type-h2`. Ask before creating new moments.
-
-| Moment | Token pattern | Size | Leading | Tracking | Face |
-|--------|-------------|------|---------|----------|------|
-| Hero | `--type-hero-*` | 132px (8.25rem) | 0.88 | -0.018em | Instrument Serif |
-| H2 | `--type-h2-*` | 64px (4rem) | 1.00 | -0.018em | Instrument Serif |
-| Stat | `--type-stat-*` | 132px / DM Mono | 0.92 | -0.03em | DM Mono |
-| Pull-quote | `--type-pullquote-*` | 36px (2.25rem) | 1.18 | 0em | Instrument Serif, italic, crimson |
-
-Below display scale:
-
-| Token | Size | Usage |
-|-------|------|-------|
-| `--type-body` | 16px (1rem) | Body text, prose |
-| `--type-caption` | 14px (0.875rem) | Captions, chart notes |
-| `--type-footnote` | 12px (0.75rem) | Footnotes, source credits |
-| `--ui-meta` | 11px (0.6875rem) | **Accessibility floor** — use for eyebrow, label, meta. Never go smaller. |
-
-UPPERCASE labels: use `text-transform: uppercase` in CSS via `.label-mono` class. Never uppercase in copy source.
-
-### Typography — face selection (design spec §5, resolved)
-
-| Role | Face | Fallback |
-|------|------|----------|
-| Display / editorial voice | Instrument Serif | Georgia, serif |
-| Functional sans / data voice | Plus Jakarta Sans | system-ui, sans-serif |
-| Data / tabular | DM Mono | Courier New, monospace |
-
-Poppins is retired. It may appear only in legacy embedded Looker dashboards until replaced.
-
-### Layout zones (design spec §7)
-
-| Zone | Max-width | Purpose |
-|------|-----------|---------|
-| Prose | 65ch (`--zone-prose`) | Body text, editorial copy |
-| Editorial | 80ch (`--zone-editorial`) | Section headings, wider editorial |
-| Full | 100% (`--zone-full`) | Charts, images, hero moments, blob architecture |
-
-CSS utility classes: `.prose` (65ch constraint), `.prose-editorial` (80ch constraint).
-
-Grid: 12 columns desktop (≥1280px), 8 mid (768–1279px), 4 mobile (<768px). The grid is a scaffold, not a cage.
+**Operational token rules (coding constraints):**
+- Never reference `_primitives.css` tokens directly in components — always use semantic tokens from `_semantic.css`
+- All dark mode overrides go in `_dark.css` only — never in component style blocks
+- No hardcoded hex/rgb/px values that have a token equivalent
+- Space scale: `--space-1` through `--space-32` (stops: 4 8 12 16 24 32 40 48 64 96 128px) — no intermediate values
+- UPPERCASE labels: `text-transform: uppercase` in CSS via `.label-mono` — never uppercase in copy source
 
 ### Content schema invariants (from src/content.config.ts and src/lib/evidence.ts)
 
@@ -192,33 +120,26 @@ Each evidence JSON file in `src/content/evidence/` requires: `id`, `title`, `sum
 
 ### Data visualisation (design spec §6)
 
-- Default chart character: the editorial summary register (OWID-style — clean, standardised, rigorous).
-- Key findings (3–4 per report) may use the data essay treatment (Pudding-style — richer annotation, narrative baked into the visual).
-- Every chart must have: title, caption, summary, `evidenceIds`, sourceLabel, sourceUrl, fallbackTable (2-column array with min 1 row), bars (label/value/tone).
-- Optional: `pngPath` for archived chart images.
-- v1 ships existing Observable embeds as-is. Themed Observable charts are a post-v1 workstream.
-- Chart accessibility summary is required — CI fails when missing.
+Chart style, register (OWID vs Pudding), and visual language → see **DESIGN.md § Data visualisation**.
+
+Functional requirements for `ChartBlock.astro` (CI-enforced):
+- Required fields: `title`, `caption`, `summary` (a11y), `evidenceIds`, `sourceLabel`, `sourceUrl`, `fallbackTable` (2-column array, min 1 row), `bars` (label/value/tone)
+- Optional: `pngPath` for archived chart images
+- Chart accessibility `summary` is required — CI fails when missing
+- v1 ships existing Observable embeds as-is. Themed Observable = post-v1.
 
 ### Voice and prose (design spec §8)
 
-Two registers, never blurred:
+Voice registers, tone rules, and examples → see **DESIGN.md § Do's and don'ts → Voice**.
 
-| Register | Tone | Usage |
-|----------|------|-------|
-| Data voice | Neutral, precise, cited — no editorialising | Findings, methodology, tables, footnotes |
-| Editorial voice | Opinionated, questions-first, marked as such | Framing, intros, section headers, provocations |
-
-Data voice rules: state finding before context, always name sample/scope, state uncertainty explicitly, no editorialising adjectives, past tense for findings, specific comparisons.
-
-Editorial voice rules: lead with question or claim, one argument per passage, mark register visually, acknowledge distance between data and argument, no false balance.
-
+Operational rules:
 - British English. Oxford comma. Sentence-case headings — never title case.
-- Run the humanizer skill on all prose before landing. This is Gate 3.
-- DPA voice: direct, cited, not AI-sounding. Trust comes from the data voice being unimpeachable; authority comes from the editorial voice being brave.
+- Run the humanizer skill on all prose before landing (Gate 3).
+- DPA voice: direct, cited. Trust = data voice unimpeachable. Authority = editorial voice brave.
 
-### Succession principle (design spec §10)
+### Succession principle
 
-The repo is designed to run without the founder. Every design decision is encoded in tokens. A capable stranger, volunteer, or AI should be able to read the spec and codebase and produce DPA-sounding work without reverse-engineering intent.
+Repo runs without the founder. Design decisions are in tokens (DESIGN.md + `src/styles/tokens/`). A capable stranger or AI reads DESIGN.md and produces DPA-consistent work without reverse-engineering intent.
 
 ## Commits
 

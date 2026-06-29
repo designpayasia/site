@@ -29,3 +29,4 @@ pnpm-debug.log*
 # Screenshot verification artifacts
 screenshots/
 .claude/
+.od-skills/
