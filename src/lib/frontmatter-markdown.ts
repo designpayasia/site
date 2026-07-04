@@ -209,3 +209,46 @@ export const renderRichTextHtml = (value: string | undefined) => {
 
   return blocks.map(renderBlock).join('\n');
 };
+
+/* ── Chart directive splitting (Brief A3) ──────────────────────────────
+   `::chart{id="…"}` on its own line marks the exact spot where a section's
+   colocated chart must be inserted. It is stripped out of the prose before
+   parsing and the surrounding text is rendered independently either side of
+   it, so headings/lists/quotes still resolve correctly right up to the
+   boundary. Matching against `charts[]` and enforcing that every chart is
+   referenced happens one layer up, in report-content.ts, which owns the
+   section/chart domain model. */
+const CHART_DIRECTIVE_RE = /^[ \t]*::chart\{id="([^"]+)"\}[ \t]*$/gm;
+
+export type RichTextSegment = { type: 'prose'; html: string } | { type: 'chart'; chartId: string };
+
+export const renderRichTextSegments = (value: string | undefined): RichTextSegment[] => {
+  const source = value?.trim();
+
+  if (!source) {
+    return [];
+  }
+
+  const normalized = source.replace(/\r\n?/g, '\n');
+  const segments: RichTextSegment[] = [];
+  let cursor = 0;
+
+  for (const match of normalized.matchAll(CHART_DIRECTIVE_RE)) {
+    const index = match.index ?? 0;
+    const proseHtml = renderRichTextHtml(normalized.slice(cursor, index));
+
+    if (proseHtml) {
+      segments.push({ type: 'prose', html: proseHtml });
+    }
+
+    segments.push({ type: 'chart', chartId: match[1] });
+    cursor = index + match[0].length;
+  }
+
+  const trailingHtml = renderRichTextHtml(normalized.slice(cursor));
+  if (trailingHtml) {
+    segments.push({ type: 'prose', html: trailingHtml });
+  }
+
+  return segments;
+};

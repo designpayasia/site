@@ -10,8 +10,8 @@ import {
   collectEvidenceByIds,
   isSelfHostedSource,
 } from '../../../lib/evidence';
-import { renderRichTextHtml } from '../../../lib/frontmatter-markdown';
 import {
+  buildSectionContentSegments,
   getReportSlug,
   getSectionsForReport,
   type ReportSectionView,
@@ -77,7 +77,10 @@ const asParagraphs = (value: string | undefined) =>
 const asLines = (value: string | undefined) =>
   value?.split('\n').map((line: string) => line.trim()).filter(Boolean) ?? [];
 
-const bodyHtml = renderRichTextHtml(section.body);
+// Ordered prose/chart segments, resolved and validated against this
+// section's charts[] (Brief A3 — see buildSectionContentSegments).
+const bodySegments = buildSectionContentSegments(section);
+const firstProseSegmentIndex = bodySegments.findIndex((segment) => segment.type === 'prose');
 
 /* ── Editorial block data ─────────────────────────────────────────── */
 
@@ -167,36 +170,30 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
     <section class="section-body" aria-label={`${section.title} analysis`}>
       <div class="section-body__inner">
-        <article class="section-copy prose">
-          <Fragment set:html={bodyHtml} />
-        </article>
+        {bodySegments.map((segment, index) =>
+          segment.type === 'chart' ? (
+            <ChartBlock
+              title={segment.chart.title}
+              caption={segment.chart.caption}
+              summary={segment.chart.summary}
+              evidenceIds={segment.chart.evidenceIds}
+              sourceLabel={segment.chart.sourceLabel}
+              sourceUrl={segment.chart.sourceUrl}
+              reportPath={reportPath}
+              fallbackColumns={getFallbackColumns(segment.chart.fallbackTable.columns)}
+              fallbackRows={segment.chart.fallbackTable.rows}
+              bars={segment.chart.bars}
+              pngPath={segment.chart.pngPath}
+            />
+          ) : (
+            <div
+              class={`section-copy prose${index === firstProseSegmentIndex ? ' section-copy--lead' : ''}`}
+              set:html={segment.html}
+            />
+          ),
+        )}
       </div>
     </section>
-
-    {sectionCharts.length > 0 && (
-      <section class="section-charts" aria-labelledby="section-charts-title">
-        <div class="section-charts__inner">
-          <h2 id="section-charts-title" class="t-h2">Charts</h2>
-          <div class="section-charts__grid">
-            {sectionCharts.map((chart) => (
-              <ChartBlock
-                title={chart.title}
-                caption={chart.caption}
-                summary={chart.summary}
-                evidenceIds={chart.evidenceIds}
-                sourceLabel={chart.sourceLabel}
-                sourceUrl={chart.sourceUrl}
-                reportPath={reportPath}
-                fallbackColumns={getFallbackColumns(chart.fallbackTable.columns)}
-                fallbackRows={chart.fallbackTable.rows}
-                bars={chart.bars}
-                pngPath={chart.pngPath}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
 
     {/* ── Unified editorial block ──────────────────────────────────── */}
 
@@ -427,7 +424,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .section-hero__inner,
   .section-body__inner,
-  .section-charts__inner,
   .section-editorial__inner,
   .section-questions__inner,
   .section-sources__inner,
@@ -469,7 +465,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   /* ── Body copy ─────────────────────────────────────────────────── */
 
   .section-body,
-  .section-charts,
   .section-sources {
     padding-block: var(--space-12);
   }
@@ -479,6 +474,11 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     gap: var(--space-12);
     padding-block: var(--space-16) var(--space-24);
   }
+
+  /* ChartBlock is a direct grid child of .section-body__inner (same
+     zone-editorial width previously used by the standalone charts
+     section) so it breaks out of the narrower .prose (65ch) copy either
+     side of it — reusing the existing width zones, no new container. */
 
   /* set:html injects content outside Astro's scope — use :global() for all
      .section-copy descendants so scoped CSS reaches the injected elements. */
@@ -490,8 +490,12 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     margin-block-end: 0;
   }
 
-  /* Lead paragraph — larger, ink-subtle: frames the section before detail body */
-  .section-copy :global(> p:first-child) {
+  /* Lead paragraph — larger, ink-subtle: frames the section before detail
+     body. Scoped to --lead (the first prose segment) rather than
+     :first-child, because a ::chart directive can split the body into
+     several sibling .section-copy blocks and only the very first one
+     should get the lead treatment. */
+  .section-copy--lead :global(> p:first-child) {
     font-size: var(--font-size-lg);
     line-height: var(--leading-editorial);
     color: var(--color-ink-subtle);
@@ -571,22 +575,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     letter-spacing: var(--type-pullquote-tracking);
     color: var(--type-pullquote-color);
     margin: 0;
-  }
-
-  /* ── Charts ─────────────────────────────────────────────────────── */
-
-  .section-charts {
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .section-charts__grid {
-    display: grid;
-    gap: var(--space-8);
-    margin-top: var(--space-8);
-  }
-
-  .section-charts h2 {
-    margin-block: var(--space-2) 0;
   }
 
   /* ═══════════════════════════════════════════════════════════════════
