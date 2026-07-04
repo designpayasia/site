@@ -1,5 +1,5 @@
 import { glob } from 'astro/loaders';
-import { defineCollection } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 import { z } from 'zod';
 
 const metricSchema = z
@@ -116,8 +116,9 @@ const teamMemberSchema = z.object({
 });
 
 const reports = defineCollection({
-  loader: glob({ base: './src/content/reports', pattern: '**/*.md' }),
+  loader: glob({ base: './src/content/reports', pattern: '*/index.md' }),
   schema: z.object({
+    slug: z.string(),
     title: z.string().min(1),
     summary: z.string().min(1),
     year: z.number().int().min(2000).max(2100),
@@ -128,7 +129,6 @@ const reports = defineCollection({
     eyebrow: z.string().default('Report'),
     heroCtaLabel: z.string().default('Read report'),
     stats: z.array(metricSchema).min(1),
-    charts: z.array(chartSchema).default([]),
     team: z.array(teamMemberSchema).optional(),
     acknowledgement: z.string().optional(),
     communityPartners: z.array(z.string().min(1)).optional(),
@@ -149,33 +149,33 @@ const reports = defineCollection({
         caveat: z.string().min(1),
       })
       .optional(),
-    sections: z
-      .array(
-        z.object({
-          id: z.string().regex(/^[a-z0-9-]+$/),
-          title: z.string().min(1),
-          summary: z.string().min(1),
-          body: z.string().min(1),
-          commentary: z.string().min(1).optional(),
-          hubCommentary: z.string().optional(),
-          questions: z.array(z.string().min(1)).default([]),
-          whatThisMeans: z.string().min(1).optional(),
-          whatThisMeansIndividuals: z.string().min(1).optional(),
-          whatThisMeansLeaders: z.string().min(1).optional(),
-          keyFindings: z.array(z.string()).optional(),
-          references: z
-            .array(
-              z.object({
-                label: z.string().min(1),
-                url: z.url().optional(),
-              }),
-            )
-            .default([]),
-          charts: z.array(z.string().regex(/^[a-z0-9-]+$/)).default([]),
-        }),
-      )
-      .min(1),
   }),
 });
 
-export const collections = { evidence, site, reports };
+const reportSections = defineCollection({
+  loader: glob({ base: './src/content/reports', pattern: ['*/*.md', '!*/index.md'] }),
+  schema: z.object({
+    report: reference('reports'),
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    order: z.number(),
+    commentary: z.string().min(1).optional(),
+    hubCommentary: z.string().optional(),
+    questions: z.array(z.string().min(1)).default([]),
+    whatThisMeans: z.string().min(1).optional(),
+    whatThisMeansIndividuals: z.string().min(1).optional(),
+    whatThisMeansLeaders: z.string().min(1).optional(),
+    keyFindings: z.array(z.string()).optional(),
+    references: z
+      .array(
+        z.object({
+          label: z.string().min(1),
+          url: z.url().optional(),
+        }),
+      )
+      .default([]),
+    charts: z.array(chartSchema).default([]),
+  }),
+});
+
+export const collections = { evidence, site, reports, reportSections };
