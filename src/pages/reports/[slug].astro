@@ -12,42 +12,56 @@ import {
   getVisibleMetrics,
 } from '../../lib/evidence';
 import { renderRichTextHtml } from '../../lib/frontmatter-markdown';
+import {
+  getReportSlug,
+  getSectionsForReport,
+  type ReportSectionView,
+} from '../../lib/report-content';
 
 export async function getStaticPaths() {
-  const reports = await getCollection('reports', ({ data }) => data.status === 'published');
+  const [reports, reportSections] = await Promise.all([
+    getCollection('reports', ({ data }) => data.status === 'published'),
+    getCollection('reportSections'),
+  ]);
 
   return reports.map((report) => ({
-    params: { slug: report.id },
-    props: { report },
+    params: { slug: getReportSlug(report) },
+    props: {
+      report,
+      sections: getSectionsForReport(report, reportSections),
+    },
   }));
 }
 
 interface Props {
   report: CollectionEntry<'reports'>;
+  sections: ReportSectionView[];
 }
 
-const { report } = Astro.props;
+const { report, sections } = Astro.props as Props;
 const { Content } = await render(report);
+const reportSlug = getReportSlug(report);
 const evidenceEntries = await getCollection('evidence');
 const evidenceMap = buildEvidenceMap(evidenceEntries);
+const reportCharts = sections.flatMap((section) => section.charts);
 
 assertMetricsHaveEvidence(report.data.stats, evidenceMap, `report:${report.id}`);
-for (const chart of report.data.charts) {
+for (const chart of reportCharts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
 }
 
 // Trust-core validation still runs (stats + charts validate against evidence
 // records); we only removed the visual evidence list, not the asserts.
 const stats = getVisibleMetrics(report.data.stats);
-const methodologySection = report.data.sections.find((section) => section.id === 'methodology');
+const methodologySection = sections.find((section) => section.id === 'methodology');
 
 // Hub renders only three signature charts; all 7 remain in frontmatter data.
 const SIGNATURE_CHART_IDS_BY_SLUG: Record<string, string[]> = {
   '2024': ['geo-distribution', 'career-levels', 'compensation-mix', 'compensation-by-level'],
   '2023': ['chart-geographic-distribution', 'chart-career-level-distribution', 'chart-compensation-by-level', 'chart-gender-pay-gap'],
 };
-const signatureCharts = report.data.charts.filter((chart) =>
-  (SIGNATURE_CHART_IDS_BY_SLUG[report.id] ?? []).includes(chart.id),
+const signatureCharts = reportCharts.filter((chart) =>
+  (SIGNATURE_CHART_IDS_BY_SLUG[reportSlug] ?? []).includes(chart.id),
 );
 
 // Grouped, scannable section list. Three buckets: Landscape, Sentiments, Analysis.
@@ -59,17 +73,17 @@ const SENTIMENT_IDS_BY_SLUG: Record<string, string[]> = {
   '2024': ['offer-and-negotiation', 'career-progression', 'value-of-design', 'job-market'],
   '2023': ['sentiments-negotiations', 'sentiments-work-setup', 'sentiments-career-progression'],
 };
-const SENTIMENT_IDS = SENTIMENT_IDS_BY_SLUG[report.id] ?? [];
+const SENTIMENT_IDS = SENTIMENT_IDS_BY_SLUG[reportSlug] ?? [];
 const ANALYSIS_IDS_BY_SLUG: Record<string, string[]> = {
   '2023': ['analysis-gender', 'analysis-experience', 'analysis-company', 'analysis-education'],
 };
-const ANALYSIS_IDS = ANALYSIS_IDS_BY_SLUG[report.id] ?? [];
+const ANALYSIS_IDS = ANALYSIS_IDS_BY_SLUG[reportSlug] ?? [];
 const ANALYSIS_LABEL = 'Singapore deep dive';
 
-const routableSections = report.data.sections.filter(
+const routableSections = sections.filter(
   (section) => !EXCLUDED_IDS.has(section.id) && section.id !== CLOSING_ID,
 );
-const closingSection = report.data.sections.find((section) => section.id === CLOSING_ID);
+const closingSection = sections.find((section) => section.id === CLOSING_ID);
 const allSections = [...routableSections];
 if (closingSection) allSections.push(closingSection);
 
@@ -94,9 +108,9 @@ const findingsLede = hasSectionCommentary
 const methodologyPoints = methodologySection
   ? methodologySection.body
       .split('\n')
-      .map((line) => line.trim())
-      .filter((line) => line.startsWith('- '))
-      .map((line) => line.slice(2).trim())
+      .map((line: string) => line.trim())
+      .filter((line: string) => line.startsWith('- '))
+      .map((line: string) => line.slice(2).trim())
       .filter(Boolean)
   : [];
 

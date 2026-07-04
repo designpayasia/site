@@ -11,22 +11,31 @@ import {
   isSelfHostedSource,
 } from '../../../lib/evidence';
 import { renderRichTextHtml } from '../../../lib/frontmatter-markdown';
+import {
+  getReportSlug,
+  getSectionsForReport,
+  type ReportSectionView,
+} from '../../../lib/report-content';
 
 export async function getStaticPaths() {
-  const reports = await getCollection('reports', ({ data }) => data.status === 'published');
+  const [reports, reportSections] = await Promise.all([
+    getCollection('reports', ({ data }) => data.status === 'published'),
+    getCollection('reportSections'),
+  ]);
   const excludedSectionIds = new Set(['executive-summary', 'methodology']);
 
   return reports.flatMap((report) =>
-    report.data.sections
+    getSectionsForReport(report, reportSections)
       .filter((section) => !excludedSectionIds.has(section.id))
       .map((section) => ({
         params: {
-          year: String(report.data.year),
+          year: getReportSlug(report),
           section: section.id,
         },
         props: {
           report,
           section,
+          sections: getSectionsForReport(report, reportSections),
         },
       })),
   );
@@ -34,24 +43,15 @@ export async function getStaticPaths() {
 
 interface Props {
   report: CollectionEntry<'reports'>;
-  section: CollectionEntry<'reports'>['data']['sections'][number];
+  section: ReportSectionView;
+  sections: ReportSectionView[];
 }
 
-const { report, section } = Astro.props;
+const { report, section, sections } = Astro.props as Props;
 const evidenceEntries = await getCollection('evidence');
 const evidenceMap = buildEvidenceMap(evidenceEntries);
 const reportPath = report.data.canonicalPath;
-const chartIds = new Set(section.charts);
-const sectionCharts = report.data.charts.filter((chart) => chartIds.has(chart.id));
-const missingChartIds = section.charts.filter(
-  (chartId) => !report.data.charts.some((chart) => chart.id === chartId),
-);
-
-if (missingChartIds.length > 0) {
-  throw new Error(
-    `report:${report.id}:section:${section.id} references missing charts: ${missingChartIds.join(', ')}`,
-  );
-}
+const sectionCharts = section.charts;
 
 for (const chart of sectionCharts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
@@ -75,7 +75,7 @@ const asParagraphs = (value: string | undefined) =>
 
 /** Split text on single newlines into trimmed non-empty lines (for bullet lists). */
 const asLines = (value: string | undefined) =>
-  value?.split('\n').map((l) => l.trim()).filter(Boolean) ?? [];
+  value?.split('\n').map((line: string) => line.trim()).filter(Boolean) ?? [];
 
 const bodyHtml = renderRichTextHtml(section.body);
 
@@ -112,7 +112,7 @@ const hasEditorialBlock =
 /* ── Navigation ───────────────────────────────────────────────────── */
 
 const excludedSectionIds = new Set(['executive-summary', 'methodology']);
-const navigableSections = report.data.sections.filter((item) => !excludedSectionIds.has(item.id));
+const navigableSections = sections.filter((item) => !excludedSectionIds.has(item.id));
 const sectionIndex = navigableSections.findIndex((item) => item.id === section.id);
 const previousSection = sectionIndex > 0 ? navigableSections[sectionIndex - 1] : undefined;
 const nextSection =
