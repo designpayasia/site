@@ -24,7 +24,10 @@ export const getReportIdFromSectionId = (sectionId: string) => {
     throw new Error(`Invalid report section id "${sectionId}". Expected "report-slug/section-slug".`);
   }
 
-  return `${parts[0]}/index`;
+  // The `reports` collection globs `*/index.md`. Astro's glob loader treats an
+  // `index` file as representing its parent directory, so the resulting entry
+  // id is just the directory name (e.g. "2024"), not "2024/index".
+  return parts[0];
 };
 
 export const normalizeReportSection = (section: ReportSectionEntry): ReportSectionView => ({
