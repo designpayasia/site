@@ -432,6 +432,10 @@ charts:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 4.54 / 7"
+    accessibility:
+      summary: "Bar chart showing responses to the statement about career progression
+        support. The mean response is 4.54 on a 1-7 scale."
     bars:
       - label: Rating 1
         value: 3.4
@@ -474,6 +478,10 @@ charts:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 5.57 / 7"
+    accessibility:
+      summary: "Bar chart showing responses to the statement about comfort with
+        current working arrangement. The mean response is 5.57 on a 1-7 scale."
     bars:
       - label: Rating 1
         value: 1.5
