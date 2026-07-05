@@ -438,7 +438,7 @@ Product design overwhelmingly dominates at 67.5% of respondents (218). Research 
 
 ## Experience and career switching
 
-Nearly half of respondents (48.4%) reported six or fewer years of design experience, with the single largest group (22.9%) having just one year. The median total working experience, however, is 10 years, noticeably higher than the median design experience of 6 years. Many designers are career switchers who bring broader professional experience to their design roles.
+Nearly half of respondents (47.1%) have three or fewer years of design experience, the single largest bracket in the survey. The median total working experience, however, is 10 years, noticeably higher than the median design experience of 6 years. Many designers are career switchers who bring broader professional experience to their design roles.
 
 ::chart{id="chart-job-levelling-progress-vs-last-year"}
 
@@ -450,7 +450,7 @@ Nearly half of respondents (48.4%) reported six or fewer years of design experie
 
 ## Education
 
-The workforce is highly educated: 66.3% hold bachelor's degrees, 15.5% have master's degrees, and 13.6% have diplomas. Formal design education is the most common path (49.8%), followed by online certification (29.1%) and bootcamps (27.9%). Notably, 22.3% have no formal design education at all, demonstrating that design credentials are not a prerequisite for employment in the field.
+The workforce is highly educated: 66.3% hold bachelor's degrees, 15.5% have master's degrees, and 13.6% have diplomas. Formal design education is the most common path (49.8%), followed by online certification (29.1%) and in-person certified courses (27.9%); bootcamps account for a further 11.1%. Notably, 22.3% have no formal design education at all, demonstrating that design credentials are not a prerequisite for employment in the field.
 
 ## International experience
 
