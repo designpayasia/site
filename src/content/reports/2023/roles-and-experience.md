@@ -148,11 +148,279 @@ charts:
       - label: 10+ years
         value: 15.5
         tone: workhorse
+  - id: chart-job-title-distribution
+    type: bar
+    title: Job title distribution
+    caption: Respondents by current job title (N=323, all markets). Product Designer
+      is the largest named title, with most responses falling into Other.
+    summary: "Bar chart showing current job titles among respondents. Product Designer
+      is the largest named title, while Other contains most of the remaining responses."
+    evidenceIds:
+      - evidence:2023-roles-experience
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing current job titles among respondents. Product
+        Designer is the largest named title, while Other contains most of the remaining
+        responses."
+    fallbackTable:
+      columns:
+        - Job title
+        - Share (N=323)
+      rows:
+        - label: Product Designer
+          value: 33 (10.2%)
+        - label: UX Designer
+          value: 25 (7.7%)
+        - label: Senior Product Designer
+          value: 18 (5.6%)
+        - label: UI/UX Designer
+          value: 18 (5.6%)
+        - label: UX Researcher
+          value: 10 (3.1%)
+        - label: Product designer
+          value: 9 (2.8%)
+        - label: Senior UX Designer
+          value: 9 (2.8%)
+        - label: UIUX Designer
+          value: 7 (2.2%)
+        - label: Other
+          value: 194 (60.1%)
+    bars:
+      - label: Product Designer
+        value: 10.2
+        tone: workhorse
+      - label: UX Designer
+        value: 7.7
+        tone: workhorse
+      - label: Senior Product Designer
+        value: 5.6
+        tone: workhorse
+      - label: UI/UX Designer
+        value: 5.6
+        tone: workhorse
+      - label: UX Researcher
+        value: 3.1
+        tone: workhorse
+      - label: Product designer
+        value: 2.8
+        tone: workhorse
+      - label: Senior UX Designer
+        value: 2.8
+        tone: workhorse
+      - label: UIUX Designer
+        value: 2.2
+        tone: workhorse
+      - label: Other
+        value: 60.1
+        tone: signal
+  - id: chart-job-levelling-progress-vs-last-year
+    type: bar
+    title: Job levelling progress vs last year
+    caption: Respondents reporting formal job levelling progress vs the previous
+      year (N=323, all markets).
+    summary: "Bar chart showing whether respondents made formal progress on job levelling
+      compared with last year. Just over half answered Yes."
+    evidenceIds:
+      - evidence:2023-roles-experience
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing whether respondents made formal progress on job
+        levelling compared with last year. Just over half answered Yes."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=323)
+      rows:
+        - label: Yes
+          value: 174 (53.9%)
+        - label: No
+          value: 96 (29.7%)
+        - label: N/A
+          value: 53 (16.4%)
+    bars:
+      - label: Yes
+        value: 53.9
+        tone: signal
+      - label: No
+        value: 29.7
+        tone: workhorse
+      - label: N/A
+        value: 16.4
+        tone: workhorse
+  - id: chart-switch-primary-work-area
+    type: bar
+    title: Switch primary area of work
+    caption: 1-7 response distribution for switching primary area of work in the
+      coming year (N=312, mean 4.34).
+    summary: "Bar chart showing responses about switching primary area of work in
+      the coming year. The mean response is 4.34 on a 1-7 scale."
+    evidenceIds:
+      - evidence:2023-roles-experience
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing responses about switching primary area of work in
+        the coming year. The mean response is 4.34 on a 1-7 scale."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=312)
+      rows:
+        - label: \"1\"
+          value: 23 (7.4%)
+        - label: \"2\"
+          value: 31 (9.9%)
+        - label: \"3\"
+          value: 38 (12.2%)
+        - label: \"4\"
+          value: 60 (19.2%)
+        - label: \"5\"
+          value: 74 (23.7%)
+        - label: \"6\"
+          value: 56 (17.9%)
+        - label: \"7\"
+          value: 30 (9.6%)
+    bars:
+      - label: \"1\"
+        value: 7.4
+        tone: workhorse
+      - label: \"2\"
+        value: 9.9
+        tone: workhorse
+      - label: \"3\"
+        value: 12.2
+        tone: workhorse
+      - label: \"4\"
+        value: 19.2
+        tone: workhorse
+      - label: \"5\"
+        value: 23.7
+        tone: signal
+      - label: \"6\"
+        value: 17.9
+        tone: workhorse
+      - label: \"7\"
+        value: 9.6
+        tone: workhorse
+  - id: chart-switch-ic-management-track
+    type: bar
+    title: Switch IC-management track
+    caption: 1-7 response distribution for switching between IC and management track
+      in the coming year (N=309, mean 3.46).
+    summary: "Bar chart showing responses about switching between IC and management
+      tracks in the coming year. The mean response is 3.46 on a 1-7 scale."
+    evidenceIds:
+      - evidence:2023-roles-experience
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing responses about switching between IC and management
+        tracks in the coming year. The mean response is 3.46 on a 1-7 scale."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=309)
+      rows:
+        - label: \"1\"
+          value: 70 (22.7%)
+        - label: \"2\"
+          value: 40 (12.9%)
+        - label: \"3\"
+          value: 44 (14.2%)
+        - label: \"4\"
+          value: 60 (19.4%)
+        - label: \"5\"
+          value: 42 (13.6%)
+        - label: \"6\"
+          value: 33 (10.7%)
+        - label: \"7\"
+          value: 20 (6.5%)
+    bars:
+      - label: \"1\"
+        value: 22.7
+        tone: signal
+      - label: \"2\"
+        value: 12.9
+        tone: workhorse
+      - label: \"3\"
+        value: 14.2
+        tone: workhorse
+      - label: \"4\"
+        value: 19.4
+        tone: workhorse
+      - label: \"5\"
+        value: 13.6
+        tone: workhorse
+      - label: \"6\"
+        value: 10.7
+        tone: workhorse
+      - label: \"7\"
+        value: 6.5
+        tone: workhorse
+  - id: chart-switch-jobs-companies
+    type: bar
+    title: Switch jobs or companies
+    caption: 1-7 response distribution for switching jobs or companies in the coming
+      year (N=313, mean 4.34).
+    summary: "Bar chart showing responses about switching jobs or companies in the
+      coming year. The mean response is 4.34 on a 1-7 scale."
+    evidenceIds:
+      - evidence:2023-roles-experience
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing responses about switching jobs or companies in the
+        coming year. The mean response is 4.34 on a 1-7 scale."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=313)
+      rows:
+        - label: \"1\"
+          value: 44 (14.1%)
+        - label: \"2\"
+          value: 31 (9.9%)
+        - label: \"3\"
+          value: 33 (10.5%)
+        - label: \"4\"
+          value: 51 (16.3%)
+        - label: \"5\"
+          value: 42 (13.4%)
+        - label: \"6\"
+          value: 44 (14.1%)
+        - label: \"7\"
+          value: 68 (21.7%)
+    bars:
+      - label: \"1\"
+        value: 14.1
+        tone: workhorse
+      - label: \"2\"
+        value: 9.9
+        tone: workhorse
+      - label: \"3\"
+        value: 10.5
+        tone: workhorse
+      - label: \"4\"
+        value: 16.3
+        tone: workhorse
+      - label: \"5\"
+        value: 13.4
+        tone: workhorse
+      - label: \"6\"
+        value: 14.1
+        tone: workhorse
+      - label: \"7\"
+        value: 21.7
+        tone: signal
 ---
 
 ## Job titles
 
 Designers reported a wide variety of titles, but nearly 90% included the word "design." Over half (50.7%) featured "UX" and 25.3% had "UI" in the title. The most common titles were Product Designer (33), UX Designer (25), UI/UX Designer (18), and Senior Product Designer (18). Around 40.8% of job titles indicated some level of seniority, suggesting that formal levelling is common but not universal across the region's design industry.
+
+::chart{id="chart-job-title-distribution"}
 
 ::chart{id="chart-career-level-distribution"}
 
@@ -172,6 +440,14 @@ Product design overwhelmingly dominates at 67.5% of respondents (218). Research 
 
 Nearly half of respondents (48.4%) reported six or fewer years of design experience, with the single largest group (22.9%) having just one year. The median total working experience, however, is 10 years, noticeably higher than the median design experience of 6 years. Many designers are career switchers who bring broader professional experience to their design roles.
 
+::chart{id="chart-job-levelling-progress-vs-last-year"}
+
+::chart{id="chart-switch-primary-work-area"}
+
+::chart{id="chart-switch-ic-management-track"}
+
+::chart{id="chart-switch-jobs-companies"}
+
 ## Education
 
 The workforce is highly educated: 66.3% hold bachelor's degrees, 15.5% have master's degrees, and 13.6% have diplomas. Formal design education is the most common path (49.8%), followed by online certification (29.1%) and bootcamps (27.9%). Notably, 22.3% have no formal design education at all, demonstrating that design credentials are not a prerequisite for employment in the field.
@@ -179,4 +455,3 @@ The workforce is highly educated: 66.3% hold bachelor's degrees, 15.5% have mast
 ## International experience
 
 28.5% of respondents have lived and worked in another country. This international exposure is one of the strongest compensation predictors: an 85.5% premium over locally-only careers.
-
