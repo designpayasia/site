@@ -130,6 +130,14 @@ const chartSchema = z.object({
         });
       }
 
+      if (segment.id === 'default') {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "segment id 'default' is reserved for the chart's base view and cannot be reused",
+          path: ['segments', index, 'id'],
+        });
+      }
+
       segmentIds.add(segment.id);
     });
   }

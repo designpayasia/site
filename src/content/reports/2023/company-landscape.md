@@ -368,7 +368,7 @@ charts:
               value: 21 (9.4%)
   - id: extra-hours-worked
     title: Extra hours worked
-    caption: Distribution of extra hours worked outside regular hours (N=323).
+    caption: Distribution of extra hours worked outside regular hours (N=311).
     summary: No extra hours and 1-2 extra hours are the most common responses, with 3-5 and 5+ trailing.
     evidenceIds:
       - evidence:2023-company-landscape
@@ -400,7 +400,7 @@ charts:
     segments:
       - id: singapore
         label: Singapore
-        caption: Distribution of extra hours worked outside regular hours among Singapore respondents (N=224).
+        caption: Distribution of extra hours worked outside regular hours among Singapore respondents (N=217).
         summary: Singapore tilts a little more toward 1-2 extra hours.
         bars:
           - label: "0"
