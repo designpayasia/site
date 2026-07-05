@@ -123,6 +123,7 @@ charts:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 4.57 / 7"
     accessibility:
       summary: "Bar chart showing responses to the statement about being compensated
         fairly for role and level. The mean response is 4.57 on a 1-7 scale."
@@ -146,25 +147,25 @@ charts:
         - label: \"7\"
           value: 32 (10.1%)
     bars:
-      - label: \"1\"
+      - label: Rating 1
         value: 4.4
         tone: workhorse
-      - label: \"2\"
+      - label: Rating 2
         value: 10.7
         tone: workhorse
-      - label: \"3\"
+      - label: Rating 3
         value: 9.5
         tone: workhorse
-      - label: \"4\"
+      - label: Rating 4
         value: 18.3
         tone: workhorse
-      - label: \"5\"
+      - label: Rating 5
         value: 22.7
         tone: workhorse
-      - label: \"6\"
+      - label: Rating 6
         value: 24.3
         tone: workhorse
-      - label: \"7\"
+      - label: Rating 7
         value: 10.1
         tone: workhorse
   - id: chart-market-rate-awareness
@@ -178,6 +179,7 @@ charts:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 4.71 / 7"
     accessibility:
       summary: "Bar chart showing responses to the statement about market rate awareness.
         The mean response is 4.71 on a 1-7 scale."
@@ -201,25 +203,25 @@ charts:
         - label: \"7\"
           value: 26 (8.2%)
     bars:
-      - label: \"1\"
+      - label: Rating 1
         value: 3.2
         tone: workhorse
-      - label: \"2\"
+      - label: Rating 2
         value: 6.6
         tone: workhorse
-      - label: \"3\"
+      - label: Rating 3
         value: 10.7
         tone: workhorse
-      - label: \"4\"
+      - label: Rating 4
         value: 17.0
         tone: workhorse
-      - label: \"5\"
+      - label: Rating 5
         value: 28.4
         tone: workhorse
-      - label: \"6\"
+      - label: Rating 6
         value: 25.9
         tone: workhorse
-      - label: \"7\"
+      - label: Rating 7
         value: 8.2
         tone: workhorse
   - id: chart-staying-informed-on-market-rate
@@ -233,6 +235,7 @@ charts:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 3.86 / 7"
     accessibility:
       summary: "Bar chart showing responses to the statement about staying informed
         on market rate. The mean response is 3.86 on a 1-7 scale."
@@ -256,25 +259,25 @@ charts:
         - label: \"7\"
           value: 14 (4.4%)
     bars:
-      - label: \"1\"
+      - label: Rating 1
         value: 7.0
         tone: workhorse
-      - label: \"2\"
+      - label: Rating 2
         value: 14.9
         tone: workhorse
-      - label: \"3\"
+      - label: Rating 3
         value: 18.0
         tone: workhorse
-      - label: \"4\"
+      - label: Rating 4
         value: 24.1
         tone: workhorse
-      - label: \"5\"
+      - label: Rating 5
         value: 21.5
         tone: workhorse
-      - label: \"6\"
+      - label: Rating 6
         value: 10.1
         tone: workhorse
-      - label: \"7\"
+      - label: Rating 7
         value: 4.4
         tone: workhorse
   - id: chart-negotiation-confidence
@@ -288,6 +291,7 @@ charts:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 4.51 / 7"
     accessibility:
       summary: "Bar chart showing responses to the statement about negotiation confidence.
         The mean response is 4.51 on a 1-7 scale."
@@ -311,25 +315,25 @@ charts:
         - label: \"7\"
           value: 33 (10.4%)
     bars:
-      - label: \"1\"
+      - label: Rating 1
         value: 3.5
         tone: workhorse
-      - label: \"2\"
+      - label: Rating 2
         value: 8.8
         tone: workhorse
-      - label: \"3\"
+      - label: Rating 3
         value: 16.7
         tone: workhorse
-      - label: \"4\"
+      - label: Rating 4
         value: 18.9
         tone: workhorse
-      - label: \"5\"
+      - label: Rating 5
         value: 18.6
         tone: workhorse
-      - label: \"6\"
+      - label: Rating 6
         value: 23.0
         tone: workhorse
-      - label: \"7\"
+      - label: Rating 7
         value: 10.4
         tone: workhorse
   - id: chart-compensated-fairly-for-effort
@@ -343,6 +347,7 @@ charts:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 4.58 / 7"
     accessibility:
       summary: "Bar chart showing responses to the statement about being compensated
         fairly for effort at work. The mean response is 4.58 on a 1-7 scale."
@@ -366,25 +371,25 @@ charts:
         - label: \"7\"
           value: 30 (9.5%)
     bars:
-      - label: \"1\"
+      - label: Rating 1
         value: 3.5
         tone: workhorse
-      - label: \"2\"
+      - label: Rating 2
         value: 10.4
         tone: workhorse
-      - label: \"3\"
+      - label: Rating 3
         value: 11.7
         tone: workhorse
-      - label: \"4\"
+      - label: Rating 4
         value: 19.3
         tone: workhorse
-      - label: \"5\"
+      - label: Rating 5
         value: 19.0
         tone: workhorse
-      - label: \"6\"
+      - label: Rating 6
         value: 26.6
         tone: workhorse
-      - label: \"7\"
+      - label: Rating 7
         value: 9.5
         tone: workhorse
   - id: chart-compensation-mix

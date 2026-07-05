@@ -17,6 +17,7 @@ interface Segment {
   label: string;
   caption: string;
   summary: string;
+  averageLabel?: string;
   bars: Bar[];
   fallbackColumns: [string, string];
   fallbackRows: TableRow[];
@@ -34,6 +35,12 @@ interface Props {
   fallbackRows: TableRow[];
   bars: Bar[];
   pngPath?: string;
+  /**
+   * Optional plain-text headline stat rendered above the distribution bars
+   * (e.g. "Mean: 4.57 / 7"). Used for Likert-style rating charts where the
+   * bare 1-7 bar labels give no sense of central tendency on their own.
+   */
+  averageLabel?: string;
   segments?: Segment[];
   defaultSegmentLabel?: string;
   /**
@@ -62,6 +69,7 @@ const {
   segments,
   defaultSegmentLabel,
   pngPath,
+  averageLabel,
   hideTable = false,
 } = Astro.props;
 
@@ -100,6 +108,7 @@ const segmentedViews = hasSegments
         label: defaultSegmentLabel,
         caption,
         summary,
+        averageLabel,
         fallbackColumns,
         fallbackRows,
         renderedBars,
@@ -175,6 +184,10 @@ const segmentedViews = hasSegments
                   style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
                 >
                   <p class="chart-block__summary">{view.summary}</p>
+
+                  {view.averageLabel && (
+                    <p class="chart-block__average">{view.averageLabel}</p>
+                  )}
 
                   {view.pngPath ? (
                     <img
@@ -355,6 +368,10 @@ const segmentedViews = hasSegments
         >
           <p class="chart-block__summary">{summary}</p>
 
+          {averageLabel && (
+            <p class="chart-block__average">{averageLabel}</p>
+          )}
+
           {pngPath ? (
             <img
               src={pngPath}
@@ -519,6 +536,13 @@ const segmentedViews = hasSegments
     margin: 0;
     color: var(--color-ink-muted);
     overflow-wrap: anywhere;
+  }
+
+  .chart-block__average {
+    margin: 0;
+    color: var(--color-ink);
+    font-weight: var(--weight-semibold);
+    font-variant-numeric: tabular-nums;
   }
 
   .chart-block__axis,

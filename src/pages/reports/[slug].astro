@@ -178,6 +178,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               sourceUrl={chart.sourceUrl}
               reportPath={report.data.canonicalPath}
               pngPath={chart.pngPath}
+              averageLabel={chart.averageLabel}
               fallbackColumns={chart.fallbackTable.columns as [string, string]}
               fallbackRows={chart.fallbackTable.rows}
               bars={chart.bars}
@@ -186,6 +187,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 label: chartSegment.label,
                 caption: chartSegment.caption,
                 summary: chartSegment.summary,
+                averageLabel: chartSegment.averageLabel,
                 bars: chartSegment.bars,
                 fallbackColumns: chartSegment.fallbackTable.columns as [string, string],
                 fallbackRows: chartSegment.fallbackTable.rows,

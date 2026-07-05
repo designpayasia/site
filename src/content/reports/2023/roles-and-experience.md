@@ -260,6 +260,7 @@ charts:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 4.34 / 7"
     accessibility:
       summary: "Bar chart showing responses about switching primary area of work in
         the coming year. The mean response is 4.34 on a 1-7 scale."
@@ -283,25 +284,25 @@ charts:
         - label: \"7\"
           value: 30 (9.6%)
     bars:
-      - label: \"1\"
+      - label: Rating 1
         value: 7.4
         tone: workhorse
-      - label: \"2\"
+      - label: Rating 2
         value: 9.9
         tone: workhorse
-      - label: \"3\"
+      - label: Rating 3
         value: 12.2
         tone: workhorse
-      - label: \"4\"
+      - label: Rating 4
         value: 19.2
         tone: workhorse
-      - label: \"5\"
+      - label: Rating 5
         value: 23.7
         tone: signal
-      - label: \"6\"
+      - label: Rating 6
         value: 17.9
         tone: workhorse
-      - label: \"7\"
+      - label: Rating 7
         value: 9.6
         tone: workhorse
   - id: chart-switch-ic-management-track
@@ -315,6 +316,7 @@ charts:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 3.46 / 7"
     accessibility:
       summary: "Bar chart showing responses about switching between IC and management
         tracks in the coming year. The mean response is 3.46 on a 1-7 scale."
@@ -338,25 +340,25 @@ charts:
         - label: \"7\"
           value: 20 (6.5%)
     bars:
-      - label: \"1\"
+      - label: Rating 1
         value: 22.7
         tone: signal
-      - label: \"2\"
+      - label: Rating 2
         value: 12.9
         tone: workhorse
-      - label: \"3\"
+      - label: Rating 3
         value: 14.2
         tone: workhorse
-      - label: \"4\"
+      - label: Rating 4
         value: 19.4
         tone: workhorse
-      - label: \"5\"
+      - label: Rating 5
         value: 13.6
         tone: workhorse
-      - label: \"6\"
+      - label: Rating 6
         value: 10.7
         tone: workhorse
-      - label: \"7\"
+      - label: Rating 7
         value: 6.5
         tone: workhorse
   - id: chart-switch-jobs-companies
@@ -370,6 +372,7 @@ charts:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
+    averageLabel: "Mean: 4.34 / 7"
     accessibility:
       summary: "Bar chart showing responses about switching jobs or companies in the
         coming year. The mean response is 4.34 on a 1-7 scale."
@@ -393,25 +396,25 @@ charts:
         - label: \"7\"
           value: 68 (21.7%)
     bars:
-      - label: \"1\"
+      - label: Rating 1
         value: 14.1
         tone: workhorse
-      - label: \"2\"
+      - label: Rating 2
         value: 9.9
         tone: workhorse
-      - label: \"3\"
+      - label: Rating 3
         value: 10.5
         tone: workhorse
-      - label: \"4\"
+      - label: Rating 4
         value: 16.3
         tone: workhorse
-      - label: \"5\"
+      - label: Rating 5
         value: 13.4
         tone: workhorse
-      - label: \"6\"
+      - label: Rating 6
         value: 14.1
         tone: workhorse
-      - label: \"7\"
+      - label: Rating 7
         value: 21.7
         tone: signal
 ---

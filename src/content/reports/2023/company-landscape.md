@@ -433,19 +433,19 @@ charts:
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     bars:
-      - label: "1"
+      - label: Rating 1
         value: 3.4
-      - label: "2"
+      - label: Rating 2
         value: 9.0
-      - label: "3"
+      - label: Rating 3
         value: 11.1
-      - label: "4"
+      - label: Rating 4
         value: 21.4
-      - label: "5"
+      - label: Rating 5
         value: 24.5
-      - label: "6"
+      - label: Rating 6
         value: 15.5
-      - label: "7"
+      - label: Rating 7
         value: 12.1
     fallbackTable:
       columns:
@@ -475,19 +475,19 @@ charts:
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     bars:
-      - label: "1"
+      - label: Rating 1
         value: 1.5
-      - label: "2"
+      - label: Rating 2
         value: 3.1
-      - label: "3"
+      - label: Rating 3
         value: 5.0
-      - label: "4"
+      - label: Rating 4
         value: 9.9
-      - label: "5"
+      - label: Rating 5
         value: 18.6
-      - label: "6"
+      - label: Rating 6
         value: 28.5
-      - label: "7"
+      - label: Rating 7
         value: 31.6
     fallbackTable:
       columns:

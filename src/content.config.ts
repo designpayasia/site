@@ -42,6 +42,7 @@ const chartSchema = z.object({
   sourceLabel: z.string().min(1),
   sourceUrl: z.url(),
   pngPath: z.string().regex(/^\/.*\.png$/).optional(),
+  averageLabel: z.string().min(1).optional(),
   fallbackTable: z.object({
     columns: z.array(z.string().min(1)).length(2),
     rows: z
@@ -69,6 +70,7 @@ const chartSchema = z.object({
         label: z.string().min(1),
         caption: z.string().min(1),
         summary: z.string().min(1),
+        averageLabel: z.string().min(1).optional(),
         bars: z
           .array(
             z.object({
