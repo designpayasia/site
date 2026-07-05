@@ -225,9 +225,9 @@ charts:
           value: 161 (49.8%)
         - label: Online certification
           value: 94 (29.1%)
-        - label: Bootcamps
-          value: 90 (27.9%)
         - label: In-person certified courses
+          value: 90 (27.9%)
+        - label: Bootcamps
           value: 36 (11.1%)
         - label: No formal design education
           value: 72 (22.3%)
