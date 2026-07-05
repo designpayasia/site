@@ -181,6 +181,16 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               fallbackColumns={chart.fallbackTable.columns as [string, string]}
               fallbackRows={chart.fallbackTable.rows}
               bars={chart.bars}
+              segments={chart.segments?.map((chartSegment) => ({
+                id: chartSegment.id,
+                label: chartSegment.label,
+                caption: chartSegment.caption,
+                summary: chartSegment.summary,
+                bars: chartSegment.bars,
+                fallbackColumns: chartSegment.fallbackTable.columns as [string, string],
+                fallbackRows: chartSegment.fallbackTable.rows,
+              }))}
+              defaultSegmentLabel={chart.defaultSegmentLabel}
               hideTable
             />
           ))}

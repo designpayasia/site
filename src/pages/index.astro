@@ -212,6 +212,16 @@ const heroTitleSignal = titleWords.at(-1);
           fallbackRows={featuredChart.fallbackTable.rows}
           bars={featuredChart.bars}
           pngPath={featuredChart.pngPath}
+          segments={featuredChart.segments?.map((chartSegment) => ({
+            id: chartSegment.id,
+            label: chartSegment.label,
+            caption: chartSegment.caption,
+            summary: chartSegment.summary,
+            bars: chartSegment.bars,
+            fallbackColumns: chartSegment.fallbackTable.columns as [string, string],
+            fallbackRows: chartSegment.fallbackTable.rows,
+          }))}
+          defaultSegmentLabel={featuredChart.defaultSegmentLabel}
         />
       </div>
     </section>
