@@ -105,15 +105,6 @@ const findingsLede = hasSectionCommentary
 
 // Methodology — pull the data/bias limitation points (markdown bullets) from
 // the methodology section body for the slim strip; fall back to prose lines.
-const methodologyPoints = methodologySection
-  ? methodologySection.body
-      .split('\n')
-      .map((line: string) => line.trim())
-      .filter((line: string) => line.startsWith('- '))
-      .map((line: string) => line.slice(2).trim())
-      .filter(Boolean)
-  : [];
-
 const methodologyStrip = report.data.methodologyStrip;
 
 const methodologyBody = methodologySection?.body;
