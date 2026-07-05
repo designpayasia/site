@@ -18,6 +18,30 @@ import { join, resolve, relative } from 'node:path';
 const REPORTS_DIR = resolve('src/content/reports');
 
 /**
+ * Recursively find all .md files in a directory tree.
+ * Collects both flat .md files at the root level and those nested in subdirectories.
+ */
+async function findMarkdownFiles(dir) {
+  const mdFiles = [];
+  const entries = await readdir(dir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const fullPath = join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      // Recurse into subdirectories to find nested .md files
+      const nestedFiles = await findMarkdownFiles(fullPath);
+      mdFiles.push(...nestedFiles);
+    } else if (entry.name.endsWith('.md')) {
+      // Collect .md files at this level
+      mdFiles.push(fullPath);
+    }
+  }
+
+  return mdFiles;
+}
+
+/**
  * Minimal YAML extractor for the `charts:` array.
  * We parse the raw front-matter text rather than importing a YAML library to
  * keep this script dependency-free.
@@ -63,9 +87,7 @@ function extractCharts(yaml) {
   return charts;
 }
 
-const files = (await readdir(REPORTS_DIR))
-  .filter((f) => f.endsWith('.md'))
-  .map((f) => join(REPORTS_DIR, f));
+const files = await findMarkdownFiles(REPORTS_DIR);
 
 const violations = [];
 
@@ -98,6 +120,13 @@ const totalCharts = (
     }),
   )
 ).reduce((a, b) => a + b, 0);
+
+if (totalCharts === 0) {
+  console.error(
+    `a11y:charts — zero charts found across ${files.length} report file(s); this is almost certainly a bug in the recursive file walk, not a report with no charts`,
+  );
+  process.exit(1);
+}
 
 console.log(
   `a11y:charts: all ${totalCharts} chart(s) across ${files.length} report(s) have non-empty summaries. ✓`,

@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "build:site": "astro build",
-    "build": "pnpm run build:site && pnpm run search:index",
+    "build": "pnpm run a11y:charts && pnpm run build:site && pnpm run search:index",
     "check": "astro check",
     "search:index": "pagefind --site dist",
     "check-links": "node ./scripts/check-links.mjs",

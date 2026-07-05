@@ -15,6 +15,7 @@ import {
   buildEvidenceMap,
   getVisibleMetrics,
 } from '../lib/evidence';
+import { getSectionsForReport } from '../lib/report-content';
 
 const [homepage] = await getCollection('site');
 
@@ -22,11 +23,18 @@ if (!homepage) {
   throw new Error('Missing site/homepage data entry.');
 }
 
-const reports = (await getCollection('reports', ({ data }) => data.status === 'published')).sort(
-  (left, right) => right.data.publishedAt.getTime() - left.data.publishedAt.getTime(),
-);
+const [reports, reportSections] = await Promise.all([
+  getCollection('reports'),
+  getCollection('reportSections'),
+]);
+const publishedReports = reports
+  .filter((report) => report.data.status === 'published')
+  .sort((left, right) => right.data.publishedAt.getTime() - left.data.publishedAt.getTime());
 const featuredReport =
-  reports.find((report) => report.id === homepage.data.featuredReportSlug) ?? reports[0];
+  publishedReports.find((report) => report.data.slug === homepage.data.featuredReportSlug) ??
+  publishedReports[0];
+const featuredReportSections = featuredReport ? getSectionsForReport(featuredReport, reportSections) : [];
+const featuredReportCharts = featuredReportSections.flatMap((section) => section.charts);
 
 if (!featuredReport) {
   throw new Error('Missing published report entry for homepage.');
@@ -63,7 +71,7 @@ const findingsStats = findingsEvidenceIds.map((evidenceId) => {
   };
 });
 
-const featuredChart = featuredReport.data.charts.find(
+const featuredChart = featuredReportCharts.find(
   (chart) => chart.id === 'compensation-mix',
 );
 

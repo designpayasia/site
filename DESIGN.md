@@ -145,6 +145,11 @@ community for the community."
 or AI maintainer can read DESIGN.md plus `src/styles/tokens/` and produce
 DPA-consistent work. If a value is not in the tokens, it does not exist in the brand.
 
+**Design system master reference:** a synthesised copy of this spec plus adjudication
+notes lives in the Obsidian vault at `workbench/dpa/design system/DPA Design System —
+Master Reference.md`. DESIGN.md and the implementation in `src/styles/` remain
+canonical for values.
+
 **Reference set:** The Pudding (playful rigour), Kontinentalist (SEA data storytelling),
 Rest of World (humane non-Western editorial), the-symposium.live (salon discourse,
 gallery-like), Hermes Agent (structural confidence, generous spacing, restrained motion).
@@ -167,6 +172,10 @@ neutral ground with crimson as signal accent (not atmosphere).
 | Ambient | `--color-ambient` | `#faf8f4` | Warm cream — background surfaces |
 | Action | `--color-action` | `#4a628f` | Navy-derived — secondary interactive, hover, focus |
 | Ink muted | `--color-ink-muted` | `#6d6865` | Editorial support — chart labels, captions, secondary text |
+| Ink subtle | `--color-ink-subtle` | `#4d4a47` | Editorial support — softer than ink-muted, secondary text |
+| Surface muted | `--color-surface-muted` | `#eeeceb` | Quiet containers, neutral blob variant fill |
+| Border subtle | `--color-border-subtle` | `#d8d5d2` | Hairline dividers, subtle container edges |
+| Border strong | `--color-border-strong` | `#b8b4b0` | Emphasised borders, outlined component edges |
 
 Crimson is a signal, not an atmosphere. It should feel unmissable in its role — CTAs,
 the mark, data highlights. Never use it as a background wash or decorative fill.
@@ -179,7 +188,7 @@ the mark, data highlights. Never use it as a background wash or decorative fill.
 | Surface | `--color-ambient` (overridden) | `#0f1c2e` (navy-900) |
 | Text | `--color-workhorse` (overridden) | `#faf8f4` (cream-50) |
 | Signal fill (buttons, badges, chart highlights) | `--color-signal-fill` | `#e05878` (crimson-400) |
-| Signal text (links, inline emphasis) | `--color-signal-text` | `#d7a7b4` (crimson-300, spec intent — CSS placeholder `#f48baa` to be reconciled when dark mode is built) |
+| Signal text (links, inline emphasis) | `--color-signal-text` | `#d7a7b4` (crimson-300, spec intent — canonical; CSS token still carries placeholder `#f48baa` until the token edit lands; decided 2026-07-04) |
 | Inverse beat | `--color-inverse-surface` | `#0f1c2e` |
 | Inverse text | `--color-inverse-text` | `#faf8f4` |
 
@@ -230,6 +239,16 @@ Poppins is retired. It appears only in legacy embedded Looker dashboards.
 | `--type-footnote` | 12px (0.75rem) | Footnotes, source credits |
 | `--ui-meta` | 11px (0.6875rem) | Accessibility floor — eyebrow, label, meta. Never smaller. |
 
+**Mobile display fallback:** `--t-display-mobile` (64px) — R1 fallback for Hero/H2 display
+moments on narrow viewports where the 132px/64px desktop sizes overflow.
+
+**Stat tracking:** `-0.03em` (kept). Note — the `--tracking-stat` primitive (`-0.018em` in
+`_primitives.css`) is retired in favour of `-0.03em`; `--type-stat-tracking` will reference
+the primitive once `_primitives.css` is aligned. Decided 2026-07-04.
+
+**Mono tracking:** `--tracking-mono` (0.02em) — general DM Mono tracking. `--tracking-label`
+(0.08em) — UPPERCASE mono labels (`.label-mono`), wider tracking for legibility at small sizes.
+
 **Italic rules:** italic = stress only. Two classes: `.display-italic` (muted, `--color-ink-muted`)
 and `.display-signal` (crimson). Never style italic ad-hoc. Italic serif never appears in
 subheads under hero or in footers — use Plus Jakarta Sans for those.
@@ -279,7 +298,7 @@ use the border token or a tint from the ambient ramp.
 ## Shapes
 
 **The D-blob (D″ master):** the primary brand mark. A 200×400-unit D-shape with
-two 45° chamfered corners (upper-left, upper-right, r=40) and a full arc right edge.
+two 45° chamfered corners (upper-left, upper-right, r=80) and a full arc right edge.
 
 Locked SVG path (viewBox `0 0 200 400`):
 ```
@@ -318,6 +337,9 @@ All components are `.astro` only. PascalCase filenames. No React, Vue, or Svelte
 - Secondary: navy outline, no fill, pill, 44px min-height — `.btn.btn--secondary`
 - Touch target minimum: 44px (WCAG). Applied globally via `.btn` in `global.css`.
 - Font: DM Mono, `text-transform: uppercase`, from `.label-mono`.
+- Hover transition: 180ms, canonical — currently hardcoded in `global.css`; to be
+  tokenised as `--duration-hover: 180ms`. `--duration-fast` (150ms) keeps its
+  non-button uses. Decided 2026-07-04.
 
 **`SiteHeader.astro` / `SiteFooter.astro`** ✓ implemented
 - Header: cream ambient background. Navigation in Plus Jakarta Sans.
