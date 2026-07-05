@@ -109,6 +109,30 @@ const chartSchema = z.object({
       path: ['defaultSegmentLabel'],
     });
   }
+
+  if (data.defaultSegmentLabel && (!data.segments || data.segments.length === 0)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'segments are required when defaultSegmentLabel is provided',
+      path: ['segments'],
+    });
+  }
+
+  if (data.segments) {
+    const segmentIds = new Set<string>();
+
+    data.segments.forEach((segment, index) => {
+      if (segmentIds.has(segment.id)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'segment ids must be unique within a chart',
+          path: ['segments', index, 'id'],
+        });
+      }
+
+      segmentIds.add(segment.id);
+    });
+  }
 });
 
 const evidence = defineCollection({
