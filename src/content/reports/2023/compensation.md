@@ -594,7 +594,7 @@ charts:
 
 ## Currency and payment
 
-Designers across Southeast Asia are almost universally paid in local currency. Singapore Dollar accounts for 223 respondents, followed by Malaysian Ringgit (46), Indonesian Rupiah (27), Philippine Peso (7), Vietnamese Dong (6), and Thai Baht (3). Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
+Designers across Southeast Asia are almost universally paid in local currency. Singapore Dollar accounts for 224 respondents, followed by Malaysian Ringgit (46), Indonesian Rupiah (27), Philippine Peso (7), Vietnamese Dong (6), and Thai Baht (3). Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
 
 ::chart{id="chart-currency-drawn-in"}
 
