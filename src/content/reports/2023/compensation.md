@@ -5,6 +5,388 @@ summary: Local currency dominates, median compensation varies across markets,
   and annual bonuses remain a significant part of total pay packages.
 order: 40
 charts:
+  - id: chart-currency-drawn-in
+    type: bars
+    title: Currency respondents are paid in
+    caption: Share of respondents paid in each currency, based on 323 responses.
+    summary: Distribution of salary currency responses.
+    evidenceIds:
+      - evidence:2023-compensation
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing the share of respondents paid in each currency.
+        SGD accounts for 69.3% of 323 responses."
+    fallbackTable:
+      columns:
+        - Currency
+        - Share (N=323)
+      rows:
+        - label: SGD
+          value: 224 (69.3%)
+        - label: MYR
+          value: 46 (14.2%)
+        - label: IDR
+          value: 27 (8.4%)
+        - label: PHP
+          value: 7 (2.2%)
+        - label: VND
+          value: 6 (1.9%)
+        - label: USD
+          value: 5 (1.5%)
+        - label: THB
+          value: 3 (0.9%)
+        - label: INR
+          value: 2 (0.6%)
+        - label: JPY
+          value: 1 (0.3%)
+        - label: RON
+          value: 1 (0.3%)
+        - label: TWD
+          value: 1 (0.3%)
+    bars:
+      - label: SGD
+        value: 69.3
+        tone: signal
+      - label: MYR
+        value: 14.2
+        tone: workhorse
+      - label: IDR
+        value: 8.4
+        tone: workhorse
+      - label: PHP
+        value: 2.2
+        tone: workhorse
+      - label: VND
+        value: 1.9
+        tone: workhorse
+      - label: USD
+        value: 1.5
+        tone: workhorse
+      - label: THB
+        value: 0.9
+        tone: workhorse
+      - label: INR
+        value: 0.6
+        tone: workhorse
+      - label: JPY
+        value: 0.3
+        tone: workhorse
+      - label: RON
+        value: 0.3
+        tone: workhorse
+      - label: TWD
+        value: 0.3
+        tone: workhorse
+  - id: chart-negotiate-current-compensation
+    type: bars
+    title: Negotiated current compensation
+    caption: Whether respondents negotiated their current total compensation,
+      among 317 answered responses.
+    summary: Distribution of answers about negotiating current compensation.
+    evidenceIds:
+      - evidence:2023-compensation
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing whether respondents negotiated their current total
+        compensation. Yes accounts for 57.1% of 317 answered responses."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=317)
+      rows:
+        - label: Yes
+          value: 181 (57.1%)
+        - label: No
+          value: 123 (38.8%)
+        - label: Not applicable
+          value: 13 (4.1%)
+    bars:
+      - label: Yes
+        value: 57.1
+        tone: signal
+      - label: No
+        value: 38.8
+        tone: workhorse
+      - label: Not applicable
+        value: 4.1
+        tone: workhorse
+  - id: chart-compensated-fairly-for-role
+    type: bars
+    title: Compensated fairly for role and level
+    caption: 1-7 response distribution for the statement about role and level,
+      among 317 answered responses.
+    summary: Distribution of responses on a 1-7 scale for the statement about being
+      compensated fairly for role and level.
+    evidenceIds:
+      - evidence:2023-sentiments
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing responses to the statement about being compensated
+        fairly for role and level. The mean response is 4.57 on a 1-7 scale."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=317)
+      rows:
+        - label: \"1\"
+          value: 14 (4.4%)
+        - label: \"2\"
+          value: 34 (10.7%)
+        - label: \"3\"
+          value: 30 (9.5%)
+        - label: \"4\"
+          value: 58 (18.3%)
+        - label: \"5\"
+          value: 72 (22.7%)
+        - label: \"6\"
+          value: 77 (24.3%)
+        - label: \"7\"
+          value: 32 (10.1%)
+    bars:
+      - label: \"1\"
+        value: 4.4
+        tone: workhorse
+      - label: \"2\"
+        value: 10.7
+        tone: workhorse
+      - label: \"3\"
+        value: 9.5
+        tone: workhorse
+      - label: \"4\"
+        value: 18.3
+        tone: workhorse
+      - label: \"5\"
+        value: 22.7
+        tone: workhorse
+      - label: \"6\"
+        value: 24.3
+        tone: workhorse
+      - label: \"7\"
+        value: 10.1
+        tone: workhorse
+  - id: chart-market-rate-awareness
+    type: bars
+    title: Market rate awareness
+    caption: 1-7 response distribution for the statement about market rate awareness,
+      among 317 answered responses.
+    summary: Distribution of responses on a 1-7 scale for the statement about market
+      rate awareness.
+    evidenceIds:
+      - evidence:2023-sentiments
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing responses to the statement about market rate awareness.
+        The mean response is 4.71 on a 1-7 scale."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=317)
+      rows:
+        - label: \"1\"
+          value: 10 (3.2%)
+        - label: \"2\"
+          value: 21 (6.6%)
+        - label: \"3\"
+          value: 34 (10.7%)
+        - label: \"4\"
+          value: 54 (17.0%)
+        - label: \"5\"
+          value: 90 (28.4%)
+        - label: \"6\"
+          value: 82 (25.9%)
+        - label: \"7\"
+          value: 26 (8.2%)
+    bars:
+      - label: \"1\"
+        value: 3.2
+        tone: workhorse
+      - label: \"2\"
+        value: 6.6
+        tone: workhorse
+      - label: \"3\"
+        value: 10.7
+        tone: workhorse
+      - label: \"4\"
+        value: 17.0
+        tone: workhorse
+      - label: \"5\"
+        value: 28.4
+        tone: workhorse
+      - label: \"6\"
+        value: 25.9
+        tone: workhorse
+      - label: \"7\"
+        value: 8.2
+        tone: workhorse
+  - id: chart-staying-informed-on-market-rate
+    type: bars
+    title: Staying informed on market rate
+    caption: 1-7 response distribution for the statement about staying informed on
+      market rate, among 316 answered responses.
+    summary: Distribution of responses on a 1-7 scale for the statement about staying
+      informed on market rate.
+    evidenceIds:
+      - evidence:2023-sentiments
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing responses to the statement about staying informed
+        on market rate. The mean response is 3.86 on a 1-7 scale."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=316)
+      rows:
+        - label: \"1\"
+          value: 22 (7.0%)
+        - label: \"2\"
+          value: 47 (14.9%)
+        - label: \"3\"
+          value: 57 (18.0%)
+        - label: \"4\"
+          value: 76 (24.1%)
+        - label: \"5\"
+          value: 68 (21.5%)
+        - label: \"6\"
+          value: 32 (10.1%)
+        - label: \"7\"
+          value: 14 (4.4%)
+    bars:
+      - label: \"1\"
+        value: 7.0
+        tone: workhorse
+      - label: \"2\"
+        value: 14.9
+        tone: workhorse
+      - label: \"3\"
+        value: 18.0
+        tone: workhorse
+      - label: \"4\"
+        value: 24.1
+        tone: workhorse
+      - label: \"5\"
+        value: 21.5
+        tone: workhorse
+      - label: \"6\"
+        value: 10.1
+        tone: workhorse
+      - label: \"7\"
+        value: 4.4
+        tone: workhorse
+  - id: chart-negotiation-confidence
+    type: bars
+    title: Negotiation confidence
+    caption: 1-7 response distribution for the statement about negotiation confidence,
+      among 317 answered responses.
+    summary: Distribution of responses on a 1-7 scale for the statement about negotiation
+      confidence.
+    evidenceIds:
+      - evidence:2023-sentiments
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing responses to the statement about negotiation confidence.
+        The mean response is 4.51 on a 1-7 scale."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=317)
+      rows:
+        - label: \"1\"
+          value: 11 (3.5%)
+        - label: \"2\"
+          value: 28 (8.8%)
+        - label: \"3\"
+          value: 53 (16.7%)
+        - label: \"4\"
+          value: 60 (18.9%)
+        - label: \"5\"
+          value: 59 (18.6%)
+        - label: \"6\"
+          value: 73 (23.0%)
+        - label: \"7\"
+          value: 33 (10.4%)
+    bars:
+      - label: \"1\"
+        value: 3.5
+        tone: workhorse
+      - label: \"2\"
+        value: 8.8
+        tone: workhorse
+      - label: \"3\"
+        value: 16.7
+        tone: workhorse
+      - label: \"4\"
+        value: 18.9
+        tone: workhorse
+      - label: \"5\"
+        value: 18.6
+        tone: workhorse
+      - label: \"6\"
+        value: 23.0
+        tone: workhorse
+      - label: \"7\"
+        value: 10.4
+        tone: workhorse
+  - id: chart-compensated-fairly-for-effort
+    type: bars
+    title: Compensated fairly for effort
+    caption: 1-7 response distribution for the statement about effort at work,
+      among 316 answered responses.
+    summary: Distribution of responses on a 1-7 scale for the statement about being
+      compensated fairly for effort at work.
+    evidenceIds:
+      - evidence:2023-sentiments
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing responses to the statement about being compensated
+        fairly for effort at work. The mean response is 4.58 on a 1-7 scale."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=316)
+      rows:
+        - label: \"1\"
+          value: 11 (3.5%)
+        - label: \"2\"
+          value: 33 (10.4%)
+        - label: \"3\"
+          value: 37 (11.7%)
+        - label: \"4\"
+          value: 61 (19.3%)
+        - label: \"5\"
+          value: 60 (19.0%)
+        - label: \"6\"
+          value: 84 (26.6%)
+        - label: \"7\"
+          value: 30 (9.5%)
+    bars:
+      - label: \"1\"
+        value: 3.5
+        tone: workhorse
+      - label: \"2\"
+        value: 10.4
+        tone: workhorse
+      - label: \"3\"
+        value: 11.7
+        tone: workhorse
+      - label: \"4\"
+        value: 19.3
+        tone: workhorse
+      - label: \"5\"
+        value: 19.0
+        tone: workhorse
+      - label: \"6\"
+        value: 26.6
+        tone: workhorse
+      - label: \"7\"
+        value: 9.5
+        tone: workhorse
   - id: chart-compensation-mix
     type: bar
     title: Compensation mix
@@ -214,6 +596,20 @@ charts:
 
 Designers across Southeast Asia are almost universally paid in local currency. Singapore Dollar accounts for 223 respondents, followed by Malaysian Ringgit (46), Indonesian Rupiah (27), Philippine Peso (7), Vietnamese Dong (6), and Thai Baht (3). Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
 
+::chart{id="chart-currency-drawn-in"}
+
+::chart{id="chart-negotiate-current-compensation"}
+
+::chart{id="chart-compensated-fairly-for-role"}
+
+::chart{id="chart-market-rate-awareness"}
+
+::chart{id="chart-staying-informed-on-market-rate"}
+
+::chart{id="chart-negotiation-confidence"}
+
+::chart{id="chart-compensated-fairly-for-effort"}
+
 ::chart{id="chart-compensation-mix"}
 
 ::chart{id="chart-benefits-access"}
@@ -237,4 +633,3 @@ Annual bonuses are a significant part of total compensation: 54.8% of respondent
 ## Standard benefits
 
 The five non-pay benefits that form the baseline package for designers across the region are paid medical leave (83.3%), paid time off and vacation (77.4%), health insurance (76.5%), flexible working arrangements (68.7%), and a budget for equipment or home office setup (68.7%). Additional common benefits include professional development funds (46.4%), flexible schedule (39.9%), dental insurance (39.3%), and onsite food and snacks (33.4%).
-
