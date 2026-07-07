@@ -15,7 +15,7 @@
   --color-crimson-50:  #fef2f5;
   --color-crimson-100: #fce4ec;
   --color-crimson-200: #f8bace;
-  --color-crimson-300: #f48baa; /* dark-mode signal-text */
+  --color-crimson-300: #d7a7b4; /* dark-mode signal-text */
   --color-crimson-400: #e05878; /* dark-mode signal-fill */
   --color-crimson-500: #c4295e;
   --color-crimson-600: #991844; /* brand signal — confirmed */
@@ -125,7 +125,7 @@
    -------------------------------------------------------------------------- */
 :root {
   --tracking-display: -0.018em; /* Hero & H2 — display compression */
-  --tracking-stat:    -0.018em; /* Stat — numerals must breathe */
+  --tracking-stat:    -0.03em; /* Stat — numerals must breathe */
   --tracking-normal:   0em;
   --tracking-mono:     0.02em;
   --tracking-label:    0.08em;  /* UPPERCASE mono labels */
@@ -185,7 +185,8 @@
    Motion
    -------------------------------------------------------------------------- */
 :root {
-  --duration-fast:   150ms;  /* hover transitions */
+  --duration-fast:   150ms;  /* non-hover transitions */
+  --duration-hover:  180ms;  /* hover transitions */
   --duration-medium: 400ms;  /* scroll reveals, editorial fades */
   --duration-slow:   1800ms; /* big-stat count-up */
 

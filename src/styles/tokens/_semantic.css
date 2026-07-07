@@ -62,10 +62,10 @@
   --type-h2-tracking:   var(--tracking-display);
   --type-h2-face:       var(--font-display);
 
-  /* Stat: 132px / 0.92 / −0.018em / DM Mono (R2, R7) */
+  /* Stat: 132px / 0.92 / −0.03em / DM Mono (R2, R7) */
   --type-stat-size:        var(--font-size-display);
   --type-stat-leading:     var(--leading-stat);
-  --type-stat-tracking:    -0.03em;
+  --type-stat-tracking:    var(--tracking-stat);
   --type-stat-face:        var(--font-data);
   --type-stat-unit-size:   var(--stat-unit-size);
   --type-stat-unit-gap:    var(--stat-unit-gap);
@@ -108,7 +108,7 @@
   /* --------------------------------------------------------------------------
      Motion (§9)
      -------------------------------------------------------------------------- */
-  --transition-hover:    var(--duration-fast)   var(--easing-standard);
+  --transition-hover:    var(--duration-hover)  var(--easing-standard);
   --transition-reveal:   var(--duration-medium) var(--easing-out);
   --duration-count-up:   var(--duration-slow);
 
