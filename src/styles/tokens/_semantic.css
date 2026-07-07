@@ -62,7 +62,7 @@
   --type-h2-tracking:   var(--tracking-display);
   --type-h2-face:       var(--font-display);
 
-  /* Stat: 132px / 0.92 / −0.018em / DM Mono (R2, R7) */
+  /* Stat: 132px / 0.92 / −0.03em / DM Mono (R2, R7) */
   --type-stat-size:        var(--font-size-display);
   --type-stat-leading:     var(--leading-stat);
   --type-stat-tracking:    var(--tracking-stat);
