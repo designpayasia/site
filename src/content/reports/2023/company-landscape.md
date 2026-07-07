@@ -424,100 +424,8 @@ charts:
               value: 42 (18.8%)
             - label: 5+
               value: 42 (18.8%)
-  - id: career-progression-support
-    title: Career progression support
-    caption: Distribution of responses to the career progression support statement (N=323).
-    summary: Responses lean positive, led by 5, 4, and 6.
-    evidenceIds:
-      - evidence:2023-sentiments
-    sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
-    averageLabel: "Mean: 4.54 / 7"
-    accessibility:
-      summary: "Bar chart showing responses to the statement about career progression
-        support. The mean response is 4.54 on a 1-7 scale."
-    bars:
-      - label: Rating 1
-        value: 3.4
-      - label: Rating 2
-        value: 9.0
-      - label: Rating 3
-        value: 11.1
-      - label: Rating 4
-        value: 21.4
-      - label: Rating 5
-        value: 24.5
-      - label: Rating 6
-        value: 15.5
-      - label: Rating 7
-        value: 12.1
-    fallbackTable:
-      columns:
-        - Rating
-        - Respondents
-      rows:
-        - label: "1"
-          value: 11 (3.4%)
-        - label: "2"
-          value: 29 (9.0%)
-        - label: "3"
-          value: 36 (11.1%)
-        - label: "4"
-          value: 69 (21.4%)
-        - label: "5"
-          value: 79 (24.5%)
-        - label: "6"
-          value: 50 (15.5%)
-        - label: "7"
-          value: 39 (12.1%)
-  - id: comfortable-with-work-arrangement
-    title: Comfort with current working arrangement
-    caption: Distribution of responses to the current working-arrangement comfort statement (N=323).
-    summary: Responses cluster at 5-7, with 6 and 7 the most common ratings.
-    evidenceIds:
-      - evidence:2023-sentiments
-    sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
-    averageLabel: "Mean: 5.57 / 7"
-    accessibility:
-      summary: "Bar chart showing responses to the statement about comfort with
-        current working arrangement. The mean response is 5.57 on a 1-7 scale."
-    bars:
-      - label: Rating 1
-        value: 1.5
-      - label: Rating 2
-        value: 3.1
-      - label: Rating 3
-        value: 5.0
-      - label: Rating 4
-        value: 9.9
-      - label: Rating 5
-        value: 18.6
-      - label: Rating 6
-        value: 28.5
-      - label: Rating 7
-        value: 31.6
-    fallbackTable:
-      columns:
-        - Rating
-        - Respondents
-      rows:
-        - label: "1"
-          value: 5 (1.5%)
-        - label: "2"
-          value: 10 (3.1%)
-        - label: "3"
-          value: 16 (5.0%)
-        - label: "4"
-          value: 32 (9.9%)
-        - label: "5"
-          value: 60 (18.6%)
-        - label: "6"
-          value: 92 (28.5%)
-        - label: "7"
-          value: 102 (31.6%)
----
 
+---
 ## Company type
 
 Large enterprises (multinational corporations) are the top destination at 32.2%, followed closely by startups at 28.5%. Agency and consulting firms account for 20.4%, with SMEs making up the remainder. Government (3.4%), non-profits (0.9%), and academia (0.6%) represent smaller but stable employer categories.
@@ -550,22 +458,9 @@ The majority of designers (62.2%) work at their company's headquarters, suggesti
 
 ::chart{id="work-arrangement"}
 
+::chart{id="extra-hours-worked"}
+
 Hybrid work is the established norm at 71.8% (232 respondents). Fully remote accounts for 16.7% (54), and in-office is a minority at 11.5% (37). This distribution reflects the post-pandemic shift toward flexible working that had already become entrenched by early 2023.
 
 The compensation implications are striking: fully remote roles offer over 2.7x higher median pay than in-office roles and 1.8x higher than hybrid. This premium reflects the access remote work provides to global and non-local employers with higher salary bands.
 
-## Work hours
-
-::chart{id="extra-hours-worked"}
-
-Most designers work extra hours: 32.8% work none beyond standard, 26.9% work 1-2 extra hours per week, 20.1% work 3-5 extra hours, and 16.4% work more than 5 extra hours weekly. Directors and VPs work the most prolonged hours, while younger designers tend to have more balanced lifestyles.
-
-## Working confidence
-
-Career progression support is broadly positive.
-
-::chart{id="career-progression-support"}
-
-Comfort with the current working arrangement is also high.
-
-::chart{id="comfortable-with-work-arrangement"}
