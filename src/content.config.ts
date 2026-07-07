@@ -42,6 +42,7 @@ const chartSchema = z.object({
   sourceLabel: z.string().min(1),
   sourceUrl: z.url(),
   pngPath: z.string().regex(/^\/.*\.png$/).optional(),
+  averageLabel: z.string().min(1).optional(),
   fallbackTable: z.object({
     columns: z.array(z.string().min(1)).length(2),
     rows: z
@@ -62,12 +63,84 @@ const chartSchema = z.object({
       }),
     )
     .default([]),
+  segments: z
+    .array(
+      z.object({
+        id: z.string().regex(/^[a-z0-9-]+$/),
+        label: z.string().min(1),
+        caption: z.string().min(1),
+        summary: z.string().min(1),
+        averageLabel: z.string().min(1).optional(),
+        bars: z
+          .array(
+            z.object({
+              label: z.string().min(1),
+              value: z.number().min(0).max(100),
+              tone: z.enum(['workhorse', 'signal']).default('workhorse'),
+            }),
+          )
+          .min(1),
+        fallbackTable: z.object({
+          columns: z.array(z.string().min(1)).length(2),
+          rows: z
+            .array(
+              z.object({
+                label: z.string().min(1),
+                value: z.string().min(1),
+              }),
+            )
+            .min(1),
+        }),
+      }),
+    )
+    .optional(),
+  defaultSegmentLabel: z.string().min(1).optional(),
 }).superRefine((data, ctx) => {
   if (!data.pngPath && data.bars.length === 0) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: 'bars is required when pngPath is not provided',
       path: ['bars'],
+    });
+  }
+
+  if (data.segments && !data.defaultSegmentLabel) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'defaultSegmentLabel is required when segments are provided',
+      path: ['defaultSegmentLabel'],
+    });
+  }
+
+  if (data.defaultSegmentLabel && (!data.segments || data.segments.length === 0)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'segments are required when defaultSegmentLabel is provided',
+      path: ['segments'],
+    });
+  }
+
+  if (data.segments) {
+    const segmentIds = new Set<string>();
+
+    data.segments.forEach((segment, index) => {
+      if (segmentIds.has(segment.id)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'segment ids must be unique within a chart',
+          path: ['segments', index, 'id'],
+        });
+      }
+
+      if (segment.id === 'default') {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "segment id 'default' is reserved for the chart's base view and cannot be reused",
+          path: ['segments', index, 'id'],
+        });
+      }
+
+      segmentIds.add(segment.id);
     });
   }
 });

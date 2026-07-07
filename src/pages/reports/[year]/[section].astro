@@ -184,6 +184,18 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               fallbackRows={segment.chart.fallbackTable.rows}
               bars={segment.chart.bars}
               pngPath={segment.chart.pngPath}
+              averageLabel={segment.chart.averageLabel}
+              segments={segment.chart.segments?.map((chartSegment) => ({
+                id: chartSegment.id,
+                label: chartSegment.label,
+                caption: chartSegment.caption,
+                summary: chartSegment.summary,
+                averageLabel: chartSegment.averageLabel,
+                bars: chartSegment.bars,
+                fallbackColumns: getFallbackColumns(chartSegment.fallbackTable.columns),
+                fallbackRows: chartSegment.fallbackTable.rows,
+              }))}
+              defaultSegmentLabel={segment.chart.defaultSegmentLabel}
             />
           ) : (
             <div

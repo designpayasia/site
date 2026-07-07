@@ -5,6 +5,113 @@ summary: Local currency dominates, median compensation varies across markets,
   and annual bonuses remain a significant part of total pay packages.
 order: 40
 charts:
+  - id: chart-currency-drawn-in
+    type: bars
+    title: Currency respondents are paid in
+    caption: Share of respondents paid in each currency, based on 323 responses.
+    summary: Distribution of salary currency responses.
+    evidenceIds:
+      - evidence:2023-compensation
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing the share of respondents paid in each currency.
+        SGD accounts for 69.3% of 323 responses."
+    fallbackTable:
+      columns:
+        - Currency
+        - Share (N=323)
+      rows:
+        - label: SGD
+          value: 224 (69.3%)
+        - label: MYR
+          value: 46 (14.2%)
+        - label: IDR
+          value: 27 (8.4%)
+        - label: PHP
+          value: 7 (2.2%)
+        - label: VND
+          value: 6 (1.9%)
+        - label: USD
+          value: 5 (1.5%)
+        - label: THB
+          value: 3 (0.9%)
+        - label: INR
+          value: 2 (0.6%)
+        - label: JPY
+          value: 1 (0.3%)
+        - label: RON
+          value: 1 (0.3%)
+        - label: TWD
+          value: 1 (0.3%)
+    bars:
+      - label: SGD
+        value: 69.3
+        tone: signal
+      - label: MYR
+        value: 14.2
+        tone: workhorse
+      - label: IDR
+        value: 8.4
+        tone: workhorse
+      - label: PHP
+        value: 2.2
+        tone: workhorse
+      - label: VND
+        value: 1.9
+        tone: workhorse
+      - label: USD
+        value: 1.5
+        tone: workhorse
+      - label: THB
+        value: 0.9
+        tone: workhorse
+      - label: INR
+        value: 0.6
+        tone: workhorse
+      - label: JPY
+        value: 0.3
+        tone: workhorse
+      - label: RON
+        value: 0.3
+        tone: workhorse
+      - label: TWD
+        value: 0.3
+        tone: workhorse
+  - id: chart-negotiate-current-compensation
+    type: bars
+    title: Negotiated current compensation
+    caption: Whether respondents negotiated their current total compensation,
+      among 317 answered responses.
+    summary: Distribution of answers about negotiating current compensation.
+    evidenceIds:
+      - evidence:2023-compensation
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing whether respondents negotiated their current total
+        compensation. Yes accounts for 57.1% of 317 answered responses."
+    fallbackTable:
+      columns:
+        - Response
+        - Share (N=317)
+      rows:
+        - label: Yes
+          value: 181 (57.1%)
+        - label: No
+          value: 123 (38.8%)
+        - label: Not applicable
+          value: 13 (4.1%)
+    bars:
+      - label: Yes
+        value: 57.1
+        tone: signal
+      - label: No
+        value: 38.8
+        tone: workhorse
+      - label: Not applicable
+        value: 4.1
+        tone: workhorse
   - id: chart-compensation-mix
     type: bar
     title: Compensation mix
@@ -212,7 +319,12 @@ charts:
 
 ## Currency and payment
 
-Designers across Southeast Asia are almost universally paid in local currency. Singapore Dollar accounts for 223 respondents, followed by Malaysian Ringgit (46), Indonesian Rupiah (27), Philippine Peso (7), Vietnamese Dong (6), and Thai Baht (3). Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
+Designers across Southeast Asia are almost universally paid in local currency. Singapore Dollar accounts for 224 respondents, followed by Malaysian Ringgit (46), Indonesian Rupiah (27), Philippine Peso (7), Vietnamese Dong (6), and Thai Baht (3). Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
+
+::chart{id="chart-currency-drawn-in"}
+
+
+::chart{id="chart-negotiate-current-compensation"}
 
 ::chart{id="chart-compensation-mix"}
 
@@ -237,4 +349,3 @@ Annual bonuses are a significant part of total compensation: 54.8% of respondent
 ## Standard benefits
 
 The five non-pay benefits that form the baseline package for designers across the region are paid medical leave (83.3%), paid time off and vacation (77.4%), health insurance (76.5%), flexible working arrangements (68.7%), and a budget for equipment or home office setup (68.7%). Additional common benefits include professional development funds (46.4%), flexible schedule (39.9%), dental insurance (39.3%), and onsite food and snacks (33.4%).
-
