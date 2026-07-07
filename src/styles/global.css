@@ -122,9 +122,9 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease;
+    background-color var(--transition-hover),
+    color var(--transition-hover),
+    border-color var(--transition-hover);
 }
 
 .btn:focus-visible {

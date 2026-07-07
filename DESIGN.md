@@ -188,7 +188,7 @@ the mark, data highlights. Never use it as a background wash or decorative fill.
 | Surface | `--color-ambient` (overridden) | `#0f1c2e` (navy-900) |
 | Text | `--color-workhorse` (overridden) | `#faf8f4` (cream-50) |
 | Signal fill (buttons, badges, chart highlights) | `--color-signal-fill` | `#e05878` (crimson-400) |
-| Signal text (links, inline emphasis) | `--color-signal-text` | `#d7a7b4` (crimson-300, spec intent — canonical; CSS token still carries placeholder `#f48baa` until the token edit lands; decided 2026-07-04) |
+| Signal text (links, inline emphasis) | `--color-signal-text` | `#d7a7b4` (crimson-300) |
 | Inverse beat | `--color-inverse-surface` | `#0f1c2e` |
 | Inverse text | `--color-inverse-text` | `#faf8f4` |
 
