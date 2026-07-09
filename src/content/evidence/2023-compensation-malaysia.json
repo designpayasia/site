@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-compensation-malaysia",
+  "title": "2023 DPA Malaysia total compensation",
+  "summary": "Median annual total compensation for designers in Malaysia was RM83,000, based on 46 respondents. Medium confidence for Junior to Senior IC levels; Malaysia has the second-highest respondent count in the survey but trails Singapore significantly, limiting analysis at senior and leadership levels.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Malaysia"],
+  "methodology": "Self-reported annual total compensation figures in local currency (MYR), including base salary, annual bonus, annual stock grants, and other compensation. Figures are self-reported and have not been independently verified.",
+  "sampleSize": 46,
+  "sensitivity": "public"
+}

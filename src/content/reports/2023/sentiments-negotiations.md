@@ -6,36 +6,6 @@ summary: Negotiation is common but unevenly practised. Pay fairness perceptions
   their own market value.
 order: 60
 charts:
-  - id: chart-negotiation-by-gender
-    type: bar
-    title: Pay negotiation by gender
-    caption: Share who negotiated their last salary, by gender (N=223, Singapore)
-    summary: Men negotiate pay more often than women. 61% of men reported
-      negotiating their last salary, compared to 51% of women, a
-      10-percentage-point gap.
-    evidenceIds:
-      - evidence:2023-gender-pay-gap
-    sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
-    accessibility:
-      summary: Bar chart comparing pay negotiation rates by gender. 61% of men
-        negotiated their last salary compared to 51% of women.
-    fallbackTable:
-      columns:
-        - Gender
-        - Negotiated last salary
-      rows:
-        - label: Men
-          value: 61%
-        - label: Women
-          value: 51%
-    bars:
-      - label: Men
-        value: 61
-        tone: workhorse
-      - label: Women
-        value: 51
-        tone: signal
   - id: chart-negotiate-current-compensation
     type: bars
     title: Negotiated current compensation
@@ -70,6 +40,36 @@ charts:
       - label: Not applicable
         value: 4.1
         tone: workhorse
+  - id: chart-negotiation-by-gender
+    type: bar
+    title: Pay negotiation by gender
+    caption: Share who negotiated their last salary, by gender (N=223, Singapore)
+    summary: Men negotiate pay more often than women. 61% of men reported
+      negotiating their last salary, compared to 51% of women, a
+      10-percentage-point gap.
+    evidenceIds:
+      - evidence:2023-gender-pay-gap
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: Bar chart comparing pay negotiation rates by gender. 61% of men
+        negotiated their last salary compared to 51% of women.
+    fallbackTable:
+      columns:
+        - Gender
+        - Negotiated last salary
+      rows:
+        - label: Men
+          value: 61%
+        - label: Women
+          value: 51%
+    bars:
+      - label: Men
+        value: 61
+        tone: workhorse
+      - label: Women
+        value: 51
+        tone: signal
   - id: chart-compensated-fairly-for-role
     type: bars
     title: Compensated fairly for role and level
@@ -89,19 +89,19 @@ charts:
         - Response
         - Share (N=317)
       rows:
-        - label: \"1\"
+        - label: Rating 1
           value: 14 (4.4%)
-        - label: \"2\"
+        - label: Rating 2
           value: 34 (10.7%)
-        - label: \"3\"
+        - label: Rating 3
           value: 30 (9.5%)
-        - label: \"4\"
+        - label: Rating 4
           value: 58 (18.3%)
-        - label: \"5\"
+        - label: Rating 5
           value: 72 (22.7%)
-        - label: \"6\"
+        - label: Rating 6
           value: 77 (24.3%)
-        - label: \"7\"
+        - label: Rating 7
           value: 32 (10.1%)
     bars:
       - label: \"1\"
@@ -144,19 +144,19 @@ charts:
         - Response
         - Share (N=317)
       rows:
-        - label: \"1\"
+        - label: Rating 1
           value: 10 (3.2%)
-        - label: \"2\"
+        - label: Rating 2
           value: 21 (6.6%)
-        - label: \"3\"
+        - label: Rating 3
           value: 34 (10.7%)
-        - label: \"4\"
+        - label: Rating 4
           value: 54 (17.0%)
-        - label: \"5\"
+        - label: Rating 5
           value: 90 (28.4%)
-        - label: \"6\"
+        - label: Rating 6
           value: 82 (25.9%)
-        - label: \"7\"
+        - label: Rating 7
           value: 26 (8.2%)
     bars:
       - label: \"1\"
@@ -199,19 +199,19 @@ charts:
         - Response
         - Share (N=316)
       rows:
-        - label: \"1\"
+        - label: Rating 1
           value: 22 (7.0%)
-        - label: \"2\"
+        - label: Rating 2
           value: 47 (14.9%)
-        - label: \"3\"
+        - label: Rating 3
           value: 57 (18.0%)
-        - label: \"4\"
+        - label: Rating 4
           value: 76 (24.1%)
-        - label: \"5\"
+        - label: Rating 5
           value: 68 (21.5%)
-        - label: \"6\"
+        - label: Rating 6
           value: 32 (10.1%)
-        - label: \"7\"
+        - label: Rating 7
           value: 14 (4.4%)
     bars:
       - label: \"1\"
@@ -254,19 +254,19 @@ charts:
         - Response
         - Share (N=317)
       rows:
-        - label: \"1\"
+        - label: Rating 1
           value: 11 (3.5%)
-        - label: \"2\"
+        - label: Rating 2
           value: 28 (8.8%)
-        - label: \"3\"
+        - label: Rating 3
           value: 53 (16.7%)
-        - label: \"4\"
+        - label: Rating 4
           value: 60 (18.9%)
-        - label: \"5\"
+        - label: Rating 5
           value: 59 (18.6%)
-        - label: \"6\"
+        - label: Rating 6
           value: 73 (23.0%)
-        - label: \"7\"
+        - label: Rating 7
           value: 33 (10.4%)
     bars:
       - label: \"1\"
@@ -309,19 +309,19 @@ charts:
         - Response
         - Share (N=316)
       rows:
-        - label: \"1\"
+        - label: Rating 1
           value: 11 (3.5%)
-        - label: \"2\"
+        - label: Rating 2
           value: 33 (10.4%)
-        - label: \"3\"
+        - label: Rating 3
           value: 37 (11.7%)
-        - label: \"4\"
+        - label: Rating 4
           value: 61 (19.3%)
-        - label: \"5\"
+        - label: Rating 5
           value: 60 (19.0%)
-        - label: \"6\"
+        - label: Rating 6
           value: 84 (26.6%)
-        - label: \"7\"
+        - label: Rating 7
           value: 30 (9.5%)
     bars:
       - label: \"1\"
@@ -351,33 +351,47 @@ keyFindings:
     awareness: 4.71 out of 7."
   - Access to resources for staying informed on pay drops to 3.86 out of 7, the
     lowest sentiment score.
-  - 31.8% increased pay by more than 15% in the past year, likely driven by job
-    changes. 21.3% received no increase.
 ---
 
 ## Negotiation behaviour
 
-56% of respondents negotiated their current compensation; 38% did not. Pay fairness for role and level averages 4.57 out of 7. Market rate awareness sits slightly higher at 4.71 out of 7. But access to resources for staying informed drops to just 3.86 out of 7. Designers broadly know roughly where they stand on pay. Fewer have the tools to do anything about it.
-
-::chart{id="chart-negotiation-by-gender"}
+56% of respondents negotiated their current compensation; 38% did not.
 
 ::chart{id="chart-negotiate-current-compensation"}
 
-::chart{id="chart-market-rate-awareness"}
+Men negotiate pay more often than women: 61% of men reported negotiating their last salary, compared to 51% of women, a 10-percentage-point gap.
 
-::chart{id="chart-staying-informed-on-market-rate"}
-
-::chart{id="chart-negotiation-confidence"}
+::chart{id="chart-negotiation-by-gender"}
 
 ## Compensation perceptions
 
+Pay fairness for role and level averages 4.57 out of 7.
+
 ::chart{id="chart-compensated-fairly-for-role"}
 
+## Market rate awareness
+
+Designers' awareness of market rate sits slightly higher, averaging 4.71 out of 7.
+
+::chart{id="chart-market-rate-awareness"}
+
+## Staying informed on market rate
+
+But access to resources for staying informed on market rate drops to just 3.86 out of 7, the lowest sentiment score in this section. Designers broadly know roughly where they stand on pay; fewer have the tools to do anything about it.
+
+::chart{id="chart-staying-informed-on-market-rate"}
+
+## Negotiation confidence
+
+Negotiation confidence averages 4.51 out of 7.
+
+::chart{id="chart-negotiation-confidence"}
+
+## Compensated fairly for effort
+
+Compensated fairly for effort averages 4.58 out of 7.
+
 ::chart{id="chart-compensated-fairly-for-effort"}
-
-## Pay increase outcomes
-
-Most respondents received pay increases compared to the previous year. 31.8% increased their pay by more than 15%, likely driven by job changes, while 21.3% received no increase at all, effectively a pay cut once inflation is accounted for.
 
 *Sentiment findings reflect aggregate responses across 10 markets; 69.4% of respondents are Singapore-based.*
 

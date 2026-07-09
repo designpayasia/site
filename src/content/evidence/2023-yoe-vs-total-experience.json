@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-yoe-vs-total-experience",
+  "title": "2023 DPA years of design experience vs total working experience",
+  "summary": "Median years of design-specific experience compared against median total working experience among survey respondents (N=323). Median design experience: 6 years. Median total working experience: 10 years, indicating a substantial share of designers transitioned into the field from other careers.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore", "Malaysia", "Indonesia"],
+  "methodology": "Self-reported years of design-specific experience and total years of working experience (all fields), compared as medians across all respondents.",
+  "sampleSize": 323,
+  "sensitivity": "public"
+}

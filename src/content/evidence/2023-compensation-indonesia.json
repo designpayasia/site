@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-compensation-indonesia",
+  "title": "2023 DPA Indonesia total compensation",
+  "summary": "Median annual total compensation for designers in Indonesia was Rp84,000,000, based on 27 respondents. Only the Junior IC cohort (N=15, median Rp62,000,000) meets the minimum safe disclosure threshold of 10 respondents. Mid-level IC (N=3), Senior IC (N=3), Lead/Staff/Principal IC (N=5), and Vice President (N=1) cohorts fall below that threshold, so their medians are not published.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Indonesia"],
+  "methodology": "Self-reported annual total compensation figures in local currency (IDR), including base salary, annual bonus, annual stock grants, and other compensation. Figures are self-reported and have not been independently verified. Career-level breakdowns are only published for cohorts with 10 or more respondents.",
+  "sampleSize": 27,
+  "sensitivity": "small-cohort"
+}

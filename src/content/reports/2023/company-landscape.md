@@ -126,72 +126,6 @@ charts:
       - label: Other industries
         value: 29.9
         tone: workhorse
-  - id: design-team-size
-    title: Design team size
-    caption: Distribution of design-team size among all respondents (N=323).
-    summary: Most respondents work in teams of 2-10 people, with relatively few solo designers or very large teams.
-    evidenceIds:
-      - evidence:2023-company-landscape
-    sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
-    bars:
-      - label: Team of 1
-        value: 7.4
-      - label: 2-10
-        value: 54.2
-      - label: 11-50
-        value: 27.6
-      - label: 51-200
-        value: 8.4
-      - label: 200+
-        value: 2.5
-    fallbackTable:
-      columns:
-        - Team size
-        - Respondents
-      rows:
-        - label: Team of 1
-          value: 24 (7.4%)
-        - label: 2-10
-          value: 175 (54.2%)
-        - label: 11-50
-          value: 89 (27.6%)
-        - label: 51-200
-          value: 27 (8.4%)
-        - label: 200+
-          value: 8 (2.5%)
-    defaultSegmentLabel: All markets
-    segments:
-      - id: singapore
-        label: Singapore
-        caption: Distribution of design-team size among Singapore respondents (N=224).
-        summary: Singapore respondents skew a little more toward larger design teams.
-        bars:
-          - label: Team of 1
-            value: 7.1
-          - label: 2-10
-            value: 51.8
-          - label: 11-50
-            value: 26.3
-          - label: 51-200
-            value: 11.2
-          - label: 200+
-            value: 3.6
-        fallbackTable:
-          columns:
-            - Team size
-            - Respondents
-          rows:
-            - label: Team of 1
-              value: 16 (7.1%)
-            - label: 2-10
-              value: 116 (51.8%)
-            - label: 11-50
-              value: 59 (26.3%)
-            - label: 51-200
-              value: 25 (11.2%)
-            - label: 200+
-              value: 8 (3.6%)
   - id: company-size
     title: Company size
     caption: Distribution of company size among all respondents (N=323).
@@ -266,6 +200,72 @@ charts:
               value: 44 (19.6%)
             - label: 10,001+
               value: 51 (22.8%)
+  - id: design-team-size
+    title: Design team size
+    caption: Distribution of design-team size among all respondents (N=323).
+    summary: Most respondents work in teams of 2-10 people, with relatively few solo designers or very large teams.
+    evidenceIds:
+      - evidence:2023-company-landscape
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    bars:
+      - label: Team of 1
+        value: 7.4
+      - label: 2-10
+        value: 54.2
+      - label: 11-50
+        value: 27.6
+      - label: 51-200
+        value: 8.4
+      - label: 200+
+        value: 2.5
+    fallbackTable:
+      columns:
+        - Team size
+        - Respondents
+      rows:
+        - label: Team of 1
+          value: 24 (7.4%)
+        - label: 2-10
+          value: 175 (54.2%)
+        - label: 11-50
+          value: 89 (27.6%)
+        - label: 51-200
+          value: 27 (8.4%)
+        - label: 200+
+          value: 8 (2.5%)
+    defaultSegmentLabel: All markets
+    segments:
+      - id: singapore
+        label: Singapore
+        caption: Distribution of design-team size among Singapore respondents (N=224).
+        summary: Singapore respondents skew a little more toward larger design teams.
+        bars:
+          - label: Team of 1
+            value: 7.1
+          - label: 2-10
+            value: 51.8
+          - label: 11-50
+            value: 26.3
+          - label: 51-200
+            value: 11.2
+          - label: 200+
+            value: 3.6
+        fallbackTable:
+          columns:
+            - Team size
+            - Respondents
+          rows:
+            - label: Team of 1
+              value: 16 (7.1%)
+            - label: 2-10
+              value: 116 (51.8%)
+            - label: 11-50
+              value: 59 (26.3%)
+            - label: 51-200
+              value: 25 (11.2%)
+            - label: 200+
+              value: 8 (3.6%)
   - id: at-company-hq
     title: Company headquarters
     caption: Share of respondents physically located at their company's headquarters (N=323).
@@ -366,65 +366,6 @@ charts:
               value: 23 (10.3%)
             - label: In-Office
               value: 21 (9.4%)
-  - id: extra-hours-worked
-    title: Extra hours worked
-    caption: Distribution of extra hours worked outside regular hours (N=311).
-    summary: No extra hours and 1-2 extra hours are the most common responses, with 3-5 and 5+ trailing.
-    evidenceIds:
-      - evidence:2023-company-landscape
-    sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
-    bars:
-      - label: "0"
-        value: 32.8
-      - label: 1-2
-        value: 26.9
-      - label: 3-5
-        value: 20.1
-      - label: 5+
-        value: 16.4
-    fallbackTable:
-      columns:
-        - Extra hours
-        - Respondents
-      rows:
-        - label: "0"
-          value: 106 (32.8%)
-        - label: 1-2
-          value: 87 (26.9%)
-        - label: 3-5
-          value: 65 (20.1%)
-        - label: 5+
-          value: 53 (16.4%)
-    defaultSegmentLabel: All markets
-    segments:
-      - id: singapore
-        label: Singapore
-        caption: Distribution of extra hours worked outside regular hours among Singapore respondents (N=217).
-        summary: Singapore tilts a little more toward 1-2 extra hours.
-        bars:
-          - label: "0"
-            value: 29.9
-          - label: 1-2
-            value: 29.5
-          - label: 3-5
-            value: 18.8
-          - label: 5+
-            value: 18.8
-        fallbackTable:
-          columns:
-            - Extra hours
-            - Respondents
-          rows:
-            - label: "0"
-              value: 67 (29.9%)
-            - label: 1-2
-              value: 66 (29.5%)
-            - label: 3-5
-              value: 42 (18.8%)
-            - label: 5+
-              value: 42 (18.8%)
-
 ---
 ## Company type
 
@@ -432,19 +373,19 @@ Large enterprises (multinational corporations) are the top destination at 32.2%,
 
 ::chart{id="chart-company-type"}
 
-::chart{id="chart-industry-distribution"}
-
 ## Industry distribution
 
 Banking and Capital Markets (20.1%) and Consumer Products (19.8%) stand out as the primary magnets for design talent, and the top-paying sectors in the region. Other significant industries include Transportation, Hospitality and Services, Government and Public Services, Investment Management, Retail and Wholesale Distribution, Health Care, and Insurance. Life Sciences pays the highest median salary but has sparse data points; Automotive and Healthcare offer the lowest pay.
 
+::chart{id="chart-industry-distribution"}
+
 ## Company and team size
 
-::chart{id="design-team-size"}
+::chart{id="company-size"}
 
 Company size is a little larger in Singapore than in the full sample.
 
-::chart{id="company-size"}
+::chart{id="design-team-size"}
 
 Designers are broadly spread across company sizes, with the exception of very small operations (1-10 employees). The most common design team size is 2-10 people (54.2%), followed by 11-50 people (27.6%). Solo designers (team of one) make up 7.4%, while large teams of 200-plus account for just 2.5%. Median pay tends to increase with company size, with a notable 25.5% jump between company sizes of 51-200 and 201-1,000 employees.
 
@@ -457,8 +398,6 @@ The majority of designers (62.2%) work at their company's headquarters, suggesti
 ## Work arrangement
 
 ::chart{id="work-arrangement"}
-
-::chart{id="extra-hours-worked"}
 
 Hybrid work is the established norm at 71.8% (232 respondents). Fully remote accounts for 16.7% (54), and in-office is a minority at 11.5% (37). This distribution reflects the post-pandemic shift toward flexible working that had already become entrenched by early 2023.
 

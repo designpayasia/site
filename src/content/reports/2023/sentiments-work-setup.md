@@ -34,19 +34,19 @@ charts:
         - Rating
         - Respondents
       rows:
-        - label: "1"
+        - label: Rating 1
           value: 5 (1.5%)
-        - label: "2"
+        - label: Rating 2
           value: 10 (3.1%)
-        - label: "3"
+        - label: Rating 3
           value: 16 (5.0%)
-        - label: "4"
+        - label: Rating 4
           value: 32 (9.9%)
-        - label: "5"
+        - label: Rating 5
           value: 60 (18.6%)
-        - label: "6"
+        - label: Rating 6
           value: 92 (28.5%)
-        - label: "7"
+        - label: Rating 7
           value: 102 (31.6%)
   - id: extra-hours-worked
     title: Extra hours worked
