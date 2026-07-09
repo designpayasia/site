@@ -78,40 +78,91 @@ charts:
       - label: TWD
         value: 0.3
         tone: workhorse
-  - id: chart-negotiate-current-compensation
-    type: bars
-    title: Negotiated current compensation
-    caption: Whether respondents negotiated their current total compensation,
-      among 317 answered responses.
-    summary: Distribution of answers about negotiating current compensation.
+  - id: chart-compensation-by-level
+    type: bar
+    title: Median total compensation by career level
+    caption: Median total compensation in SGD by career level (N=211, Singapore).
+      Director and VP cohorts fall below minimum safe disclosure threshold
+      (N<10) and are excluded.
+    summary: Compensation scales with seniority, with a step-change at Senior IC.
+      People Managers earn the highest median at SGD 139,100.
     evidenceIds:
       - evidence:2023-compensation
+      - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
-      summary: "Bar chart showing whether respondents negotiated their current total
-        compensation. Yes accounts for 57.1% of 317 answered responses."
+      summary: "Bar chart showing median total compensation by career level in
+        Singapore. Junior IC: SGD 54,000, Mid-level IC: SGD 75,800, Senior IC:
+        SGD 119,000, Lead/Staff/Principal IC: SGD 103,200, People Manager: SGD
+        139,100. Director and VP excluded (N<10)."
     fallbackTable:
       columns:
-        - Response
-        - Share (N=317)
+        - Career level
+        - Median total comp (SGD)
       rows:
-        - label: Yes
-          value: 181 (57.1%)
-        - label: No
-          value: 123 (38.8%)
-        - label: Not applicable
-          value: 13 (4.1%)
+        - label: Junior IC
+          value: 54,000
+        - label: Mid-level IC
+          value: 75,800
+        - label: Senior IC
+          value: 119,000
+        - label: Lead / Staff / Principal IC
+          value: 103,200
+        - label: People Manager
+          value: 139,100
     bars:
-      - label: Yes
-        value: 57.1
-        tone: signal
-      - label: No
+      - label: Junior IC
         value: 38.8
         tone: workhorse
-      - label: Not applicable
-        value: 4.1
+      - label: Mid-level IC
+        value: 54.5
         tone: workhorse
+      - label: Senior IC
+        value: 85.6
+        tone: signal
+      - label: Lead / Staff / Principal IC
+        value: 74.2
+        tone: workhorse
+      - label: People Manager
+        value: 100
+        tone: signal
+  - id: chart-compensation-indonesia
+    type: bar
+    title: Median total compensation, Indonesia (cohort-safe levels only)
+    caption: Median annual total compensation in IDR for Indonesia (N=27). Only
+      cohorts meeting the minimum safe disclosure threshold of 10 respondents are
+      shown — Junior IC (N=15) and the all-respondent median (N=27). Mid-level IC
+      (N=3), Senior IC (N=3), Lead / Staff / Principal IC (N=5), and Vice
+      President (N=1) fall below that threshold and are not published.
+    summary: Junior IC median total compensation is Rp62,000,000, below the
+      all-respondent median of Rp84,000,000. Other career levels cannot be
+      reported individually because their cohorts are too small.
+    evidenceIds:
+      - evidence:2023-compensation-indonesia
+    sourceLabel: Design Pay Asia 2023 Survey
+    sourceUrl: https://designpay.asia/reports/2023
+    accessibility:
+      summary: "Bar chart showing median total compensation in Indonesia for
+        cohort-safe levels only. Junior IC (N=15): Rp62,000,000. All respondents
+        (N=27): Rp84,000,000. Other career levels are suppressed because their
+        cohorts fall below the 10-respondent safety threshold."
+    fallbackTable:
+      columns:
+        - Career level
+        - Median total comp (IDR)
+      rows:
+        - label: Junior IC (N=15)
+          value: Rp62,000,000
+        - label: All respondents (N=27)
+          value: Rp84,000,000
+    bars:
+      - label: Junior IC
+        value: 73.8
+        tone: workhorse
+      - label: All respondents
+        value: 100
+        tone: signal
   - id: chart-compensation-mix
     type: bar
     title: Compensation mix
@@ -214,107 +265,6 @@ charts:
       - label: Equipment/home office budget
         value: 21.1
         tone: workhorse
-  - id: chart-pay-increase-distribution
-    type: bar
-    title: Pay increase vs last year
-    caption: Share of respondents by pay increase bracket (N=216, Singapore). One in
-      four received a more than 20% increase, likely driven by job changes. One
-      in five received no increase at all.
-    summary: "Pay increases are bimodal: a quarter received over 20% growth while
-      nearly as many received nothing."
-    evidenceIds:
-      - evidence:2023-sentiments
-    sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
-    accessibility:
-      summary: "Bar chart showing pay increase distribution. No increase: 19.9%,
-        0.1–5%: 19.0%, 6–10%: 15.7%, 11–15%: 10.6%, 16–20%: 9.3%, more than 20%:
-        25.5%."
-    fallbackTable:
-      columns:
-        - Increase bracket
-        - Share (N=216)
-      rows:
-        - label: No increase
-          value: 43 (19.9%)
-        - label: 0.1–5%
-          value: 41 (19.0%)
-        - label: 6–10%
-          value: 34 (15.7%)
-        - label: 11–15%
-          value: 23 (10.6%)
-        - label: 16–20%
-          value: 20 (9.3%)
-        - label: More than 20%
-          value: 55 (25.5%)
-    bars:
-      - label: No increase
-        value: 19.9
-        tone: signal
-      - label: 0.1–5%
-        value: 19
-        tone: workhorse
-      - label: 6–10%
-        value: 15.7
-        tone: workhorse
-      - label: 11–15%
-        value: 10.6
-        tone: workhorse
-      - label: 16–20%
-        value: 9.3
-        tone: workhorse
-      - label: More than 20%
-        value: 25.5
-        tone: signal
-  - id: chart-compensation-by-level
-    type: bar
-    title: Median total compensation by career level
-    caption: Median total compensation in SGD by career level (N=211, Singapore).
-      Director and VP cohorts fall below minimum safe disclosure threshold
-      (N<10) and are excluded.
-    summary: Compensation scales with seniority, with a step-change at Senior IC.
-      People Managers earn the highest median at SGD 139,100.
-    evidenceIds:
-      - evidence:2023-compensation
-      - evidence:2023-roles-experience
-    sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
-    accessibility:
-      summary: "Bar chart showing median total compensation by career level in
-        Singapore. Junior IC: SGD 54,000, Mid-level IC: SGD 75,800, Senior IC:
-        SGD 119,000, Lead/Staff/Principal IC: SGD 103,200, People Manager: SGD
-        139,100. Director and VP excluded (N<10)."
-    fallbackTable:
-      columns:
-        - Career level
-        - Median total comp (SGD)
-      rows:
-        - label: Junior IC
-          value: 54,000
-        - label: Mid-level IC
-          value: 75,800
-        - label: Senior IC
-          value: 119,000
-        - label: Lead / Staff / Principal IC
-          value: 103,200
-        - label: People Manager
-          value: 139,100
-    bars:
-      - label: Junior IC
-        value: 38.8
-        tone: workhorse
-      - label: Mid-level IC
-        value: 54.5
-        tone: workhorse
-      - label: Senior IC
-        value: 85.6
-        tone: signal
-      - label: Lead / Staff / Principal IC
-        value: 74.2
-        tone: workhorse
-      - label: People Manager
-        value: 100
-        tone: signal
 ---
 
 ## Currency and payment
@@ -323,29 +273,30 @@ Designers across Southeast Asia are almost universally paid in local currency. S
 
 ::chart{id="chart-currency-drawn-in"}
 
+## Median annual total compensation
 
-::chart{id="chart-negotiate-current-compensation"}
-
-::chart{id="chart-compensation-mix"}
-
-::chart{id="chart-benefits-access"}
-
-::chart{id="chart-pay-increase-distribution"}
+Singapore's median total compensation is S$84,000 (N=223), with strong representation across individual contributor and manager levels. Progression by level: Junior IC S$54,000, Mid-level IC S$75,800, Senior IC S$119,000, Lead / Staff IC S$103,200, People Manager S$139,100. Director and VP cohorts fall below the minimum safe disclosure threshold of 10 respondents and are not reported individually.
 
 ::chart{id="chart-compensation-by-level"}
 
-## Median annual total compensation
+## Malaysia
 
-Singapore's median total compensation is S$84,000 (N=223), with robust representation across all career levels. The full range spans from S$12,000 at Junior IC to S$355,000 at Director level. Progression by level: Junior IC S$54,000, Mid-level IC S$75,800, Senior IC S$119,500, Lead / Staff IC S$103,200, People Manager S$139,100, Director S$238,900, VP S$176,500.
+Malaysia's median annual total compensation is RM83,000, based on 46 respondents. This carries medium confidence for Junior to Senior IC levels: Malaysia has the second-highest respondent count in the survey, but trails Singapore significantly, which limits how far the analysis can be pushed into senior and leadership levels.
 
-Malaysia's median is RM83,000 (N=46), with reasonable confidence for Junior to Senior ICs. The second-largest respondent count trails Singapore significantly, which limits analysis depth at senior levels.
+## Indonesia
 
-Indonesia's median is Rp84,000,000 (N=27), with reliable signal at the Junior IC level only. Salary trends beyond junior should be interpreted with caution given the smaller sample. Junior IC median: Rp62,000,000; Mid-level IC: Rp84,000,000; Senior IC: Rp348,000,000.
+Indonesia's median annual total compensation is Rp84,000,000, based on 27 respondents. Only the Junior IC cohort (N=15) meets the minimum safe disclosure threshold of 10 respondents, so it is the only career level reported individually below; other levels are too small a sample to publish with confidence.
+
+::chart{id="chart-compensation-indonesia"}
 
 ## Compensation mix
 
 Annual bonuses are a significant part of total compensation: 54.8% of respondents receive them. 30.3% receive other annual compensation, and 15.8% receive annual stock grants. Stock-based compensation is notably less common than in Western markets, reflecting the regional prevalence of local companies and enterprises over venture-funded startups.
 
+::chart{id="chart-compensation-mix"}
+
 ## Standard benefits
 
 The five non-pay benefits that form the baseline package for designers across the region are paid medical leave (83.3%), paid time off and vacation (77.4%), health insurance (76.5%), flexible working arrangements (68.7%), and a budget for equipment or home office setup (68.7%). Additional common benefits include professional development funds (46.4%), flexible schedule (39.9%), dental insurance (39.3%), and onsite food and snacks (33.4%).
+
+::chart{id="chart-benefits-access"}

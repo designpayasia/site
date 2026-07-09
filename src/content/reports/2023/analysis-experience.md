@@ -19,7 +19,7 @@ keyFindings:
 ## Experience: the primary driver
 
 
-Management track roles pay more overall, with more experienced designers filling those positions. The progression from Junior IC (S$54,000 median) to Director (S$238,900 median) represents a 4.4x multiple over the course of a career.
+Management track roles pay more overall, with more experienced designers filling those positions. The progression from Junior IC (S$54,000 median) to People Manager (S$139,100 median) represents a 2.6x multiple, with senior leadership cohorts too small to report individually.
 
 Negotiation matters more at mid-to-late career stages. For Junior to Senior ICs, the median pay difference between those who negotiate and those who don't is minimal. For leads and managers, negotiation yields a 10-16% increase. The impact is even more pronounced for designers with 7 or more years of experience, who see 11-22% more when they negotiate.
 
