@@ -30,3 +30,6 @@ pnpm-debug.log*
 screenshots/
 .claude/
 .od-skills/
+
+# pnpm store (accidental artefact)
+.pnpm-store/
