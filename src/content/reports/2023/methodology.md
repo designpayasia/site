@@ -32,7 +32,7 @@ A total of 323 valid responses were retained after data cleaning. Cleaning proce
 
 **First-year limitations:** As an inaugural survey, the 2023 report has limited ability to identify trends over time. Comparisons with subsequent years should account for changes in methodology, distribution channels, and respondent demographics.
 
-**Small-cohort sensitivity:** Country-level data for markets with fewer than 30 respondents (Indonesia, Philippines, Vietnam, Thailand, and others) should be treated as indicative rather than statistically robust.
+**Small-cohort sensitivity:** Country-level data for markets with fewer than 30 respondents (Indonesia, Philippines, Vietnam, Thailand, and others) should be treated as indicative rather than statistically robust. See [data safety rules](/docs/data-safety) for the site's suppression and disclosure thresholds.
 
 ## Singapore focus
 

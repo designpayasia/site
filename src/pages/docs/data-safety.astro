@@ -1,0 +1,28 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Data safety rules - Design Pay Asia"
+  description="Public suppression, disclosure, and correction rules for DPA report data."
+>
+  <GuidePage
+    eyebrow="Docs"
+    title="Data safety rules for what gets published."
+    summary="DPA publishes self-reported survey data. These rules keep small cohorts from becoming individual disclosures. They are enforced in code where possible, and are the trust floor for any future report or dataset work."
+    steps={[
+      'Small-cohort suppression: MIN_SAFE_COHORT is 10 (src/lib/evidence.ts). Any cohort under 10 respondents publishes with publishMode "suppressed" or "sample" and a mandatory note explaining why. The content schema (src/content.config.ts) enforces both halves: a published metric with sampleSize under 10 fails the build, and a suppressed or sample metric without a note fails the build. Extremes — the minimum or maximum figure within a small cohort — are treated as an individual disclosure and suppressed on the same basis, since a cohort of one is a person’s salary.',
+      'Worked example, from the 2023 Indonesia parity pass: total compensation by career level had six segments. Junior IC (N=15) and the overall figure (N=27) met the threshold and published. Mid IC (N=3), Senior IC (N=3), Lead/Staff/Principal IC (N=5), and Vice President (N=1) were all under 10, so their medians were suppressed rather than shown — see evidence:2023-compensation-indonesia.',
+      'Zero-percentage disclosure: a 0% or 100% figure inside a small cohort is still a disclosure — it confirms that every respondent (or none) chose an option, which can single someone out as surely as a raw number. Treat it under the same MIN_SAFE_COHORT rule as any other statistic from that cohort, not as a special case that is exempt because the number looks empty.',
+      'Free-text survey responses are never published verbatim. Open-text answers carry writing style, specific employer or project detail, and other identifying context that a number does not. They are used only in aggregate or paraphrased theme form, with no attribution back to a respondent.',
+      'PII audit gate: pnpm run audit:pii runs before any content PR that touches evidence or report content, per the task-completion checklist. It is not optional review — it is a required gate alongside pnpm run check and pnpm build:site.',
+      'Correction and redaction requests: raise a GitHub issue on the public designpayasia/site repository, or use the intake path at /contribute. DPA is a small, founder-run operation with no support desk and no fixed SLA, but correction requests take priority over new content work. Once actioned, the fix lands as a normal content commit — the affected evidence entry or report figure is corrected in place, and the commit message records what changed and why.',
+      'Evidence sensitivity field: every entry in src/content/evidence carries a sensitivity value — "public" for data with no small-cohort exposure, "small-cohort" for entries that contain or are derived from a cohort near or under the MIN_SAFE_COHORT line (even if the published figure itself is safe), and "aggregate-only" for data that must never be broken down further without breaching a cohort. It defaults to "public", so any entry touching a small group should set it explicitly.',
+    ]}
+    links={[
+      { label: 'Evidence helpers (src/lib/evidence.ts)', href: '/docs/architecture' },
+      { label: 'Docs index', href: '/docs' },
+    ]}
+  />
+</Base>
