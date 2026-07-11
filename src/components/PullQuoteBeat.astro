@@ -1,0 +1,117 @@
+---
+import Blob from './Blob.astro';
+
+interface Props {
+  quote: string;
+  attribution?: string;
+  inverse?: boolean;
+}
+
+const { quote, attribution, inverse = false } = Astro.props;
+
+const cleanQuote = quote?.trim();
+const cleanAttribution = attribution?.trim();
+
+const blobFill = inverse ? 'var(--color-inverse-signal-fill)' : 'var(--color-signal-fill)';
+const blobOpacity = inverse ? 0.4 : 0.22;
+---
+
+<section
+  class:list={['pullquote-beat', inverse && 'pullquote-beat--inverse']}
+  data-theme={inverse ? 'dark' : undefined}
+>
+  <Blob
+    as="fill"
+    size={280}
+    fill={blobFill}
+    opacity={blobOpacity}
+    class="pullquote-beat__blob"
+    aria-hidden="true"
+  />
+
+  <figure class="pullquote-beat__figure">
+    <blockquote class="pullquote-beat__quote">
+      <p class="t-quote">{cleanQuote}</p>
+    </blockquote>
+    {cleanAttribution && (
+      <figcaption class="pullquote-beat__attribution label-mono">{cleanAttribution}</figcaption>
+    )}
+  </figure>
+</section>
+
+<style>
+  .pullquote-beat {
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    padding-block: var(--space-32);
+    padding-inline: var(--space-8);
+    text-align: center;
+    background: var(--color-ambient);
+    color: var(--color-workhorse);
+  }
+
+  .pullquote-beat--inverse {
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
+  }
+
+  .pullquote-beat__blob {
+    position: absolute;
+    top: 50%;
+    right: -8%;
+    transform: translateY(-50%);
+    width: clamp(160px, 28vw, 340px);
+    height: auto;
+    pointer-events: none;
+  }
+
+  .pullquote-beat__figure {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    max-width: var(--zone-editorial);
+    display: grid;
+    gap: var(--space-4);
+    justify-items: center;
+  }
+
+  .pullquote-beat__quote {
+    margin: 0;
+  }
+
+  .pullquote-beat__quote .t-quote {
+    margin: 0;
+    overflow-wrap: break-word;
+  }
+
+  .pullquote-beat--inverse .pullquote-beat__quote .t-quote {
+    color: var(--color-inverse-signal-text);
+  }
+
+  .pullquote-beat__attribution {
+    color: var(--color-ink-muted);
+    overflow-wrap: break-word;
+  }
+
+  .pullquote-beat--inverse .pullquote-beat__attribution {
+    color: color-mix(in srgb, var(--color-inverse-text) 72%, transparent);
+  }
+
+  @media (max-width: 768px) {
+    .pullquote-beat {
+      padding-block: var(--space-16);
+      padding-inline: var(--space-4);
+    }
+
+    .pullquote-beat__blob {
+      width: clamp(120px, 40vw, 220px);
+    }
+  }
+</style>

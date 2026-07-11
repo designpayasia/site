@@ -1,0 +1,220 @@
+---
+type Register = 'data' | 'editorial' | 'quote' | 'invitation';
+
+interface Props {
+  register: Register;
+  label?: string;
+  // data
+  value?: string;
+  unit?: string;
+  caption?: string;
+  cite?: string;
+  // editorial
+  claim?: string;
+  body?: string;
+  // quote
+  quote?: string;
+  attribution?: string;
+  // invitation
+  question?: string;
+}
+
+const DEFAULT_LABEL: Record<Register, string> = {
+  data: 'Data',
+  editorial: 'Editorial',
+  quote: 'Participant quote',
+  invitation: 'Invitation',
+};
+
+const {
+  register,
+  label,
+  value,
+  unit,
+  caption,
+  cite,
+  claim,
+  body,
+  quote,
+  attribution,
+  question,
+} = Astro.props;
+
+const registerLabel = label?.trim() || DEFAULT_LABEL[register];
+const cleanValue = value?.trim();
+const cleanUnit = unit?.trim();
+const cleanCaption = caption?.trim();
+const cleanCite = cite?.trim();
+const cleanClaim = claim?.trim();
+const cleanBody = body?.trim();
+const cleanQuote = quote?.trim();
+const cleanAttribution = attribution?.trim();
+const cleanQuestion = question?.trim();
+---
+
+<article class:list={['register-card', `register-card--${register}`]}>
+  <p class="register-card__label label-mono">{registerLabel}</p>
+
+  {register === 'data' && (
+    <>
+      {cleanValue && (
+        <p class="register-card__value">
+          <span class="register-card__figure">{cleanValue}</span>
+          {cleanUnit && <span class="register-card__unit">{cleanUnit}</span>}
+        </p>
+      )}
+      {cleanCaption && <p class="register-card__caption">{cleanCaption}</p>}
+      {cleanCite && <p class="register-card__cite label-mono">{cleanCite}</p>}
+    </>
+  )}
+
+  {register === 'editorial' && (
+    <>
+      {cleanClaim && <p class="register-card__claim">{cleanClaim}</p>}
+      {cleanBody && <p class="register-card__body">{cleanBody}</p>}
+    </>
+  )}
+
+  {register === 'quote' && (
+    <figure class="register-card__quote-figure">
+      {cleanQuote && (
+        <blockquote class="register-card__quote-body">
+          <p class="t-quote">{cleanQuote}</p>
+        </blockquote>
+      )}
+      {cleanAttribution && (
+        <figcaption class="register-card__attribution label-mono">{cleanAttribution}</figcaption>
+      )}
+    </figure>
+  )}
+
+  {register === 'invitation' && (
+    <>
+      <span class="register-card__glyph" aria-hidden="true">?</span>
+      {cleanQuestion && <p class="register-card__question">{cleanQuestion}</p>}
+    </>
+  )}
+</article>
+
+<style>
+  .register-card {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-height: 220px;
+    padding: var(--space-6);
+    background: var(--color-ambient);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-blob-motif);
+  }
+
+  .register-card--editorial,
+  .register-card--invitation {
+    background: var(--color-surface-muted);
+  }
+
+  .register-card--invitation {
+    justify-content: center;
+  }
+
+  .register-card__label {
+    margin: 0;
+    color: var(--color-ink-subtle);
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- data ---------- */
+  .register-card__value {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2em;
+    font-family: var(--font-data);
+    font-size: clamp(1.75rem, 14cqi, var(--type-stat-size));
+    font-variant-numeric: tabular-nums;
+    line-height: var(--type-stat-leading);
+    letter-spacing: var(--type-stat-tracking);
+    color: var(--color-workhorse);
+  }
+
+  .register-card__unit {
+    font-size: 0.38em;
+    color: var(--color-ink-muted);
+  }
+
+  .register-card__caption {
+    margin: 0;
+    font-size: var(--type-caption);
+    line-height: var(--leading-editorial);
+    color: var(--color-ink-subtle);
+    overflow-wrap: break-word;
+  }
+
+  .register-card__cite {
+    margin-top: auto;
+    color: var(--color-ink-muted);
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- editorial ---------- */
+  .register-card__claim {
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: var(--weight-regular);
+    font-size: clamp(1.25rem, 5cqi, var(--type-h2-size));
+    line-height: 1.25;
+    color: var(--color-signal-text);
+    overflow-wrap: break-word;
+  }
+
+  .register-card__body {
+    margin: 0;
+    font-size: var(--type-caption);
+    line-height: var(--leading-editorial);
+    color: var(--color-ink-subtle);
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- quote ---------- */
+  .register-card__quote-figure {
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .register-card__quote-body {
+    margin: 0;
+  }
+
+  .register-card__quote-body .t-quote {
+    margin: 0;
+    overflow-wrap: break-word;
+  }
+
+  .register-card__attribution {
+    color: var(--color-ink-muted);
+    overflow-wrap: break-word;
+  }
+
+  /* ---------- invitation ---------- */
+  .register-card__glyph {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: var(--weight-regular);
+    font-size: var(--type-pullquote-size);
+    line-height: 1;
+    color: var(--color-signal-text);
+  }
+
+  .register-card__question {
+    margin: 0;
+    font-size: var(--type-caption);
+    line-height: var(--leading-editorial);
+    color: var(--color-workhorse);
+    max-width: 26ch;
+    overflow-wrap: break-word;
+  }
+</style>
