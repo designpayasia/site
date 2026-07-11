@@ -32,6 +32,15 @@ interface Props {
   countUpDurationMs?: number;
   /** Optional mono methodology note rendered under the axis. */
   note?: string;
+  /**
+   * Controls how the fallback data table renders relative to the chart
+   * visual. Defaults to `'collapsed'` so the table never competes with the
+   * rendered chart.
+   * - 'collapsed' — table sits inside a closed `<details>` disclosure.
+   * - 'open' — prominent table, always expanded (table-only usage).
+   * - 'hidden' — visually-hidden accessible alternative only.
+   */
+  tableMode?: 'collapsed' | 'open' | 'hidden';
 }
 
 const LABEL_COLUMN_WIDTH_PX = 140;
@@ -50,7 +59,10 @@ const {
   rows,
   countUpDurationMs,
   note,
+  tableMode,
 } = Astro.props;
+
+const resolvedTableMode: 'collapsed' | 'open' | 'hidden' = tableMode ?? 'collapsed';
 
 /** §1d colour contract: at most one row carries the crimson signal tone. */
 const normalizeRows = (inputRows: DotRow[]) => {
@@ -142,25 +154,49 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
       </div>
     </div>
 
-    <div class="chart-dot-plot__support">
-      <div class="chart-dot-plot__table-wrap">
-        <table class="chart-dot-plot__table">
-          <thead>
-            <tr>
-              <th>{fallbackColumns[0]}</th>
-              <th>{fallbackColumns[1]}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {fallbackRows.map((row) => (
+    <div class:list={['chart-dot-plot__support', resolvedTableMode === 'hidden' && 'visually-hidden']}>
+      {resolvedTableMode === 'collapsed' ? (
+        <details class="chart-dot-plot__table-disclosure">
+          <summary class="label-mono chart-dot-plot__table-summary">View data table</summary>
+          <div class="chart-dot-plot__table-wrap">
+            <table class="chart-dot-plot__table">
+              <thead>
+                <tr>
+                  <th>{fallbackColumns[0]}</th>
+                  <th>{fallbackColumns[1]}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fallbackRows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.label}</th>
+                    <td>{row.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      ) : (
+        <div class="chart-dot-plot__table-wrap">
+          <table class="chart-dot-plot__table">
+            <thead>
               <tr>
-                <th scope="row">{row.label}</th>
-                <td>{row.value}</td>
+                <th>{fallbackColumns[0]}</th>
+                <th>{fallbackColumns[1]}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {fallbackRows.map((row) => (
+                <tr>
+                  <th scope="row">{row.label}</th>
+                  <td>{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   </div>
 </figure>
@@ -345,6 +381,67 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     text-align: left;
     vertical-align: top;
     overflow-wrap: break-word;
+  }
+
+  /* Accessible table alternative — removed from the visual flow only. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Collapsed table disclosure — quiet by default so it never competes with
+     the chart visual above it. Native <details>/<summary>, no JS. */
+  .chart-dot-plot__table-disclosure {
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .chart-dot-plot__table-summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .chart-dot-plot__table-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .chart-dot-plot__table-summary::before {
+    content: '▸';
+    display: inline-block;
+    transition: transform 120ms ease;
+  }
+
+  .chart-dot-plot__table-disclosure[open] > .chart-dot-plot__table-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .chart-dot-plot__table-summary:focus-visible {
+    outline: 3px solid var(--color-signal-fill);
+    outline-offset: 3px;
+  }
+
+  .chart-dot-plot__table-disclosure .chart-dot-plot__table-wrap {
+    margin-top: var(--space-4);
+  }
+
+  .chart-dot-plot__table-disclosure .chart-dot-plot__table {
+    font-size: var(--type-caption);
+  }
+
+  .chart-dot-plot__table-disclosure .chart-dot-plot__table th,
+  .chart-dot-plot__table-disclosure .chart-dot-plot__table td {
+    padding-block: var(--space-2);
   }
 
   .chart-dot-plot,

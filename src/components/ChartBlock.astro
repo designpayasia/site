@@ -48,8 +48,21 @@ interface Props {
    * and the treatment tightens. The table is still rendered as a
    * visually-hidden accessible alternative so screen-reader and no-JS users
    * keep the full data. Detail pages omit this prop and keep the full table.
+   *
+   * @deprecated Use `tableMode="hidden"` instead. Kept for back-compat: when
+   * `tableMode` is not explicitly passed, `hideTable: true` resolves to
+   * `tableMode: 'hidden'`.
    */
   hideTable?: boolean;
+  /**
+   * Controls how the fallback data table renders relative to the chart
+   * visual. Defaults to `'collapsed'` so the table never competes with the
+   * rendered chart.
+   * - 'collapsed' — table sits inside a closed `<details>` disclosure.
+   * - 'open' — prominent table, always expanded (table-only usage).
+   * - 'hidden' — visually-hidden accessible alternative only.
+   */
+  tableMode?: 'collapsed' | 'open' | 'hidden';
 }
 
 const LABEL_COLUMN_WIDTH_PX = 220;
@@ -71,7 +84,11 @@ const {
   pngPath,
   averageLabel,
   hideTable = false,
+  tableMode,
 } = Astro.props;
+
+const resolvedTableMode: 'collapsed' | 'open' | 'hidden' =
+  tableMode ?? (hideTable ? 'hidden' : 'collapsed');
 
 const segmentList = segments ?? [];
 const hasSegments = segmentList.length > 0;
@@ -274,25 +291,49 @@ const segmentedViews = hasSegments
                   </div>
                 </div>
 
-                <div class:list={['chart-block__support', hideTable && 'visually-hidden']}>
-                  <div class="chart-block__table-wrap">
-                    <table class="chart-block__table">
-                      <thead>
-                        <tr>
-                          <th>{view.fallbackColumns[0]}</th>
-                          <th>{view.fallbackColumns[1]}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {view.fallbackRows.map((row) => (
+                <div class:list={['chart-block__support', resolvedTableMode === 'hidden' && 'visually-hidden']}>
+                  {resolvedTableMode === 'collapsed' ? (
+                    <details class="chart-block__table-disclosure">
+                      <summary class="label-mono chart-block__table-summary">View data table</summary>
+                      <div class="chart-block__table-wrap">
+                        <table class="chart-block__table">
+                          <thead>
+                            <tr>
+                              <th>{view.fallbackColumns[0]}</th>
+                              <th>{view.fallbackColumns[1]}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {view.fallbackRows.map((row) => (
+                              <tr>
+                                <th scope="row">{row.label}</th>
+                                <td>{row.value}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </details>
+                  ) : (
+                    <div class="chart-block__table-wrap">
+                      <table class="chart-block__table">
+                        <thead>
                           <tr>
-                            <th scope="row">{row.label}</th>
-                            <td>{row.value}</td>
+                            <th>{view.fallbackColumns[0]}</th>
+                            <th>{view.fallbackColumns[1]}</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                        </thead>
+                        <tbody>
+                          {view.fallbackRows.map((row) => (
+                            <tr>
+                              <th scope="row">{row.label}</th>
+                              <td>{row.value}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </div>
               </div>
             </section>
@@ -457,25 +498,49 @@ const segmentedViews = hasSegments
           </div>
         </div>
 
-        <div class:list={['chart-block__support', hideTable && 'visually-hidden']}>
-          <div class="chart-block__table-wrap">
-            <table class="chart-block__table">
-              <thead>
-                <tr>
-                  <th>{fallbackColumns[0]}</th>
-                  <th>{fallbackColumns[1]}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fallbackRows.map((row) => (
+        <div class:list={['chart-block__support', resolvedTableMode === 'hidden' && 'visually-hidden']}>
+          {resolvedTableMode === 'collapsed' ? (
+            <details class="chart-block__table-disclosure">
+              <summary class="label-mono chart-block__table-summary">View data table</summary>
+              <div class="chart-block__table-wrap">
+                <table class="chart-block__table">
+                  <thead>
+                    <tr>
+                      <th>{fallbackColumns[0]}</th>
+                      <th>{fallbackColumns[1]}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {fallbackRows.map((row) => (
+                      <tr>
+                        <th scope="row">{row.label}</th>
+                        <td>{row.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          ) : (
+            <div class="chart-block__table-wrap">
+              <table class="chart-block__table">
+                <thead>
                   <tr>
-                    <th scope="row">{row.label}</th>
-                    <td>{row.value}</td>
+                    <th>{fallbackColumns[0]}</th>
+                    <th>{fallbackColumns[1]}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {fallbackRows.map((row) => (
+                    <tr>
+                      <th scope="row">{row.label}</th>
+                      <td>{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </>
@@ -675,6 +740,54 @@ const segmentedViews = hasSegments
     text-align: left;
     vertical-align: top;
     overflow-wrap: break-word;
+  }
+
+  /* Collapsed table disclosure — quiet by default so it never competes with
+     the chart visual above it. Native <details>/<summary>, no JS. */
+  .chart-block__table-disclosure {
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .chart-block__table-summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .chart-block__table-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .chart-block__table-summary::before {
+    content: '▸';
+    display: inline-block;
+    transition: transform 120ms ease;
+  }
+
+  .chart-block__table-disclosure[open] > .chart-block__table-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .chart-block__table-summary:focus-visible {
+    outline: 3px solid var(--color-signal-fill);
+    outline-offset: 3px;
+  }
+
+  .chart-block__table-disclosure .chart-block__table-wrap {
+    margin-top: var(--space-4);
+  }
+
+  .chart-block__table-disclosure .chart-block__table {
+    font-size: var(--type-caption);
+  }
+
+  .chart-block__table-disclosure .chart-block__table th,
+  .chart-block__table-disclosure .chart-block__table td {
+    padding-block: var(--space-2);
   }
 
   @media (max-width: 767px) {
