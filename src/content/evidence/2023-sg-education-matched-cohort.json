@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-sg-education-matched-cohort",
+  "title": "2023 Singapore matched-cohort compensation by formal design education",
+  "summary": "Matched-cohort comparison from Design Pay Asia 2022-23 survey data. Singapore respondents with formal design education (n=90) reported a median total compensation of S$71,000 with average design experience of 6.31 years; respondents with no formal design education (n=41) reported S$81,900 with average design experience of 5.59 years, 15.4% higher despite slightly less design experience. The published report states 23.6%, but its own median table (S$71,000 vs S$81,900) yields 15.4%; the derived figure is used here. These are respondent medians, not population estimates, and this comparison is distinct from the broader overlapping education-pathway medians reported elsewhere in this section.",
+  "sourceName": "Design Pay Asia 2022-23 survey data",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "Respondents were grouped into two mutually exclusive, matched cohorts: formal design education only, and no formal design education, with design years of experience held roughly comparable between groups. This differs from the overlapping-pathway aggregates, where a respondent may appear in more than one education-type category. Both cohorts meet the minimum n=10 threshold, and no respondent-level data is exposed.",
+  "sampleSize": 131,
+  "sensitivity": "public"
+}
