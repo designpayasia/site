@@ -1,0 +1,198 @@
+---
+/**
+ * StatTakeover — one locked stat display moment (--type-stat-*, 132px DM
+ * Mono) with 2–3 annotation callouts. Built for a single hero finding, e.g.
+ * a report opener or cover slide moment — for a row of several stats, use
+ * MetricShelf instead (see that component's handover note in the reference
+ * pattern for why: this pattern is explicitly built for exactly one stat).
+ *
+ * `inverse` (default true) renders the dark-beat treatment: `data-theme="dark"`
+ * on the section root plus `--color-inverse-*` tokens, following the same
+ * convention as DarkBeat.astro/CoverCardInverse.astro. Set `inverse={false}`
+ * for a light-surface placement.
+ */
+interface Annotation {
+  label: string;
+  body: string;
+}
+
+interface Props {
+  value: string | number;
+  unit?: string;
+  contextBefore?: string;
+  contextAfter?: string;
+  annotations?: Annotation[];
+  inverse?: boolean;
+  countUp?: boolean;
+  countUpDuration?: number;
+}
+
+const {
+  value,
+  unit,
+  contextBefore,
+  contextAfter,
+  annotations = [],
+  inverse = true,
+  countUp = false,
+  countUpDuration,
+} = Astro.props;
+
+const displayValue = String(value).trim();
+const normalizedUnit = unit?.trim();
+const valueMatch = displayValue.match(/^([^0-9]*)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+const valuePrefix = valueMatch?.[1] ?? '';
+const valueCore = valueMatch?.[2] ?? displayValue;
+const valueSuffix = valueMatch?.[3]?.trim() ?? '';
+
+const displayAnnotations = annotations.slice(0, 3);
+---
+
+<section class="stat-takeover" data-theme={inverse ? 'dark' : undefined}>
+  <div class="stat-takeover__inner">
+    {contextBefore && <p class="stat-takeover__context">{contextBefore}</p>}
+
+    <p
+      class="stat-takeover__figure"
+      aria-label={`${displayValue}${normalizedUnit ? ` ${normalizedUnit}` : ''}`}
+    >
+      {valuePrefix && <span class="stat-takeover__affix">{valuePrefix}</span>}
+      <span
+        class="stat-takeover__value"
+        data-countup={countUp ? '' : undefined}
+        data-countup-value={countUp ? valueCore : undefined}
+        data-countup-duration={countUp && countUpDuration ? String(countUpDuration) : undefined}
+      >
+        {valueCore}
+      </span>
+      {valueSuffix && <span class="stat-takeover__affix">{valueSuffix}</span>}
+      {normalizedUnit && <span class="stat-takeover__unit">{normalizedUnit}</span>}
+    </p>
+
+    {contextAfter && <p class="stat-takeover__context">{contextAfter}</p>}
+
+    {displayAnnotations.length > 0 && (
+      <dl class="stat-takeover__annotations">
+        {displayAnnotations.map((annotation) => (
+          <div class="stat-takeover__annotation">
+            <dt class="stat-takeover__annotation-label label-mono">{annotation.label}</dt>
+            <dd class="stat-takeover__annotation-body">{annotation.body}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+  </div>
+</section>
+
+<script>
+  import '../scripts/countup';
+</script>
+
+<style>
+  .stat-takeover {
+    border-radius: var(--radius-blob-motif);
+    padding: var(--space-16) var(--space-8);
+    text-align: center;
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .stat-takeover[data-theme='dark'] {
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
+  }
+
+  .stat-takeover__inner {
+    max-width: var(--zone-editorial);
+    margin-inline: auto;
+  }
+
+  .stat-takeover__context {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.125rem, 2.4vw, 1.625rem);
+    line-height: var(--leading-editorial);
+    color: inherit;
+    opacity: 0.85;
+  }
+
+  .stat-takeover__figure {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.12em;
+    container-type: inline-size;
+    font-family: var(--type-stat-face);
+    font-weight: var(--weight-medium);
+    font-size: clamp(3rem, 16vw, var(--type-stat-size));
+    line-height: var(--type-stat-leading);
+    letter-spacing: var(--type-stat-tracking);
+    color: var(--color-signal-text);
+  }
+
+  .stat-takeover[data-theme='dark'] .stat-takeover__figure {
+    color: var(--color-inverse-signal-text);
+  }
+
+  .stat-takeover__value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-takeover__affix,
+  .stat-takeover__unit {
+    font-size: var(--type-stat-unit-size);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .stat-takeover__annotations {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin: var(--space-12) 0 0;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-subtle);
+    text-align: left;
+  }
+
+  .stat-takeover[data-theme='dark'] .stat-takeover__annotations {
+    border-top-color: color-mix(in srgb, var(--color-inverse-text) 16%, transparent);
+  }
+
+  .stat-takeover__annotation {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .stat-takeover__annotation-label {
+    margin: 0;
+    color: var(--color-signal-text);
+  }
+
+  .stat-takeover[data-theme='dark'] .stat-takeover__annotation-label {
+    color: var(--color-inverse-signal-text);
+  }
+
+  .stat-takeover__annotation-body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--type-caption);
+    line-height: var(--leading-editorial);
+    color: inherit;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 767px) {
+    .stat-takeover {
+      padding: var(--space-12) var(--space-4);
+    }
+
+    .stat-takeover__annotations {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style>
