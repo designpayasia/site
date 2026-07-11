@@ -130,6 +130,6 @@ Despite career uncertainties, designers are overwhelmingly comfortable with thei
 
 ::chart{id="extra-hours-worked"}
 
-67.2% of designers work extra hours beyond the standard work week, with 16.4% working more than 5 extra hours weekly. This translates to roughly 10.8 additional working days per year for the highest-intensity group. Senior roles (Directors and VPs) work the most prolonged hours, while younger designers tend to maintain more balanced lifestyles.
+67.2% of designers work extra hours beyond the standard work week. Across all respondents, 26.9% put in 1-2 extra hours a week, 20.1% put in 3-5, and 16.4% work more than 5. This section's data does not break the picture down by seniority, but the published report's company-level analysis found that directors and VPs work the most prolonged hours of any seniority band on average.
 
 *Sentiment findings reflect aggregate responses across 10 markets; 69.4% of respondents are Singapore-based.*
