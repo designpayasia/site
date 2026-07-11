@@ -57,6 +57,17 @@ const scatterPlotSchema = z.object({
     .min(1),
   /** y = x structural reference line — geometric aid, not a data claim. */
   showDiagonalReference: z.boolean().default(true),
+  /**
+   * Optional dashed median guide lines: `x` draws a vertical rule at the
+   * given x value, `y` a horizontal rule at the given y value. Labels
+   * default to `median <value>` in src/lib/plot.ts.
+   */
+  medianGuides: z
+    .object({
+      x: z.object({ value: z.number(), label: z.string().min(1).optional() }).optional(),
+      y: z.object({ value: z.number(), label: z.string().min(1).optional() }).optional(),
+    })
+    .optional(),
 });
 
 const chartSchema = z.object({

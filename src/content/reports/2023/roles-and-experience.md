@@ -217,15 +217,19 @@ charts:
   - id: chart-yoe-vs-total-experience
     type: scatter
     title: Design experience vs total working experience
-    caption: "Each point is one design-experience/total-experience pairing
-      reported by respondents; point size shows how many respondents share
-      that exact pairing (N=323, all markets). The dashed diagonal marks
-      where design experience equals total working experience."
+    caption: "Median design experience is 4 years and median total working
+      experience is 6 years, derived from responses (N=323, all markets).
+      Each point is one design-experience/total-experience pairing; point
+      size shows how many respondents share that exact pairing. The dashed
+      diagonal marks where design experience equals total working
+      experience, and the dashed guides mark the two medians."
     summary: "Scatter chart plotting years of design experience (vertical
       axis) against years of total working experience (horizontal axis) for
       323 respondents; point size shows how many respondents share each
-      pairing. Many points sit on or near the diagonal reference line, where
-      design experience equals total experience. Above the line, a spread of
+      pairing. Dashed guide lines mark the medians derived from responses:
+      4 years of design experience and 6 years of total working experience.
+      Many points sit on or near the diagonal reference line, where design
+      experience equals total experience. Below the line, a spread of
       points shows respondents whose total working experience exceeds their
       design experience, consistent with career switchers who bring broader
       work history into design roles."
@@ -237,6 +241,11 @@ charts:
       type: scatter
       xLabel: Total years of experience
       yLabel: Years of design experience
+      medianGuides:
+        x:
+          value: 6
+        y:
+          value: 4
       points:
         - { x: 3, y: 0, count: 1 }
         - { x: 9, y: 0, count: 1 }
@@ -543,7 +552,7 @@ Nearly half of respondents (47.1%) have three or fewer years of design experienc
 
 ::chart{id="chart-yoe-design"}
 
-The median total working experience, however, is 10 years, noticeably higher than the median design experience of 6 years, a four-year gap. Many designers are career switchers who bring broader professional experience into their design roles than their design tenure alone would suggest.
+The median total working experience, derived from responses, is 6 years, two years higher than the median design experience of 4 years (N=323). Many designers are career switchers who bring broader professional experience into their design roles than their design tenure alone would suggest; the two-year gap between the medians is consistent with that pattern.
 
 ::chart{id="chart-yoe-vs-total-experience"}
 

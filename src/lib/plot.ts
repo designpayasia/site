@@ -40,6 +40,13 @@ export interface ScatterPoint {
 
 export type ChartTone = 'workhorse' | 'signal';
 
+export interface MedianGuide {
+  /** Data value the guide line sits at. */
+  value: number;
+  /** Guide label; defaults to `median ${value}`. */
+  label?: string;
+}
+
 export interface ScatterPlotOptions {
   points: ScatterPoint[];
   xLabel: string;
@@ -61,6 +68,14 @@ export interface ScatterPlotOptions {
    * @default true
    */
   showDiagonalReference?: boolean;
+  /**
+   * Optional dashed median guide lines with small labels. `x` draws a
+   * vertical rule at the given x value, `y` a horizontal rule at the given
+   * y value. Muted-ink treatment (same register as the frame and diagonal
+   * reference), never signal tone — the label text inherits the site's
+   * data face and muted fill from ChartBlock's CSS, like axis text.
+   */
+  medianGuides?: { x?: MedianGuide; y?: MedianGuide };
 }
 
 /** Minimal structural shape used from the rendered node — avoids depending
@@ -95,6 +110,7 @@ export function renderScatterPlotSvg(options: ScatterPlotOptions): string {
     height = 480,
     tone = 'workhorse',
     showDiagonalReference = true,
+    medianGuides,
   } = options;
 
   const { document } = parseHTML('<!doctype html><html><body></body></html>');
@@ -119,6 +135,46 @@ export function renderScatterPlotSvg(options: ScatterPlotOptions): string {
           strokeWidth: 1,
         },
       ),
+    );
+  }
+
+  // Median guides sit under the dots (pushed before the dot mark) so data
+  // marks always read on top. Rules and text generate no ids or clip paths,
+  // so determinism is preserved; the text mark carries no inline font
+  // styling and inherits DM Mono + muted ink from ChartBlock's CSS.
+  const guideStroke = {
+    stroke: 'currentColor',
+    strokeOpacity: 0.45,
+    strokeDasharray: '2,3',
+    strokeWidth: 1,
+  } as const;
+
+  if (medianGuides?.x) {
+    const { value, label = `median ${medianGuides.x.value}` } = medianGuides.x;
+    marks.push(
+      Plot.ruleX([value], guideStroke),
+      Plot.text([{ x: value, y: maxAxisValue }], {
+        x: 'x',
+        y: 'y',
+        text: () => label,
+        textAnchor: 'start',
+        dx: 6,
+        dy: 4,
+      }),
+    );
+  }
+
+  if (medianGuides?.y) {
+    const { value, label = `median ${medianGuides.y.value}` } = medianGuides.y;
+    marks.push(
+      Plot.ruleY([value], guideStroke),
+      Plot.text([{ x: maxAxisValue, y: value }], {
+        x: 'x',
+        y: 'y',
+        text: () => label,
+        textAnchor: 'end',
+        dy: -8,
+      }),
     );
   }
 
