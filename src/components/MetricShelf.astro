@@ -244,6 +244,16 @@ const cells = displayMetrics.map((metric, index) => {
     align-items: center;
     gap: var(--space-1);
     width: fit-content;
+    /* The cell is a single-column grid, so the chip already sits on its
+       own line below the value — this just stops a chip wider than the
+       cell (a big delta in a tight 6-up column) from spilling into the
+       next cell. The chip's own label text stays nowrap; it clips with
+       an ellipsis rather than overlapping a neighbour. */
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     padding: var(--space-1) var(--space-2);
     border: 1px solid var(--color-border-subtle);
     border-radius: 999px;

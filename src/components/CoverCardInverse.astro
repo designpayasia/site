@@ -16,6 +16,13 @@
 interface Stat {
   value: string;
   label: string;
+  /** Optional explicit prefix override (e.g. "S$"). Falls back to the
+   *  leading non-numeric run auto-parsed from `value` when omitted, so
+   *  the existing `{ value, label }` shape keeps working unchanged. */
+  affix?: string;
+  /** Optional explicit trailing unit. Falls back to the trailing
+   *  non-numeric run auto-parsed from `value` when omitted. */
+  unit?: string;
 }
 
 interface Props {
@@ -26,6 +33,15 @@ interface Props {
 }
 
 const { href, year, title, stat } = Astro.props;
+
+// Segment anatomy (DESIGN.md § Long values and currency): same parse
+// BigStat.astro/DarkBeat.astro use, so a flat `stat.value` string still
+// renders correctly with no call-site changes required.
+const trimmedStatValue = stat?.value.trim();
+const statValueMatch = trimmedStatValue?.match(/^([^0-9]*)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+const statAffix = stat?.affix ?? statValueMatch?.[1]?.trim();
+const statCore = statValueMatch?.[2] ?? trimmedStatValue;
+const statSuffix = stat?.unit ?? statValueMatch?.[3]?.trim();
 ---
 
 <a class="cover-card-inverse" data-theme="dark" href={href} aria-label={`${title} — ${year}`}>
@@ -33,7 +49,11 @@ const { href, year, title, stat } = Astro.props;
   <span class="cover-card-inverse__title">{title}</span>
   {stat && (
     <span class="cover-card-inverse__stat">
-      <span class="cover-card-inverse__stat-value">{stat.value}</span>
+      <span class="cover-card-inverse__stat-value">
+        {statAffix && <span class="cover-card-inverse__stat-affix">{statAffix}</span>}
+        <span class="cover-card-inverse__stat-core">{statCore}</span>
+        {statSuffix && <span class="cover-card-inverse__stat-affix">{statSuffix}</span>}
+      </span>
       <span class="cover-card-inverse__stat-label label-mono">{stat.label}</span>
     </span>
   )}
@@ -83,17 +103,44 @@ const { href, year, title, stat } = Astro.props;
   .cover-card-inverse__stat {
     display: flex;
     align-items: baseline;
+    flex-wrap: wrap;
     gap: var(--space-2);
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
     padding-top: var(--space-4);
     border-top: 1px solid color-mix(in srgb, var(--color-inverse-text) 20%, transparent);
+    container-type: inline-size;
   }
 
   .cover-card-inverse__stat-value {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.12em;
+    min-width: 0;
+    max-width: 100%;
     font-family: var(--font-data);
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    /* Safety net (A): cqi shrink, floor no lower than ~0.7x the 2rem
+       locked ceiling, so overlap is impossible even in a tight card. */
+    font-size: clamp(1.4rem, 20cqi, 2rem);
     font-weight: var(--weight-medium);
+    line-height: 1;
     letter-spacing: var(--type-stat-tracking);
     color: var(--color-inverse-text);
+  }
+
+  .cover-card-inverse__stat-core {
+    min-width: 0;
+    font-variant-numeric: lining-nums;
+  }
+
+  .cover-card-inverse__stat-affix {
+    min-width: 0;
+    max-width: 100%;
+    font-size: var(--type-stat-unit-size);
+    line-height: 1;
+    white-space: nowrap;
   }
 
   .cover-card-inverse__stat-label {

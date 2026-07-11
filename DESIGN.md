@@ -411,6 +411,19 @@ All components are `.astro` only. PascalCase filenames. No React, Vue, or Svelte
 ✗ Never write UPPERCASE in copy source — apply `text-transform` in CSS only  
 ✗ Never use Poppins  
 
+### Long values and currency
+
+Every stat component (`BigStat`, `DarkBeat`, `CoverCardInverse`, `StatTakeover`, `MetricShelf`) follows the same recipe for values that risk overflow — long pay figures, currency-prefixed numbers, multi-word units.
+
+✓ Split the value into three segments — affix, numeric core, and unit — sized per the 0.42em, 0.12em gap rule above  
+✓ Let segments wrap at their own boundaries (`flex-wrap: wrap`) rather than forcing one unbroken line  
+✓ Keep digits together — the numeric core never breaks mid-number, however the layout wraps  
+✓ Size the value with a `clamp()` using a `cqi` middle term inside a `container-type: inline-size` ancestor, floored no lower than ~0.7× the locked size, so shrinking — never overlap — is the fallback when wrapping alone isn't enough  
+
+✗ Never size a stat value with `vw` — it measures the viewport, not the component's own container, and breaks in a narrow grid cell  
+
+Editorially, abbreviate pay values of six digits or more at hero stat moments (`S$4.85m`), and give the full figure in the caption or source line.
+
 ### Layout
 
 ✓ Use only named spacing stops: 4 8 12 16 24 32 40 48 64 96 128px (`--space-*`)  
