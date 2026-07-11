@@ -38,6 +38,20 @@ stats:
     evidenceId: evidence:2023-compensation
     sampleSize: 323
     publishMode: published
+  - value: RM83,000
+    unit: MYR
+    label: Median total compensation for designers in Malaysia
+    color: workhorse
+    evidenceId: evidence:2023-compensation-malaysia
+    sampleSize: 46
+    publishMode: published
+  - value: Rp84,000,000
+    unit: IDR
+    label: Median total compensation for designers in Indonesia
+    color: workhorse
+    evidenceId: evidence:2023-compensation-indonesia
+    sampleSize: 27
+    publishMode: published
   - value: S$10,839
     unit: SGD/YOE
     label: Average annual salary growth per year of design experience
