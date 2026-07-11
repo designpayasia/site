@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-my-compensation-range",
+  "title": "2023 Malaysia total compensation range by career level",
+  "summary": "Minimum, median, and maximum annual total compensation by career level for Malaysia respondents (N=46). Junior IC (N=13): RM30,000 – RM140,000, median RM55,000. Mid-level IC (N=13): RM54,000 – RM233,400, median RM82,000. Senior IC (N=10): RM63,600 – RM174,040, median RM94,325. Lead / Staff / Principal IC (N=5), People Manager (N=3), and Director (N=2) fall below the minimum safe disclosure threshold of 10 respondents and are not published.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Malaysia"],
+  "methodology": "Self-reported annual total compensation figures in Malaysian Ringgit, including base salary, annual bonus, annual stock grants, and other compensation. Minimum, median, and maximum computed per career-level cohort from the same filtered worksheet as evidence:2023-compensation-malaysia (Country = Malaysia, n=46). Cohorts below n=10 (Lead / Staff / Principal IC, People Manager, Director) are suppressed per the site's minimum safe cohort rule and excluded from this entry. Figures are self-reported and have not been independently verified.",
+  "sampleSize": 46,
+  "sensitivity": "public"
+}
