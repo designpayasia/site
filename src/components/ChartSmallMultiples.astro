@@ -362,6 +362,10 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
     /* Card rows use a narrower label column than the shared axis above —
        role names are short, and the card itself is already width-constrained. */
     --chart-label-column: var(--chart-card-label-column);
+    /* Each card's row layout needs to respond to the card's own rendered
+       width, not the viewport — the grid below is auto-fill, so a card can
+       be narrow (e.g. one of 3-4 columns) even on a wide desktop screen. */
+    container-type: inline-size;
   }
 
   .chart-small-multiples__card-title {
@@ -433,6 +437,7 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
     font-size: var(--ui-meta);
     color: var(--color-ink);
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .chart-small-multiples__note {
@@ -558,6 +563,9 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
     min-width: 0;
   }
 
+  /* Shared axis and card grid live outside the per-card container (see
+     .chart-small-multiples__card below) — a container query rooted on the
+     card can't reach them, so this stays a viewport media query. */
   @media (max-width: 767px) {
     .chart-small-multiples__grid {
       grid-template-columns: 1fr;
@@ -567,6 +575,23 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
       display: none;
     }
 
+    .chart-small-multiples__row {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-2);
+    }
+
+    .chart-small-multiples__value {
+      text-align: left;
+    }
+  }
+
+  /* Row layout inside each card: container query, not a viewport media
+     query — a card can be narrow on a wide desktop screen (auto-fill grid
+     above), so this must respond to the card's own width. Threshold is
+     lower than the full-width chart components (ChartBlock.astro etc.)
+     because cards are inherently narrower (auto-fill minmax(220px, 1fr)):
+     a ~300px panel should stack, a wider single-panel card should not. */
+  @container (max-width: 360px) {
     .chart-small-multiples__row {
       grid-template-columns: 1fr;
       row-gap: var(--space-2);
