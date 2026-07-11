@@ -4,7 +4,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import ChartBlock from '../../../components/ChartBlock.astro';
 import DarkBeat from '../../../components/DarkBeat.astro';
 import Base from '../../../layouts/Base.astro';
-import { renderScatterPlotSvg } from '../../../lib/plot';
+import { renderPlotSvg } from '../../../lib/plot';
 import {
   assertEvidenceIdsExist,
   buildEvidenceMap,
@@ -71,18 +71,17 @@ for (const chart of sectionCharts) {
 // referred to in the architecture contract, not a client-side step.
 // ChartBlock itself only ever receives an inert SVG string.
 const chartPlotSvgById = new Map<string, string>();
+// Variants carry no id, so per-variant SVGs key on chart id + variant
+// label (labels are schema-enforced unique within a chart).
+const variantPlotSvgByKey = new Map<string, string>();
 for (const chart of sectionCharts) {
   if (chart.plot) {
-    chartPlotSvgById.set(
-      chart.id,
-      renderScatterPlotSvg({
-        points: chart.plot.points,
-        xLabel: chart.plot.xLabel,
-        yLabel: chart.plot.yLabel,
-        showDiagonalReference: chart.plot.showDiagonalReference,
-        medianGuides: chart.plot.medianGuides,
-      }),
-    );
+    chartPlotSvgById.set(chart.id, renderPlotSvg(chart.plot));
+  }
+  for (const variant of chart.variants ?? []) {
+    if (variant.plot) {
+      variantPlotSvgByKey.set(`${chart.id}::${variant.label}`, renderPlotSvg(variant.plot));
+    }
   }
 }
 
@@ -236,6 +235,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 sourceLabel: variant.sourceLabel,
                 sourceUrl: variant.sourceUrl,
                 bars: variant.bars,
+                plotSvg: variantPlotSvgByKey.get(`${segment.chart.id}::${variant.label}`),
                 fallbackColumns: getFallbackColumns(variant.fallbackTable.columns),
                 fallbackRows: variant.fallbackTable.rows,
               }))}
