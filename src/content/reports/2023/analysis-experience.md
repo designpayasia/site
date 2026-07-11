@@ -7,33 +7,58 @@ summary: Reported median total compensation among Singapore survey respondents,
 order: 100
 charts:
   - id: sg-compensation-seniority
-    title: Median total compensation by seniority
-    caption: Reported median total compensation in SGD among Singapore survey respondents in each published seniority subgroup. These survey medians are not population estimates. Subgroups below n=10 are suppressed.
-    summary: Among the published Singapore survey subgroups, reported median total compensation was S$54,000 for Junior IC respondents, S$75,800 for Mid-level IC respondents, S$119,500 for Senior IC respondents, S$103,200 for Lead, Staff, or Principal IC respondents, and S$139,100 for People Manager respondents. These are survey medians, not population estimates.
+    title: Pay range by seniority
+    caption: Reported minimum, median, and maximum total compensation in SGD among Singapore survey respondents in each published seniority subgroup. These are survey figures, not population estimates. Subgroups below n=10 are suppressed.
+    summary: Among the published Singapore survey subgroups, reported total compensation ranged from S$12,000 to S$157,000 for Junior IC respondents (median S$54,000), S$34,800 to S$210,000 for Mid-level IC respondents (median S$75,800), S$44,200 to S$339,927 for Senior IC respondents (median S$119,500), S$38,400 to S$201,342 for Lead, Staff, or Principal IC respondents (median S$103,200), and S$37,396 to S$235,000 for People Manager respondents (median S$139,100). These are survey figures, not population estimates.
     evidenceIds:
       - evidence:2023-sg-compensation-seniority
     sourceLabel: Design Pay Asia 2022-23 survey data
     sourceUrl: https://designpay.asia/reports/2023
-    pngPath: /charts/2023/analysis-experience/sg-compensation-seniority.png
     fallbackTable:
       columns:
         - Subgroup among Singapore survey respondents (n)
-        - Reported median total compensation (SGD), not a population estimate
+        - Reported total compensation (SGD), min – median – max, not a population estimate
       rows:
         - label: Junior IC (n=63)
-          value: S$54,000
+          value: S$12,000 – S$54,000 – S$157,000
         - label: Mid-level IC (n=56)
-          value: S$75,800
+          value: S$34,800 – S$75,800 – S$210,000
         - label: Senior IC (n=52)
-          value: S$119,500
+          value: S$44,200 – S$119,500 – S$339,927
         - label: Lead / Staff / Principal IC (n=19)
-          value: S$103,200
+          value: S$38,400 – S$103,200 – S$201,342
         - label: People Manager (n=23)
-          value: S$139,100
+          value: S$37,396 – S$139,100 – S$235,000
+    plot:
+      type: range
+      xLabel: Total compensation (S$)
+      valuePrefix: "S$"
+      rows:
+        - label: Junior IC (n=63)
+          min: 12000
+          median: 54000
+          max: 157000
+        - label: Mid-level IC (n=56)
+          min: 34800
+          median: 75800
+          max: 210000
+        - label: Senior IC (n=52)
+          min: 44200
+          median: 119500
+          max: 339927
+        - label: Lead / Staff / Principal IC (n=19)
+          min: 38400
+          median: 103200
+          max: 201342
+        - label: People Manager (n=23)
+          min: 37396
+          median: 139100
+          max: 235000
+          tone: signal
   - id: sg-compensation-yoe-group
-    title: Median total compensation by years of design experience
-    caption: Reported median total compensation in SGD among Singapore survey respondents, grouped by years of design experience (YOE). These survey medians are not population estimates.
-    summary: Among Singapore survey respondents, median total compensation was S$62,700 for 0-3 years of design experience (n=98), S$96,000 for 4-6 years (n=55), S$131,650 for 7-9 years (n=38), and S$156,100 for 10 or more years (n=32). These are survey medians, not population estimates.
+    title: Pay range by years of design experience
+    caption: Reported minimum, median, and maximum total compensation in SGD among Singapore survey respondents, grouped by years of design experience (YOE). These are survey figures, not population estimates.
+    summary: Among Singapore survey respondents, reported total compensation ranged from S$12,000 to S$230,636 for 0-3 years of design experience (n=98, median S$62,700), S$35,100 to S$230,000 for 4-6 years (n=55, median S$96,000), S$48,000 to S$208,000 for 7-9 years (n=38, median S$131,650), and S$52,000 to S$355,000 for 10 or more years (n=32, median S$156,100). These are survey figures, not population estimates.
     evidenceIds:
       - evidence:2023-experience-salary
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -41,26 +66,42 @@ charts:
     fallbackTable:
       columns:
         - Years of design experience (n)
-        - Reported median total compensation (SGD), not a population estimate
+        - Reported total compensation (SGD), min – median – max, not a population estimate
       rows:
-        - label: 0-3 years (n=98)
-          value: S$62,700
-        - label: 4-6 years (n=55)
-          value: S$96,000
-        - label: 7-9 years (n=38)
-          value: S$131,650
+        - label: 0–3 years (n=98)
+          value: S$12,000 – S$62,700 – S$230,636
+        - label: 4–6 years (n=55)
+          value: S$35,100 – S$96,000 – S$230,000
+        - label: 7–9 years (n=38)
+          value: S$48,000 – S$131,650 – S$208,000
         - label: 10+ years (n=32)
-          value: S$156,100
-    bars:
-      - label: 0-3 years
-        value: 40.2
-      - label: 4-6 years
-        value: 61.5
-      - label: 7-9 years
-        value: 84.3
-      - label: 10+ years
-        value: 100
-        tone: signal
+          value: S$52,000 – S$156,100 – S$355,000
+    plot:
+      type: range
+      xLabel: Total compensation (S$)
+      valuePrefix: "S$"
+      rows:
+        - label: 0–3 years (n=98)
+          min: 12000
+          median: 62700
+          max: 230636
+        - label: 4–6 years (n=55)
+          min: 35100
+          median: 96000
+          max: 230000
+        - label: 7–9 years (n=38)
+          min: 48000
+          median: 131650
+          max: 208000
+        - label: 10+ years (n=32)
+          min: 52000
+          median: 156100
+          max: 355000
+          tone: signal
+      annotations:
+        - x: 355000
+          y: 10+ years (n=32)
+          text: "Widest range: S$52,000–S$355,000"
   - id: sg-compensation-international-experience
     title: Median total compensation by international work experience
     caption: Reported median total compensation in SGD among Singapore survey respondents, grouped by whether they reported international work experience. These survey medians are not population estimates.
@@ -163,6 +204,8 @@ keyFindings:
 
 The published seniority cohorts have different reported medians. Junior IC respondents recorded S$54,000, while People Manager respondents recorded S$139,100. Senior IC respondents recorded S$119,500, compared with S$103,200 for the smaller Lead / Staff / Principal IC cohort.
 
+The full reported range widens at higher levels. Junior IC responses span S$12,000 to S$157,000, while Senior IC responses span S$44,200 to S$339,927, the highest reported figure among the published cohorts.
+
 These are cross-sectional groups with different roles and respondent profiles, not an individual salary path. Director and Vice President responses are omitted because those cohorts fall below the publication threshold.
 
 ::chart{id="sg-compensation-seniority"}
@@ -170,6 +213,8 @@ These are cross-sectional groups with different roles and respondent profiles, n
 ## Years of design experience
 
 Median total compensation rose steadily with years of design experience: S$62,700 at 0-3 years, S$96,000 at 4-6 years, S$131,650 at 7-9 years, and S$156,100 at 10 or more years. Across the whole sample, reported total compensation increased by an average of S$10,839 for every additional year of design experience. That figure is the annualised slope behind the medians below, not a promise of an automatic yearly rise for any individual respondent.
+
+The reported range widens alongside the median. Respondents with 0-3 years of design experience span S$12,000 to S$230,636, while respondents with 10 or more years span S$52,000 to S$355,000, the widest published range in this section.
 
 ::chart{id="sg-compensation-yoe-group"}
 
