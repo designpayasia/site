@@ -30,7 +30,7 @@ const {
 ---
 
 <section class="cover-full-bleed" data-theme="dark" aria-label="Report cover">
-  <Blob as="fill" size={320} opacity={0.32} class="cover-full-bleed__blob" color="var(--color-signal)" />
+  <Blob as="fill" size={320} class="cover-full-bleed__blob" fill="var(--color-inverse-signal-fill)" />
 
   <div class="cover-full-bleed__content">
     {eyebrow && <p class="cover-full-bleed__eyebrow label-mono">{eyebrow}</p>}
@@ -104,7 +104,7 @@ const {
     }
     to {
       transform: scale(1) rotate(0deg);
-      opacity: 0.32;
+      opacity: 1;
     }
   }
 
@@ -122,7 +122,7 @@ const {
   @media (prefers-reduced-motion: reduce) {
     .cover-full-bleed :global(.cover-full-bleed__blob) {
       animation: none;
-      opacity: 0.32;
+      opacity: 1;
       transform: scale(1) rotate(0deg);
     }
     .cover-full-bleed__content {
