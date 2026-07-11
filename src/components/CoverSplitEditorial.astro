@@ -1,0 +1,117 @@
+---
+// CoverSplitEditorial — split editorial cover (Pattern 01-C).
+// Magazine-style split: an editorial provocation on the left, the data that
+// grounds it on the right, each explicitly labelled so a reader never
+// mistakes one register for the other. §1a: exactly one emphasis mechanism —
+// the pull-quote type moment itself, never stacked with extra colour/italic
+// on a sub-phrase. §1b register marking: crimson question glyph + uppercase
+// mono label, no blue card styling.
+
+interface Props {
+  question: string;
+  caption?: string;
+  editorialLabel?: string;
+  dataLabel?: string;
+}
+
+const {
+  question,
+  caption,
+  editorialLabel = 'Editorial',
+  dataLabel = 'Data',
+} = Astro.props;
+---
+
+<section class="cover-split" aria-label="Report cover">
+  <div class="cover-split__pane cover-split__pane--editorial">
+    <p class="cover-split__register">
+      <span class="cover-split__glyph" aria-hidden="true">?</span>
+      <span class="label-mono">{editorialLabel}</span>
+    </p>
+    <p class="cover-split__question t-quote">{question}</p>
+    {caption && <p class="cover-split__caption label-mono">{caption}</p>}
+  </div>
+
+  <div class="cover-split__pane cover-split__pane--data">
+    <p class="cover-split__register">
+      <span class="label-mono">{dataLabel}</span>
+    </p>
+    <div class="cover-split__figure">
+      <slot name="data" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .cover-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cover-split__pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-5);
+    padding: var(--space-8);
+    min-width: 0;
+  }
+
+  .cover-split__pane--editorial {
+    border-right: 1px solid var(--color-border-strong);
+  }
+
+  .cover-split__pane--data {
+    background: var(--color-surface-muted);
+  }
+
+  .cover-split__register {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+  }
+
+  .cover-split__glyph {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--type-hero-face);
+    font-style: normal;
+    font-size: var(--type-body);
+    line-height: 1;
+    color: var(--color-signal-text);
+  }
+
+  .cover-split__question {
+    margin: 0;
+    max-width: 22ch;
+  }
+
+  .cover-split__caption {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .cover-split__figure {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+
+  @media (max-width: 768px) {
+    .cover-split {
+      grid-template-columns: 1fr;
+    }
+
+    .cover-split__pane {
+      padding: var(--space-6);
+    }
+
+    .cover-split__pane--editorial {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border-strong);
+    }
+  }
+</style>

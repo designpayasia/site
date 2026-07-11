@@ -1,0 +1,149 @@
+---
+// CoverFullBleed — ceremonial dark cover (Pattern 01-B, kinetic serif full-bleed).
+// A dark, ambient one-off reserved for occasions that outrank the standard
+// index cover (flagship release moments). Follows the DarkBeat pattern:
+// data-theme="dark" wrapper + explicit --color-inverse-* tokens, matching
+// src/components/DarkBeat.astro rather than relying on the [data-theme=dark]
+// cascade for background/text colour.
+//
+// The D-blob is imported from Blob.astro (never redrawn) and plays a single
+// reveal animation on load; content fades up alongside it. Both are frozen at
+// their end state under prefers-reduced-motion.
+//
+// Title should stay to one short line or phrase — this cover trades
+// information density for impact. The signal line is the only stat it should
+// carry.
+
+import Blob from './Blob.astro';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  signalText?: string;
+}
+
+const {
+  eyebrow,
+  title = 'Pay, decoded.',
+  signalText,
+} = Astro.props;
+---
+
+<section class="cover-full-bleed" data-theme="dark" aria-label="Report cover">
+  <Blob as="fill" size={320} opacity={0.32} class="cover-full-bleed__blob" color="var(--color-signal)" />
+
+  <div class="cover-full-bleed__content">
+    {eyebrow && <p class="cover-full-bleed__eyebrow label-mono">{eyebrow}</p>}
+    <h1 class="cover-full-bleed__title">{title}</h1>
+    {signalText && <p class="cover-full-bleed__signal">{signalText}</p>}
+  </div>
+</section>
+
+<style>
+  .cover-full-bleed {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
+    min-height: clamp(20rem, 55vh, 40rem);
+    padding-inline: var(--space-8);
+    padding-block-start: var(--space-16);
+    padding-block-end: var(--space-24);
+  }
+
+  .cover-full-bleed :global(.cover-full-bleed__blob) {
+    position: absolute;
+    top: -2.5rem;
+    right: -1.875rem;
+    inline-size: clamp(8.75rem, 22vw, 13.75rem);
+    block-size: auto;
+    pointer-events: none;
+    animation: cover-full-bleed-reveal 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    transform-origin: 70% 30%;
+  }
+
+  .cover-full-bleed__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: var(--space-5);
+    animation: cover-full-bleed-fade-up 0.9s ease-out 0.25s both;
+  }
+
+  .cover-full-bleed__eyebrow {
+    margin: 0;
+    color: color-mix(in srgb, var(--color-inverse-text) 70%, transparent);
+  }
+
+  .cover-full-bleed__title {
+    margin: 0;
+    max-width: 16ch;
+    font-family: var(--type-hero-face);
+    font-weight: var(--weight-regular);
+    line-height: var(--type-hero-leading);
+    letter-spacing: var(--type-hero-tracking);
+    font-size: clamp(2.5rem, 9vw, var(--type-hero-size));
+    color: var(--color-inverse-text);
+    overflow-wrap: break-word;
+  }
+
+  .cover-full-bleed__signal {
+    margin: 0;
+    font-family: var(--font-data);
+    font-size: var(--type-caption);
+    letter-spacing: var(--tracking-mono);
+    color: var(--color-inverse-signal-text);
+  }
+
+  @keyframes cover-full-bleed-reveal {
+    from {
+      transform: scale(0.5) rotate(-10deg);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1) rotate(0deg);
+      opacity: 0.32;
+    }
+  }
+
+  @keyframes cover-full-bleed-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cover-full-bleed :global(.cover-full-bleed__blob) {
+      animation: none;
+      opacity: 0.32;
+      transform: scale(1) rotate(0deg);
+    }
+    .cover-full-bleed__content {
+      animation: none;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cover-full-bleed {
+      padding-inline: var(--space-4);
+      padding-block-start: var(--space-8);
+      padding-block-end: var(--space-12);
+      min-height: clamp(16rem, 45vh, 28rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cover-full-bleed :global(.cover-full-bleed__blob) {
+      display: none;
+    }
+  }
+</style>
