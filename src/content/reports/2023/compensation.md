@@ -81,21 +81,21 @@ charts:
   - id: chart-compensation-by-level
     type: bar
     title: Median total compensation by career level
-    caption: Median total compensation in SGD by career level (N=211, Singapore).
-      Director and VP cohorts fall below minimum safe disclosure threshold
-      (N<10) and are excluded.
-    summary: Compensation scales with seniority, with a step-change at Senior IC.
-      People Managers earn the highest median at SGD 139,100.
+    caption: "Median total compensation by career level, Singapore and Malaysia.
+      Cohorts below the minimum safe disclosure threshold of 10 respondents are
+      excluded: Singapore Director (N=8) and VP (N=2); Malaysia Lead / Staff /
+      Principal IC (N=5), People Manager (N=3), and Director (N=2)."
+    summary: Compensation scales with seniority in both markets, with a
+      step-change at Senior IC. Select a country to see its per-level
+      breakdown.
     evidenceIds:
       - evidence:2023-compensation
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
-      summary: "Bar chart showing median total compensation by career level in
-        Singapore. Junior IC: SGD 54,000, Mid-level IC: SGD 75,800, Senior IC:
-        SGD 119,000, Lead/Staff/Principal IC: SGD 103,200, People Manager: SGD
-        139,100. Director and VP excluded (N<10)."
+      summary: "Bar chart showing median total compensation by career level,
+        with a country filter for Singapore and Malaysia."
     fallbackTable:
       columns:
         - Career level
@@ -106,7 +106,7 @@ charts:
         - label: Mid-level IC
           value: 75,800
         - label: Senior IC
-          value: 119,000
+          value: 119,500
         - label: Lead / Staff / Principal IC
           value: 103,200
         - label: People Manager
@@ -119,14 +119,84 @@ charts:
         value: 54.5
         tone: workhorse
       - label: Senior IC
-        value: 85.6
+        value: 85.9
         tone: signal
       - label: Lead / Staff / Principal IC
         value: 74.2
         tone: workhorse
       - label: People Manager
         value: 100
-        tone: signal
+        tone: workhorse
+    variants:
+      - label: Singapore
+        summary: "Singapore compensation scales with seniority, with a
+          step-change at Senior IC (N=52): S$119,500. People Managers earn the
+          highest median at S$139,100 (N=23). Junior IC (N=63): S$54,000.
+          Mid-level IC (N=56): S$75,800. Lead / Staff / Principal IC (N=19):
+          S$103,200. Director (N=8) and VP (N=2) fall below the 10-respondent
+          disclosure threshold and are not shown."
+        evidenceIds:
+          - evidence:2023-compensation
+        bars:
+          - label: Junior IC
+            value: 38.8
+            tone: workhorse
+          - label: Mid-level IC
+            value: 54.5
+            tone: workhorse
+          - label: Senior IC
+            value: 85.9
+            tone: signal
+          - label: Lead / Staff / Principal IC
+            value: 74.2
+            tone: workhorse
+          - label: People Manager
+            value: 100
+            tone: workhorse
+        fallbackTable:
+          columns:
+            - Career level
+            - Median total comp (SGD)
+          rows:
+            - label: Junior IC (N=63)
+              value: 54,000
+            - label: Mid-level IC (N=56)
+              value: 75,800
+            - label: Senior IC (N=52)
+              value: 119,500
+            - label: Lead / Staff / Principal IC (N=19)
+              value: 103,200
+            - label: People Manager (N=23)
+              value: 139,100
+      - label: Malaysia
+        summary: "Malaysia's median climbs from Junior IC (N=13): RM55,000 to
+          Senior IC (N=10): RM94,325, with Mid-level IC (N=13) at RM82,000 in
+          between. Lead / Staff / Principal IC (N=5), People Manager (N=3), and
+          Director (N=2) fall below the 10-respondent disclosure threshold and
+          are not shown."
+        evidenceIds:
+          - evidence:2023-compensation-malaysia
+        bars:
+          - label: Junior IC
+            value: 58.3
+            tone: workhorse
+          - label: Mid-level IC
+            value: 86.9
+            tone: workhorse
+          - label: Senior IC
+            value: 100
+            tone: signal
+        fallbackTable:
+          columns:
+            - Career level
+            - Median total comp (MYR)
+          rows:
+            - label: Junior IC (N=13)
+              value: 55,000
+            - label: Mid-level IC (N=13)
+              value: 82,000
+            - label: Senior IC (N=10)
+              value: 94,325
   - id: chart-compensation-indonesia
     type: bar
     title: Median total compensation, Indonesia (cohort-safe levels only)
@@ -275,17 +345,17 @@ Designers across Southeast Asia are almost universally paid in local currency. S
 
 ## Median annual total compensation
 
-Singapore's median total compensation is S$84,000 (N=223), with strong representation across individual contributor and manager levels. Progression by level: Junior IC S$54,000, Mid-level IC S$75,800, Senior IC S$119,000, Lead / Staff IC S$103,200, People Manager S$139,100. Director and VP cohorts fall below the minimum safe disclosure threshold of 10 respondents and are not reported individually.
+Singapore's median total compensation is S$84,000 (N=223), with strong representation across individual contributor and manager levels. Progression by level: Junior IC S$54,000, Mid-level IC S$75,800, Senior IC S$119,500, Lead / Staff IC S$103,200, People Manager S$139,100. Director and VP cohorts fall below the minimum safe disclosure threshold of 10 respondents and are not reported individually.
 
 ::chart{id="chart-compensation-by-level"}
 
 ## Malaysia
 
-Malaysia's median annual total compensation is RM83,000, based on 46 respondents. This carries medium confidence for Junior to Senior IC levels: Malaysia has the second-highest respondent count in the survey, but trails Singapore significantly, which limits how far the analysis can be pushed into senior and leadership levels.
+Malaysia's median annual total compensation is RM83,000, based on 46 respondents. This carries medium confidence for Junior to Senior IC levels: Malaysia has the second-highest respondent count in the survey, but trails Singapore significantly, which limits how far the analysis can be pushed into senior and leadership levels. By career level: Junior IC RM55,000 (N=13), Mid-level IC RM82,000 (N=13), Senior IC RM94,325 (N=10). Lead / Staff / Principal IC (N=5), People Manager (N=3), and Director (N=2) fall below the minimum safe disclosure threshold and are not reported individually.
 
 ## Indonesia
 
-Indonesia's median annual total compensation is Rp84,000,000, based on 27 respondents. Only the Junior IC cohort (N=15) meets the minimum safe disclosure threshold of 10 respondents, so it is the only career level reported individually below; other levels are too small a sample to publish with confidence.
+Indonesia's median annual total compensation is Rp84,000,000, based on 27 respondents. Only the Junior IC cohort (N=15, median Rp62,000,000) meets the minimum safe disclosure threshold of 10 respondents. The published report gives medium confidence for Junior IC salary trends only, noting that more data points are needed before other levels can be reported with confidence.
 
 ::chart{id="chart-compensation-indonesia"}
 
