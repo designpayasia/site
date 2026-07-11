@@ -132,7 +132,7 @@ charts:
     title: Median total compensation, Indonesia (cohort-safe levels only)
     caption: Median annual total compensation in IDR for Indonesia (N=27). Only
       cohorts meeting the minimum safe disclosure threshold of 10 respondents are
-      shown — Junior IC (N=15) and the all-respondent median (N=27). Mid-level IC
+      shown, Junior IC (N=15) and the all-respondent median (N=27). Mid-level IC
       (N=3), Senior IC (N=3), Lead / Staff / Principal IC (N=5), and Vice
       President (N=1) fall below that threshold and are not published.
     summary: Junior IC median total compensation is Rp62,000,000, below the

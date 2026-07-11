@@ -73,276 +73,287 @@ charts:
   - id: chart-compensated-fairly-for-role
     type: bars
     title: Compensated fairly for role and level
-    caption: 1-7 response distribution for the statement about role and level,
-      among 317 answered responses.
-    summary: Distribution of responses on a 1-7 scale for the statement about being
-      compensated fairly for role and level.
+    caption: 1-7 Likert response distribution for the statement about role and level,
+      where 1 - Strongly disagree and 7 - Strongly agree, among 317 answered responses.
+    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+      being compensated fairly for role and level, where 1 - Strongly disagree and
+      7 - Strongly agree.
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about being compensated
-        fairly for role and level. The mean response is 4.57 on a 1-7 scale."
+        fairly for role and level. The mean response is 4.57 on a 1-7 Likert scale,
+        where 1 - Strongly disagree and 7 - Strongly agree."
     fallbackTable:
       columns:
         - Response
         - Share (N=317)
       rows:
-        - label: Rating 1
+        - label: "1 - Strongly disagree"
           value: 14 (4.4%)
-        - label: Rating 2
+        - label: "2 - Disagree"
           value: 34 (10.7%)
-        - label: Rating 3
+        - label: "3 - Somewhat disagree"
           value: 30 (9.5%)
-        - label: Rating 4
+        - label: "4 - Neutral"
           value: 58 (18.3%)
-        - label: Rating 5
+        - label: "5 - Somewhat agree"
           value: 72 (22.7%)
-        - label: Rating 6
+        - label: "6 - Agree"
           value: 77 (24.3%)
-        - label: Rating 7
+        - label: "7 - Strongly agree"
           value: 32 (10.1%)
     bars:
-      - label: \"1\"
+      - label: "1 - Strongly disagree"
         value: 4.4
         tone: workhorse
-      - label: \"2\"
+      - label: "2 - Disagree"
         value: 10.7
         tone: workhorse
-      - label: \"3\"
+      - label: "3 - Somewhat disagree"
         value: 9.5
         tone: workhorse
-      - label: \"4\"
+      - label: "4 - Neutral"
         value: 18.3
         tone: workhorse
-      - label: \"5\"
+      - label: "5 - Somewhat agree"
         value: 22.7
         tone: workhorse
-      - label: \"6\"
+      - label: "6 - Agree"
         value: 24.3
         tone: workhorse
-      - label: \"7\"
+      - label: "7 - Strongly agree"
         value: 10.1
         tone: workhorse
   - id: chart-market-rate-awareness
     type: bars
     title: Market rate awareness
-    caption: 1-7 response distribution for the statement about market rate awareness,
-      among 317 answered responses.
-    summary: Distribution of responses on a 1-7 scale for the statement about market
-      rate awareness.
+    caption: 1-7 Likert response distribution for the statement about market rate
+      awareness, where 1 - Strongly disagree and 7 - Strongly agree, among 317
+      answered responses.
+    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+      market rate awareness, where 1 - Strongly disagree and 7 - Strongly agree.
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about market rate awareness.
-        The mean response is 4.71 on a 1-7 scale."
+        The mean response is 4.71 on a 1-7 Likert scale, where 1 - Strongly disagree
+        and 7 - Strongly agree."
     fallbackTable:
       columns:
         - Response
         - Share (N=317)
       rows:
-        - label: Rating 1
+        - label: "1 - Strongly disagree"
           value: 10 (3.2%)
-        - label: Rating 2
+        - label: "2 - Disagree"
           value: 21 (6.6%)
-        - label: Rating 3
+        - label: "3 - Somewhat disagree"
           value: 34 (10.7%)
-        - label: Rating 4
+        - label: "4 - Neutral"
           value: 54 (17.0%)
-        - label: Rating 5
+        - label: "5 - Somewhat agree"
           value: 90 (28.4%)
-        - label: Rating 6
+        - label: "6 - Agree"
           value: 82 (25.9%)
-        - label: Rating 7
+        - label: "7 - Strongly agree"
           value: 26 (8.2%)
     bars:
-      - label: \"1\"
+      - label: "1 - Strongly disagree"
         value: 3.2
         tone: workhorse
-      - label: \"2\"
+      - label: "2 - Disagree"
         value: 6.6
         tone: workhorse
-      - label: \"3\"
+      - label: "3 - Somewhat disagree"
         value: 10.7
         tone: workhorse
-      - label: \"4\"
+      - label: "4 - Neutral"
         value: 17.0
         tone: workhorse
-      - label: \"5\"
+      - label: "5 - Somewhat agree"
         value: 28.4
         tone: workhorse
-      - label: \"6\"
+      - label: "6 - Agree"
         value: 25.9
         tone: workhorse
-      - label: \"7\"
+      - label: "7 - Strongly agree"
         value: 8.2
         tone: workhorse
   - id: chart-staying-informed-on-market-rate
     type: bars
     title: Staying informed on market rate
-    caption: 1-7 response distribution for the statement about staying informed on
-      market rate, among 316 answered responses.
-    summary: Distribution of responses on a 1-7 scale for the statement about staying
-      informed on market rate.
+    caption: 1-7 Likert response distribution for the statement about staying informed
+      on market rate, where 1 - Strongly disagree and 7 - Strongly agree, among 316
+      answered responses.
+    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+      staying informed on market rate, where 1 - Strongly disagree and 7 = Strongly
+      agree.
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about staying informed
-        on market rate. The mean response is 3.86 on a 1-7 scale."
+        on market rate. The mean response is 3.86 on a 1-7 Likert scale, where 1 =
+        Strongly disagree and 7 - Strongly agree."
     fallbackTable:
       columns:
         - Response
         - Share (N=316)
       rows:
-        - label: Rating 1
+        - label: "1 - Strongly disagree"
           value: 22 (7.0%)
-        - label: Rating 2
+        - label: "2 - Disagree"
           value: 47 (14.9%)
-        - label: Rating 3
+        - label: "3 - Somewhat disagree"
           value: 57 (18.0%)
-        - label: Rating 4
+        - label: "4 - Neutral"
           value: 76 (24.1%)
-        - label: Rating 5
+        - label: "5 - Somewhat agree"
           value: 68 (21.5%)
-        - label: Rating 6
+        - label: "6 - Agree"
           value: 32 (10.1%)
-        - label: Rating 7
+        - label: "7 - Strongly agree"
           value: 14 (4.4%)
     bars:
-      - label: \"1\"
+      - label: "1 - Strongly disagree"
         value: 7.0
         tone: workhorse
-      - label: \"2\"
+      - label: "2 - Disagree"
         value: 14.9
         tone: workhorse
-      - label: \"3\"
+      - label: "3 - Somewhat disagree"
         value: 18.0
         tone: workhorse
-      - label: \"4\"
+      - label: "4 - Neutral"
         value: 24.1
         tone: workhorse
-      - label: \"5\"
+      - label: "5 - Somewhat agree"
         value: 21.5
         tone: workhorse
-      - label: \"6\"
+      - label: "6 - Agree"
         value: 10.1
         tone: workhorse
-      - label: \"7\"
+      - label: "7 - Strongly agree"
         value: 4.4
         tone: workhorse
   - id: chart-negotiation-confidence
     type: bars
     title: Negotiation confidence
-    caption: 1-7 response distribution for the statement about negotiation confidence,
-      among 317 answered responses.
-    summary: Distribution of responses on a 1-7 scale for the statement about negotiation
-      confidence.
+    caption: 1-7 Likert response distribution for the statement about negotiation
+      confidence, where 1 - Strongly disagree and 7 - Strongly agree, among 317
+      answered responses.
+    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+      negotiation confidence, where 1 - Strongly disagree and 7 - Strongly agree.
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about negotiation confidence.
-        The mean response is 4.51 on a 1-7 scale."
+        The mean response is 4.51 on a 1-7 Likert scale, where 1 - Strongly disagree
+        and 7 - Strongly agree."
     fallbackTable:
       columns:
         - Response
         - Share (N=317)
       rows:
-        - label: Rating 1
+        - label: "1 - Strongly disagree"
           value: 11 (3.5%)
-        - label: Rating 2
+        - label: "2 - Disagree"
           value: 28 (8.8%)
-        - label: Rating 3
+        - label: "3 - Somewhat disagree"
           value: 53 (16.7%)
-        - label: Rating 4
+        - label: "4 - Neutral"
           value: 60 (18.9%)
-        - label: Rating 5
+        - label: "5 - Somewhat agree"
           value: 59 (18.6%)
-        - label: Rating 6
+        - label: "6 - Agree"
           value: 73 (23.0%)
-        - label: Rating 7
+        - label: "7 - Strongly agree"
           value: 33 (10.4%)
     bars:
-      - label: \"1\"
+      - label: "1 - Strongly disagree"
         value: 3.5
         tone: workhorse
-      - label: \"2\"
+      - label: "2 - Disagree"
         value: 8.8
         tone: workhorse
-      - label: \"3\"
+      - label: "3 - Somewhat disagree"
         value: 16.7
         tone: workhorse
-      - label: \"4\"
+      - label: "4 - Neutral"
         value: 18.9
         tone: workhorse
-      - label: \"5\"
+      - label: "5 - Somewhat agree"
         value: 18.6
         tone: workhorse
-      - label: \"6\"
+      - label: "6 - Agree"
         value: 23.0
         tone: workhorse
-      - label: \"7\"
+      - label: "7 - Strongly agree"
         value: 10.4
         tone: workhorse
   - id: chart-compensated-fairly-for-effort
     type: bars
     title: Compensated fairly for effort
-    caption: 1-7 response distribution for the statement about effort at work,
-      among 316 answered responses.
-    summary: Distribution of responses on a 1-7 scale for the statement about being
-      compensated fairly for effort at work.
+    caption: 1-7 Likert response distribution for the statement about effort at work,
+      where 1 - Strongly disagree and 7 - Strongly agree, among 316 answered responses.
+    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+      being compensated fairly for effort at work, where 1 - Strongly disagree and
+      7 - Strongly agree.
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about being compensated
-        fairly for effort at work. The mean response is 4.58 on a 1-7 scale."
+        fairly for effort at work. The mean response is 4.58 on a 1-7 Likert scale,
+        where 1 - Strongly disagree and 7 - Strongly agree."
     fallbackTable:
       columns:
         - Response
         - Share (N=316)
       rows:
-        - label: Rating 1
+        - label: "1 - Strongly disagree"
           value: 11 (3.5%)
-        - label: Rating 2
+        - label: "2 - Disagree"
           value: 33 (10.4%)
-        - label: Rating 3
+        - label: "3 - Somewhat disagree"
           value: 37 (11.7%)
-        - label: Rating 4
+        - label: "4 - Neutral"
           value: 61 (19.3%)
-        - label: Rating 5
+        - label: "5 - Somewhat agree"
           value: 60 (19.0%)
-        - label: Rating 6
+        - label: "6 - Agree"
           value: 84 (26.6%)
-        - label: Rating 7
+        - label: "7 - Strongly agree"
           value: 30 (9.5%)
     bars:
-      - label: \"1\"
+      - label: "1 - Strongly disagree"
         value: 3.5
         tone: workhorse
-      - label: \"2\"
+      - label: "2 - Disagree"
         value: 10.4
         tone: workhorse
-      - label: \"3\"
+      - label: "3 - Somewhat disagree"
         value: 11.7
         tone: workhorse
-      - label: \"4\"
+      - label: "4 - Neutral"
         value: 19.3
         tone: workhorse
-      - label: \"5\"
+      - label: "5 - Somewhat agree"
         value: 19.0
         tone: workhorse
-      - label: \"6\"
+      - label: "6 - Agree"
         value: 26.6
         tone: workhorse
-      - label: \"7\"
+      - label: "7 - Strongly agree"
         value: 9.5
         tone: workhorse
 keyFindings:
@@ -394,4 +405,3 @@ Compensated fairly for effort averages 4.58 out of 7.
 ::chart{id="chart-compensated-fairly-for-effort"}
 
 *Sentiment findings reflect aggregate responses across 10 markets; 69.4% of respondents are Singapore-based.*
-

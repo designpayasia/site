@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-sg-compensation-company-size",
+  "title": "2023 Singapore reported median total compensation by company size",
+  "summary": "Aggregate results from Design Pay Asia 2022-23 survey data, filtered exactly to Country = Singapore and Currency you draw your salary in = SGD (n=223). Company-size medians are 1-10 employees n=13 at S$44,900; 11-50 n=37 at S$54,000; 51-200 n=40 at S$80,200; 201-1,000 n=38 at S$100,700; 1,001-10,000 n=44 at S$100,550; and 10,001 or more n=51 at S$112,500. These are respondent medians, not population estimates.",
+  "sourceName": "Design Pay Asia 2022-23 survey data",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "The authoritative worksheet was filtered using exact matches Country = Singapore and Currency you draw your salary in = SGD, leaving n=223. One Singapore response reported in USD was excluded and no currency conversion was applied. Values are self-reported total compensation medians. All published company-size cohorts meet the minimum n=10 threshold, and no respondent-level data is exposed.",
+  "sampleSize": 223,
+  "sensitivity": "public"
+}

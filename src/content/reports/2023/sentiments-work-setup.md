@@ -8,45 +8,48 @@ order: 70
 charts:
   - id: comfortable-with-work-arrangement
     title: Comfort with current working arrangement
-    caption: Distribution of responses to the current working-arrangement comfort statement (N=323).
-    summary: Responses cluster at 5-7, with 6 and 7 the most common ratings.
+    caption: Distribution of responses to the current working-arrangement comfort
+      statement (N=323) on a 1-7 Likert scale, where 1 - Strongly disagree and 7 =
+      Strongly agree.
+    summary: Responses on the 1-7 Likert scale cluster at 5-7, with 6 and 7 the most
+      common ratings; 1 - Strongly disagree and 7 - Strongly agree.
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
     bars:
-      - label: "1"
+      - label: "1 - Strongly disagree"
         value: 1.5
-      - label: "2"
+      - label: "2 - Disagree"
         value: 3.1
-      - label: "3"
+      - label: "3 - Somewhat disagree"
         value: 5.0
-      - label: "4"
+      - label: "4 - Neutral"
         value: 9.9
-      - label: "5"
+      - label: "5 - Somewhat agree"
         value: 18.6
-      - label: "6"
+      - label: "6 - Agree"
         value: 28.5
-      - label: "7"
+      - label: "7 - Strongly agree"
         value: 31.6
     fallbackTable:
       columns:
         - Rating
         - Respondents
       rows:
-        - label: Rating 1
+        - label: "1 - Strongly disagree"
           value: 5 (1.5%)
-        - label: Rating 2
+        - label: "2 - Disagree"
           value: 10 (3.1%)
-        - label: Rating 3
+        - label: "3 - Somewhat disagree"
           value: 16 (5.0%)
-        - label: Rating 4
+        - label: "4 - Neutral"
           value: 32 (9.9%)
-        - label: Rating 5
+        - label: "5 - Somewhat agree"
           value: 60 (18.6%)
-        - label: Rating 6
+        - label: "6 - Agree"
           value: 92 (28.5%)
-        - label: Rating 7
+        - label: "7 - Strongly agree"
           value: 102 (31.6%)
   - id: extra-hours-worked
     title: Extra hours worked
@@ -130,4 +133,3 @@ Despite career uncertainties, designers are overwhelmingly comfortable with thei
 67.2% of designers work extra hours beyond the standard work week, with 16.4% working more than 5 extra hours weekly. This translates to roughly 10.8 additional working days per year for the highest-intensity group. Senior roles (Directors and VPs) work the most prolonged hours, while younger designers tend to maintain more balanced lifestyles.
 
 *Sentiment findings reflect aggregate responses across 10 markets; 69.4% of respondents are Singapore-based.*
-
