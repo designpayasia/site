@@ -595,6 +595,7 @@ const segmentedViews = hasSegments
   .chart-block__visual {
     display: grid;
     gap: var(--space-5);
+    container-type: inline-size;
   }
 
   .chart-block__summary {
@@ -693,6 +694,7 @@ const segmentedViews = hasSegments
     min-width: 3ch;
     text-align: right;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .chart-block__meta {
@@ -790,13 +792,18 @@ const segmentedViews = hasSegments
     padding-block: var(--space-2);
   }
 
-  @media (max-width: 767px) {
+  /* Container query, not a viewport media query: the row layout needs to
+     collapse whenever the chart's own rendered width is narrow — inside a
+     mobile viewport, but equally inside any narrow non-viewport wrapper
+     (e.g. a card) — not only when the whole screen is small. Threshold is
+     tuned to match the old 767px viewport breakpoint's effective content
+     width for a full-width chart (~700-780px inside the editorial zone),
+     while still catching genuinely narrow renders. */
+  @container (max-width: 600px) {
     .chart-block__visual {
       --chart-label-column: min(220px, 38vw);
     }
-  }
 
-  @media (max-width: 767px) {
     .chart-block__axis,
     .chart-block__row {
       grid-template-columns: 1fr;
@@ -811,15 +818,7 @@ const segmentedViews = hasSegments
     .chart-block__value {
       text-align: left;
     }
-  }
-  .chart-block,
-  .chart-block__visual,
-  .chart-block__row,
-  .chart-block__support {
-    min-width: 0;
-  }
 
-  @media (max-width: 767px) {
     .chart-block__axis {
       display: none;
     }
@@ -834,6 +833,12 @@ const segmentedViews = hasSegments
     .chart-block__evidence {
       overflow-wrap: anywhere;
     }
+  }
+  .chart-block,
+  .chart-block__visual,
+  .chart-block__row,
+  .chart-block__support {
+    min-width: 0;
   }
 
   .chart-block__png-image {

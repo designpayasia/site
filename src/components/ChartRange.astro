@@ -260,6 +260,7 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
   .chart-range__visual {
     display: grid;
     gap: var(--space-5);
+    container-type: inline-size;
   }
 
   .chart-range__summary {
@@ -387,12 +388,14 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     font-family: var(--font-data);
     color: var(--color-ink);
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .chart-range__value-note {
     font-family: var(--font-data);
     font-size: var(--ui-meta);
     color: var(--color-ink-muted);
+    overflow-wrap: break-word;
   }
 
   .chart-range__note {
@@ -518,7 +521,9 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     min-width: 0;
   }
 
-  @media (max-width: 767px) {
+  /* Container query, not a viewport media query: see ChartBlock.astro for
+     the same pattern and threshold reasoning. */
+  @container (max-width: 600px) {
     .chart-range__visual {
       --chart-label-column: min(220px, 38vw);
     }
