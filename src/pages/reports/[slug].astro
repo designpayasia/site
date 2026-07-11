@@ -12,6 +12,7 @@ import {
   getVisibleMetrics,
 } from '../../lib/evidence';
 import { renderRichTextHtml } from '../../lib/frontmatter-markdown';
+import { renderPlotSvg } from '../../lib/plot';
 import {
   getReportSlug,
   getSectionsForReport,
@@ -71,6 +72,22 @@ const SIGNATURE_CHART_IDS_BY_SLUG: Record<string, string[]> = {
 const signatureCharts = reportCharts.filter((chart) =>
   (SIGNATURE_CHART_IDS_BY_SLUG[reportSlug] ?? []).includes(chart.id),
 );
+
+// Build-time Plot SVGs for signature charts — same pattern as
+// [year]/[section].astro. Variants carry no id, so per-variant SVGs key
+// on chart id + variant label (labels are schema-enforced unique).
+const chartPlotSvgById = new Map<string, string>();
+const variantPlotSvgByKey = new Map<string, string>();
+for (const chart of signatureCharts) {
+  if (chart.plot) {
+    chartPlotSvgById.set(chart.id, renderPlotSvg(chart.plot));
+  }
+  for (const variant of chart.variants ?? []) {
+    if (variant.plot) {
+      variantPlotSvgByKey.set(`${chart.id}::${variant.label}`, renderPlotSvg(variant.plot));
+    }
+  }
+}
 
 // Grouped, scannable section list. Three buckets: Landscape, Sentiments, Analysis.
 // SENTIMENT_IDS and ANALYSIS_IDS are year-keyed to prevent cross-report bleed.
@@ -186,6 +203,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               sourceUrl={chart.sourceUrl}
               reportPath={report.data.canonicalPath}
               pngPath={chart.pngPath}
+              plotSvg={chartPlotSvgById.get(chart.id)}
               averageLabel={chart.averageLabel}
               fallbackColumns={chart.fallbackTable.columns as [string, string]}
               fallbackRows={chart.fallbackTable.rows}
@@ -208,6 +226,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 sourceLabel: variant.sourceLabel,
                 sourceUrl: variant.sourceUrl,
                 bars: variant.bars,
+                plotSvg: variantPlotSvgByKey.get(`${chart.id}::${variant.label}`),
                 fallbackColumns: variant.fallbackTable.columns as [string, string],
                 fallbackRows: variant.fallbackTable.rows,
               }))}

@@ -162,8 +162,32 @@ function makeTickFormat(prefix: string, suffix: string): (value: number) => stri
   return (value) => `${prefix}${format(value)}${suffix}`;
 }
 
-/** Cap value-axis ticks so 640px-wide charts never crowd. */
+/** Tick-count hint for non-currency value axes (short labels). */
 const MAX_X_TICKS = 5;
+
+/**
+ * Hard tick control for currency axes. `ticks: N` is only a d3 hint and
+ * awkward domains (e.g. 0–355k) can render 8 ticks whose compact labels
+ * jam together (gotcha 15, seen again in rendered review). Compute at
+ * most five round tick values ourselves — always including 0 — extend
+ * the domain to the last tick, and pass the array form, which d3 honours
+ * exactly.
+ */
+function currencyAxisTicks(domainMax: number): {
+  domain: [number, number];
+  tickValues: number[];
+} {
+  const targetIntervals = 4;
+  const rawStep = Math.max(1, domainMax) / targetIntervals;
+  const magnitude = 10 ** Math.floor(Math.log10(rawStep));
+  const step =
+    [1, 2, 2.5, 5, 10].map((multiple) => multiple * magnitude).find((s) => s >= rawStep) ??
+    10 * magnitude;
+  // step >= domainMax / 4, so intervals <= 4 and tick count <= 5.
+  const intervals = Math.max(1, Math.ceil(domainMax / step));
+  const tickValues = Array.from({ length: intervals + 1 }, (_, index) => index * step);
+  return { domain: [0, intervals * step], tickValues };
+}
 
 /** Estimated mono-glyph advance (px) at the site's caption size — used only
  *  to lay out category margins and the two-series key, where a few px of
@@ -177,6 +201,22 @@ function categoryMarginLeft(labels: string[]): number {
   // the label.
   const longest = Math.max(...labels.map((label) => label.length));
   return Math.min(240, Math.max(80, Math.ceil((longest + 2) * MONO_CHAR_WIDTH) + 24));
+}
+
+/**
+ * Right margin reserving room for half the final tick label: the last
+ * currency tick sits at the domain end and its centred label would
+ * otherwise clip at the SVG edge ("S$400k" losing its k). Same mono-width
+ * estimate as categoryMarginLeft. Non-currency axes keep the base margin.
+ */
+function valueAxisMarginRight(
+  currencyAxis: { tickValues: number[] } | undefined,
+  tickFormat: (value: number) => string,
+): number {
+  const base = 24;
+  if (!currencyAxis) return base;
+  const lastTick = currencyAxis.tickValues[currencyAxis.tickValues.length - 1];
+  return Math.max(base, Math.ceil(tickFormat(lastTick).length / 2) * MONO_CHAR_WIDTH + 4);
 }
 
 function annotationTextMarks(
@@ -418,6 +458,8 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
   }
 
   const domainMax = Math.max(...rows.map((row) => row.max));
+  const currencyAxis = valuePrefix ? currencyAxisTicks(domainMax) : undefined;
+  const tickFormat = makeTickFormat(valuePrefix, valueSuffix);
   marks.push(...annotationTextMarks(annotations, { domainMax }));
 
   const svg = Plot.plot({
@@ -427,13 +469,16 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
     width,
     height,
     marginLeft: categoryMarginLeft(labels),
-    marginRight: 24,
+    marginRight: valueAxisMarginRight(currencyAxis, tickFormat),
     marginBottom: 48,
     x: {
       label: xLabel,
-      tickFormat: makeTickFormat(valuePrefix, valueSuffix),
-      ticks: MAX_X_TICKS,
-      nice: true,
+      tickFormat,
+      // Currency axes get hard-capped explicit ticks (array form); short
+      // non-currency labels keep the d3 hint + nice domain.
+      ...(currencyAxis
+        ? { domain: currencyAxis.domain, ticks: currencyAxis.tickValues }
+        : { ticks: MAX_X_TICKS, nice: true }),
       labelAnchor: 'center',
       labelArrow: 'none',
     },
@@ -554,6 +599,8 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
   const domainMax = Math.max(
     ...categories.flatMap((category) => [category.a, category.b]),
   );
+  const currencyAxis = valuePrefix ? currencyAxisTicks(domainMax) : undefined;
+  const tickFormat = makeTickFormat(valuePrefix, valueSuffix);
   marks.push(...annotationTextMarks(annotations, { faceted: true, domainMax }));
 
   const marginLeft = categoryMarginLeft(labels);
@@ -565,17 +612,19 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
     width,
     height,
     marginLeft,
-    marginRight: 24,
+    marginRight: valueAxisMarginRight(currencyAxis, tickFormat),
     marginTop: 44,
     marginBottom: 48,
     x: {
       label: xLabel ?? null,
-      // Explicit zero baseline: bar length must encode the value from 0,
-      // never a cropped domain, so the two series stay comparable.
-      domain: [0, domainMax],
-      tickFormat: makeTickFormat(valuePrefix, valueSuffix),
-      ticks: MAX_X_TICKS,
-      nice: true,
+      tickFormat,
+      // Explicit zero baseline either way: bar length must encode the
+      // value from 0, never a cropped domain, so the two series stay
+      // comparable. Currency axes additionally get hard-capped explicit
+      // ticks (array form); short non-currency labels keep the d3 hint.
+      ...(currencyAxis
+        ? { domain: currencyAxis.domain, ticks: currencyAxis.tickValues }
+        : { domain: [0, domainMax], ticks: MAX_X_TICKS, nice: true }),
       labelAnchor: 'center',
       labelArrow: 'none',
     },
