@@ -34,14 +34,32 @@ const metricSchema = z
   });
 
 /**
- * Build-time Observable Plot layer (src/lib/plot.ts). Currently supports
- * one mark type — a binned scatter/dot chart — carrying pre-aggregated
- * (x, y, count) points inline in the chart's own frontmatter entry, the
+ * Build-time Observable Plot layer (src/lib/plot.ts). Plot specs carry
+ * pre-aggregated data inline in the chart's own frontmatter entry, the
  * same self-contained convention `bars`/`fallbackTable` already follow.
- * `count` must be a respondent count already aggregated upstream (never
- * row-level data) so the MIN_SAFE_COHORT suppression rule is enforced
- * before data ever reaches this repo, not by this schema.
+ * All values must be aggregated upstream (never row-level data) so the
+ * MIN_SAFE_COHORT suppression rule is enforced before data ever reaches
+ * this repo, not by this schema.
+ *
+ * Supported types: `scatter` (binned x/y/count dots), `range`
+ * (min–median–max dot-and-whisker per category), and `groupedBar` /
+ * `pairedBar` (two series over shared categories — one renderer, two
+ * names so authoring intent stays legible).
  */
+
+/**
+ * Free-text annotation placed at data coordinates. Numbers address
+ * continuous axes; strings address category (band) axes. DPA register:
+ * one or two per chart at most — annotations name the finding, they do
+ * not decorate.
+ */
+const plotAnnotationSchema = z.object({
+  x: z.union([z.number(), z.string().min(1)]),
+  y: z.union([z.number(), z.string().min(1)]),
+  text: z.string().min(1),
+  anchor: z.enum(['start', 'middle', 'end']).optional(),
+});
+
 const scatterPlotSchema = z.object({
   type: z.literal('scatter'),
   xLabel: z.string().min(1),
@@ -68,7 +86,79 @@ const scatterPlotSchema = z.object({
       y: z.object({ value: z.number(), label: z.string().min(1).optional() }).optional(),
     })
     .optional(),
+  annotations: z.array(plotAnnotationSchema).optional(),
 });
+
+/**
+ * Horizontal min–median–max dot-and-whisker per category: muted rule from
+ * min to max, emphasised median dot. Per-row `min <= median <= max` is
+ * enforced in chartSchema's superRefine (discriminated unions require
+ * plain object members, so the check cannot live on this schema).
+ */
+const rangePlotSchema = z.object({
+  type: z.literal('range'),
+  xLabel: z.string().min(1),
+  /** Prepended to axis tick values, e.g. "S$". */
+  valuePrefix: z.string().optional(),
+  /** Appended to axis tick values, e.g. "%". */
+  valueSuffix: z.string().optional(),
+  rows: z
+    .array(
+      z.object({
+        label: z.string().min(1),
+        min: z.number(),
+        median: z.number(),
+        max: z.number(),
+        /** Signal at most one row — the finding, not a rainbow. */
+        tone: z.enum(['workhorse', 'signal']).default('workhorse'),
+      }),
+    )
+    .min(1),
+  annotations: z.array(plotAnnotationSchema).optional(),
+});
+
+/**
+ * Two series over shared categories, horizontal bars. Series A renders as
+ * solid workhorse fill, series B as an outline (currentColor stroke plus
+ * low-opacity fill) — differentiation without new colour tokens.
+ * `groupedBar` and `pairedBar` share one renderer; the two names exist so
+ * frontmatter says what the chart means (grouped category comparison vs
+ * paired distributions over the same buckets), not how it is drawn.
+ */
+const twoSeriesBarFields = {
+  seriesALabel: z.string().min(1),
+  seriesBLabel: z.string().min(1),
+  xLabel: z.string().min(1).optional(),
+  valuePrefix: z.string().optional(),
+  valueSuffix: z.string().optional(),
+  categories: z
+    .array(
+      z.object({
+        label: z.string().min(1),
+        a: z.number(),
+        b: z.number(),
+      }),
+    )
+    .min(1),
+  annotations: z.array(plotAnnotationSchema).optional(),
+};
+
+const groupedBarPlotSchema = z.object({
+  type: z.literal('groupedBar'),
+  ...twoSeriesBarFields,
+});
+
+const pairedBarPlotSchema = z.object({
+  type: z.literal('pairedBar'),
+  ...twoSeriesBarFields,
+});
+
+const plotSchema = z.discriminatedUnion('type', [
+  scatterPlotSchema,
+  rangePlotSchema,
+  groupedBarPlotSchema,
+  pairedBarPlotSchema,
+]);
 
 const chartSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
@@ -101,14 +191,14 @@ const chartSchema = z.object({
     )
     .default([]),
   /**
-   * Optional build-time Observable Plot spec — see scatterPlotSchema above.
+   * Optional build-time Observable Plot spec — see plotSchema above.
    * Mutually exclusive in practice with `bars` (a chart renders either the
    * bars track or the Plot SVG, never both — see ChartBlock's `plotSvg`
    * prop), but `bars` is left in place (as an empty array) rather than
    * removed, since `fallbackTable` — not `bars` — is the hard requirement
    * that must survive regardless of render path.
    */
-  plot: scatterPlotSchema.optional(),
+  plot: plotSchema.optional(),
   segments: z
     .array(
       z.object({
@@ -159,6 +249,15 @@ const chartSchema = z.object({
         evidenceIds: z.array(z.string().regex(/^evidence:[a-z0-9-]+$/)).min(1),
         sourceLabel: z.string().min(1).optional(),
         sourceUrl: z.url().optional(),
+        /**
+         * Variants mirror the top-level chart's plot/bars treatment: a
+         * variant renders either its bars track or its Plot SVG, never
+         * both. `bars` defaults to [] so a plot-backed variant needs no
+         * dummy track; the bars-or-plot requirement is enforced in the
+         * superRefine below, and `fallbackTable` stays hard-required per
+         * variant regardless of render path.
+         */
+        plot: plotSchema.optional(),
         bars: z
           .array(
             z.object({
@@ -167,7 +266,7 @@ const chartSchema = z.object({
               tone: z.enum(['workhorse', 'signal']).default('workhorse'),
             }),
           )
-          .min(1),
+          .default([]),
         fallbackTable: z.object({
           columns: z.array(z.string().min(1)).length(2),
           rows: z
@@ -188,6 +287,26 @@ const chartSchema = z.object({
       code: z.ZodIssueCode.custom,
       message: 'bars is required when neither pngPath nor plot is provided',
       path: ['bars'],
+    });
+  }
+
+  if (data.pngPath && data.plot) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'pngPath and plot are mutually exclusive; a chart renders one or the other',
+      path: ['plot'],
+    });
+  }
+
+  if (data.plot?.type === 'range') {
+    data.plot.rows.forEach((row, index) => {
+      if (!(row.min <= row.median && row.median <= row.max)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `range row "${row.label}" must satisfy min <= median <= max`,
+          path: ['plot', 'rows', index],
+        });
+      }
     });
   }
 
@@ -252,6 +371,26 @@ const chartSchema = z.object({
       }
 
       variantLabels.add(variant.label);
+
+      if (!variant.plot && variant.bars.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'variant bars are required when the variant provides no plot',
+          path: ['variants', index, 'bars'],
+        });
+      }
+
+      if (variant.plot?.type === 'range') {
+        variant.plot.rows.forEach((row, rowIndex) => {
+          if (!(row.min <= row.median && row.median <= row.max)) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: `range row "${row.label}" must satisfy min <= median <= max`,
+              path: ['variants', index, 'plot', 'rows', rowIndex],
+            });
+          }
+        });
+      }
     });
   }
 });

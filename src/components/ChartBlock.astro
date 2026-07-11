@@ -56,6 +56,17 @@ interface Variant {
   sourceLabel?: string;
   sourceUrl?: string;
   bars: Bar[];
+  /**
+   * Pre-rendered Observable Plot SVG for this variant — same contract as
+   * the top-level `plotSvg` prop: when present it replaces the variant's
+   * axis + bars track; the variant's fallback table is unaffected.
+   * Byte-parity note: in the variants template the plot/bars ternary sits
+   * flush against its neighbouring tags, and no JSX comment may precede
+   * it — each expression slot and template newline collapses to a space
+   * in emitted HTML, and any extra one breaks parity with the pre-plot
+   * bars markup.
+   */
+  plotSvg?: string;
   fallbackColumns: [string, string];
   fallbackRows: TableRow[];
 }
@@ -271,8 +282,10 @@ const variantViews = hasVariants
                 aria-label={view.summary}
                 style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
               >
-                <p class="chart-block__summary">{view.summary}</p>
-
+                <p class="chart-block__summary">{view.summary}</p>{view.plotSvg ? (
+                  <div class="chart-block__plot" set:html={view.plotSvg} />
+                ) : (
+                  <>
                 <div class="chart-block__axis" aria-hidden="true">
                   <div class="chart-block__axis-spacer"></div>
                   <div class="chart-block__ticks">
@@ -324,8 +337,8 @@ const variantViews = hasVariants
                     </div>
                   ))}
                 </div>
-
-                <div class="chart-block__meta">
+                  </>
+                )}<div class="chart-block__meta">
                   {view.showSource && (
                     <p class="chart-block__source">
                       Source:{' '}
