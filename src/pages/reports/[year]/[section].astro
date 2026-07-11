@@ -4,6 +4,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import ChartBlock from '../../../components/ChartBlock.astro';
 import DarkBeat from '../../../components/DarkBeat.astro';
 import Base from '../../../layouts/Base.astro';
+import { renderScatterPlotSvg } from '../../../lib/plot';
 import {
   assertEvidenceIdsExist,
   buildEvidenceMap,
@@ -61,6 +62,25 @@ for (const chart of sectionCharts) {
       variant.evidenceIds,
       evidenceMap,
       `report:${report.id}:chart:${chart.id}:variant:${variant.label}`,
+    );
+  }
+}
+
+// Observable Plot charts render once here, at build, into static SVG
+// strings keyed by chart id — the section-page frontmatter is the "build"
+// referred to in the architecture contract, not a client-side step.
+// ChartBlock itself only ever receives an inert SVG string.
+const chartPlotSvgById = new Map<string, string>();
+for (const chart of sectionCharts) {
+  if (chart.plot) {
+    chartPlotSvgById.set(
+      chart.id,
+      renderScatterPlotSvg({
+        points: chart.plot.points,
+        xLabel: chart.plot.xLabel,
+        yLabel: chart.plot.yLabel,
+        showDiagonalReference: chart.plot.showDiagonalReference,
+      }),
     );
   }
 }
@@ -195,6 +215,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               fallbackRows={segment.chart.fallbackTable.rows}
               bars={segment.chart.bars}
               pngPath={segment.chart.pngPath}
+              plotSvg={chartPlotSvgById.get(segment.chart.id)}
               averageLabel={segment.chart.averageLabel}
               segments={segment.chart.segments?.map((chartSegment) => ({
                 id: chartSegment.id,
