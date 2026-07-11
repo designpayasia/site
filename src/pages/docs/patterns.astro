@@ -274,7 +274,7 @@ const tocItems = [
           > + <code>--color-inverse-*</code> tokens), D-blob reveal on load, one short title and one
           optional <code>signalText</code> line — no other stats.
         </p>
-        <div class="pattern-demo__frame">
+        <div class="pattern-demo__frame pattern-demo__frame--full-bleed">
           <CoverFullBleed
             eyebrow="Design Pay Asia — 2025 pilot"
             title="Pay, mapped."
@@ -470,7 +470,7 @@ const tocItems = [
           (<code>inverse</code> unset or false); <code>inverse</code> switches to the dark-beat
           treatment. Shown here as both.
         </p>
-        <div class="pattern-demo__frame pattern-demo__frame--transparent">
+        <div class="pattern-demo__frame pattern-demo__frame--transparent pattern-demo__frame--full-bleed">
           <div class="pattern-demo__stack">
             <PullQuoteBeat
               quote="Pay conversations in this region are still whispered, not published."
@@ -597,11 +597,17 @@ const tocItems = [
   .pattern-demo__frame {
     border: 1px solid var(--color-border-subtle);
     overflow: hidden;
+    padding: var(--space-8);
   }
 
   .pattern-demo__frame--transparent {
     border: none;
     overflow: visible;
+  }
+
+  .pattern-demo__frame--full-bleed {
+    padding: 0;
+    overflow: clip;
   }
 
   .pattern-demo__card-grid {
@@ -643,6 +649,14 @@ const tocItems = [
 
     .pattern-demo__register-grid {
       grid-template-columns: 1fr;
+    }
+
+    .pattern-demo__frame {
+      padding: var(--space-4);
+    }
+
+    .pattern-demo__frame--full-bleed {
+      padding: 0;
     }
   }
 </style>
