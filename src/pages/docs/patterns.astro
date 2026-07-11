@@ -2,15 +2,22 @@
 import Base from '../../layouts/Base.astro';
 import CoverIndexSpread from '../../components/CoverIndexSpread.astro';
 import CoverSplitEditorial from '../../components/CoverSplitEditorial.astro';
+import DarkBeat from '../../components/DarkBeat.astro';
 import CoverFullBleed from '../../components/CoverFullBleed.astro';
 import CoverCardInverse from '../../components/CoverCardInverse.astro';
+import FindingsStrip from '../../components/FindingsStrip.astro';
 import MetricShelf from '../../components/MetricShelf.astro';
+import BigStat from '../../components/BigStat.astro';
 import StatTakeover from '../../components/StatTakeover.astro';
+import ChartBlock from '../../components/ChartBlock.astro';
 import ChartSmallMultiples from '../../components/ChartSmallMultiples.astro';
 import ChartRange from '../../components/ChartRange.astro';
 import ChartDotPlot from '../../components/ChartDotPlot.astro';
+import Invitation from '../../components/Invitation.astro';
 import RegisterCards from '../../components/RegisterCards.astro';
+import PullQuote from '../../components/PullQuote.astro';
 import PullQuoteBeat from '../../components/PullQuoteBeat.astro';
+import StickyMeta from '../../components/StickyMeta.astro';
 import TocScrollspy from '../../components/TocScrollspy.astro';
 import FilterCompare from '../../components/FilterCompare.astro';
 
@@ -180,18 +187,61 @@ const filterRows = [
   { id: 'r4', cells: ['Malaysia', 'Senior', 'MYR 11,600'], filters: { market: 'my', level: 'senior' } },
 ];
 
+const darkBeatMetrics = [
+  {
+    value: 'SGD 4,200',
+    label: 'Median monthly pay',
+    evidenceId: 'evidence:2025-sea-median-pay',
+    publishMode: 'published' as const,
+  },
+  {
+    value: '72',
+    unit: '%',
+    label: 'Pay bands disclosed pre-interview',
+    evidenceId: 'evidence:2025-sea-pay-band-disclosure',
+    publishMode: 'published' as const,
+  },
+];
+
+const chartBlockBars = [
+  { label: 'Singapore', value: 24, tone: 'signal' as const },
+  { label: 'Malaysia', value: 19 },
+  { label: 'Indonesia', value: 14 },
+  { label: 'Vietnam', value: 11 },
+];
+
+const chartBlockFallbackRows = [
+  { label: 'Singapore', value: '24%' },
+  { label: 'Malaysia', value: '19%' },
+  { label: 'Indonesia', value: '14%' },
+  { label: 'Vietnam', value: '11%' },
+];
+
+const stickyMetaItems = [
+  { label: 'Methodology', value: 'Self-reported survey, median of base pay', href: '/docs/data-safety' },
+  { label: 'Sample', value: 'n = 1,842 across 6 markets' },
+  { label: 'Published', value: 'March 2025', href: '/reports' },
+];
+
 const tocItems = [
   { id: 'cover-index-spread', label: 'Cover — index spread' },
   { id: 'cover-split-editorial', label: 'Cover — split editorial' },
+  { id: 'dark-beat', label: 'Dark beat' },
   { id: 'cover-full-bleed', label: 'Cover — full bleed' },
   { id: 'cover-card-inverse', label: 'Cover card — inverse' },
+  { id: 'findings-strip', label: 'Findings strip' },
   { id: 'metric-shelf', label: 'Metric shelf' },
+  { id: 'big-stat', label: 'Big stat' },
   { id: 'stat-takeover', label: 'Stat takeover' },
+  { id: 'chart-block', label: 'Chart block' },
   { id: 'chart-small-multiples', label: 'Chart — small multiples' },
   { id: 'chart-range', label: 'Chart — range' },
   { id: 'chart-dot-plot', label: 'Chart — dot plot' },
+  { id: 'invitation', label: 'Invitation' },
   { id: 'register-cards', label: 'Register cards' },
+  { id: 'pull-quote', label: 'Pull quote' },
   { id: 'pull-quote-beat', label: 'Pull-quote beat' },
+  { id: 'sticky-meta', label: 'Sticky meta' },
   { id: 'toc-scrollspy', label: 'Toc scrollspy (this rail)' },
   { id: 'filter-compare', label: 'Filter & compare' },
 ];
@@ -265,6 +315,27 @@ const tocItems = [
         </div>
       </section>
 
+      <section id="dark-beat" class="pattern-demo">
+        <p class="label-mono">Editorial beat</p>
+        <h2>Dark beat</h2>
+        <p class="pattern-demo__note">
+          Dark-inversion beat for a body-copy statement plus up to three evidence-backed metrics —
+          reach for it mid-report to punctuate a finding. <code>CoverFullBleed</code> below is reserved
+          for the ceremonial flagship cover instead: one short title line and one optional signal line,
+          no statement and no metric strip.
+        </p>
+        <div class="pattern-demo__frame pattern-demo__frame--full-bleed">
+          <DarkBeat
+            eyebrow="Editorial beat"
+            title="Transparency is rising, the gap isn't closing"
+            statement="Seven in ten studios now disclose a pay band before interview, yet the median gap between top and bottom quartile hasn't moved in two years."
+            statementDraft={false}
+            metrics={darkBeatMetrics}
+            provenanceStatus="proven"
+          />
+        </div>
+      </section>
+
       <section id="cover-full-bleed" class="pattern-demo">
         <p class="label-mono">Cover — pattern 01-B</p>
         <h2>Cover full bleed</h2>
@@ -299,6 +370,25 @@ const tocItems = [
         </div>
       </section>
 
+      <section id="findings-strip" class="pattern-demo">
+        <p class="label-mono">Metrics</p>
+        <h2>Findings strip</h2>
+        <p class="pattern-demo__note">
+          Standalone findings section with its own heading and framing copy, capped at exactly three
+          metrics with one signal forced on by default. Reach for it to open a dedicated findings
+          section; use <code>MetricShelf</code> below instead for an inline 2–6 cell shelf dropped into
+          report body copy, where a signal colour only appears if a metric explicitly asks for one.
+        </p>
+        <div class="pattern-demo__frame">
+          <FindingsStrip
+            eyebrow="2025 SEA pilot"
+            title="Three signals from the pilot"
+            intro="Every figure is evidence-linked so readers can trace the signal back to the source."
+            metrics={shelfMetrics}
+          />
+        </div>
+      </section>
+
       <section id="metric-shelf" class="pattern-demo">
         <p class="label-mono">Metrics</p>
         <h2>Metric shelf</h2>
@@ -309,6 +399,36 @@ const tocItems = [
         </p>
         <div class="pattern-demo__frame">
           <MetricShelf metrics={shelfMetrics} />
+        </div>
+      </section>
+
+      <section id="big-stat" class="pattern-demo">
+        <p class="label-mono">Metrics</p>
+        <h2>Big stat</h2>
+        <p class="pattern-demo__note">
+          Plain, reusable single-stat cell — <code>FindingsStrip</code> above builds its three cells
+          from this directly. Reach for it on its own for one bare figure with no annotations and no
+          forced dark treatment; use <code>StatTakeover</code> below when that figure needs 2–3
+          supporting annotations as a single hero moment instead.
+        </p>
+        <div class="pattern-demo__frame">
+          <div class="pattern-demo__stack">
+            <BigStat
+              value="SGD 4,200"
+              unit="per month"
+              label="Median monthly pay"
+              color="signal"
+              variant="hero"
+              countUp
+            />
+            <BigStat
+              value="72"
+              unit="%"
+              label="Pay bands disclosed pre-interview"
+              color="workhorse"
+              variant="finding"
+            />
+          </div>
         </div>
       </section>
 
@@ -332,6 +452,31 @@ const tocItems = [
             ]}
             countUp
             countUpDuration={1600}
+          />
+        </div>
+      </section>
+
+      <section id="chart-block" class="pattern-demo">
+        <p class="label-mono">Charts</p>
+        <h2>Chart block</h2>
+        <p class="pattern-demo__note">
+          The original bar-chart component the small-multiples, range, and dot-plot patterns below are
+          skinned to match — one bar per row plus an accessible fallback table, with an optional
+          <code>segments</code> prop for tabbed views. Reach for it directly for one flat set of bars;
+          use the specialised variants below when you need panel grouping, an IQR band, or a
+          shared-axis dot per row instead.
+        </p>
+        <div class="pattern-demo__frame">
+          <ChartBlock
+            title="Share of respondents who negotiated their most recent offer, by market"
+            caption="Share of respondents reporting they negotiated pay in their most recent offer, by market."
+            summary="Bar chart comparing the share of respondents who negotiated their most recent offer across four Southeast Asian markets, with Singapore highest at 24% and Vietnam lowest at 11%."
+            evidenceIds={['evidence:2025-sea-negotiated-offer']}
+            sourceLabel="Design Pay Asia 2025 pilot"
+            sourceUrl="https://designpay.asia/reports"
+            fallbackColumns={['Market', 'Share negotiated']}
+            fallbackRows={chartBlockFallbackRows}
+            bars={chartBlockBars}
           />
         </div>
       </section>
@@ -427,6 +572,23 @@ const tocItems = [
         </div>
       </section>
 
+      <section id="invitation" class="pattern-demo">
+        <p class="label-mono">Registers</p>
+        <h2>Invitation</h2>
+        <p class="pattern-demo__note">
+          Full-bleed, standalone personal-voice moment — one question, no card border, at most one per
+          report section. Reach for it as a section-ending beat; use the <code>invitation</code>
+          register on <code>RegisterCards</code> below instead when the question needs to sit inside a
+          fixed-register card grid alongside data, editorial, and quote cards.
+        </p>
+        <div class="pattern-demo__frame">
+          <Invitation
+            question="What would make you comfortable sharing your own number?"
+            questionDraft={false}
+          />
+        </div>
+      </section>
+
       <section id="register-cards" class="pattern-demo">
         <p class="label-mono">Registers</p>
         <h2>Register cards</h2>
@@ -462,6 +624,24 @@ const tocItems = [
         </div>
       </section>
 
+      <section id="pull-quote" class="pattern-demo">
+        <p class="label-mono">Registers</p>
+        <h2>Pull quote</h2>
+        <p class="pattern-demo__note">
+          Inline, in-copy quote mark for one line of body prose — a plain blockquote with no blob and
+          no full-bleed treatment; DESIGN.md caps it at one instance per section, never nested. Reach
+          for <code>PullQuoteBeat</code> below instead when the quote needs to stand alone as a
+          full-width beat with a blob mark.
+        </p>
+        <div class="pattern-demo__frame">
+          <PullQuote
+            quote="A pay band means nothing if nobody in the room will read it out loud."
+            attribution="Senior product designer, Manila"
+            draftState="final"
+          />
+        </div>
+      </section>
+
       <section id="pull-quote-beat" class="pattern-demo">
         <p class="label-mono">Registers</p>
         <h2>Pull-quote beat</h2>
@@ -480,6 +660,28 @@ const tocItems = [
               quote="The moment we published our bands, recruiting got easier, not harder."
               attribution="Head of design, Jakarta"
               inverse
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="sticky-meta" class="pattern-demo">
+        <p class="label-mono">Navigation</p>
+        <h2>Sticky meta</h2>
+        <p class="pattern-demo__note">
+          Scroll-aware sidebar panel for a section's methodology, sample, and publish-date metadata —
+          pins alongside body copy on desktop. Reach for it beside a long-form report section; use
+          <code>TocScrollspy</code> below instead for page-level "on this page" navigation, not
+          per-section metadata.
+        </p>
+        <div class="pattern-demo__frame pattern-demo__frame--transparent">
+          <div class="pattern-demo__toc-sample">
+            <StickyMeta
+              eyebrow="Section meta"
+              title="About this section"
+              items={stickyMetaItems}
+              note="Every figure in this section links back to its evidence entry."
+              draftState="final"
             />
           </div>
         </div>
