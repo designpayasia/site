@@ -1,0 +1,176 @@
+---
+/**
+ * TocScrollspy — slim "on this page" contents rail.
+ *
+ * Progressive enhancement: renders as plain in-page anchor links with no
+ * markup change required for JS to work. When JS runs, an
+ * IntersectionObserver highlights the section currently in view and clicks
+ * are intercepted to scroll via `window.scrollTo` (offset for any sticky
+ * chrome) instead of the browser's native anchor jump — native
+ * `scrollIntoView` is never used, since it breaks embedded report previews.
+ *
+ * Consumer contract: each `items[].id` must match the `id` of a heading or
+ * section element elsewhere on the page.
+ */
+interface TocItem {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  items: TocItem[];
+  /** aria-label for the <nav>. Defaults to "On this page". */
+  label?: string;
+  /** Eyebrow above the list, styled with .label-mono. */
+  eyebrow?: string;
+  /** Pixel offset subtracted from the target's position when jumping, to clear any sticky header/chrome. */
+  headerOffset?: number;
+}
+
+const { items, label = 'On this page', eyebrow = 'Contents', headerOffset = 32 } = Astro.props;
+---
+
+<nav class="toc-scrollspy" aria-label={label} data-toc-scrollspy data-toc-offset={headerOffset}>
+  <p class="label-mono toc-scrollspy__eyebrow">{eyebrow}</p>
+
+  <ul class="toc-scrollspy__list">
+    {items.map((item) => (
+      <li>
+        <a href={`#${item.id}`} class="toc-scrollspy__link" data-toc-link data-toc-target={item.id}>
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script is:inline>
+  const root = document.currentScript?.closest('[data-toc-scrollspy]');
+
+  if (root instanceof HTMLElement) {
+    const offset = Number(root.getAttribute('data-toc-offset')) || 0;
+    const links = Array.from(root.querySelectorAll('[data-toc-link]'));
+    const targets = links
+      .map((link) => {
+        const id = link.getAttribute('data-toc-target');
+        const target = id ? document.getElementById(id) : null;
+        return target ? { link, target } : null;
+      })
+      .filter((entry) => entry !== null);
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const setActive = (id) => {
+      links.forEach((link) => {
+        const isActive = link.getAttribute('data-toc-target') === id;
+        link.classList.toggle('is-active', isActive);
+
+        if (isActive) {
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    links.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const id = link.getAttribute('data-toc-target');
+        const target = id ? document.getElementById(id) : null;
+
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+
+        setActive(id);
+        window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
+
+        if (history.pushState) {
+          history.pushState(null, '', `#${id}`);
+        }
+      });
+    });
+
+    if (targets.length > 0 && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.filter((entry) => entry.isIntersecting);
+
+          if (visible.length === 0) {
+            return;
+          }
+
+          const topMost = visible.reduce((closest, entry) =>
+            entry.boundingClientRect.top < closest.boundingClientRect.top ? entry : closest
+          );
+
+          setActive(topMost.target.id);
+        },
+        { rootMargin: '-10% 0px -70% 0px', threshold: 0 }
+      );
+
+      targets.forEach(({ target }) => observer.observe(target));
+    }
+  }
+</script>
+
+<style>
+  .toc-scrollspy {
+    align-self: start;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .toc-scrollspy__eyebrow {
+    color: var(--color-ink-muted);
+  }
+
+  .toc-scrollspy__list {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1.5px solid var(--color-border-subtle);
+  }
+
+  .toc-scrollspy__link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: var(--space-4);
+    margin-left: -1.5px;
+    border-left: 1.5px solid transparent;
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    line-height: var(--leading-ui);
+    transition: color var(--transition-hover), border-color var(--transition-hover);
+  }
+
+  .toc-scrollspy__link:hover {
+    color: var(--color-ink);
+  }
+
+  .toc-scrollspy__link:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+  }
+
+  .toc-scrollspy__link.is-active {
+    color: var(--color-action);
+    border-left-color: var(--color-action);
+  }
+
+  @media (min-width: 768px) {
+    .toc-scrollspy {
+      position: sticky;
+      top: var(--space-8);
+      max-height: calc(100vh - var(--space-8) * 2);
+      overflow-y: auto;
+    }
+  }
+</style>
