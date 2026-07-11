@@ -297,6 +297,6 @@ Annual bonuses are a significant part of total compensation: 54.8% of respondent
 
 ## Standard benefits
 
-The five non-pay benefits that form the baseline package for designers across the region are paid medical leave (83.3%), paid time off and vacation (77.4%), health insurance (76.5%), flexible working arrangements (68.7%), and a budget for equipment or home office setup (68.7%). Additional common benefits include professional development funds (46.4%), flexible schedule (39.9%), dental insurance (39.3%), and onsite food and snacks (33.4%).
+The four non-pay benefits that form the baseline package for designers across the region are paid medical leave (83.3%), paid time off and vacation (77.4%), health insurance (76.5%), and flexible working arrangements (68.7%). Additional common benefits include professional development funds (46.4%), flexible schedule (39.9%), dental insurance (39.3%), and onsite food and snacks (33.4%); a budget for equipment or home office setup is the least common at 21.1%.
 
 ::chart{id="chart-benefits-access"}

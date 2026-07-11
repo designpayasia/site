@@ -15,7 +15,7 @@ Product design dominates as the primary field at 67.5% of roles, and individual 
 
 **The headline finding of this report is a 42% gender pay gap in Singapore.** Women earn substantially less than men across nearly all career levels, feel less fairly compensated, report lower negotiation confidence, and have slower career levelling progress. This finding drew the community's attention and shaped DPA's subsequent research.
 
-Compensation in Singapore shows clear progression with seniority: Junior ICs earn a median of S$54,000, rising to S$238,900 at Director level. The average annual salary growth per year of design experience is S$10,839. International experience commands an 85.5% premium, and remote work offers over 2.7x higher compensation than in-office roles.
+Compensation in Singapore shows clear progression with seniority: Junior ICs earn a median of S$54,000, rising to S$139,100 for people managers. The average annual salary growth per year of design experience is S$10,839. International experience commands an 85.5% premium, and remote work offers over 2.7x higher compensation than in-office roles.
 
 Hybrid work is the established norm at 71.8%, large enterprises and startups are the top employers, and banking/capital markets alongside consumer products are the best-paying industries.
 
