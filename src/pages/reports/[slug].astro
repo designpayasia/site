@@ -48,6 +48,14 @@ const reportCharts = sections.flatMap((section) => section.charts);
 assertMetricsHaveEvidence(report.data.stats, evidenceMap, `report:${report.id}`);
 for (const chart of reportCharts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
+
+  for (const variant of chart.variants ?? []) {
+    assertEvidenceIdsExist(
+      variant.evidenceIds,
+      evidenceMap,
+      `report:${report.id}:chart:${chart.id}:variant:${variant.label}`,
+    );
+  }
 }
 
 // Trust-core validation still runs (stats + charts validate against evidence
@@ -193,6 +201,16 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 fallbackRows: chartSegment.fallbackTable.rows,
               }))}
               defaultSegmentLabel={chart.defaultSegmentLabel}
+              variants={chart.variants?.map((variant) => ({
+                label: variant.label,
+                summary: variant.summary,
+                evidenceIds: variant.evidenceIds,
+                sourceLabel: variant.sourceLabel,
+                sourceUrl: variant.sourceUrl,
+                bars: variant.bars,
+                fallbackColumns: variant.fallbackTable.columns as [string, string],
+                fallbackRows: variant.fallbackTable.rows,
+              }))}
               hideTable
             />
           ))}

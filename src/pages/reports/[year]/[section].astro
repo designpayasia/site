@@ -55,6 +55,14 @@ const sectionCharts = section.charts;
 
 for (const chart of sectionCharts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
+
+  for (const variant of chart.variants ?? []) {
+    assertEvidenceIdsExist(
+      variant.evidenceIds,
+      evidenceMap,
+      `report:${report.id}:chart:${chart.id}:variant:${variant.label}`,
+    );
+  }
 }
 
 const getFallbackColumns = (columns: string[]): [string, string] => {
@@ -66,7 +74,10 @@ const getFallbackColumns = (columns: string[]): [string, string] => {
   return [columns[0], columns[1]];
 };
 
-const sectionEvidenceIds = sectionCharts.flatMap((chart) => chart.evidenceIds);
+const sectionEvidenceIds = sectionCharts.flatMap((chart) => [
+  ...chart.evidenceIds,
+  ...(chart.variants ?? []).flatMap((variant) => variant.evidenceIds),
+]);
 const evidenceList = collectEvidenceByIds(sectionEvidenceIds, evidenceMap);
 
 /** Split text on double-newline into trimmed non-empty paragraphs. */
@@ -196,6 +207,16 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 fallbackRows: chartSegment.fallbackTable.rows,
               }))}
               defaultSegmentLabel={segment.chart.defaultSegmentLabel}
+              variants={segment.chart.variants?.map((variant) => ({
+                label: variant.label,
+                summary: variant.summary,
+                evidenceIds: variant.evidenceIds,
+                sourceLabel: variant.sourceLabel,
+                sourceUrl: variant.sourceUrl,
+                bars: variant.bars,
+                fallbackColumns: getFallbackColumns(variant.fallbackTable.columns),
+                fallbackRows: variant.fallbackTable.rows,
+              }))}
             />
           ) : (
             <div

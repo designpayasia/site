@@ -85,6 +85,14 @@ assertEvidenceIdsExist(
   `report:${featuredReport.id}:chart:${featuredChart.id}`,
 );
 
+for (const variant of featuredChart.variants ?? []) {
+  assertEvidenceIdsExist(
+    variant.evidenceIds,
+    evidenceMap,
+    `report:${featuredReport.id}:chart:${featuredChart.id}:variant:${variant.label}`,
+  );
+}
+
 const featuredChartFallbackColumns = featuredChart.fallbackTable.columns as [string, string];
 
 const careerProgressionStat = findingsStats.find(
@@ -224,6 +232,16 @@ const heroTitleSignal = titleWords.at(-1);
             fallbackRows: chartSegment.fallbackTable.rows,
           }))}
           defaultSegmentLabel={featuredChart.defaultSegmentLabel}
+          variants={featuredChart.variants?.map((variant) => ({
+            label: variant.label,
+            summary: variant.summary,
+            evidenceIds: variant.evidenceIds,
+            sourceLabel: variant.sourceLabel,
+            sourceUrl: variant.sourceUrl,
+            bars: variant.bars,
+            fallbackColumns: variant.fallbackTable.columns as [string, string],
+            fallbackRows: variant.fallbackTable.rows,
+          }))}
         />
       </div>
     </section>
