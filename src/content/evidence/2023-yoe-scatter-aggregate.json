@@ -7,7 +7,7 @@
   "year": 2023,
   "collectedAt": "2023 survey cycle (Dec 2022–Feb 2023)",
   "geography": ["Singapore", "Malaysia", "Indonesia"],
-  "methodology": "Points are binned (design YOE, total YOE) response counts aggregated from the 2022–23 survey responses (N=323); no row-level data is published. Each point represents one distinct design-experience/total-experience pairing and the count of respondents reporting exactly that pairing. Aggregated upstream from the raw survey export before reaching this repository.",
+  "methodology": "Points are binned (design YOE, total YOE) response counts aggregated from the 2022–23 survey responses (N=323); no row-level data is published. Each point represents one distinct design-experience/total-experience pairing and the count of respondents reporting exactly that pairing. Aggregated upstream from the raw survey export before reaching this repository. The published report prints medians of 6 years (design) and 10 years (total), which cannot be reproduced from the response data; the site uses the response-derived medians of 4 and 6 years per the standing derived-beats-print ruling.",
   "sampleSize": 323,
   "sensitivity": "public"
 }
