@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-sg-compensation-education-pathways",
+  "title": "2023 Singapore reported median total compensation by overlapping design-education pathway",
+  "summary": "Authoritative aggregate results from Design Pay Asia 2022-23 education-pathway data. Medians are Formal design education n=120 at S$90,510; Online certification n=49 at S$91,545; Bootcamp n=66 at S$87,910.50; In-person certified courses n=25 at S$92,500; and No formal design education n=48 at S$85,500.50. Categories overlap and are not shares of the respondent base. These are respondent medians, not population estimates.",
+  "sourceName": "Design Pay Asia 2022-23 education-pathway data",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "The supplied Singapore report CSV is authoritative for these education-pathway aggregates. Categories overlap, so a respondent may appear in more than one group; counts are not mutually exclusive and must not be added or converted to percentages. No category normalisation or currency conversion was applied. All published cohorts meet the minimum n=10 threshold, and no respondent-level data is exposed.",
+  "sampleSize": 223,
+  "sensitivity": "aggregate-only"
+}

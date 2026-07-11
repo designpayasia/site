@@ -71,7 +71,7 @@ team:
     photo: /team/2023/kyle-lai.jpg
 acknowledgement: This first ever report was driven by the community both inside
   and out. It exists because 323 designers chose to share what they earn, which
-  gave us a first look into the design landscape in South East Asia. We are
+  gave us a first look into the design community across Southeast Asia. We are
   incredibly grateful for all your contributions. Thank you.
 support:
   heading: Support this community initiative
@@ -91,7 +91,7 @@ methodologyStrip:
     - Retained 323 valid responses after removing duplicates, checking
       geographic consistency, and verifying compensation figures
     - Detailed analysis sections use Singapore respondents (N=223), where sample
-      size allows for robust breakdowns; smaller markets are included where data
+      size supports breakdowns by role and experience; smaller markets are included where data
       is sufficient
   biasIntro: "This was the first DPA survey, and the data has real constraints
     worth knowing:"
@@ -107,7 +107,7 @@ methodologyStrip:
     - "Self-reported data: All figures are self-reported. Compensation numbers
       in particular may be rounded or affected by recall"
     - "Small-cohort markets: Country-level data for markets with fewer than 30
-      respondents is indicative, not statistically robust"
+      respondents is indicative, not statistically conclusive"
   caveat: Without a prior year to compare against, this report establishes the
     baseline rather than tracking trends. Year-on-year comparisons from 2024
     onwards should account for shifts in methodology and who responded.

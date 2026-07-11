@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-sg-compensation-negotiation",
+  "title": "2023 Singapore reported median total compensation by current-compensation negotiation response",
+  "summary": "Aggregate results from Design Pay Asia 2022-23 survey data, filtered exactly to Country = Singapore and Currency you draw your salary in = SGD (n=223). Negotiation responses were Yes n=121 at S$84,500; No n=88 at S$84,150; and Not applicable n=11 at S$85,801. Three blank responses are omitted. These are respondent medians, not population estimates.",
+  "sourceName": "Design Pay Asia 2022-23 survey data",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "The authoritative worksheet was filtered using exact matches Country = Singapore and Currency you draw your salary in = SGD, leaving n=223. One Singapore response reported in USD was excluded and no currency conversion was applied. Three blank negotiation responses were omitted rather than rendered or inferred. Values are self-reported total compensation medians, and no respondent-level data is exposed.",
+  "sampleSize": 223,
+  "sensitivity": "small-cohort"
+}

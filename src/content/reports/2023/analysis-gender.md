@@ -1,95 +1,41 @@
 ---
 report: "2023"
 title: "Analysis: gender 🇸🇬"
-summary: The headline finding of the 2023 report. Women earn 42% less than men
-  in Singapore's design industry. The gap persists across nearly all career
-  levels and is compounded by differences in negotiation behaviour and career
-  progression.
+summary: Reported median total compensation for the gender cohorts among
+  Singapore survey respondents that meet the publication threshold.
 order: 90
 charts:
-  - id: chart-gender-pay-gap
-    title: Gender Pay Gap by Career Level (Singapore)
-    caption: The 42% overall pay gap is reflected across most career levels. At the
-      IC track, women earn 11-21% less than men at most levels. Junior IC is the
-      exception where women earn slightly more.
-    summary: Gender pay gap comparison across career levels based on Singapore
-      respondents.
+  - id: sg-compensation-gender
+    title: Median total compensation by gender
+    caption: Reported median total compensation in SGD for the published gender cohorts among Singapore survey respondents. These survey medians are not population estimates. Cohorts below n=10 are suppressed.
+    summary: Among published gender cohorts in the Singapore survey, Man respondents reported median total compensation of S$123,000 and Woman respondents reported S$71,300. These are survey medians, not population estimates. Other gender cohorts are suppressed because they contain fewer than 10 respondents.
     evidenceIds:
-      - evidence:2023-gender-pay-gap
-    sourceLabel: 2023 DPA Report
+      - evidence:2023-sg-compensation-gender
+    sourceLabel: Design Pay Asia 2022-23 survey data
     sourceUrl: https://designpay.asia/reports/2023
+    pngPath: /charts/2023/analysis-gender/sg-compensation-gender.png
     fallbackTable:
       columns:
-        - Career Level
-        - Pay Gap
+        - Subgroup among Singapore survey respondents (n)
+        - Reported median total compensation (SGD), not a population estimate
       rows:
-        - label: Overall
-          value: 42% gap favouring men
-        - label: Junior IC
-          value: 11% gap favouring women
-        - label: Mid-level IC
-          value: 11-21% gap favouring men
-        - label: Senior IC
-          value: 11-21% gap favouring men
-        - label: Lead / Staff IC
-          value: 11-21% gap favouring men
-        - label: Management Track
-          value: Gap favours men
-    bars:
-      - label: Overall (men earn more)
-        value: 42
-        tone: signal
-      - label: Junior IC (women earn more)
-        value: 11
-        tone: workhorse
-      - label: Mid IC (men earn more)
-        value: 16
-        tone: signal
-      - label: Senior IC (men earn more)
-        value: 16
-        tone: signal
-      - label: Mgmt (men earn more)
-        value: 21
-        tone: signal
+        - label: Man (n=83)
+          value: S$123,000
+        - label: Woman (n=138)
+          value: S$71,300
 keyFindings:
-  - Women earn 42% less than men in Singapore's design industry overall.
-  - Men average 7.47 years of design experience; women average 3.86 years.
-    Experience gap contributes to but does not fully explain the gap.
-  - "Junior IC is the exception: women earn 11% more than men. At all other IC
-    levels women earn 11–21% less."
-  - 61% of men negotiated their compensation vs 51% of women. 62% of men made
-    formal career progress vs 52% of women.
+  - Man respondents reported median total compensation of S$123,000.
+  - Woman respondents reported median total compensation of S$71,300.
+  - Other gender cohorts are omitted because they fall below the minimum safe
+    cohort size of 10.
 ---
 
-*The following data covers Singapore respondents only (N=223).*
+## Reported medians by gender
 
-::chart{id="chart-gender-pay-gap"}
+Man respondents recorded median total compensation of S$123,000. Woman respondents recorded S$71,300. Other gender responses are omitted because each cohort falls below the publication threshold.
 
-## The 42% gap
+This is a cross-sectional, unadjusted comparison of two respondent cohorts, not a population-wide estimate or a matched-role analysis.
 
-The most significant finding of the 2023 report is a **42% gender pay gap in Singapore's design industry**. The median total compensation for women is 42% lower than men's, a gap that reflects multiple compounding factors.
+::chart{id="sg-compensation-gender"}
 
-Men's average years of design experience (7.47 years) is nearly double that of women (3.86 years). This experience differential contributes to the pay gap but does not fully explain it: the gap persists within experience bands and across most career levels.
-
-## The gap by career level
-
-Across the Individual Contributor track, the pay gap favours men at most levels, with women earning 11-21% less. The exception is Junior IC, where women actually earn 11% more than men. Pay disparities emerge and widen as careers progress; they are not present from the start.
-
-On the Management track, pay gaps also favour men. Men are over-represented in senior roles with many more years of experience accumulated, and this experience premium translates directly into significantly higher compensation.
-
-At the Director level, there are too few data points to draw conclusions, reflecting the underrepresentation of women at the most senior design levels.
-
-*Methodology note: the per-level pay gap figures (Mid IC, Senior IC, Management) are estimates derived from unpublished per-level breakdowns and should be read as indicative. The published evidence base supports the overall 42% gap, the Junior IC direction (women earn more), and an IC-track range of 11-21%; individual level figures carry wider uncertainty due to small sub-group sizes at some career levels.*
-
-## Beyond pay: negotiation and career progress
-
-The pay gap is compounded by differences in behaviour and perception. 61% of men negotiated their current compensation versus 51% of women. Men feel more fairly compensated for their role, level, and effort. Men report higher awareness of market rates and feel more confident and informed when negotiating their next offer. 62% of men made formal job levelling progress in the past year versus 52% of women. Women are slightly more likely to actively seek new jobs in the coming year.
-
-## Pay increase patterns
-
-An interesting dynamic emerges in pay increase outcomes. More men increased their pay in the 0.1-5% and 11-15% brackets, while women performed better in the remaining brackets (above 20%, 16-20%, and 6-10%). A slightly higher percentage of women also reported no pay increase at all. This polarisation (women lead both the highest and lowest increase brackets) suggests outcomes for women are less predictable and more volatile.
-
-## Implications
-
-The 2023 report established that the gap is real, measurable, and not simply a function of experience or role differences.
-
+*Source: Design Pay Asia 2022-23 survey data. Filtered to Singapore respondents paid in SGD (n=223).*
