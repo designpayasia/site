@@ -1,0 +1,208 @@
+---
+// CoverIndexSpread — default report cover (Pattern 01-A, refined index spread).
+// Two-column lockup: serif claim + meta on the left, editorial thesis on the
+// right, with a metric shelf slot beneath. This is the default cover for
+// report-to-report continuity — the claim carries identity, the thesis states
+// the argument, the shelf anchors the sample.
+//
+// Consumer supplies the metric shelf via <slot name="metrics" /> — this
+// component intentionally does not import MetricShelf.
+
+type EmphasisMode = 'colour' | 'italic';
+
+interface Props {
+  eyebrow?: string;
+  /** Single-line claim. Ignored when `titleLines` is provided. */
+  title?: string;
+  /** Claim broken into up to two lines — preferred over letting `title` wrap. */
+  titleLines?: string[];
+  /**
+   * Exact substring (matched once, first occurrence, per line) to mark as the
+   * one emphasis signal in the claim. §1a: colour OR italic, never both.
+   */
+  emphasis?: string;
+  emphasisMode?: EmphasisMode;
+  /** Supporting editorial thesis — plain prose, no inline emphasis (keeps §1a to one signal). */
+  thesis?: string;
+  /** Small mono meta chips, e.g. ["6 SEA markets", "n = 1,797"]. */
+  meta?: string[];
+}
+
+const {
+  eyebrow,
+  title = '',
+  titleLines,
+  emphasis,
+  emphasisMode = 'colour',
+  thesis,
+  meta = [],
+} = Astro.props;
+
+const lines = titleLines && titleLines.length > 0 ? titleLines.slice(0, 2) : [title];
+
+type Segment = { text: string; isEmphasis: boolean };
+
+function splitLine(line: string, term?: string): Segment[] {
+  if (!term) {
+    return [{ text: line, isEmphasis: false }];
+  }
+  const index = line.indexOf(term);
+  if (index === -1) {
+    return [{ text: line, isEmphasis: false }];
+  }
+  const before = line.slice(0, index);
+  const after = line.slice(index + term.length);
+  return [
+    { text: before, isEmphasis: false },
+    { text: term, isEmphasis: true },
+    { text: after, isEmphasis: false },
+  ].filter((segment) => segment.text.length > 0 || segment.isEmphasis);
+}
+---
+
+<section class="cover-index" aria-label="Report cover">
+  <div class="cover-index__top">
+    <div class="cover-index__title-block">
+      {eyebrow && <p class="cover-index__eyebrow label-mono">{eyebrow}</p>}
+      <h1 class="cover-index__title">
+        {lines.map((line, lineIdx) => (
+          <span class="cover-index__title-line">
+            {splitLine(line, emphasis).map((segment) =>
+              segment.isEmphasis ? (
+                emphasisMode === 'italic' ? (
+                  <em class="cover-index__emphasis cover-index__emphasis--italic">{segment.text}</em>
+                ) : (
+                  <span class="signal-word cover-index__emphasis">{segment.text}</span>
+                )
+              ) : (
+                segment.text
+              ),
+            )}
+            {lineIdx < lines.length - 1 && <br />}
+          </span>
+        ))}
+      </h1>
+      {meta.length > 0 && (
+        <ul class="cover-index__meta">
+          {meta.map((item) => (
+            <li class="cover-index__meta-item label-mono">{item}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    {thesis && (
+      <div class="cover-index__argument">
+        <p class="cover-index__thesis">{thesis}</p>
+      </div>
+    )}
+  </div>
+
+  <div class="cover-index__shelf">
+    <slot name="metrics" />
+  </div>
+</section>
+
+<style>
+  .cover-index {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-ambient);
+  }
+
+  .cover-index__top {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .cover-index__title-block {
+    display: grid;
+    gap: var(--space-4);
+    min-width: 0;
+  }
+
+  .cover-index__eyebrow {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .cover-index__title {
+    margin: 0;
+    font-family: var(--type-hero-face);
+    font-weight: var(--weight-regular);
+    line-height: var(--type-hero-leading);
+    letter-spacing: var(--type-hero-tracking);
+    font-size: clamp(2.5rem, 9vw, var(--type-hero-size));
+    color: var(--color-workhorse);
+    overflow-wrap: break-word;
+  }
+
+  .cover-index__title-line {
+    display: inline;
+  }
+
+  .cover-index__emphasis {
+    font-style: normal;
+  }
+
+  .cover-index__emphasis--italic {
+    font-family: var(--type-hero-face);
+    font-style: italic;
+    color: var(--color-workhorse);
+  }
+
+  .cover-index__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cover-index__meta-item {
+    color: var(--color-ink-muted);
+  }
+
+  .cover-index__argument {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .cover-index__thesis {
+    margin: 0;
+    max-width: 38ch;
+    font-family: var(--font-sans);
+    font-size: var(--type-body);
+    line-height: var(--leading-editorial);
+    color: var(--color-ink-subtle);
+    overflow-wrap: break-word;
+  }
+
+  .cover-index__shelf {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .cover-index__shelf:empty {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .cover-index__top {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+
+    .cover-index__shelf {
+      margin-top: var(--space-6);
+      padding-top: var(--space-4);
+    }
+  }
+</style>
