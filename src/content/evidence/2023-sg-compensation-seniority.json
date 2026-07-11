@@ -1,7 +1,7 @@
 {
   "id": "evidence:2023-sg-compensation-seniority",
   "title": "2023 Singapore reported median total compensation by seniority",
-  "summary": "Aggregate results from Design Pay Asia 2022-23 survey data, filtered exactly to Country = Singapore and Currency you draw your salary in = SGD (n=223). Published medians are Junior IC n=63 at S$54,000; Mid-level IC n=56 at S$75,800; Senior IC n=52 at S$119,500; Lead / Staff / Principal IC n=19 at S$103,200; and People Manager n=23 at S$139,100. Subgroups below n=10 are suppressed. These are respondent medians, not population estimates.",
+  "summary": "Aggregate results from Design Pay Asia 2022-23 survey data, filtered exactly to Country = Singapore and Currency you draw your salary in = SGD (n=223). Published medians are Junior IC n=63 at S$54,000; Mid-level IC n=56 at S$75,800; Senior IC n=52 at S$119,500; Lead / Staff / Principal IC n=19 at S$103,200; and People Manager n=23 at S$139,100. Published minimum-to-maximum reported total compensation ranges (SGD): Junior IC S$12,000–S$157,000; Mid-level IC S$34,800–S$210,000; Senior IC S$44,200–S$339,927; Lead / Staff / Principal IC S$38,400–S$201,342; People Manager S$37,396–S$235,000. Subgroups below n=10 (Director n=8, VP n=2) are suppressed. These are respondent medians and ranges, not population estimates.",
   "sourceName": "Design Pay Asia 2022-23 survey data",
   "sourceUrl": "https://designpay.asia/reports/2023",
   "year": 2023,
