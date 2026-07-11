@@ -418,7 +418,7 @@ Every stat component (`BigStat`, `DarkBeat`, `CoverCardInverse`, `StatTakeover`,
 ✓ Split the value into three segments — affix, numeric core, and unit — sized per the 0.42em, 0.12em gap rule above  
 ✓ Let segments wrap at their own boundaries (`flex-wrap: wrap`) rather than forcing one unbroken line  
 ✓ Keep digits together — the numeric core never breaks mid-number, however the layout wraps  
-✓ Size the value with a `clamp()` using a `cqi` middle term inside a `container-type: inline-size` ancestor, floored no lower than ~0.7× the locked size, so shrinking — never overlap — is the fallback when wrapping alone isn't enough  
+✓ Size the value with length-aware fit: `font-size: clamp(1rem, calc(100cqi / var(--stat-advance)), <locked ceiling>)` inside a `container-type: inline-size` ancestor, where `--stat-advance` is the value's own measured advance (in units of its font-size) set inline per value — the mono stat moment sizes to `min(locked ceiling, container ÷ value advance)`, so digits never clip, a 1rem clamp floor is a legibility backstop only, and `overflow: visible` on the figure is the tell-tale if a pathological value ever overflows — visible overflow is detectable, clipped digits are a silent lie  
 
 ✗ Never size a stat value with `vw` — it measures the viewport, not the component's own container, and breaks in a narrow grid cell  
 
