@@ -13,7 +13,6 @@ const cleanQuote = quote?.trim();
 const cleanAttribution = attribution?.trim();
 
 const blobFill = inverse ? 'var(--color-inverse-signal-fill)' : 'var(--color-signal-fill)';
-const blobOpacity = inverse ? 0.4 : 0.22;
 ---
 
 <section
@@ -24,7 +23,6 @@ const blobOpacity = inverse ? 0.4 : 0.22;
     as="fill"
     size={280}
     fill={blobFill}
-    opacity={blobOpacity}
     class="pullquote-beat__blob"
     aria-hidden="true"
   />
