@@ -1,0 +1,381 @@
+---
+import { isSelfHostedSource } from '../lib/evidence';
+
+interface TableRow {
+  label: string;
+  value: string;
+}
+
+type DotTone = 'signal' | 'action' | 'neutral';
+
+interface DotRow {
+  label: string;
+  /** Position along the shared axis, percent (0–100). */
+  value: number;
+  /** Final printed value, e.g. "78%". Defaults to `${value}%`. Animated by countup.ts. */
+  valueLabel?: string;
+  tone?: DotTone;
+}
+
+interface Props {
+  title: string;
+  caption: string;
+  summary: string;
+  evidenceIds: string[];
+  sourceLabel: string;
+  sourceUrl: string;
+  reportPath?: string;
+  fallbackColumns: [string, string];
+  fallbackRows: TableRow[];
+  rows: DotRow[];
+  /** Passed through to each row's data-countup-duration (ms, clamped 1200–1800 by countup.ts). */
+  countUpDurationMs?: number;
+  /** Optional mono methodology note rendered under the axis. */
+  note?: string;
+}
+
+const LABEL_COLUMN_WIDTH_PX = 140;
+const GRIDLINE_PERCENTAGES = [0, 25, 50, 75, 100] as const;
+
+const {
+  title,
+  caption,
+  summary,
+  evidenceIds,
+  sourceLabel,
+  sourceUrl,
+  reportPath,
+  fallbackColumns,
+  fallbackRows,
+  rows,
+  countUpDurationMs,
+  note,
+} = Astro.props;
+
+/** §1d colour contract: at most one row carries the crimson signal tone. */
+const normalizeRows = (inputRows: DotRow[]) => {
+  const signalIndex = inputRows.findIndex((row) => row.tone === 'signal');
+
+  return inputRows.map((row, index) => ({
+    ...row,
+    tone: index === signalIndex ? 'signal' : row.tone === 'signal' ? 'action' : row.tone ?? 'neutral',
+    valueLabel: row.valueLabel ?? `${row.value}%`,
+  }));
+};
+
+const renderedRows = normalizeRows(rows);
+const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
+const showSource = !isSelfHostedSource(sourceUrl, reportPath);
+---
+
+<figure class="chart-dot-plot">
+  <figcaption class="chart-dot-plot__header">
+    <p class="label-mono">Chart proof</p>
+    <h2>{title}</h2>
+    <p class="prose">{caption}</p>
+  </figcaption>
+
+  <div class="chart-dot-plot__layout">
+    <div
+      class="chart-dot-plot__visual"
+      role="img"
+      aria-label={summary}
+      style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
+    >
+      <p class="chart-dot-plot__summary">{summary}</p>
+
+      <div class="chart-dot-plot__axis" aria-hidden="true">
+        <div class="chart-dot-plot__axis-spacer"></div>
+        <div class="chart-dot-plot__ticks">
+          {GRIDLINE_PERCENTAGES.map((percentage) => (
+            <span style={`left: ${percentage}%;`}>{percentage}%</span>
+          ))}
+        </div>
+        <div class="chart-dot-plot__axis-value-spacer"></div>
+      </div>
+
+      <div class="chart-dot-plot__rows">
+        {renderedRows.map((row) => (
+          <div class="chart-dot-plot__row">
+            <div class="chart-dot-plot__label">{row.label}</div>
+
+            <div class="chart-dot-plot__track" aria-hidden="true">
+              <div class="chart-dot-plot__gridlines">
+                {GRIDLINE_PERCENTAGES.map((percentage) => (
+                  <span style={`left: ${percentage}%;`}></span>
+                ))}
+              </div>
+
+              <span
+                class:list={['chart-dot-plot__dot', `chart-dot-plot__dot--${row.tone}`]}
+                style={`left: ${row.value}%;`}
+              ></span>
+            </div>
+
+            <div
+              class="chart-dot-plot__value"
+              data-countup
+              data-countup-value={row.valueLabel}
+              data-countup-duration={countUpDurationMs}
+            >
+              {row.valueLabel}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {note && <p class="chart-dot-plot__note">{note}</p>}
+
+      <div class="chart-dot-plot__meta">
+        {showSource && (
+          <p class="chart-dot-plot__source">
+            Source:{' '}
+            <a href={sourceUrl} class="chart-dot-plot__source-link">
+              {sourceLabel}
+            </a>
+          </p>
+        )}
+
+        <p class="chart-dot-plot__evidence">
+          {evidenceLabel}: {evidenceIds.join(', ')}
+        </p>
+      </div>
+    </div>
+
+    <div class="chart-dot-plot__support">
+      <div class="chart-dot-plot__table-wrap">
+        <table class="chart-dot-plot__table">
+          <thead>
+            <tr>
+              <th>{fallbackColumns[0]}</th>
+              <th>{fallbackColumns[1]}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fallbackRows.map((row) => (
+              <tr>
+                <th scope="row">{row.label}</th>
+                <td>{row.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<script>
+  import '../scripts/countup';
+</script>
+
+<style>
+  .chart-dot-plot {
+    margin: 0;
+  }
+
+  .chart-dot-plot__header h2 {
+    margin-block: var(--space-4);
+    font-family: var(--type-h2-face);
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-leading);
+    letter-spacing: var(--type-h2-tracking);
+    font-weight: var(--weight-regular);
+    text-rendering: auto;
+  }
+
+  .chart-dot-plot__layout {
+    display: grid;
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+  }
+
+  .chart-dot-plot__visual {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .chart-dot-plot__summary {
+    margin: 0;
+    color: var(--color-ink-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .chart-dot-plot__axis,
+  .chart-dot-plot__row {
+    display: grid;
+    grid-template-columns: var(--chart-label-column) minmax(0, 1fr) auto;
+    column-gap: var(--space-4);
+    align-items: center;
+  }
+
+  .chart-dot-plot__axis {
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+  }
+
+  .chart-dot-plot__ticks,
+  .chart-dot-plot__track {
+    position: relative;
+  }
+
+  .chart-dot-plot__ticks {
+    height: 1.5rem;
+  }
+
+  .chart-dot-plot__ticks span,
+  .chart-dot-plot__gridlines span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border-subtle);
+  }
+
+  .chart-dot-plot__ticks span {
+    background: none;
+    width: auto;
+    bottom: auto;
+    transform: translateX(-50%);
+  }
+
+  .chart-dot-plot__rows {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .chart-dot-plot__label {
+    color: var(--color-ink);
+    font-family: var(--font-data);
+    line-height: 1.4;
+    overflow-wrap: break-word;
+  }
+
+  .chart-dot-plot__track {
+    min-height: 1.5rem;
+  }
+
+  .chart-dot-plot__gridlines {
+    position: absolute;
+    inset: 0;
+  }
+
+  .chart-dot-plot__dot {
+    position: absolute;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 0 0 1px var(--color-border-strong);
+  }
+
+  .chart-dot-plot__dot--signal {
+    background: var(--color-signal-fill);
+  }
+
+  .chart-dot-plot__dot--action {
+    background: var(--color-action);
+  }
+
+  .chart-dot-plot__dot--neutral {
+    background: var(--color-chart-neutral);
+  }
+
+  .chart-dot-plot__value {
+    min-width: 4ch;
+    text-align: right;
+    font-family: var(--font-data);
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chart-dot-plot__note {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    line-height: var(--leading-ui);
+    border-left: 1.5px solid var(--color-border-strong);
+    padding-left: var(--space-3);
+  }
+
+  .chart-dot-plot__meta {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .chart-dot-plot__source,
+  .chart-dot-plot__evidence {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    line-height: var(--leading-ui);
+    overflow-wrap: anywhere;
+  }
+
+  .chart-dot-plot__source-link {
+    display: inline-flex;
+    color: var(--color-action);
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  .chart-dot-plot__source-link:hover {
+    text-decoration: underline;
+  }
+
+  .chart-dot-plot__support {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .chart-dot-plot__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .chart-dot-plot__table th,
+  .chart-dot-plot__table td {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border-subtle);
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: break-word;
+  }
+
+  .chart-dot-plot,
+  .chart-dot-plot__visual,
+  .chart-dot-plot__row,
+  .chart-dot-plot__support {
+    min-width: 0;
+  }
+
+  @media (max-width: 767px) {
+    .chart-dot-plot__visual {
+      --chart-label-column: min(220px, 38vw);
+    }
+
+    .chart-dot-plot__axis,
+    .chart-dot-plot__row {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-2);
+    }
+
+    .chart-dot-plot__axis-spacer,
+    .chart-dot-plot__axis-value-spacer {
+      display: none;
+    }
+
+    .chart-dot-plot__axis {
+      display: none;
+    }
+
+    .chart-dot-plot__value {
+      text-align: left;
+    }
+  }
+</style>

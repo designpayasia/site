@@ -1,0 +1,482 @@
+---
+import { isSelfHostedSource } from '../lib/evidence';
+
+interface TableRow {
+  label: string;
+  value: string;
+}
+
+type SeriesTone = 'signal' | 'action' | 'neutral';
+
+interface PanelRow {
+  label: string;
+  /** Percent of the shared 0–100 scale (matches ChartBlock's Bar.value convention). */
+  value: number;
+  tone?: SeriesTone;
+}
+
+interface Panel {
+  id: string;
+  label: string;
+  rows: PanelRow[];
+}
+
+interface Props {
+  title: string;
+  caption: string;
+  summary: string;
+  evidenceIds: string[];
+  sourceLabel: string;
+  sourceUrl: string;
+  reportPath?: string;
+  fallbackColumns: [string, string];
+  fallbackRows: TableRow[];
+  /** Per-market (or per-segment) mini-charts. All panels share one 0–100% scale. */
+  panels: Panel[];
+  /** Optional mono methodology note rendered under the shared axis (e.g. "n=1,140 across 4 markets"). */
+  note?: string;
+}
+
+const LABEL_COLUMN_WIDTH_PX = 128;
+const CARD_LABEL_COLUMN_WIDTH_PX = 76;
+const GRIDLINE_PERCENTAGES = [0, 25, 50, 75, 100] as const;
+
+const {
+  title,
+  caption,
+  summary,
+  evidenceIds,
+  sourceLabel,
+  sourceUrl,
+  reportPath,
+  fallbackColumns,
+  fallbackRows,
+  panels,
+  note,
+} = Astro.props;
+
+/**
+ * Enforce the §1d colour contract: at most one series across the whole chart
+ * carries the crimson signal tone. Tone is resolved per series label (not per
+ * row instance) so the same series reads consistently signal/support across
+ * every market panel. The first panel to declare a series' tone wins; a
+ * second series independently marked "signal" is downgraded to "action" so
+ * the "one finding" rule holds even if a caller passes it in by mistake.
+ */
+const normalizePanels = (inputPanels: Panel[]) => {
+  const toneByLabel = new Map<string, SeriesTone>();
+  let signalLabel: string | null = null;
+
+  for (const panel of inputPanels) {
+    for (const row of panel.rows) {
+      if (toneByLabel.has(row.label)) {
+        continue;
+      }
+
+      let tone: SeriesTone = row.tone ?? 'neutral';
+
+      if (tone === 'signal') {
+        if (signalLabel === null) {
+          signalLabel = row.label;
+        } else if (row.label !== signalLabel) {
+          tone = 'action';
+        }
+      }
+
+      toneByLabel.set(row.label, tone);
+    }
+  }
+
+  const renderedPanels = inputPanels.map((panel) => ({
+    ...panel,
+    rows: panel.rows.map((row) => ({
+      ...row,
+      tone: toneByLabel.get(row.label) ?? 'neutral',
+    })),
+  }));
+
+  const legend = Array.from(toneByLabel.entries()).map(([label, tone]) => ({ label, tone }));
+
+  return { renderedPanels, legend };
+};
+
+const { renderedPanels, legend } = normalizePanels(panels);
+const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
+const showSource = !isSelfHostedSource(sourceUrl, reportPath);
+const makeBlockId = (...parts: Array<string | undefined>) =>
+  parts
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'chart-small-multiples';
+const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'));
+---
+
+<figure class="chart-small-multiples">
+  <figcaption class="chart-small-multiples__header">
+    <p class="label-mono">Chart proof</p>
+    <h2>{title}</h2>
+    <p class="prose">{caption}</p>
+  </figcaption>
+
+  <div class="chart-small-multiples__layout">
+    <div
+      class="chart-small-multiples__visual"
+      role="img"
+      aria-label={summary}
+      style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px; --chart-card-label-column: ${CARD_LABEL_COLUMN_WIDTH_PX}px;`}
+    >
+      <p class="chart-small-multiples__summary">{summary}</p>
+
+      {legend.length > 0 && (
+        <div class="chart-small-multiples__legend" aria-hidden="true">
+          {legend.map((item) => (
+            <span class="chart-small-multiples__legend-item">
+              <span class:list={['chart-small-multiples__legend-dot', `chart-small-multiples__legend-dot--${item.tone}`]}></span>
+              {item.label}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <div class="chart-small-multiples__axis" aria-hidden="true">
+        <div class="chart-small-multiples__axis-spacer"></div>
+        <div class="chart-small-multiples__ticks">
+          {GRIDLINE_PERCENTAGES.map((percentage) => (
+            <span style={`left: ${percentage}%;`}>{percentage}%</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="chart-small-multiples__grid" id={`${blockId}-grid`}>
+        {renderedPanels.map((panel) => (
+          <div class="chart-small-multiples__card" id={`${blockId}-panel-${panel.id}`}>
+            <h3 class="label-mono chart-small-multiples__card-title">{panel.label}</h3>
+
+            <div class="chart-small-multiples__rows">
+              {panel.rows.map((row) => (
+                <div class="chart-small-multiples__row">
+                  <div class="chart-small-multiples__label">{row.label}</div>
+
+                  <div class="chart-small-multiples__track" aria-hidden="true">
+                    <div class="chart-small-multiples__gridlines">
+                      {GRIDLINE_PERCENTAGES.map((percentage) => (
+                        <span style={`left: ${percentage}%;`}></span>
+                      ))}
+                    </div>
+
+                    <div
+                      class:list={['chart-small-multiples__fill', `chart-small-multiples__fill--${row.tone}`]}
+                      style={`width: ${row.value}%;`}
+                    />
+                  </div>
+
+                  <div class="chart-small-multiples__value">{row.value}%</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {note && <p class="chart-small-multiples__note">{note}</p>}
+
+      <div class="chart-small-multiples__meta">
+        {showSource && (
+          <p class="chart-small-multiples__source">
+            Source:{' '}
+            <a href={sourceUrl} class="chart-small-multiples__source-link">
+              {sourceLabel}
+            </a>
+          </p>
+        )}
+
+        <p class="chart-small-multiples__evidence">
+          {evidenceLabel}: {evidenceIds.join(', ')}
+        </p>
+      </div>
+    </div>
+
+    <div class="chart-small-multiples__support">
+      <div class="chart-small-multiples__table-wrap">
+        <table class="chart-small-multiples__table">
+          <thead>
+            <tr>
+              <th>{fallbackColumns[0]}</th>
+              <th>{fallbackColumns[1]}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fallbackRows.map((row) => (
+              <tr>
+                <th scope="row">{row.label}</th>
+                <td>{row.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .chart-small-multiples {
+    margin: 0;
+  }
+
+  .chart-small-multiples__header h2 {
+    margin-block: var(--space-4);
+    font-family: var(--type-h2-face);
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-leading);
+    letter-spacing: var(--type-h2-tracking);
+    font-weight: var(--weight-regular);
+    text-rendering: auto;
+  }
+
+  .chart-small-multiples__layout {
+    display: grid;
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+  }
+
+  .chart-small-multiples__visual {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .chart-small-multiples__summary {
+    margin: 0;
+    color: var(--color-ink-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .chart-small-multiples__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    color: var(--color-ink-muted);
+  }
+
+  .chart-small-multiples__legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .chart-small-multiples__legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .chart-small-multiples__legend-dot--signal {
+    background: var(--color-signal-fill);
+  }
+
+  .chart-small-multiples__legend-dot--action {
+    background: var(--color-action);
+  }
+
+  .chart-small-multiples__legend-dot--neutral {
+    background: var(--color-chart-neutral);
+  }
+
+  /* Shared-scale axis, printed once above the card grid — same tick set and
+     style as ChartBlock so the "one scale for every panel" claim is legible. */
+  .chart-small-multiples__axis {
+    display: grid;
+    grid-template-columns: var(--chart-label-column) minmax(0, 1fr);
+    column-gap: var(--space-4);
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+  }
+
+  .chart-small-multiples__ticks {
+    position: relative;
+    height: 1.5rem;
+  }
+
+  .chart-small-multiples__ticks span {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  .chart-small-multiples__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .chart-small-multiples__card {
+    display: grid;
+    gap: var(--space-3);
+    min-width: 0;
+    background: var(--color-surface-muted);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-blob-motif);
+    padding: var(--space-4);
+    /* Card rows use a narrower label column than the shared axis above —
+       role names are short, and the card itself is already width-constrained. */
+    --chart-label-column: var(--chart-card-label-column);
+  }
+
+  .chart-small-multiples__card-title {
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  .chart-small-multiples__rows {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .chart-small-multiples__row {
+    display: grid;
+    grid-template-columns: var(--chart-label-column) minmax(0, 1fr) auto;
+    column-gap: var(--space-4);
+    align-items: center;
+  }
+
+  .chart-small-multiples__label {
+    color: var(--color-ink);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    line-height: 1.4;
+    overflow-wrap: break-word;
+  }
+
+  .chart-small-multiples__track {
+    position: relative;
+    min-height: 0.75rem;
+  }
+
+  .chart-small-multiples__gridlines {
+    position: absolute;
+    inset: 0;
+  }
+
+  .chart-small-multiples__gridlines span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border-subtle);
+  }
+
+  .chart-small-multiples__fill {
+    position: relative;
+    z-index: 1;
+    height: 0.75rem;
+    border-radius: 999px;
+  }
+
+  .chart-small-multiples__fill--signal {
+    background: var(--color-signal-fill);
+  }
+
+  .chart-small-multiples__fill--action {
+    background: var(--color-action);
+  }
+
+  .chart-small-multiples__fill--neutral {
+    background: var(--color-chart-neutral);
+  }
+
+  .chart-small-multiples__value {
+    min-width: 3ch;
+    text-align: right;
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chart-small-multiples__note {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    line-height: var(--leading-ui);
+    border-left: 1.5px solid var(--color-border-strong);
+    padding-left: var(--space-3);
+  }
+
+  .chart-small-multiples__meta {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .chart-small-multiples__source,
+  .chart-small-multiples__evidence {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    line-height: var(--leading-ui);
+    overflow-wrap: anywhere;
+  }
+
+  .chart-small-multiples__source-link {
+    display: inline-flex;
+    color: var(--color-action);
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  .chart-small-multiples__source-link:hover {
+    text-decoration: underline;
+  }
+
+  .chart-small-multiples__support {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .chart-small-multiples__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .chart-small-multiples__table th,
+  .chart-small-multiples__table td {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border-subtle);
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: break-word;
+  }
+
+  .chart-small-multiples,
+  .chart-small-multiples__visual,
+  .chart-small-multiples__row,
+  .chart-small-multiples__support {
+    min-width: 0;
+  }
+
+  @media (max-width: 767px) {
+    .chart-small-multiples__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .chart-small-multiples__axis {
+      display: none;
+    }
+
+    .chart-small-multiples__row {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-2);
+    }
+
+    .chart-small-multiples__value {
+      text-align: left;
+    }
+  }
+</style>
