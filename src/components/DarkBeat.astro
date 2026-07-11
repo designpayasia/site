@@ -38,8 +38,39 @@ const {
   provenanceNote,
 } = Astro.props;
 
+// Length-aware fit sizing (DESIGN.md § Long values and currency): a blind
+// cqi clamp with a fixed rem floor can't tell a short value from a long one,
+// so the floor either overshoots (clipped digits — SGD 4,200 in a ~290px
+// cell rendered "4,20") or undershoots (wasted space). Instead we measure
+// each value's own advance (total rendered width in units of its own
+// font-size) and size the font so that advance exactly fills the container.
+//
+// DM Mono (tabular-nums) renders each character at ~0.62em of advance width.
+// --type-stat-tracking (-0.03em, applied per character) subtracts from that,
+// giving a net 0.59em advance per character at this face/tracking pairing.
+const MONO_ADVANCE = 0.59;
+// Segment gap (flex `gap: 0.12em` between affix/core/suffix/unit spans) and
+// affix/unit scale (DESIGN.md: stat units set at 0.42em) mirror the CSS
+// rules below — keep these two in sync with the stylesheet if either rule
+// changes.
+const AFFIX_SCALE = 0.42;
+const SEGMENT_GAP_EM = 0.12;
+// Safety margin for glyph metrics variance (kerning, rounding) we don't
+// model exactly.
+const SAFETY_FACTOR = 1.04;
+
+function computeStatAdvance(core: string, affix?: string, suffix?: string, unit?: string) {
+  const coreChars = core.length;
+  const affixChars = (affix?.length ?? 0) + (suffix?.length ?? 0) + (unit?.length ?? 0);
+  const segments = [affix, core, suffix, unit].filter((segment) => segment && segment.length > 0);
+  const segmentGaps = Math.max(segments.length - 1, 0);
+  const advance =
+    coreChars * MONO_ADVANCE + affixChars * AFFIX_SCALE * MONO_ADVANCE + segmentGaps * SEGMENT_GAP_EM;
+  return Number((advance * SAFETY_FACTOR).toFixed(3));
+}
+
 const cleanStatement = statement?.trim();
-const visibleMetrics = metrics
+const visibleMetricsRaw = metrics
   .filter((metric) => metric.publishMode !== 'suppressed')
   .filter((metric) => metric.value?.trim() && metric.label?.trim())
   .slice(0, 3)
@@ -49,13 +80,25 @@ const visibleMetrics = metrics
     // BigStat.astro uses, so a plain `value` alone still renders correctly.
     const trimmedValue = metric.value!.trim();
     const valueMatch = trimmedValue.match(/^([^0-9]*)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+    const affix = metric.affix ?? valueMatch?.[1]?.trim();
+    const core = valueMatch?.[2] ?? trimmedValue;
+    const suffix = valueMatch?.[3]?.trim();
     return {
       ...metric,
-      affix: metric.affix ?? valueMatch?.[1]?.trim(),
-      core: valueMatch?.[2] ?? trimmedValue,
-      suffix: valueMatch?.[3]?.trim(),
+      affix,
+      core,
+      suffix,
+      advance: computeStatAdvance(core, affix, suffix, metric.unit),
     };
   });
+
+// Row-level sizing (not per-value): every metric in the row shares one
+// font size, so the shelf reads level instead of ragged. Use the largest
+// per-value advance in the row for all figures — the most space-hungry
+// value sets the size, shorter values just get more breathing room.
+const rowAdvance =
+  visibleMetricsRaw.length > 0 ? Math.max(...visibleMetricsRaw.map((metric) => metric.advance)) : 0;
+const visibleMetrics = visibleMetricsRaw.map((metric) => ({ ...metric, advance: rowAdvance }));
 
 const showDraftFlag = statementDraft || provenanceStatus !== 'proven';
 const statusLabel =
@@ -88,7 +131,7 @@ const statusLabel =
       <div class="dark-beat__metrics" role="list" aria-label="Evidence-backed metrics">
         {visibleMetrics.map((metric) => (
           <article class="dark-beat__metric" role="listitem">
-            <p class="dark-beat__figure">
+            <p class="dark-beat__figure" style={`--stat-advance: ${metric.advance}`}>
               {metric.affix && <span class="dark-beat__affix">{metric.affix}</span>}
               <span class="dark-beat__value">{metric.core}</span>
               {metric.suffix && <span class="dark-beat__affix">{metric.suffix}</span>}
@@ -185,15 +228,15 @@ const statusLabel =
   .dark-beat__metrics {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-2);
+    gap: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid color-mix(in srgb, var(--color-inverse-text) 14%, transparent);
   }
 
   .dark-beat__metric {
     display: grid;
     gap: 0.45rem;
     min-width: 0;
-    padding-top: var(--space-4);
-    border-top: 1px solid color-mix(in srgb, var(--color-inverse-text) 14%, transparent);
     container-type: inline-size;
   }
 
@@ -210,12 +253,18 @@ const statusLabel =
     flex-wrap: wrap;
     gap: 0.12em;
     min-width: 0;
-    overflow: hidden;
+    overflow: visible;
     font-family: var(--type-stat-face);
-    /* Safety net (A): cqi shrink, floor never below ~0.7x the locked
-       132px stat size, so the primary flex-wrap recipe (B) is never the
-       only thing standing between a long value and visual overlap. */
-    font-size: clamp(6rem, 40cqi, var(--type-stat-size));
+    /* Length-aware fit (DESIGN.md § Long values and currency): size to the
+       lesser of the locked stat size and the value's own measured advance
+       filling the container (--stat-advance set inline per value in the
+       frontmatter). A fixed rem floor can't distinguish a short value from
+       a long one — it either clips digits (overshoot) or wastes space
+       (undershoot). The 1rem clamp floor is a legibility backstop only;
+       real values never reach it. If a pathological value ever does,
+       overflow is visible rather than clipping digits — a lie is worse
+       than an overflow. */
+    font-size: clamp(1rem, calc(100cqi / var(--stat-advance)), var(--type-stat-size));
     line-height: var(--type-stat-leading);
     letter-spacing: var(--type-stat-tracking);
     color: var(--color-inverse-text);
@@ -264,6 +313,10 @@ const statusLabel =
     }
     .dark-beat__metrics {
       grid-template-columns: 1fr;
+    }
+    .dark-beat__metric + .dark-beat__metric {
+      border-top: 1px solid color-mix(in srgb, var(--color-inverse-text) 14%, transparent);
+      padding-top: var(--space-4);
     }
   }
 </style>

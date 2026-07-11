@@ -42,6 +42,30 @@ const statValueMatch = trimmedStatValue?.match(/^([^0-9]*)(\d[\d,]*(?:\.\d+)?)(.
 const statAffix = stat?.affix ?? statValueMatch?.[1]?.trim();
 const statCore = statValueMatch?.[2] ?? trimmedStatValue;
 const statSuffix = stat?.unit ?? statValueMatch?.[3]?.trim();
+
+// Length-aware fit sizing (DESIGN.md § Long values and currency): see
+// DarkBeat.astro for the full rationale — a blind cqi clamp with a fixed
+// rem floor can't tell a short value from a long one and either clips
+// digits or wastes space. DM Mono (tabular-nums) advance ~0.62em per
+// character; --type-stat-tracking (-0.03em/char) nets 0.59em. Affix/unit
+// spans render at 0.42em (DESIGN.md), and the flex `gap: 0.12em` between
+// segments below must stay in sync with this constant.
+const MONO_ADVANCE = 0.59;
+const AFFIX_SCALE = 0.42;
+const SEGMENT_GAP_EM = 0.12;
+const SAFETY_FACTOR = 1.04;
+
+function computeStatAdvance(core: string, affix?: string, suffix?: string) {
+  const coreChars = core.length;
+  const affixChars = (affix?.length ?? 0) + (suffix?.length ?? 0);
+  const segments = [affix, core, suffix].filter((segment) => segment && segment.length > 0);
+  const segmentGaps = Math.max(segments.length - 1, 0);
+  const advance =
+    coreChars * MONO_ADVANCE + affixChars * AFFIX_SCALE * MONO_ADVANCE + segmentGaps * SEGMENT_GAP_EM;
+  return Number((advance * SAFETY_FACTOR).toFixed(3));
+}
+
+const statAdvance = statCore ? computeStatAdvance(statCore, statAffix, statSuffix) : undefined;
 ---
 
 <a class="cover-card-inverse" data-theme="dark" href={href} aria-label={`${title} — ${year}`}>
@@ -49,7 +73,7 @@ const statSuffix = stat?.unit ?? statValueMatch?.[3]?.trim();
   <span class="cover-card-inverse__title">{title}</span>
   {stat && (
     <span class="cover-card-inverse__stat">
-      <span class="cover-card-inverse__stat-value">
+      <span class="cover-card-inverse__stat-value" style={`--stat-advance: ${statAdvance}`}>
         {statAffix && <span class="cover-card-inverse__stat-affix">{statAffix}</span>}
         <span class="cover-card-inverse__stat-core">{statCore}</span>
         {statSuffix && <span class="cover-card-inverse__stat-affix">{statSuffix}</span>}
@@ -107,7 +131,10 @@ const statSuffix = stat?.unit ?? statValueMatch?.[3]?.trim();
     gap: var(--space-2);
     min-width: 0;
     max-width: 100%;
-    overflow: hidden;
+    /* Length-aware fit sizes .cover-card-inverse__stat-value to fit this
+       container; visible so a pathological value overflows detectably
+       instead of clipping digits (DESIGN.md § Long values and currency). */
+    overflow: visible;
     padding-top: var(--space-4);
     border-top: 1px solid color-mix(in srgb, var(--color-inverse-text) 20%, transparent);
     container-type: inline-size;
@@ -121,9 +148,12 @@ const statSuffix = stat?.unit ?? statValueMatch?.[3]?.trim();
     min-width: 0;
     max-width: 100%;
     font-family: var(--font-data);
-    /* Safety net (A): cqi shrink, floor no lower than ~0.7x the 2rem
-       locked ceiling, so overlap is impossible even in a tight card. */
-    font-size: clamp(1.4rem, 20cqi, 2rem);
+    /* Length-aware fit (DESIGN.md § Long values and currency): size to the
+       lesser of the locked 2rem ceiling and the value's own measured
+       advance filling the container (--stat-advance, set inline per value
+       in the frontmatter). 1rem clamp floor is a legibility backstop only;
+       overflow is visible rather than clipping digits if ever reached. */
+    font-size: clamp(1rem, calc(100cqi / var(--stat-advance)), 2rem);
     font-weight: var(--weight-medium);
     line-height: 1;
     letter-spacing: var(--type-stat-tracking);
