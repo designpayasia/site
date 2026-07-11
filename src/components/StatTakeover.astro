@@ -127,7 +127,11 @@ const displayAnnotations = annotations.slice(0, 3);
     container-type: inline-size;
     font-family: var(--type-stat-face);
     font-weight: var(--weight-medium);
-    font-size: clamp(3rem, 16vw, var(--type-stat-size));
+    /* Safety net (A): cqi shrink, floor no lower than ~0.7x the locked
+       132px stat size, ceiling stays locked at --type-stat-size. vw was
+       ignoring the container-type: inline-size set above on this same
+       element — cqi measures against it correctly. */
+    font-size: clamp(6rem, 20cqi, var(--type-stat-size));
     line-height: var(--type-stat-leading);
     letter-spacing: var(--type-stat-tracking);
     color: var(--color-signal-text);

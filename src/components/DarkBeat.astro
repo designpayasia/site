@@ -5,6 +5,10 @@ type PublishMode = 'published' | 'sample' | 'suppressed' | 'draft';
 interface MetricCard {
   value?: string;
   unit?: string;
+  /** Optional explicit prefix override (e.g. "S$"). Falls back to the
+   *  leading non-numeric run auto-parsed from `value` when omitted, so
+   *  existing callers passing a flat `value` string keep working unchanged. */
+  affix?: string;
   label?: string;
   evidenceLabel?: string;
   evidenceId?: string;
@@ -38,7 +42,20 @@ const cleanStatement = statement?.trim();
 const visibleMetrics = metrics
   .filter((metric) => metric.publishMode !== 'suppressed')
   .filter((metric) => metric.value?.trim() && metric.label?.trim())
-  .slice(0, 3);
+  .slice(0, 3)
+  .map((metric) => {
+    // Segment anatomy (DESIGN.md § Long values and currency): split the flat
+    // value string into affix / numeric core / trailing suffix, same regex
+    // BigStat.astro uses, so a plain `value` alone still renders correctly.
+    const trimmedValue = metric.value!.trim();
+    const valueMatch = trimmedValue.match(/^([^0-9]*)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+    return {
+      ...metric,
+      affix: metric.affix ?? valueMatch?.[1]?.trim(),
+      core: valueMatch?.[2] ?? trimmedValue,
+      suffix: valueMatch?.[3]?.trim(),
+    };
+  });
 
 const showDraftFlag = statementDraft || provenanceStatus !== 'proven';
 const statusLabel =
@@ -71,8 +88,10 @@ const statusLabel =
       <div class="dark-beat__metrics" role="list" aria-label="Evidence-backed metrics">
         {visibleMetrics.map((metric) => (
           <article class="dark-beat__metric" role="listitem">
-            <p class="dark-beat__figure t-stat">
-              <span class="dark-beat__value">{metric.value}</span>
+            <p class="dark-beat__figure">
+              {metric.affix && <span class="dark-beat__affix">{metric.affix}</span>}
+              <span class="dark-beat__value">{metric.core}</span>
+              {metric.suffix && <span class="dark-beat__affix">{metric.suffix}</span>}
               {metric.unit && <span class="dark-beat__unit">{metric.unit}</span>}
             </p>
             <p class="dark-beat__label">{metric.label}</p>
@@ -172,8 +191,10 @@ const statusLabel =
   .dark-beat__metric {
     display: grid;
     gap: 0.45rem;
+    min-width: 0;
     padding-top: var(--space-4);
     border-top: 1px solid color-mix(in srgb, var(--color-inverse-text) 14%, transparent);
+    container-type: inline-size;
   }
 
   .dark-beat__figure,
@@ -185,21 +206,40 @@ const statusLabel =
 
   .dark-beat__figure {
     display: flex;
-    gap: 0.2rem;
     align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.12em;
+    min-width: 0;
+    overflow: hidden;
+    font-family: var(--type-stat-face);
+    /* Safety net (A): cqi shrink, floor never below ~0.7x the locked
+       132px stat size, so the primary flex-wrap recipe (B) is never the
+       only thing standing between a long value and visual overlap. */
+    font-size: clamp(6rem, 40cqi, var(--type-stat-size));
+    line-height: var(--type-stat-leading);
+    letter-spacing: var(--type-stat-tracking);
     color: var(--color-inverse-text);
   }
 
   .dark-beat__value {
+    min-width: 0;
     line-height: 0.95;
+    font-variant-numeric: lining-nums;
+  }
+
+  .dark-beat__affix,
+  .dark-beat__unit {
+    min-width: 0;
+    max-width: 100%;
+    font-size: var(--type-stat-unit-size);
+    line-height: 1;
+    white-space: nowrap;
   }
 
   .dark-beat__unit {
     font-family: var(--font-data);
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    line-height: 1;
-    letter-spacing: var(--tracking-mono);
     color: var(--color-inverse-signal-fill);
+    overflow-wrap: anywhere;
   }
 
   .dark-beat__label {
