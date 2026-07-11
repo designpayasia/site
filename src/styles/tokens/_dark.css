@@ -19,6 +19,7 @@
   --color-action: var(--color-navy-500);
 
   --color-ink-muted: var(--color-grey-400);
+  --color-chart-neutral: var(--color-grey-300);
   --color-surface: var(--color-navy-800);
   --color-surface-muted: var(--color-navy-700);
   --color-border-subtle: var(--color-navy-600);

@@ -31,6 +31,9 @@
   /* Muted ink — reserved editorial support, not full signal or workhorse. */
   --color-ink-muted:   var(--color-grey-500);
 
+  /* Chart support series — supporting bars/dots only, never a background. */
+  --color-chart-neutral: var(--color-grey-350);
+
   /* ink — general text colour for components (ConversationBlock, ChartBlock, StickyMeta, PullQuote) */
   --color-ink: var(--color-workhorse);
 
