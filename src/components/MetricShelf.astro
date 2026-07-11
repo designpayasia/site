@@ -1,0 +1,295 @@
+---
+/**
+ * MetricShelf — a flexible row of mono stat cells (2/3/4/6-up).
+ *
+ * Differs from FindingsStrip (see that component's report note for the
+ * full comparison):
+ * - Flex count: 2–6 cells vs FindingsStrip's fixed 3.
+ * - No forced signal: only a metric explicitly flagged `color: 'signal'`
+ *   is coloured crimson, and at most one ever is (signal budget, §1a).
+ *   FindingsStrip forces a signal on by default if the caller doesn't ask.
+ * - A per-cell sample/confidence caption line (`n=…`) beneath every cell,
+ *   in `--font-data` / `--color-ink-muted` — FindingsStrip's source line
+ *   is a single citation string shared across the whole strip.
+ * - An optional per-cell delta chip (±pp, up/down monoline arrow) — a slot
+ *   FindingsStrip has no equivalent for.
+ * - No hardcoded "2024 DPA report" framing — MetricShelf carries no eyebrow
+ *   or title copy at all, so it can be dropped inline in report body copy
+ *   across any year rather than only opening a dedicated findings section.
+ *
+ * Cell markup is hand-built rather than reusing BigStat, because BigStat's
+ * `label` typography (plain, sans, --font-size-xs) doesn't match the
+ * uppercase DM Mono caption this pattern calls for, BigStat has no slot for
+ * the extra sample-caption/delta-chip lines this component needs, and its
+ * built-in `countUp` prop uses its own self-contained script with a
+ * different data-attribute contract than the shared `src/scripts/countup.ts`
+ * this family owns. BigStat was not modified.
+ */
+type StatTone = 'workhorse' | 'signal';
+
+interface Delta {
+  /** Percentage-point change, sign implies direction (e.g. -3.4, 2.1). */
+  value: number;
+  /** 'signal' = crimson (at most one per shelf); default is neutral. */
+  tone?: 'neutral' | 'signal';
+}
+
+interface Metric {
+  value: string | number;
+  unit?: string;
+  label: string;
+  color?: StatTone;
+  evidenceId: string;
+  sampleSize?: number | string;
+  delta?: Delta;
+  countUp?: boolean;
+}
+
+interface Props {
+  metrics: Metric[];
+  countUpDuration?: number;
+}
+
+const { metrics = [], countUpDuration } = Astro.props;
+
+const displayMetrics = metrics.slice(0, 6);
+const columnCount = Math.max(displayMetrics.length, 1);
+
+const requestedSignalIndex = displayMetrics.findIndex((metric) => metric.color === 'signal');
+
+function parseValue(raw: string) {
+  const match = raw.trim().match(/^([^0-9]*)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+  return {
+    prefix: match?.[1] ?? '',
+    core: match?.[2] ?? raw.trim(),
+    suffix: match?.[3]?.trim() ?? '',
+  };
+}
+
+function formatSampleSize(sampleSize?: number | string) {
+  if (sampleSize === undefined || sampleSize === null || sampleSize === '') {
+    return null;
+  }
+
+  const numericValue =
+    typeof sampleSize === 'number'
+      ? sampleSize
+      : Number.parseInt(String(sampleSize).replace(/,/g, ''), 10);
+
+  return Number.isNaN(numericValue) ? String(sampleSize) : numericValue.toLocaleString('en-GB');
+}
+
+function formatDelta(delta?: Delta) {
+  if (!delta || Number.isNaN(delta.value)) {
+    return null;
+  }
+
+  const isUp = delta.value >= 0;
+  const abs = Math.abs(delta.value).toFixed(1);
+
+  return {
+    text: `${isUp ? '+' : '−'}${abs}pp`,
+    isUp,
+    isSignal: delta.tone === 'signal',
+    ariaLabel: `${isUp ? 'up' : 'down'} ${abs} percentage points`,
+  };
+}
+
+const cells = displayMetrics.map((metric, index) => {
+  const displayValue = String(metric.value).trim();
+  const { prefix, core, suffix } = parseValue(displayValue);
+  const normalizedUnit = metric.unit?.trim();
+  const tone: StatTone = index === requestedSignalIndex ? 'signal' : 'workhorse';
+  const sample = formatSampleSize(metric.sampleSize);
+  const delta = formatDelta(metric.delta);
+
+  return {
+    ...metric,
+    displayValue,
+    prefix,
+    core,
+    suffix,
+    normalizedUnit,
+    tone,
+    sampleCaption: sample ? `n=${sample}` : metric.evidenceId,
+    delta,
+  };
+});
+---
+
+{
+  cells.length > 0 && (
+    <div class="metric-shelf" style={`--metric-count: ${columnCount};`}>
+      {cells.map((cell) => (
+        <article class="metric-shelf__cell" data-evidence-id={cell.evidenceId}>
+          <p
+            class="metric-shelf__figure"
+            aria-label={`${cell.displayValue}${cell.normalizedUnit ? ` ${cell.normalizedUnit}` : ''} ${cell.label}`}
+          >
+            {cell.prefix && <span class="metric-shelf__affix">{cell.prefix}</span>}
+            <span
+              class:list={['metric-shelf__value', `metric-shelf__value--${cell.tone}`]}
+              data-countup={cell.countUp ? '' : undefined}
+              data-countup-value={cell.countUp ? cell.core : undefined}
+              data-countup-duration={cell.countUp && countUpDuration ? String(countUpDuration) : undefined}
+            >
+              {cell.core}
+            </span>
+            {cell.suffix && <span class="metric-shelf__affix">{cell.suffix}</span>}
+            {cell.normalizedUnit && <span class="metric-shelf__unit">{cell.normalizedUnit}</span>}
+          </p>
+
+          <p class="metric-shelf__label label-mono">{cell.label}</p>
+
+          {cell.delta && (
+            <span
+              class:list={[
+                'metric-shelf__chip',
+                cell.delta.isUp ? 'metric-shelf__chip--up' : 'metric-shelf__chip--down',
+                { 'metric-shelf__chip--signal': cell.delta.isSignal },
+              ]}
+              aria-label={`Change: ${cell.delta.ariaLabel}`}
+            >
+              <svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" />
+              </svg>
+              <span aria-hidden="true">{cell.delta.text}</span>
+            </span>
+          )}
+
+          <p class="metric-shelf__meta">{cell.sampleCaption}</p>
+        </article>
+      ))}
+    </div>
+  )
+}
+
+<script>
+  import '../scripts/countup';
+</script>
+
+<style>
+  .metric-shelf {
+    display: grid;
+    grid-template-columns: repeat(var(--metric-count, 4), minmax(0, 1fr));
+    column-gap: var(--space-8);
+    row-gap: var(--space-8);
+  }
+
+  .metric-shelf__cell {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    min-width: 0;
+    padding-inline-end: var(--space-8);
+    border-right: 1px solid var(--color-border-subtle);
+  }
+
+  .metric-shelf__cell:last-child {
+    border-right: none;
+    padding-inline-end: 0;
+  }
+
+  .metric-shelf__figure {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.12em;
+    min-width: 0;
+    overflow: hidden;
+    container-type: inline-size;
+    font-family: var(--font-data);
+    font-weight: var(--weight-medium);
+    font-size: clamp(1.5rem, 6cqi, 2.75rem);
+    line-height: var(--type-stat-leading);
+    letter-spacing: var(--type-stat-tracking);
+  }
+
+  .metric-shelf__value {
+    font-variant-numeric: tabular-nums;
+    min-width: 0;
+  }
+
+  .metric-shelf__value--workhorse {
+    color: var(--color-workhorse);
+  }
+
+  .metric-shelf__value--signal {
+    color: var(--color-signal-text);
+  }
+
+  .metric-shelf__affix,
+  .metric-shelf__unit {
+    font-size: 0.4em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .metric-shelf__label {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .metric-shelf__meta {
+    margin: 0;
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink-muted);
+  }
+
+  .metric-shelf__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    width: fit-content;
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 999px;
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-chart-neutral);
+  }
+
+  .metric-shelf__chip svg {
+    width: var(--space-3);
+    height: var(--space-3);
+    stroke: currentColor;
+    flex-shrink: 0;
+  }
+
+  .metric-shelf__chip--down svg {
+    transform: rotate(180deg);
+  }
+
+  .metric-shelf__chip--signal {
+    color: var(--color-signal-text);
+    border-color: color-mix(in srgb, var(--color-signal-text) 35%, var(--color-border-subtle));
+    background: color-mix(in srgb, var(--color-signal-text) 6%, transparent);
+  }
+
+  @media (max-width: 767px) {
+    .metric-shelf {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .metric-shelf__cell {
+      border-right: none;
+      padding-inline-end: 0;
+      padding-block-end: var(--space-8);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .metric-shelf__figure {
+      font-size: clamp(1.5rem, 8cqi, 2.25rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .metric-shelf {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
