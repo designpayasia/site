@@ -357,7 +357,7 @@ charts:
         value: 9.5
         tone: workhorse
 keyFindings:
-  - 56% of respondents negotiated their current compensation. 38% did not.
+  - 57.1% of respondents negotiated their current compensation. 38.8% did not.
   - "Pay fairness for role and level averages 4.57 out of 7. Market rate
     awareness: 4.71 out of 7."
   - Access to resources for staying informed on pay drops to 3.86 out of 7, the
@@ -366,41 +366,41 @@ keyFindings:
 
 ## Negotiation behaviour
 
-56% of respondents negotiated their current compensation; 38% did not.
+57.1% of respondents negotiated their current compensation, 38.8% did not, and the remaining 4.1% said the question did not apply to them.
 
 ::chart{id="chart-negotiate-current-compensation"}
 
-Men negotiate pay more often than women: 61% of men reported negotiating their last salary, compared to 51% of women, a 10-percentage-point gap.
+Men negotiate pay more often than women: 61% of men reported negotiating their last salary, compared to 51% of women, a 10-percentage-point gap. Set against the fairness perceptions below, that gap in who asks likely feeds the gap in who feels fairly paid.
 
 ::chart{id="chart-negotiation-by-gender"}
 
 ## Compensation perceptions
 
-Pay fairness for role and level averages 4.57 out of 7.
+Pay fairness for role and level averages 4.57 out of 7. More respondents lean towards agreement than disagreement: 57.1% rate their pay as fair for their role and level (ratings 5-7), against 24.6% who disagree (ratings 1-3), with the remainder sitting neutral.
 
 ::chart{id="chart-compensated-fairly-for-role"}
 
 ## Market rate awareness
 
-Designers' awareness of market rate sits slightly higher, averaging 4.71 out of 7.
+Designers' awareness of market rate sits slightly higher, averaging 4.71 out of 7, with 62.5% agreeing they know roughly where their pay sits relative to the market (ratings 5-7). That is a firmer consensus than for fairness itself.
 
 ::chart{id="chart-market-rate-awareness"}
 
 ## Staying informed on market rate
 
-But access to resources for staying informed on market rate drops to just 3.86 out of 7, the lowest sentiment score in this section. Designers broadly know roughly where they stand on pay; fewer have the tools to do anything about it.
+But access to resources for staying informed on market rate drops to just 3.86 out of 7, the lowest sentiment score in this section. More respondents disagree (39.9%, ratings 1-3) than agree (36%, ratings 5-7) that they have good resources here. Designers broadly sense where they stand on pay; fewer have the tools to keep that sense current.
 
 ::chart{id="chart-staying-informed-on-market-rate"}
 
 ## Negotiation confidence
 
-Negotiation confidence averages 4.51 out of 7.
+Negotiation confidence averages 4.51 out of 7, with 52% agreeing they feel confident negotiating (ratings 5-7) against 29% who disagree (ratings 1-3). More people actually negotiate (57.1%, see above) than say they feel confident doing so, which suggests plenty go ahead despite the discomfort.
 
 ::chart{id="chart-negotiation-confidence"}
 
 ## Compensated fairly for effort
 
-Compensated fairly for effort averages 4.58 out of 7.
+Compensated fairly for effort averages 4.58 out of 7, close to the 4.57 average for role and level. 55.1% agree they are paid fairly for their effort (ratings 5-7), against 25.6% who disagree (ratings 1-3), a similar split to the fairness-for-role question, suggesting the two perceptions move together.
 
 ::chart{id="chart-compensated-fairly-for-effort"}
 

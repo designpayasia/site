@@ -154,7 +154,7 @@ The inaugural 2023 survey reached designers across 10 countries. Three markets f
 
 ## Gender distribution
 
-The 2023 survey achieved a nearly equal gender split: 54.5% women (176) and 43.9% men (142), with small numbers of non-binary and prefer-not-to-state respondents, and one transgender man. This balance was a deliberate outcome of distribution strategy and community partnerships, and proved critical for the gender pay gap analysis.
+The 2023 survey achieved a nearly equal gender split: 54.5% women (176) and 43.9% men (142), with small numbers of non-binary and prefer-not-to-state respondents. This balance was a deliberate outcome of distribution strategy and community partnerships, and proved critical for the gender pay gap analysis.
 
 ::chart{id="chart-gender-distribution"}
 

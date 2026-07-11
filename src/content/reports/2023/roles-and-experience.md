@@ -308,10 +308,10 @@ charts:
       - label: Online certification
         value: 29.1
         tone: workhorse
-      - label: In-person certified courses
+      - label: Bootcamps
         value: 27.9
         tone: workhorse
-      - label: Bootcamps
+      - label: In-person certified courses
         value: 11.1
         tone: workhorse
       - label: No formal design education
@@ -326,9 +326,9 @@ charts:
           value: 161 (49.8%)
         - label: Online certification
           value: 94 (29.1%)
-        - label: In-person certified courses
-          value: 90 (27.9%)
         - label: Bootcamps
+          value: 90 (27.9%)
+        - label: In-person certified courses
           value: 36 (11.1%)
         - label: No formal design education
           value: 72 (22.3%)
@@ -402,17 +402,21 @@ Product design overwhelmingly dominates at 67.5% of respondents (218). Research 
 
 ## Experience
 
-Nearly half of respondents (47.1%) have three or fewer years of design experience, the single largest bracket in the survey. The median total working experience, however, is 10 years, noticeably higher than the median design experience of 6 years. Many designers are career switchers who bring broader professional experience to their design roles.
+Nearly half of respondents (47.1%) have three or fewer years of design experience, the single largest bracket in the survey. The published report frames the same skew in self-assessed terms: 48.4% describe their design experience as little to some, and 22.9% specifically put it at one year.
 
 ::chart{id="chart-yoe-design"}
+
+The median total working experience, however, is 10 years, noticeably higher than the median design experience of 6 years, a four-year gap. Many designers are career switchers who bring broader professional experience into their design roles than their design tenure alone would suggest.
 
 ::chart{id="chart-yoe-vs-total-experience"}
 
 ## Education
 
-The workforce is highly educated: 66.3% hold bachelor's degrees, 15.5% have master's degrees, and 13.6% have diplomas. Formal design education is the most common path (49.8%), followed by online certification (29.1%) and in-person certified courses (27.9%); bootcamps account for a further 11.1%. Notably, 22.3% have no formal design education at all, demonstrating that design credentials are not a prerequisite for employment in the field.
+The workforce is highly educated: 66.3% hold bachelor's degrees, 15.5% have master's degrees, and 13.6% have diplomas. Formal design education is the most common path (49.8%), followed by online certification (29.1%) and bootcamps (27.9%); in-person certified courses account for a further 11.1%. Notably, 22.3% have no formal design education at all, demonstrating that design credentials are not a prerequisite for employment in the field.
 
 ::chart{id="chart-formal-education"}
+
+Most respondents took a single route into design: 51.4% relied on just one form of design education, while 17.3% combined two different pathways, for example pairing formal study with a bootcamp or certification.
 
 ::chart{id="chart-design-education-pathways"}
 
