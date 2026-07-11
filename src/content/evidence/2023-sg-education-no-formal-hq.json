@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-sg-education-no-formal-hq",
+  "title": "2023 Singapore no-formal-design-education median compensation by headquarters location",
+  "summary": "Within the Singapore no-formal-design-education cohort (n=41), respondents physically at their company's headquarters reported a median of S$82,150 (n=26); respondents not at headquarters reported S$157,000 (n=13), 91.1% higher. The published report states 91.5%, but its own median table (S$82,150 vs S$157,000) yields 91.1%; the derived figure is used here. These are respondent medians, not population estimates.",
+  "sourceName": "Design Pay Asia 2022-23 survey data",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "Cohort is the 41 Singapore respondents reporting no formal design education, split by headquarters location (physically at headquarters vs not). Two respondents did not specify and are excluded from this comparison. Both published groups meet the minimum n=10 threshold.",
+  "sampleSize": 39,
+  "sensitivity": "public"
+}
