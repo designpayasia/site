@@ -215,37 +215,174 @@ charts:
         value: 15.5
         tone: workhorse
   - id: chart-yoe-vs-total-experience
-    type: bar
-    title: Years of design experience vs total working experience
-    caption: Median years of design experience compared with median total working
-      experience among respondents (N=323).
-    summary: Median total working experience (10 years) is noticeably higher than
-      median design experience (6 years), reflecting the number of career switchers
-      in the cohort.
+    type: scatter
+    title: Design experience vs total working experience
+    caption: "Each point is one design-experience/total-experience pairing
+      reported by respondents; point size shows how many respondents share
+      that exact pairing (N=323, all markets). The dashed diagonal marks
+      where design experience equals total working experience."
+    summary: "Scatter chart plotting years of design experience (vertical
+      axis) against years of total working experience (horizontal axis) for
+      323 respondents; point size shows how many respondents share each
+      pairing. Many points sit on or near the diagonal reference line, where
+      design experience equals total experience. Above the line, a spread of
+      points shows respondents whose total working experience exceeds their
+      design experience, consistent with career switchers who bring broader
+      work history into design roles."
     evidenceIds:
-      - evidence:2023-yoe-vs-total-experience
+      - evidence:2023-yoe-scatter-aggregate
     sourceLabel: Design Pay Asia 2023 Survey
     sourceUrl: https://designpay.asia/reports/2023
-    accessibility:
-      summary: "Bar chart comparing median years of design experience to median
-        total working experience. Design experience: 6 years. Total working
-        experience: 10 years."
+    plot:
+      type: scatter
+      xLabel: Total years of experience
+      yLabel: Years of design experience
+      points:
+        - { x: 3, y: 0, count: 1 }
+        - { x: 9, y: 0, count: 1 }
+        - { x: 0, y: 1, count: 3 }
+        - { x: 1, y: 1, count: 27 }
+        - { x: 2, y: 1, count: 15 }
+        - { x: 3, y: 1, count: 8 }
+        - { x: 4, y: 1, count: 5 }
+        - { x: 5, y: 1, count: 4 }
+        - { x: 6, y: 1, count: 3 }
+        - { x: 7, y: 1, count: 4 }
+        - { x: 10, y: 1, count: 3 }
+        - { x: 15, y: 1, count: 1 }
+        - { x: 20, y: 1, count: 1 }
+        - { x: 1, y: 2, count: 1 }
+        - { x: 2, y: 2, count: 14 }
+        - { x: 3, y: 2, count: 12 }
+        - { x: 4, y: 2, count: 3 }
+        - { x: 5, y: 2, count: 3 }
+        - { x: 6, y: 2, count: 3 }
+        - { x: 9, y: 2, count: 2 }
+        - { x: 10, y: 2, count: 1 }
+        - { x: 12, y: 2, count: 2 }
+        - { x: 15, y: 2, count: 1 }
+        - { x: 16, y: 2, count: 1 }
+        - { x: 20, y: 2, count: 1 }
+        - { x: 1, y: 3, count: 1 }
+        - { x: 2, y: 3, count: 2 }
+        - { x: 3, y: 3, count: 10 }
+        - { x: 4, y: 3, count: 5 }
+        - { x: 5, y: 3, count: 7 }
+        - { x: 6, y: 3, count: 4 }
+        - { x: 7, y: 3, count: 1 }
+        - { x: 8, y: 3, count: 1 }
+        - { x: 12, y: 3, count: 1 }
+        - { x: 3, y: 4, count: 1 }
+        - { x: 4, y: 4, count: 11 }
+        - { x: 5, y: 4, count: 3 }
+        - { x: 6, y: 4, count: 4 }
+        - { x: 7, y: 4, count: 2 }
+        - { x: 8, y: 4, count: 2 }
+        - { x: 10, y: 4, count: 4 }
+        - { x: 11, y: 4, count: 2 }
+        - { x: 15, y: 4, count: 1 }
+        - { x: 22, y: 4, count: 1 }
+        - { x: 2, y: 5, count: 1 }
+        - { x: 5, y: 5, count: 9 }
+        - { x: 6, y: 5, count: 7 }
+        - { x: 8, y: 5, count: 2 }
+        - { x: 9, y: 5, count: 1 }
+        - { x: 10, y: 5, count: 3 }
+        - { x: 11, y: 5, count: 1 }
+        - { x: 14, y: 5, count: 1 }
+        - { x: 20, y: 5, count: 1 }
+        - { x: 0, y: 6, count: 1 }
+        - { x: 2, y: 6, count: 1 }
+        - { x: 3, y: 6, count: 1 }
+        - { x: 4, y: 6, count: 1 }
+        - { x: 6, y: 6, count: 8 }
+        - { x: 7, y: 6, count: 3 }
+        - { x: 8, y: 6, count: 1 }
+        - { x: 12, y: 6, count: 1 }
+        - { x: 13, y: 6, count: 1 }
+        - { x: 5, y: 7, count: 2 }
+        - { x: 7, y: 7, count: 9 }
+        - { x: 8, y: 7, count: 1 }
+        - { x: 10, y: 7, count: 1 }
+        - { x: 12, y: 7, count: 3 }
+        - { x: 13, y: 7, count: 1 }
+        - { x: 15, y: 7, count: 1 }
+        - { x: 19, y: 7, count: 1 }
+        - { x: 7, y: 8, count: 1 }
+        - { x: 8, y: 8, count: 9 }
+        - { x: 9, y: 8, count: 1 }
+        - { x: 11, y: 8, count: 2 }
+        - { x: 12, y: 8, count: 2 }
+        - { x: 15, y: 8, count: 1 }
+        - { x: 17, y: 8, count: 1 }
+        - { x: 9, y: 9, count: 5 }
+        - { x: 10, y: 9, count: 3 }
+        - { x: 11, y: 9, count: 1 }
+        - { x: 16, y: 9, count: 1 }
+        - { x: 7, y: 10, count: 2 }
+        - { x: 8, y: 10, count: 1 }
+        - { x: 10, y: 10, count: 6 }
+        - { x: 12, y: 10, count: 6 }
+        - { x: 13, y: 10, count: 2 }
+        - { x: 14, y: 10, count: 1 }
+        - { x: 15, y: 10, count: 1 }
+        - { x: 16, y: 10, count: 1 }
+        - { x: 18, y: 10, count: 1 }
+        - { x: 4, y: 11, count: 1 }
+        - { x: 9, y: 11, count: 1 }
+        - { x: 15, y: 11, count: 1 }
+        - { x: 10, y: 12, count: 1 }
+        - { x: 12, y: 12, count: 1 }
+        - { x: 15, y: 12, count: 1 }
+        - { x: 16, y: 12, count: 1 }
+        - { x: 17, y: 12, count: 1 }
+        - { x: 13, y: 13, count: 2 }
+        - { x: 14, y: 13, count: 1 }
+        - { x: 14, y: 14, count: 3 }
+        - { x: 15, y: 15, count: 3 }
+        - { x: 18, y: 15, count: 1 }
+        - { x: 16, y: 16, count: 1 }
+        - { x: 18, y: 16, count: 1 }
+        - { x: 17, y: 17, count: 1 }
+        - { x: 18, y: 17, count: 2 }
+        - { x: 18, y: 18, count: 1 }
+        - { x: 20, y: 20, count: 2 }
+        - { x: 22, y: 20, count: 1 }
+        - { x: 23, y: 20, count: 1 }
+        - { x: 25, y: 25, count: 1 }
     fallbackTable:
       columns:
-        - Experience type
-        - Median (N=323)
+        - Design × total YOE band
+        - Respondents (N=323)
       rows:
-        - label: Design experience
-          value: 6 years
-        - label: Total working experience
-          value: 10 years
-    bars:
-      - label: Design experience
-        value: 60
-        tone: workhorse
-      - label: Total working experience
-        value: 100
-        tone: signal
+        - label: Design 0–3y / total 0–3y
+          value: 94 (29.1%)
+        - label: Design 0–3y / total 4–6y
+          value: 37 (11.5%)
+        - label: Design 0–3y / total 7–9y
+          value: 9 (2.8%)
+        - label: Design 0–3y / total 10+y
+          value: 12 (3.7%)
+        - label: Design 4–6y / total 0–3y
+          value: 5 (1.5%)
+        - label: Design 4–6y / total 4–6y
+          value: 43 (13.3%)
+        - label: Design 4–6y / total 7–9y
+          value: 11 (3.4%)
+        - label: Design 4–6y / total 10+y
+          value: 16 (5.0%)
+        - label: Design 7–9y / total 4–6y
+          value: 2 (0.6%)
+        - label: Design 7–9y / total 7–9y
+          value: 26 (8.0%)
+        - label: Design 7–9y / total 10+y
+          value: 18 (5.6%)
+        - label: Design 10+y / total 4–6y
+          value: 1 (0.3%)
+        - label: Design 10+y / total 7–9y
+          value: 4 (1.2%)
+        - label: Design 10+y / total 10+y
+          value: 45 (13.9%)
   - id: chart-formal-education
     type: bar
     title: Highest level of formal education

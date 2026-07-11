@@ -73,6 +73,16 @@ interface Props {
   bars: Bar[];
   pngPath?: string;
   /**
+   * Pre-rendered Observable Plot SVG markup (build-time only — see
+   * `src/lib/plot.ts`). When present it replaces the bars track in the
+   * chart zone; everything else (header, meta, fallback table,
+   * segments/variants) is unaffected. The SVG is inert (no client JS) and
+   * carries its own `aria-hidden="true"`, so the `summary` prop remains
+   * the sole accessible representation alongside the fallback table.
+   * Mutually exclusive with `pngPath` — `pngPath` wins if both are set.
+   */
+  plotSvg?: string;
+  /**
    * Optional plain-text headline stat rendered above the distribution bars
    * (e.g. "Mean: 4.57 / 7"). Used for Likert-style rating charts where the
    * bare 1-7 bar labels give no sense of central tendency on their own.
@@ -126,6 +136,7 @@ const {
   defaultSegmentLabel,
   variants,
   pngPath,
+  plotSvg,
   averageLabel,
   hideTable = false,
   tableMode,
@@ -697,6 +708,8 @@ const variantViews = hasVariants
               class="chart-block__png-image"
               loading="lazy"
             />
+          ) : plotSvg ? (
+            <div class="chart-block__plot" set:html={plotSvg} />
           ) : (
             <>
               <div class="chart-block__axis" aria-hidden="true">
@@ -1122,6 +1135,33 @@ const variantViews = hasVariants
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  /* Observable Plot SVG (src/lib/plot.ts) — injected via set:html, so its
+     markup never receives Astro's scoped-style attribute. Rules that must
+     reach into it use :global(). The SVG itself carries a
+     chart-block__fill--* tone class (set in plot.ts) so `color` here is
+     what its marks' `fill="currentColor"`/`stroke="currentColor"`
+     attributes resolve against — dark mode is free via _dark.css same as
+     the bars above. */
+  .chart-block__plot :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: var(--font-data);
+    font-size: var(--type-caption);
+  }
+
+  .chart-block__plot :global(.chart-block__fill--workhorse) {
+    color: var(--color-workhorse);
+  }
+
+  .chart-block__plot :global(.chart-block__fill--signal) {
+    color: var(--color-signal-fill);
+  }
+
+  .chart-block__plot :global(text) {
+    fill: var(--color-ink-muted);
   }
 
   .chart-block__segments {

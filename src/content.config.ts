@@ -33,6 +33,32 @@ const metricSchema = z
     }
   });
 
+/**
+ * Build-time Observable Plot layer (src/lib/plot.ts). Currently supports
+ * one mark type — a binned scatter/dot chart — carrying pre-aggregated
+ * (x, y, count) points inline in the chart's own frontmatter entry, the
+ * same self-contained convention `bars`/`fallbackTable` already follow.
+ * `count` must be a respondent count already aggregated upstream (never
+ * row-level data) so the MIN_SAFE_COHORT suppression rule is enforced
+ * before data ever reaches this repo, not by this schema.
+ */
+const scatterPlotSchema = z.object({
+  type: z.literal('scatter'),
+  xLabel: z.string().min(1),
+  yLabel: z.string().min(1),
+  points: z
+    .array(
+      z.object({
+        x: z.number(),
+        y: z.number(),
+        count: z.number().int().positive(),
+      }),
+    )
+    .min(1),
+  /** y = x structural reference line — geometric aid, not a data claim. */
+  showDiagonalReference: z.boolean().default(true),
+});
+
 const chartSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
@@ -63,6 +89,15 @@ const chartSchema = z.object({
       }),
     )
     .default([]),
+  /**
+   * Optional build-time Observable Plot spec — see scatterPlotSchema above.
+   * Mutually exclusive in practice with `bars` (a chart renders either the
+   * bars track or the Plot SVG, never both — see ChartBlock's `plotSvg`
+   * prop), but `bars` is left in place (as an empty array) rather than
+   * removed, since `fallbackTable` — not `bars` — is the hard requirement
+   * that must survive regardless of render path.
+   */
+  plot: scatterPlotSchema.optional(),
   segments: z
     .array(
       z.object({
@@ -137,10 +172,10 @@ const chartSchema = z.object({
     )
     .optional(),
 }).superRefine((data, ctx) => {
-  if (!data.pngPath && data.bars.length === 0) {
+  if (!data.pngPath && !data.plot && data.bars.length === 0) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: 'bars is required when pngPath is not provided',
+      message: 'bars is required when neither pngPath nor plot is provided',
       path: ['bars'],
     });
   }
