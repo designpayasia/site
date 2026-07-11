@@ -23,6 +23,43 @@ interface Segment {
   fallbackRows: TableRow[];
 }
 
+/**
+ * Filter-control variant (progressive enhancement). One segmented button
+ * shows one variant's bars/table/summary at a time; the rest render
+ * server-side too but sit `hidden`. Unlike `Segment`, each variant carries
+ * its own evidence and may override the chart's source.
+ *
+ * Frontmatter shape (do not migrate existing charts yet — see chartSchema in
+ * src/content.config.ts):
+ *
+ * ```yaml
+ * variants:
+ *   - label: Singapore
+ *     summary: Bar chart showing ...
+ *     evidenceIds: [evidence:2024-singapore-cut]
+ *     sourceLabel: Design Pay Asia 2024 Survey — Singapore cut
+ *     sourceUrl: https://designpay.asia/reports/2024
+ *     bars:
+ *       - label: 0-3 years
+ *         value: 41.2
+ *     fallbackTable:
+ *       columns: [Experience, Respondents]
+ *       rows:
+ *         - label: 0-3 years
+ *           value: "62 (41.2%)"
+ * ```
+ */
+interface Variant {
+  label: string;
+  summary: string;
+  evidenceIds: string[];
+  sourceLabel?: string;
+  sourceUrl?: string;
+  bars: Bar[];
+  fallbackColumns: [string, string];
+  fallbackRows: TableRow[];
+}
+
 interface Props {
   title: string;
   caption: string;
@@ -43,6 +80,12 @@ interface Props {
   averageLabel?: string;
   segments?: Segment[];
   defaultSegmentLabel?: string;
+  /**
+   * Filter-control variants — see the `Variant` interface above. Renders a
+   * segmented button group; the first variant is visible by default
+   * (no-JS-safe). Mutually exclusive with `segments`.
+   */
+  variants?: Variant[];
   /**
    * When true (report hub overview), the visible fallback table is suppressed
    * and the treatment tightens. The table is still rendered as a
@@ -81,6 +124,7 @@ const {
   bars,
   segments,
   defaultSegmentLabel,
+  variants,
   pngPath,
   averageLabel,
   hideTable = false,
@@ -142,12 +186,238 @@ const segmentedViews = hasSegments
       })),
     ]
   : [];
+
+const variantList = variants ?? [];
+const hasVariants = variantList.length > 0;
+const variantViews = hasVariants
+  ? variantList.map((variant) => {
+      const variantSourceLabel = variant.sourceLabel ?? sourceLabel;
+      const variantSourceUrl = variant.sourceUrl ?? sourceUrl;
+      const variantBlockId = makeBlockId(chartBlockId, variant.label);
+
+      return {
+        ...variant,
+        sourceLabel: variantSourceLabel,
+        sourceUrl: variantSourceUrl,
+        showSource: !isSelfHostedSource(variantSourceUrl, reportPath),
+        renderedBars: normalizeBars(variant.bars),
+        evidenceLabel: variant.evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs',
+        buttonId: `${variantBlockId}-variant-button`,
+        panelId: `${variantBlockId}-variant-panel`,
+      };
+    })
+  : [];
 ---
 
 <figure
-  class:list={['chart-block', hideTable && 'chart-block--compact', hasSegments && 'chart-block--segments']}
+  class:list={[
+    'chart-block',
+    hideTable && 'chart-block--compact',
+    hasSegments && 'chart-block--segments',
+    hasVariants && 'chart-block--variants',
+  ]}
 >
-  {hasSegments ? (
+  {hasVariants ? (
+    <>
+      <figcaption class="chart-block__header">
+        <p class="label-mono">Chart proof</p>
+        <h2>{title}</h2>
+        <p class="prose">{caption}</p>
+      </figcaption>
+
+      <div class="chart-block__variants" data-chart-block-variants>
+        <div
+          class="chart-block__variant-control"
+          role="group"
+          aria-label={`Filter ${title}`}
+        >
+          {variantViews.map((view, index) => (
+            <button
+              type="button"
+              id={view.buttonId}
+              aria-pressed={index === 0 ? 'true' : 'false'}
+              aria-controls={view.panelId}
+              class:list={['btn', index === 0 ? 'btn--primary' : 'btn--secondary']}
+              data-chart-variant-button
+            >
+              {view.label}
+            </button>
+          ))}
+        </div>
+
+        {variantViews.map((view, index) => (
+          <section
+            id={view.panelId}
+            class="chart-block__variant-panel"
+            aria-labelledby={view.buttonId}
+            hidden={index !== 0}
+            data-chart-variant-panel
+          >
+            <div class="chart-block__layout">
+              <div
+                class="chart-block__visual"
+                role="img"
+                aria-label={view.summary}
+                style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
+              >
+                <p class="chart-block__summary">{view.summary}</p>
+
+                <div class="chart-block__axis" aria-hidden="true">
+                  <div class="chart-block__axis-spacer"></div>
+                  <div class="chart-block__ticks">
+                    {GRIDLINE_PERCENTAGES.map((percentage) => (
+                      <span style={`left: ${percentage}%;`}>{percentage}%</span>
+                    ))}
+                  </div>
+                  <div class="chart-block__axis-value-spacer"></div>
+                </div>
+
+                <div class="chart-block__bars">
+                  {view.renderedBars.map((bar) => (
+                    <div class="chart-block__row">
+                      <div
+                        class:list={[
+                          'chart-block__label',
+                          bar.tone === 'signal' && 'chart-block__label--signal',
+                        ]}
+                      >
+                        {bar.label}
+                      </div>
+
+                      <div class="chart-block__track" aria-hidden="true">
+                        <div class="chart-block__gridlines">
+                          {GRIDLINE_PERCENTAGES.map((percentage) => (
+                            <span style={`left: ${percentage}%;`}></span>
+                          ))}
+                        </div>
+
+                        <div
+                          class:list={[
+                            'chart-block__fill',
+                            bar.tone === 'signal'
+                              ? 'chart-block__fill--signal'
+                              : 'chart-block__fill--workhorse',
+                          ]}
+                          style={`width: ${bar.value}%;`}
+                        />
+                      </div>
+
+                      <div
+                        class:list={[
+                          'chart-block__value',
+                          bar.tone === 'signal' && 'chart-block__value--signal',
+                        ]}
+                      >
+                        {bar.value}%
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="chart-block__meta">
+                  {view.showSource && (
+                    <p class="chart-block__source">
+                      Source:{' '}
+                      <a href={view.sourceUrl} class="chart-block__source-link">
+                        {view.sourceLabel}
+                      </a>
+                    </p>
+                  )}
+
+                  <p class="chart-block__evidence">
+                    {view.evidenceLabel}: {view.evidenceIds.join(', ')}
+                  </p>
+                </div>
+              </div>
+
+              <div class:list={['chart-block__support', resolvedTableMode === 'hidden' && 'visually-hidden']}>
+                {resolvedTableMode === 'collapsed' ? (
+                  <details class="chart-block__table-disclosure">
+                    <summary class="label-mono chart-block__table-summary">View data table</summary>
+                    <div class="chart-block__table-wrap">
+                      <table class="chart-block__table">
+                        <thead>
+                          <tr>
+                            <th>{view.fallbackColumns[0]}</th>
+                            <th>{view.fallbackColumns[1]}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {view.fallbackRows.map((row) => (
+                            <tr>
+                              <th scope="row">{row.label}</th>
+                              <td>{row.value}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </details>
+                ) : (
+                  <div class="chart-block__table-wrap">
+                    <table class="chart-block__table">
+                      <thead>
+                        <tr>
+                          <th>{view.fallbackColumns[0]}</th>
+                          <th>{view.fallbackColumns[1]}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {view.fallbackRows.map((row) => (
+                          <tr>
+                            <th scope="row">{row.label}</th>
+                            <td>{row.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        ))}
+
+        <script is:inline>
+          // Wrapped in an IIFE (like the segments script below) so
+          // multiple variant-enabled charts on one page never collide
+          // by re-declaring the same block-scoped bindings in the
+          // shared classic-script global environment.
+          (function () {
+            const variantsRoot = document.currentScript?.closest('[data-chart-block-variants]');
+
+            if (!(variantsRoot instanceof HTMLElement)) {
+              return;
+            }
+
+            variantsRoot.dataset.jsReady = 'true';
+
+            const variantButtons = Array.from(
+              variantsRoot.querySelectorAll('[data-chart-variant-button]'),
+            );
+            const variantPanels = Array.from(
+              variantsRoot.querySelectorAll('[data-chart-variant-panel]'),
+            );
+
+            variantButtons.forEach((button, index) => {
+              button.addEventListener('click', () => {
+                variantButtons.forEach((otherButton, otherIndex) => {
+                  const selected = otherIndex === index;
+                  otherButton.setAttribute('aria-pressed', String(selected));
+                  otherButton.classList.toggle('btn--primary', selected);
+                  otherButton.classList.toggle('btn--secondary', !selected);
+                });
+
+                variantPanels.forEach((panel, panelIndex) => {
+                  panel.hidden = panelIndex !== index;
+                });
+              });
+            });
+          })();
+        </script>
+      </div>
+    </>
+  ) : hasSegments ? (
     <>
       <figcaption class="chart-block__header">
         <p class="label-mono">Chart proof</p>
@@ -340,9 +610,16 @@ const segmentedViews = hasSegments
           ))}
         </div>
       <script is:inline>
-        const root = document.currentScript?.closest('[data-chart-block-segments]');
+        // Wrapped in an IIFE so multiple segmented charts on one page
+        // never collide by re-declaring the same block-scoped bindings
+        // in the shared classic-script global environment.
+        (function () {
+          const root = document.currentScript?.closest('[data-chart-block-segments]');
 
-        if (root instanceof HTMLElement) {
+          if (!(root instanceof HTMLElement)) {
+            return;
+          }
+
           const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
           const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
 
@@ -389,7 +666,7 @@ const segmentedViews = hasSegments
               activate(nextIndex, true);
             });
           });
-        }
+        })();
       </script>
       </div>
     </>
@@ -901,5 +1178,31 @@ const segmentedViews = hasSegments
 
   .chart-block__segment-caption {
     margin: 0;
+  }
+
+  /* Filter-control variants — segmented button group (role="group" +
+     aria-pressed), distinct from the tab pattern above. Buttons reuse the
+     site's global .btn / .btn--primary / .btn--secondary pill styles so the
+     selected state reads as filled-vs-outline, not colour alone. */
+  .chart-block__variants {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .chart-block__variant-control {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .chart-block__variant-panel {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  /* Before JS runs, clicking a variant button does nothing — keep the
+     cursor honest rather than implying interactivity that isn't there yet. */
+  .chart-block__variants:not([data-js-ready]) .chart-block__variant-control button {
+    cursor: default;
   }
 </style>

@@ -95,6 +95,47 @@ const chartSchema = z.object({
     )
     .optional(),
   defaultSegmentLabel: z.string().min(1).optional(),
+  /**
+   * Filter-control variants (progressive enhancement): a set of alternative
+   * cuts of the same chart, toggled one-at-a-time by a segmented button
+   * control. Unlike `segments` (tabbed views sharing the chart's own
+   * evidence), each variant carries its own `evidenceIds` and may override
+   * `sourceLabel`/`sourceUrl` — variants are meant for cuts backed by
+   * distinct evidence (e.g. a per-market breakout), not merely a different
+   * slice of the same dataset. A chart may declare `segments` or `variants`,
+   * not both.
+   */
+  variants: z
+    .array(
+      z.object({
+        label: z.string().min(1),
+        summary: z.string().min(1),
+        evidenceIds: z.array(z.string().regex(/^evidence:[a-z0-9-]+$/)).min(1),
+        sourceLabel: z.string().min(1).optional(),
+        sourceUrl: z.url().optional(),
+        bars: z
+          .array(
+            z.object({
+              label: z.string().min(1),
+              value: z.number().min(0).max(100),
+              tone: z.enum(['workhorse', 'signal']).default('workhorse'),
+            }),
+          )
+          .min(1),
+        fallbackTable: z.object({
+          columns: z.array(z.string().min(1)).length(2),
+          rows: z
+            .array(
+              z.object({
+                label: z.string().min(1),
+                value: z.string().min(1),
+              }),
+            )
+            .min(1),
+        }),
+      }),
+    )
+    .optional(),
 }).superRefine((data, ctx) => {
   if (!data.pngPath && data.bars.length === 0) {
     ctx.addIssue({
@@ -141,6 +182,30 @@ const chartSchema = z.object({
       }
 
       segmentIds.add(segment.id);
+    });
+  }
+
+  if (data.variants && data.variants.length > 0) {
+    if (data.segments && data.segments.length > 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'a chart cannot define both segments and variants; choose one filter mechanism',
+        path: ['variants'],
+      });
+    }
+
+    const variantLabels = new Set<string>();
+
+    data.variants.forEach((variant, index) => {
+      if (variantLabels.has(variant.label)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'variant labels must be unique within a chart',
+          path: ['variants', index, 'label'],
+        });
+      }
+
+      variantLabels.add(variant.label);
     });
   }
 });
