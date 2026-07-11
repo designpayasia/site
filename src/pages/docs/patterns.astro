@@ -1,0 +1,648 @@
+---
+import Base from '../../layouts/Base.astro';
+import CoverIndexSpread from '../../components/CoverIndexSpread.astro';
+import CoverSplitEditorial from '../../components/CoverSplitEditorial.astro';
+import CoverFullBleed from '../../components/CoverFullBleed.astro';
+import CoverCardInverse from '../../components/CoverCardInverse.astro';
+import MetricShelf from '../../components/MetricShelf.astro';
+import StatTakeover from '../../components/StatTakeover.astro';
+import ChartSmallMultiples from '../../components/ChartSmallMultiples.astro';
+import ChartRange from '../../components/ChartRange.astro';
+import ChartDotPlot from '../../components/ChartDotPlot.astro';
+import RegisterCards from '../../components/RegisterCards.astro';
+import PullQuoteBeat from '../../components/PullQuoteBeat.astro';
+import TocScrollspy from '../../components/TocScrollspy.astro';
+import FilterCompare from '../../components/FilterCompare.astro';
+
+// Shared sample data. Fictional but DPA-plausible — no real employers, no
+// real names, every sampleSize at or above MIN_SAFE_COHORT (10).
+
+const shelfMetrics = [
+  {
+    value: 'SGD 4,200',
+    label: 'Median monthly pay',
+    evidenceId: 'evidence:2025-sea-median-pay',
+    sampleSize: 412,
+    color: 'signal' as const,
+    countUp: true,
+  },
+  {
+    value: '72',
+    unit: '%',
+    label: 'Pay bands disclosed pre-interview',
+    evidenceId: 'evidence:2025-sea-pay-band-disclosure',
+    sampleSize: 288,
+    delta: { value: 6.2 },
+  },
+  {
+    value: '3.1',
+    unit: 'yrs',
+    label: 'Median time to first promotion',
+    evidenceId: 'evidence:2025-sea-promotion-time',
+    sampleSize: 196,
+  },
+  {
+    value: '18',
+    unit: '%',
+    label: 'Negotiated most recent offer',
+    evidenceId: 'evidence:2025-sea-negotiated-offer',
+    sampleSize: 134,
+    delta: { value: -4.5, tone: 'signal' as const },
+  },
+];
+
+const splitMetrics = [
+  {
+    value: 'SGD 6,800',
+    label: 'Median lead-level pay',
+    evidenceId: 'evidence:2025-sea-lead-pay',
+    sampleSize: 58,
+  },
+  {
+    value: '22',
+    unit: '%',
+    label: 'Spread, lowest to highest market',
+    evidenceId: 'evidence:2025-sea-market-spread',
+    sampleSize: 58,
+  },
+];
+
+const inverseCoverCards = [
+  {
+    href: '/reports/2023',
+    year: 2023,
+    title: 'The first pass at pay parity.',
+    stat: { value: 'SGD 3,900', label: 'Median IC pay' },
+  },
+  {
+    href: '/reports/2024',
+    year: 2024,
+    title: 'Naming the gap.',
+    stat: { value: '68%', label: 'Reported transparency' },
+  },
+  {
+    href: '/reports',
+    year: 2025,
+    title: 'Six markets, one baseline.',
+    stat: { value: '1,842', label: 'Respondents' },
+  },
+];
+
+const smallMultiplesPanels = [
+  {
+    id: 'sg',
+    label: 'Singapore',
+    rows: [
+      { label: '2023', value: 52 },
+      { label: '2025', value: 64, tone: 'signal' as const },
+    ],
+  },
+  {
+    id: 'my',
+    label: 'Malaysia',
+    rows: [
+      { label: '2023', value: 47 },
+      { label: '2025', value: 58 },
+    ],
+  },
+  {
+    id: 'id',
+    label: 'Indonesia',
+    rows: [
+      { label: '2023', value: 38 },
+      { label: '2025', value: 49 },
+    ],
+  },
+];
+
+const rangeRows = [
+  { label: 'Junior IC', medianPosition: 32, bandStart: 26, bandEnd: 38, valueLabel: 'SGD 3,800', rangeLabel: 'n=64' },
+  {
+    label: 'Mid IC',
+    medianPosition: 43,
+    bandStart: 37,
+    bandEnd: 50,
+    valueLabel: 'SGD 5,200',
+    rangeLabel: 'n=41',
+    tone: 'action' as const,
+  },
+  {
+    label: 'Senior IC',
+    medianPosition: 59,
+    bandStart: 50,
+    bandEnd: 68,
+    valueLabel: 'SGD 7,100',
+    rangeLabel: 'n=22',
+    tone: 'signal' as const,
+  },
+  {
+    label: 'Lead/Principal',
+    medianPosition: 80,
+    bandStart: 68,
+    bandEnd: 92,
+    valueLabel: 'SGD 9,600',
+    rangeLabel: 'n=11',
+    confidence: 'low' as const,
+  },
+];
+
+const dotRows = [
+  { label: 'Product design', value: 45, valueLabel: 'SGD 5,400' },
+  { label: 'UX research', value: 42.5, valueLabel: 'SGD 5,100', tone: 'action' as const },
+  { label: 'Brand/visual', value: 35.8, valueLabel: 'SGD 4,300' },
+  { label: 'Design systems', value: 49.2, valueLabel: 'SGD 5,900', tone: 'signal' as const },
+  { label: 'Motion/3D', value: 39.2, valueLabel: 'SGD 4,700' },
+];
+
+const filterGroups = [
+  {
+    id: 'market',
+    label: 'Market',
+    options: [
+      { value: 'sg', label: 'Singapore' },
+      { value: 'my', label: 'Malaysia' },
+    ],
+  },
+  {
+    id: 'level',
+    label: 'Level',
+    options: [
+      { value: 'mid', label: 'Mid' },
+      { value: 'senior', label: 'Senior' },
+    ],
+  },
+];
+
+const filterRows = [
+  { id: 'r1', cells: ['Singapore', 'Mid', 'SGD 5,200'], filters: { market: 'sg', level: 'mid' } },
+  { id: 'r2', cells: ['Singapore', 'Senior', 'SGD 7,100'], filters: { market: 'sg', level: 'senior' } },
+  { id: 'r3', cells: ['Malaysia', 'Mid', 'MYR 8,400'], filters: { market: 'my', level: 'mid' } },
+  { id: 'r4', cells: ['Malaysia', 'Senior', 'MYR 11,600'], filters: { market: 'my', level: 'senior' } },
+];
+
+const tocItems = [
+  { id: 'cover-index-spread', label: 'Cover — index spread' },
+  { id: 'cover-split-editorial', label: 'Cover — split editorial' },
+  { id: 'cover-full-bleed', label: 'Cover — full bleed' },
+  { id: 'cover-card-inverse', label: 'Cover card — inverse' },
+  { id: 'metric-shelf', label: 'Metric shelf' },
+  { id: 'stat-takeover', label: 'Stat takeover' },
+  { id: 'chart-small-multiples', label: 'Chart — small multiples' },
+  { id: 'chart-range', label: 'Chart — range' },
+  { id: 'chart-dot-plot', label: 'Chart — dot plot' },
+  { id: 'register-cards', label: 'Register cards' },
+  { id: 'pull-quote-beat', label: 'Pull-quote beat' },
+  { id: 'toc-scrollspy', label: 'Toc scrollspy (this rail)' },
+  { id: 'filter-compare', label: 'Filter & compare' },
+];
+---
+
+<Base
+  title="Pattern library - Design Pay Asia"
+  description="Contributor reference gallery for DPA's report pattern components, rendered with sample data."
+>
+  <header class="pattern-library-intro">
+    <div class="pattern-library-intro__inner">
+      <p class="label-mono">Docs</p>
+      <h1>Pattern library</h1>
+      <p class="prose">
+        A contributor reference, not a public report page. Every pattern component built for report
+        pages, rendered here with fictional Southeast Asian pay data so a reviewer can see the real
+        markup and styling without opening a live report.
+      </p>
+      <p class="prose">
+        This page stacks every pattern back to back on purpose — that breaks the one-signal-per-view
+        rule every real report page should hold to. Treat the density here as a specimen sheet, not a
+        layout to copy.
+      </p>
+    </div>
+  </header>
+
+  <div class="pattern-library">
+    <aside class="pattern-library__nav">
+      <TocScrollspy items={tocItems} eyebrow="On this page" label="Pattern list" />
+    </aside>
+
+    <div class="pattern-library__content">
+      <section id="cover-index-spread" class="pattern-demo">
+        <p class="label-mono">Cover — pattern 01-A</p>
+        <h2>Cover index spread</h2>
+        <p class="pattern-demo__note">
+          Default report cover. Two-column claim + thesis lockup with a metric-shelf slot beneath;
+          <code>emphasis</code> marks one substring of <code>titleLines</code> as the single emphasis
+          signal, <code>meta</code> takes small mono chips, and the caller supplies
+          <code>&lt;slot name="metrics"&gt;</code> — <code>MetricShelf</code> here.
+        </p>
+        <div class="pattern-demo__frame">
+          <CoverIndexSpread
+            eyebrow="2025 pilot"
+            titleLines={['Design pay across', 'Southeast Asia']}
+            emphasis="Southeast Asia"
+            thesis="A six-market pilot on how design compensation moves with seniority, discipline, and location, read against last year's baseline."
+            meta={['6 markets', 'n = 1,842']}
+          >
+            <MetricShelf slot="metrics" metrics={shelfMetrics} />
+          </CoverIndexSpread>
+        </div>
+      </section>
+
+      <section id="cover-split-editorial" class="pattern-demo">
+        <p class="label-mono">Cover — pattern 01-C</p>
+        <h2>Cover split editorial</h2>
+        <p class="pattern-demo__note">
+          Magazine-style split: <code>question</code> carries the editorial provocation on the left,
+          register-marked with a crimson glyph and mono label; the caller fills
+          <code>&lt;slot name="data"&gt;</code> on the right — a compact <code>MetricShelf</code> here —
+          to ground it.
+        </p>
+        <div class="pattern-demo__frame">
+          <CoverSplitEditorial
+            question="What does a three-year design lead actually take home across the region?"
+            caption="Reader-facing framing device, not a report finding."
+          >
+            <MetricShelf slot="data" metrics={splitMetrics} />
+          </CoverSplitEditorial>
+        </div>
+      </section>
+
+      <section id="cover-full-bleed" class="pattern-demo">
+        <p class="label-mono">Cover — pattern 01-B</p>
+        <h2>Cover full bleed</h2>
+        <p class="pattern-demo__note">
+          Ceremonial dark cover reserved for flagship release moments. Dark-beat surface (<code
+          >data-theme="dark"</code
+          > + <code>--color-inverse-*</code> tokens), D-blob reveal on load, one short title and one
+          optional <code>signalText</code> line — no other stats.
+        </p>
+        <div class="pattern-demo__frame">
+          <CoverFullBleed
+            eyebrow="Design Pay Asia — 2025 pilot"
+            title="Pay, mapped."
+            signalText="n = 1,842 across 6 markets"
+          />
+        </div>
+      </section>
+
+      <section id="cover-card-inverse" class="pattern-demo">
+        <p class="label-mono">Cover — pattern 01 (archive card)</p>
+        <h2>Cover card inverse</h2>
+        <p class="pattern-demo__note">
+          Compact inverse card for a report archive grid or a related-reports rail. The whole card is
+          one link; <code>stat</code> is optional. Shown here as a three-card archive grid.
+        </p>
+        <div class="pattern-demo__frame pattern-demo__frame--transparent">
+          <div class="pattern-demo__card-grid">
+            {inverseCoverCards.map((card) => (
+              <CoverCardInverse href={card.href} year={card.year} title={card.title} stat={card.stat} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="metric-shelf" class="pattern-demo">
+        <p class="label-mono">Metrics</p>
+        <h2>Metric shelf</h2>
+        <p class="pattern-demo__note">
+          Flexible 2–6 cell stat row for inline use in report body copy. At most one cell may carry
+          <code>color: 'signal'</code>; each cell shows a <code>n=…</code> sample caption, and a delta
+          chip (<code>±pp</code>) is optional per cell.
+        </p>
+        <div class="pattern-demo__frame">
+          <MetricShelf metrics={shelfMetrics} />
+        </div>
+      </section>
+
+      <section id="stat-takeover" class="pattern-demo">
+        <p class="label-mono">Metrics</p>
+        <h2>Stat takeover</h2>
+        <p class="pattern-demo__note">
+          One locked hero stat (132px DM Mono) with 2–3 annotation callouts — for a single opener
+          finding, not a row of stats (use <code>MetricShelf</code> for that).
+          <code>inverse</code> defaults to true (dark-beat treatment); <code>countUp</code> is optional.
+        </p>
+        <div class="pattern-demo__frame">
+          <StatTakeover
+            value="SGD 4,200"
+            unit="per month"
+            contextBefore="The median designer in the region takes home"
+            contextAfter="before bonus."
+            annotations={[
+              { label: 'Sample', body: '1,842 respondents across 6 markets.' },
+              { label: 'Method', body: 'Self-reported, median of base pay only.' },
+            ]}
+            countUp
+            countUpDuration={1600}
+          />
+        </div>
+      </section>
+
+      <section id="chart-small-multiples" class="pattern-demo">
+        <p class="label-mono">Charts</p>
+        <h2>Chart small multiples</h2>
+        <p class="pattern-demo__note">
+          A panel per market, one bar row per year within each panel. <code>fallbackColumns</code> +
+          <code>fallbackRows</code> back a no-JS/accessible table; <code>panels[].rows[].tone</code> is
+          optional per row.
+        </p>
+        <div class="pattern-demo__frame">
+          <ChartSmallMultiples
+            title="Base pay growth by market, 2023 vs 2025"
+            caption="Share of respondents reporting a base pay increase, by market."
+            summary="Small multiples comparing the share of respondents reporting a base pay increase in three Southeast Asian markets between 2023 and 2025."
+            evidenceIds={['evidence:2025-sea-pay-growth']}
+            sourceLabel="Design Pay Asia 2025 pilot"
+            sourceUrl="https://designpay.asia/reports"
+            fallbackColumns={['Market · year', 'Share reporting an increase']}
+            fallbackRows={[
+              { label: 'Singapore · 2023', value: '52%' },
+              { label: 'Singapore · 2025', value: '64%' },
+              { label: 'Malaysia · 2023', value: '47%' },
+              { label: 'Malaysia · 2025', value: '58%' },
+              { label: 'Indonesia · 2023', value: '38%' },
+              { label: 'Indonesia · 2025', value: '49%' },
+            ]}
+            panels={smallMultiplesPanels}
+          />
+        </div>
+      </section>
+
+      <section id="chart-range" class="pattern-demo">
+        <p class="label-mono">Charts</p>
+        <h2>Chart range</h2>
+        <p class="pattern-demo__note">
+          IQR band + median dot per row, positioned 0–100 along a shared axis (<code
+          >axisTickLabels</code
+          > relabels the gridlines). <code>confidence: 'low'</code> renders a dashed band and a smaller
+          neutral dot for a thin-sample row — shown here on Lead/Principal (n=11).
+        </p>
+        <div class="pattern-demo__frame">
+          <ChartRange
+            title="Base pay range by career level, Singapore"
+            caption="Interquartile range of monthly base pay by career level (SGD)."
+            summary="Range chart showing the interquartile spread and median of monthly base pay by career level among Singapore-based respondents, including one thin-sample level shown at low confidence."
+            evidenceIds={['evidence:2025-sg-pay-range']}
+            sourceLabel="Design Pay Asia 2025 pilot"
+            sourceUrl="https://designpay.asia/reports"
+            fallbackColumns={['Career level', 'Median (IQR)']}
+            fallbackRows={[
+              { label: 'Junior IC', value: 'SGD 3,800 (±600)' },
+              { label: 'Mid IC', value: 'SGD 5,200 (±800)' },
+              { label: 'Senior IC', value: 'SGD 7,100 (±1,100)' },
+              { label: 'Lead/Principal', value: 'SGD 9,600 (±1,400)' },
+            ]}
+            rows={rangeRows}
+            axisTickLabels={['SGD 0', 'SGD 3k', 'SGD 6k', 'SGD 9k', 'SGD 12k']}
+            note="Lead/Principal shown at low confidence (n=11)."
+          />
+        </div>
+      </section>
+
+      <section id="chart-dot-plot" class="pattern-demo">
+        <p class="label-mono">Charts</p>
+        <h2>Chart dot plot</h2>
+        <p class="pattern-demo__note">
+          One dot per row along a shared 0–100 axis; every dot count-up animates by default —
+          <code>countUpDurationMs</code> (clamped 1200–1800ms) is the only knob. <code>tone</code> is
+          optional per row.
+        </p>
+        <div class="pattern-demo__frame">
+          <ChartDotPlot
+            title="Median monthly pay by discipline, 2025 pilot"
+            caption="Median monthly base pay by design discipline (SGD), on a shared 0–12,000 scale."
+            summary="Dot plot comparing median monthly base pay across five design disciplines, each point positioned along a shared pay scale, with the highest-median discipline highlighted."
+            evidenceIds={['evidence:2025-sea-discipline-pay']}
+            sourceLabel="Design Pay Asia 2025 pilot"
+            sourceUrl="https://designpay.asia/reports"
+            fallbackColumns={['Discipline', 'Median monthly pay']}
+            fallbackRows={[
+              { label: 'Product design', value: 'SGD 5,400' },
+              { label: 'UX research', value: 'SGD 5,100' },
+              { label: 'Brand/visual', value: 'SGD 4,300' },
+              { label: 'Design systems', value: 'SGD 5,900' },
+              { label: 'Motion/3D', value: 'SGD 4,700' },
+            ]}
+            rows={dotRows}
+            countUpDurationMs={1400}
+          />
+        </div>
+      </section>
+
+      <section id="register-cards" class="pattern-demo">
+        <p class="label-mono">Registers</p>
+        <h2>Register cards</h2>
+        <p class="pattern-demo__note">
+          One of four fixed registers per card (<code>data</code>, <code>editorial</code>,
+          <code>quote</code>, <code>invitation</code>), each with its own field set and a default
+          register label. Shown here as all four in a grid.
+        </p>
+        <div class="pattern-demo__frame pattern-demo__frame--transparent">
+          <div class="pattern-demo__register-grid">
+            <RegisterCards
+              register="data"
+              value="SGD 4,200"
+              unit="per month"
+              caption="Median base pay, 2025 pilot."
+              cite="Source: Design Pay Asia 2025 pilot, n = 412"
+            />
+            <RegisterCards
+              register="editorial"
+              claim="Transparency is still optional in most SEA studios."
+              body="Only a third of respondents said their employer publishes a pay band before interview."
+            />
+            <RegisterCards
+              register="quote"
+              quote="I only found out I was underpaid when a teammate told me their number."
+              attribution="Mid-level product designer, Singapore"
+            />
+            <RegisterCards
+              register="invitation"
+              question="What would make you comfortable sharing your own number?"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="pull-quote-beat" class="pattern-demo">
+        <p class="label-mono">Registers</p>
+        <h2>Pull-quote beat</h2>
+        <p class="pattern-demo__note">
+          A full-width editorial beat built around one participant quote. Light surface by default
+          (<code>inverse</code> unset or false); <code>inverse</code> switches to the dark-beat
+          treatment. Shown here as both.
+        </p>
+        <div class="pattern-demo__frame pattern-demo__frame--transparent">
+          <div class="pattern-demo__stack">
+            <PullQuoteBeat
+              quote="Pay conversations in this region are still whispered, not published."
+              attribution="Design lead, Kuala Lumpur"
+            />
+            <PullQuoteBeat
+              quote="The moment we published our bands, recruiting got easier, not harder."
+              attribution="Head of design, Jakarta"
+              inverse
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="toc-scrollspy" class="pattern-demo">
+        <p class="label-mono">Navigation</p>
+        <h2>Toc scrollspy</h2>
+        <p class="pattern-demo__note">
+          Progressive-enhancement "on this page" rail — plain anchor links with no JS, an
+          IntersectionObserver-driven active state and offset scroll once JS runs. The rail pinned to
+          the left of this page <em>is</em> the live demo, wired to every section id above.
+          <code>headerOffset</code> clears sticky chrome.
+        </p>
+        <div class="pattern-demo__frame pattern-demo__frame--transparent">
+          <div class="pattern-demo__toc-sample">
+            <TocScrollspy
+              items={tocItems.slice(0, 4)}
+              eyebrow="Sample instance"
+              label="Sample pattern list"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="filter-compare" class="pattern-demo">
+        <p class="label-mono">Navigation</p>
+        <h2>Filter compare</h2>
+        <p class="pattern-demo__note">
+          Filter pills drive a live-filtered table; groups combine with AND logic, options within a
+          group are mutually exclusive. Renders a complete, unfiltered table with no JS, then reveals
+          the pill controls once the inline script runs.
+        </p>
+        <div class="pattern-demo__frame">
+          <FilterCompare
+            title="Median monthly pay by market and level"
+            caption="Filter by market and career level to compare median pay."
+            columns={['Market', 'Level', 'Median pay']}
+            groups={filterGroups}
+            rows={filterRows}
+          />
+        </div>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .pattern-library-intro {
+    padding-inline: var(--space-8);
+    padding-block-start: var(--space-16);
+    padding-block-end: var(--space-8);
+  }
+
+  .pattern-library-intro__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .pattern-library-intro__inner h1 {
+    margin-block: var(--space-4) var(--space-6);
+  }
+
+  .pattern-library-intro__inner p + p {
+    margin-top: var(--space-4);
+  }
+
+  .pattern-library {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+    padding-block-end: var(--space-24);
+    display: grid;
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  .pattern-library__nav {
+    display: none;
+  }
+
+  .pattern-library__content {
+    display: grid;
+    gap: var(--space-16);
+    min-width: 0;
+  }
+
+  .pattern-demo {
+    padding-top: var(--space-12);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .pattern-demo:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .pattern-demo h2 {
+    margin-block: var(--space-2) var(--space-3);
+  }
+
+  .pattern-demo__note {
+    max-width: var(--zone-prose);
+    margin: 0 0 var(--space-6);
+    color: var(--color-ink-muted);
+    font-size: var(--type-caption);
+  }
+
+  .pattern-demo__note code {
+    font-family: var(--font-data);
+    font-size: 0.9em;
+  }
+
+  .pattern-demo__frame {
+    border: 1px solid var(--color-border-subtle);
+    overflow: hidden;
+  }
+
+  .pattern-demo__frame--transparent {
+    border: none;
+    overflow: visible;
+  }
+
+  .pattern-demo__card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .pattern-demo__register-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .pattern-demo__stack {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .pattern-demo__toc-sample {
+    max-width: 280px;
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--space-6);
+  }
+
+  @media (min-width: 900px) {
+    .pattern-library__nav {
+      display: block;
+      position: sticky;
+      top: var(--space-8);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .pattern-library {
+      grid-template-columns: 1fr;
+      padding-inline: var(--space-4);
+    }
+
+    .pattern-demo__register-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
