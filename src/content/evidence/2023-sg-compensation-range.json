@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-sg-compensation-range",
+  "title": "2023 Singapore total compensation range by career level",
+  "summary": "Minimum, median, and maximum annual total compensation by career level for Singapore respondents (N=223). Junior IC (N=63): S$12,000 – S$157,000, median S$54,000. Mid-level IC (N=56): S$34,800 – S$210,000, median S$75,800. Senior IC (N=52): S$44,200 – S$339,927, median S$119,500. Lead / Staff / Principal IC (N=19): S$38,400 – S$201,342, median S$103,200. People Manager (N=23): S$37,396 – S$235,000, median S$139,100. Director (N=8) and VP (N=2) fall below the minimum safe disclosure threshold of 10 respondents and are not published.",
+  "sourceName": "2023 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "Self-reported annual total compensation figures in Singapore Dollars, including base salary, annual bonus, annual stock grants, and other compensation. Minimum, median, and maximum computed per career-level cohort from the same filtered worksheet as evidence:2023-sg-compensation-seniority (Country = Singapore, Currency = SGD, n=223). Cohorts below n=10 (Director, VP) are suppressed per the site's minimum safe cohort rule and excluded from this entry. Figures are self-reported and have not been independently verified.",
+  "sampleSize": 223,
+  "sensitivity": "public"
+}
