@@ -491,6 +491,12 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     white-space: nowrap;
   }
 
+  /* Align column headers (except first, the row-label column) right to match
+     their value cells below — headers sit over right-aligned numbers. */
+  .chart-range__table th[scope='col']:not(:first-child) {
+    text-align: right;
+  }
+
   /* Accessible table alternative — removed from the visual flow only. */
   .visually-hidden {
     position: absolute;

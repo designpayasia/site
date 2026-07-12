@@ -304,7 +304,7 @@ const variantViews = hasVariants
               id={view.buttonId}
               aria-pressed={index === 0 ? 'true' : 'false'}
               aria-controls={view.panelId}
-              class:list={['btn', index === 0 ? 'btn--primary' : 'btn--secondary']}
+              class="label-mono chart-block__variant-chip"
               data-chart-variant-button
             >
               {view.label}
@@ -312,12 +312,11 @@ const variantViews = hasVariants
           ))}
         </div>
 
-        {variantViews.map((view, index) => (
+        {variantViews.map((view) => (
           <section
             id={view.panelId}
             class="chart-block__variant-panel"
             aria-labelledby={view.buttonId}
-            hidden={index !== 0}
             data-chart-variant-panel
           >
             <div class="chart-block__layout">
@@ -466,8 +465,6 @@ const variantViews = hasVariants
               return;
             }
 
-            variantsRoot.dataset.jsReady = 'true';
-
             const variantButtons = Array.from(
               variantsRoot.querySelectorAll('[data-chart-variant-button]'),
             );
@@ -475,20 +472,28 @@ const variantViews = hasVariants
               variantsRoot.querySelectorAll('[data-chart-variant-panel]'),
             );
 
-            variantButtons.forEach((button, index) => {
-              button.addEventListener('click', () => {
-                variantButtons.forEach((otherButton, otherIndex) => {
-                  const selected = otherIndex === index;
-                  otherButton.setAttribute('aria-pressed', String(selected));
-                  otherButton.classList.toggle('btn--primary', selected);
-                  otherButton.classList.toggle('btn--secondary', !selected);
-                });
-
-                variantPanels.forEach((panel, panelIndex) => {
-                  panel.hidden = panelIndex !== index;
-                });
+            const activateVariant = (index) => {
+              variantButtons.forEach((otherButton, otherIndex) => {
+                // aria-pressed doubles as the styling hook — the chip CSS
+                // selects on [aria-pressed='true'], so no class juggling.
+                otherButton.setAttribute('aria-pressed', String(otherIndex === index));
               });
+
+              variantPanels.forEach((panel, panelIndex) => {
+                panel.hidden = panelIndex !== index;
+              });
+            };
+
+            variantButtons.forEach((button, index) => {
+              button.addEventListener('click', () => activateVariant(index));
             });
+
+            // Markup ships with every panel visible (no hidden attribute)
+            // so non-JS visitors see all variants stacked. Once this script
+            // runs, collapse down to the default panel and flag the root
+            // as JS-ready so CSS can style the now-interactive pills.
+            activateVariant(0);
+            variantsRoot.dataset.jsReady = 'true';
           })();
         </script>
       </div>
@@ -509,7 +514,7 @@ const variantViews = hasVariants
             aria-selected="true"
             aria-controls={defaultPanelId}
             tabindex="0"
-            class="chart-block__segment-tab"
+            class="label-mono chart-block__segment-tab"
           >
             {defaultSegmentLabel}
           </button>
@@ -522,7 +527,7 @@ const variantViews = hasVariants
               aria-selected="false"
               aria-controls={`${chartBlockId}-panel-${segment.id}`}
               tabindex="-1"
-              class="chart-block__segment-tab"
+              class="label-mono chart-block__segment-tab"
             >
               {segment.label}
             </button>
@@ -530,13 +535,12 @@ const variantViews = hasVariants
         </div>
 
         <div class="chart-block__segment-panels">
-          {segmentedViews.map((view, index) => (
+          {segmentedViews.map((view) => (
             <section
               id={view.panelId}
               class="chart-block__segment-panel"
               role="tabpanel"
               aria-labelledby={view.tabId}
-              hidden={index !== 0}
             >
               <p class="prose chart-block__segment-caption">{view.caption}</p>
 
@@ -749,6 +753,12 @@ const variantViews = hasVariants
               activate(nextIndex, true);
             });
           });
+
+          // Markup ships with every panel visible (no hidden attribute) so
+          // non-JS visitors see all segments stacked. Once this script
+          // runs, collapse down to the default panel.
+          activate(0);
+          root.dataset.jsReady = 'true';
         })();
       </script>
       </div>
@@ -1141,6 +1151,12 @@ const variantViews = hasVariants
     white-space: nowrap;
   }
 
+  /* Align column headers (except first, the row-label column) right to match
+     their value cells below — headers sit over right-aligned numbers. */
+  .chart-block__table th[scope='col']:not(:first-child) {
+    text-align: right;
+  }
+
   /* Collapsed table disclosure — quiet by default so it never competes with
      the chart visual above it. Native <details>/<summary>, no JS. */
   .chart-block__table-disclosure {
@@ -1300,34 +1316,45 @@ const variantViews = hasVariants
     align-items: center;
   }
 
-  .chart-block__segment-tab {
-    appearance: none;
-    border: 1px solid currentColor;
+  /* Chip pattern shared with FilterCompare.astro — the site's segmented-
+     control look. Selected state is driven by the ARIA attribute each
+     control already maintains (aria-selected for tabs, aria-pressed for
+     variant toggles), so the JS never needs to juggle style classes. */
+  .chart-block__segment-tab,
+  .chart-block__variant-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding-inline: var(--space-4);
+    border: 1px solid var(--color-border-subtle);
     border-radius: 999px;
     background: transparent;
-    color: inherit;
+    color: var(--color-ink-muted);
     cursor: pointer;
-    font: inherit;
-    line-height: 1;
-    padding: var(--space-2) var(--space-4);
     transition:
-      background-color 120ms ease,
-      box-shadow 120ms ease,
-      opacity 120ms ease;
+      background-color var(--transition-hover),
+      border-color var(--transition-hover),
+      color var(--transition-hover);
   }
 
-  .chart-block__segment-tab[aria-selected='true'] {
-    box-shadow: inset 0 -2px 0 currentColor;
-    opacity: 1;
+  .chart-block__segment-tab:hover,
+  .chart-block__variant-chip:hover {
+    border-color: var(--color-border-strong);
+    color: var(--color-ink);
   }
 
-  .chart-block__segment-tab:not([aria-selected='true']) {
-    opacity: 0.72;
-  }
-
-  .chart-block__segment-tab:focus-visible {
-    outline: 2px solid currentColor;
+  .chart-block__segment-tab:focus-visible,
+  .chart-block__variant-chip:focus-visible {
+    outline: 2px solid var(--color-action);
     outline-offset: 2px;
+  }
+
+  .chart-block__segment-tab[aria-selected='true'],
+  .chart-block__variant-chip[aria-pressed='true'] {
+    border-color: var(--color-action);
+    background: var(--color-action);
+    color: var(--color-ambient);
   }
 
   .chart-block__segment-panels {
@@ -1340,14 +1367,22 @@ const variantViews = hasVariants
     gap: var(--space-4);
   }
 
+  /* Author styles beat the UA stylesheet's [hidden] { display: none }, so
+     the display: grid rule above must be countered explicitly or the
+     native hidden attribute (set by the tabs script below) has no visual
+     effect and every panel renders stacked at once. */
+  .chart-block__segment-panel[hidden] {
+    display: none;
+  }
+
   .chart-block__segment-caption {
     margin: 0;
   }
 
   /* Filter-control variants — segmented button group (role="group" +
-     aria-pressed), distinct from the tab pattern above. Buttons reuse the
-     site's global .btn / .btn--primary / .btn--secondary pill styles so the
-     selected state reads as filled-vs-outline, not colour alone. */
+     aria-pressed), distinct from the tab pattern above. Buttons share the
+     FilterCompare chip styling defined alongside .chart-block__segment-tab,
+     so the selected state reads as filled-vs-outline, not colour alone. */
   .chart-block__variants {
     display: grid;
     gap: var(--space-5);
@@ -1362,6 +1397,13 @@ const variantViews = hasVariants
   .chart-block__variant-panel {
     display: grid;
     gap: var(--space-4);
+  }
+
+  /* Same [hidden] override as .chart-block__segment-panel above — without
+     it, the variants script's panel.hidden toggle is set correctly on the
+     DOM but display: grid keeps every panel visible regardless. */
+  .chart-block__variant-panel[hidden] {
+    display: none;
   }
 
   /* Before JS runs, clicking a variant button does nothing — keep the

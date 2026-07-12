@@ -423,6 +423,10 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     white-space: nowrap;
   }
 
+  .chart-dot-plot__table th[scope='col']:not(:first-child) {
+    text-align: right;
+  }
+
   /* Accessible table alternative — removed from the visual flow only. */
   .visually-hidden {
     position: absolute;
