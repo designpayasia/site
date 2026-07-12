@@ -57,7 +57,10 @@ export const getSectionsForReport = (report: ReportEntry, sections: ReportSectio
    matching chart, or a chart never referenced, is a content authoring
    mistake and must fail the build rather than degrade silently (e.g. by
    dropping the directive or appending stray charts at the end). */
-export type SectionContentSegment = { type: 'prose'; html: string } | { type: 'chart'; chart: ReportChart };
+export type SectionContentSegment =
+  | { type: 'prose'; html: string }
+  | { type: 'chart'; chart: ReportChart }
+  | { type: 'pullquote'; quote: string; attribution?: string };
 
 export const buildSectionContentSegments = (section: ReportSectionView): SectionContentSegment[] => {
   const segments = renderRichTextSegments(section.body);
@@ -66,7 +69,7 @@ export const buildSectionContentSegments = (section: ReportSectionView): Section
   const result: SectionContentSegment[] = [];
 
   for (const segment of segments) {
-    if (segment.type === 'prose') {
+    if (segment.type === 'prose' || segment.type === 'pullquote') {
       result.push(segment);
       continue;
     }

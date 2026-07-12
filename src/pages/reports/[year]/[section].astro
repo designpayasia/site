@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 import ChartBlock from '../../../components/ChartBlock.astro';
+import PullQuoteBeat from '../../../components/PullQuoteBeat.astro';
 import DarkBeat from '../../../components/DarkBeat.astro';
 import Base from '../../../layouts/Base.astro';
 import { renderPlotSvg } from '../../../lib/plot';
@@ -233,6 +234,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 fallbackRows: variant.fallbackTable.rows,
               }))}
             />
+          ) : segment.type === 'pullquote' ? (
+            <PullQuoteBeat quote={segment.quote} attribution={segment.attribution} />
           ) : (
             <div
               class={`section-copy prose${index === firstProseSegmentIndex ? ' section-copy--lead' : ''}`}
