@@ -85,14 +85,7 @@ for (const chart of sectionCharts) {
   }
 }
 
-const getFallbackColumns = (columns: string[]): [string, string] => {
-  if (columns.length !== 2) {
-    throw new Error(
-      `report:${report.id}:section:${section.id} charts must provide exactly two fallback columns.`,
-    );
-  }
-  return [columns[0], columns[1]];
-};
+const getFallbackColumns = (columns: string[]): string[] => columns;
 
 const sectionEvidenceIds = sectionCharts.flatMap((chart) => [
   ...chart.evidenceIds,

@@ -3,7 +3,10 @@ import { isSelfHostedSource } from '../lib/evidence';
 
 interface TableRow {
   label: string;
-  value: string;
+  /** Legacy single-value shape — only valid alongside a 2-column table. */
+  value?: string;
+  /** N-column shape: one printed value per non-label fallbackColumns entry. */
+  values?: string[];
 }
 
 type SeriesTone = 'signal' | 'action' | 'neutral';
@@ -29,7 +32,8 @@ interface Props {
   sourceLabel: string;
   sourceUrl: string;
   reportPath?: string;
-  fallbackColumns: [string, string];
+  /** 2–6 printed header cells: `[0]` is the row-label column. */
+  fallbackColumns: string[];
   fallbackRows: TableRow[];
   /** Per-market (or per-segment) mini-charts. All panels share one 0–100% scale. */
   panels: Panel[];
@@ -112,7 +116,19 @@ const normalizePanels = (inputPanels: Panel[]) => {
   return { renderedPanels, legend };
 };
 
+/**
+ * Normalise the legacy single-`value` row shape into `values: string[]` so
+ * the table below renders N columns the same way regardless of which shape
+ * the source frontmatter used.
+ */
+const normalizeTableRows = (inputRows: TableRow[]) =>
+  inputRows.map((row) => ({
+    label: row.label,
+    values: row.values ?? (row.value !== undefined ? [row.value] : []),
+  }));
+
 const { renderedPanels, legend } = normalizePanels(panels);
+const normalizedFallbackRows = normalizeTableRows(fallbackRows);
 const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
 const showSource = !isSelfHostedSource(sourceUrl, reportPath);
 const makeBlockId = (...parts: Array<string | undefined>) =>
@@ -218,15 +234,18 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
             <table class="chart-small-multiples__table">
               <thead>
                 <tr>
-                  <th>{fallbackColumns[0]}</th>
-                  <th>{fallbackColumns[1]}</th>
+                  {fallbackColumns.map((column) => (
+                    <th scope="col">{column}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                {fallbackRows.map((row) => (
+                {normalizedFallbackRows.map((row) => (
                   <tr>
                     <th scope="row">{row.label}</th>
-                    <td>{row.value}</td>
+                    {row.values.map((value) => (
+                      <td class="chart-small-multiples__table-value">{value}</td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
@@ -238,15 +257,18 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
           <table class="chart-small-multiples__table">
             <thead>
               <tr>
-                <th>{fallbackColumns[0]}</th>
-                <th>{fallbackColumns[1]}</th>
+                {fallbackColumns.map((column) => (
+                  <th scope="col">{column}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {fallbackRows.map((row) => (
+              {normalizedFallbackRows.map((row) => (
                 <tr>
                   <th scope="row">{row.label}</th>
-                  <td>{row.value}</td>
+                  {row.values.map((value) => (
+                    <td class="chart-small-multiples__table-value">{value}</td>
+                  ))}
                 </tr>
               ))}
             </tbody>
@@ -481,6 +503,13 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
     gap: var(--space-6);
   }
 
+  /* Horizontal scroll lives on the wrapper only, never the page — a wide
+     N-column fallback table (e.g. min/median/max/n) must never force the
+     document itself to scroll sideways. */
+  .chart-small-multiples__table-wrap {
+    overflow-x: auto;
+  }
+
   .chart-small-multiples__table {
     width: 100%;
     border-collapse: collapse;
@@ -493,6 +522,15 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
     text-align: left;
     vertical-align: top;
     overflow-wrap: break-word;
+  }
+
+  /* Value columns are numeric (counts, medians, percentages) — right-align
+     and set in the data face, tabular so digits line up down the column. */
+  .chart-small-multiples__table-value {
+    font-family: var(--font-data);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   /* Accessible table alternative — removed from the visual flow only. */
