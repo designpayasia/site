@@ -5,9 +5,10 @@ interface Props {
   quote: string;
   attribution?: string;
   inverse?: boolean;
+  tint?: boolean;
 }
 
-const { quote, attribution, inverse = false } = Astro.props;
+const { quote, attribution, inverse = false, tint = false } = Astro.props;
 
 const cleanQuote = quote?.trim();
 const cleanAttribution = attribution?.trim();
@@ -16,7 +17,7 @@ const blobFill = inverse ? 'var(--color-inverse-signal-fill)' : 'var(--color-sig
 ---
 
 <section
-  class:list={['pullquote-beat', inverse && 'pullquote-beat--inverse']}
+  class:list={['pullquote-beat', inverse && 'pullquote-beat--inverse', tint && 'pullquote-beat--tint']}
   data-theme={inverse ? 'dark' : undefined}
 >
   <Blob
@@ -58,6 +59,10 @@ const blobFill = inverse ? 'var(--color-inverse-signal-fill)' : 'var(--color-sig
   .pullquote-beat--inverse {
     background: var(--color-inverse-surface);
     color: var(--color-inverse-text);
+  }
+
+  .pullquote-beat--tint {
+    background: var(--color-signal-wash);
   }
 
   .pullquote-beat__blob {
