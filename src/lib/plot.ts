@@ -449,6 +449,10 @@ export interface RangeRow {
   min: number;
   median: number;
   max: number;
+  /** Interquartile lower bound. Only rendered as a band when paired with `q3`. */
+  q1?: number;
+  /** Interquartile upper bound. Only rendered as a band when paired with `q1`. */
+  q3?: number;
   /** Signal at most one row — the finding, not a rainbow. @default 'workhorse' */
   tone?: ChartTone;
 }
@@ -495,6 +499,13 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
   const workhorseRows = rows.filter((row) => row.tone !== 'signal');
   const signalRows = rows.filter((row) => row.tone === 'signal');
 
+  const workhorseBandRows = workhorseRows.filter(
+    (row) => row.q1 !== undefined && row.q3 !== undefined,
+  );
+  const signalBandRows = signalRows.filter(
+    (row) => row.q1 !== undefined && row.q3 !== undefined,
+  );
+
   const marks: Plot.Markish[] = [
     Plot.ruleY(rows, {
       y: 'label',
@@ -504,13 +515,44 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
       strokeOpacity: 0.35,
       strokeWidth: 2,
     }),
+  ];
+
+  // IQR band — only for rows carrying both q1 and q3. Rows without them are
+  // untouched by this mark, so the whisker + dot render exactly as before.
+  if (workhorseBandRows.length > 0) {
+    marks.push(
+      Plot.ruleY(workhorseBandRows, {
+        y: 'label',
+        x1: 'q1',
+        x2: 'q3',
+        stroke: 'currentColor',
+        strokeOpacity: 0.8,
+        strokeWidth: 10,
+      }),
+    );
+  }
+
+  if (signalBandRows.length > 0) {
+    marks.push(
+      Plot.ruleY(signalBandRows, {
+        y: 'label',
+        x1: 'q1',
+        x2: 'q3',
+        stroke: 'currentColor',
+        strokeOpacity: 0.8,
+        strokeWidth: 10,
+      }),
+    );
+  }
+
+  marks.push(
     Plot.dot(workhorseRows, {
       y: 'label',
       x: 'median',
       fill: 'currentColor',
       r: 5.5,
     }),
-  ];
+  );
 
   if (signalRows.length > 0) {
     marks.push(
@@ -575,6 +617,14 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
   if (signalRows.length > 0) {
     const dotGroups = svg.querySelectorAll('g[aria-label="dot"]');
     dotGroups[dotGroups.length - 1]?.classList.add('chart-block__fill--signal');
+  }
+
+  // The signal band mark (if any) is always the last `aria-label="rule"`
+  // group — it's pushed after the whisker and workhorse band, both also
+  // rules, and before the dot marks (a different mark type).
+  if (signalBandRows.length > 0) {
+    const ruleGroups = svg.querySelectorAll('g[aria-label="rule"]');
+    ruleGroups[ruleGroups.length - 1]?.classList.add('chart-block__fill--signal');
   }
 
   return finaliseSvg(svg, tone);

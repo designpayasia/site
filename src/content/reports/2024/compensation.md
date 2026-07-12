@@ -167,30 +167,42 @@ charts:
             - label: Junior IC (n=296)
               min: 6000000
               median: 66000000
+              q1: 42000000
+              q3: 84000000
               max: 240000000
               tone: workhorse
             - label: Mid-level IC (n=611)
               min: 4000000
               median: 90000000
+              q1: 66000000
+              q3: 120508000
               max: 768000000
               tone: workhorse
             - label: Senior IC (n=262)
               min: 10000000
               median: 130000000
+              q1: 84000000
+              q3: 205500000
               max: 1440000000
             - label: Lead / Staff / Principal IC (n=136)
               min: 22000000
               median: 133000000
+              q1: 90000000
+              q3: 210750000
               max: 686000000
               tone: workhorse
             - label: Manager (n=40)
               min: 23000000
               median: 256000000
+              q1: 135600000
+              q3: 410000000
               max: 632000000
               tone: workhorse
             - label: Head of department / Senior leadership (n=15)
               min: 19000000
               median: 195000000
+              q1: 114000000
+              q3: 708000000
               max: 1420000000
               tone: workhorse
           annotations:
@@ -234,25 +246,35 @@ charts:
             - label: Junior IC (n=40)
               min: 6000
               median: 60000
+              q1: 52200
+              q3: 68562
               max: 190000
               tone: workhorse
             - label: Mid-level IC (n=54)
               min: 30000
               median: 72000
+              q1: 53425
+              q3: 98430
               max: 165000
               tone: workhorse
             - label: Senior IC (n=45)
               min: 44000
               median: 103000
+              q1: 78000
+              q3: 131800
               max: 434000
             - label: Lead / Staff / Principal IC (n=12)
               min: 39000
               median: 120000
+              q1: 88550
+              q3: 165000
               max: 246000
               tone: workhorse
             - label: Manager (n=13)
               min: 54000
               median: 133000
+              q1: 72000
+              q3: 153100
               max: 267000
               tone: workhorse
           annotations:
@@ -296,20 +318,28 @@ charts:
             - label: Junior IC (n=15)
               min: 24000
               median: 42000
+              q1: 38700
+              q3: 52000
               max: 72000
               tone: workhorse
             - label: Mid-level IC (n=26)
               min: 40000
               median: 76000
+              q1: 56400
+              q3: 101225
               max: 180000
               tone: workhorse
             - label: Senior IC (n=22)
               min: 68000
               median: 108000
+              q1: 84000
+              q3: 136658
               max: 240000
             - label: Lead / Staff / Principal IC (n=16)
               min: 46000
               median: 154000
+              q1: 93400
+              q3: 168952
               max: 317000
               tone: workhorse
           annotations:
