@@ -23,10 +23,15 @@ import * as Plot from '@observablehq/plot';
  * `--signal`) so ChartBlock's existing CSS sets the `color` property that
  * `currentColor` resolves against. Dark mode is then free via `_dark.css`
  * — nothing here needs a dark-mode override of its own. Plot's inline
- * `font-family`/`font-size` on the root <svg> and its auto-injected
- * `<style>` block (which hardcodes `--plot-background: white`) are
- * stripped after render so axis/tick text falls through to the site's own
- * CSS (DM Mono via `--font-data`).
+ * `font-family` attribute and its auto-injected `<style>` block (which
+ * hardcodes `--plot-background: white`) are stripped after render so
+ * axis/tick text falls through to the site's own CSS for font family (DM
+ * Mono via `--font-data`). Font *size* is instead pinned via an inline
+ * `style` attribute to `PLOT_TEXT_SIZE` (11px, ChartBlock's `--ui-meta`
+ * label scale) — an inline style is the only thing from this module that
+ * can outrank ChartBlock's own `.chart-block__plot svg` rule (14px,
+ * `--type-caption`), and 14px read visibly larger than ChartBlock's native
+ * bar labels in review.
  */
 
 export interface ScatterPoint {
@@ -112,16 +117,21 @@ interface RenderedSvgElement {
 
 const PLOT_CLASS_NAME = 'dpa-plot';
 
+/** Matches ChartBlock's `--ui-meta` label scale (11px / DM Mono) — see the
+ *  theming-contract comment at the top of this file. */
+const PLOT_TEXT_SIZE = '11px';
+
 /**
- * Shared post-render pass: strip Plot's inline font defaults and its
- * auto-injected style block (hardcodes `--plot-background: white`), mark
- * the SVG decorative, and tag it with the tone class ChartBlock's CSS
- * themes via `currentColor`.
+ * Shared post-render pass: strip Plot's inline font-family default and its
+ * auto-injected style block (hardcodes `--plot-background: white`), pin
+ * font size to `PLOT_TEXT_SIZE` via inline style, mark the SVG decorative,
+ * and tag it with the tone class ChartBlock's CSS themes via `currentColor`.
  */
 function finaliseSvg(svg: RenderedSvgElement, tone: ChartTone): string {
   svg.removeAttribute('font-family');
   svg.removeAttribute('font-size');
   svg.querySelector('style')?.remove();
+  svg.setAttribute('style', `font-size: ${PLOT_TEXT_SIZE};`);
 
   svg.setAttribute('aria-hidden', 'true');
   svg.setAttribute('role', 'presentation');
@@ -573,9 +583,11 @@ function escapeXml(value: string): string {
  * Two series over shared categories, horizontal bars — serves both the
  * `groupedBar` and `pairedBar` chart types (one renderer: the drawing is
  * identical, only the authoring intent differs). Series A is solid
- * workhorse fill; series B is an outline (currentColor stroke, 0.12
- * fill-opacity) so the pair reads in one hue with no new colour tokens,
- * and survives greyscale/print unchanged. A small key row naming both
+ * workhorse fill; series B is a lighter 0.12 fill-opacity fill so the pair
+ * reads in one hue with no new colour tokens, and survives greyscale/print
+ * unchanged. Neither series carries a stroke — matching treatment keeps
+ * the pair visually symmetric (an earlier version stroked series B only,
+ * which read heavier/thicker than series A). A small key row naming both
  * series is injected into the top margin as plain classed SVG — swatch
  * geometry is fixed and label spacing is mono-width arithmetic, so the
  * output stays deterministic.
@@ -622,8 +634,6 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
       x: 'value',
       fill: 'currentColor',
       fillOpacity: 0.12,
-      stroke: 'currentColor',
-      strokeWidth: 1.5,
     }),
   ];
 
@@ -669,12 +679,18 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
     y: {
       axis: null,
       domain: [seriesALabel, seriesBLabel],
-      padding: 0.15,
+      // Gap between the A/B bars within one paired group — was 0.15
+      // (chunky, near-touching pairs in review); widened for the slim,
+      // airy feel of ChartBlock's own pill bars.
+      padding: 0.35,
     },
     fy: {
       label: null,
       domain: labels,
-      padding: 0.25,
+      // Gap between category groups — wider than the within-group `y`
+      // padding above so groups stay visually distinct from their own
+      // paired bars.
+      padding: 0.4,
     },
     marks,
   }) as unknown as RenderedSvgElement;
@@ -691,7 +707,7 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
     `<rect width="${KEY_SWATCH_SIZE}" height="${KEY_SWATCH_SIZE}" fill="currentColor" />` +
     `<text x="${KEY_TEXT_OFFSET}" y="10">${escapeXml(seriesALabel)}</text>` +
     `<g transform="translate(${seriesBOffset},0)">` +
-    `<rect width="${KEY_SWATCH_SIZE}" height="${KEY_SWATCH_SIZE}" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.5" />` +
+    `<rect width="${KEY_SWATCH_SIZE}" height="${KEY_SWATCH_SIZE}" fill="currentColor" fill-opacity="0.12" />` +
     `<text x="${KEY_TEXT_OFFSET}" y="10">${escapeXml(seriesBLabel)}</text>` +
     `</g></g>`;
 
