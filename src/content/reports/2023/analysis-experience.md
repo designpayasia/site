@@ -16,19 +16,22 @@ charts:
     sourceUrl: https://designpay.asia/reports/2023
     fallbackTable:
       columns:
-        - Subgroup among Singapore survey respondents (n)
-        - Reported total compensation (SGD), min – median – max, not a population estimate
+        - Subgroup among Singapore survey respondents
+        - n
+        - Minimum (S$)
+        - Median (S$)
+        - Maximum (S$)
       rows:
-        - label: Junior IC (n=63)
-          value: S$12,000 – S$54,000 – S$157,000
-        - label: Mid-level IC (n=56)
-          value: S$34,800 – S$75,800 – S$210,000
-        - label: Senior IC (n=52)
-          value: S$44,200 – S$119,500 – S$339,927
-        - label: Lead / Staff / Principal IC (n=19)
-          value: S$38,400 – S$103,200 – S$201,342
-        - label: People Manager (n=23)
-          value: S$37,396 – S$139,100 – S$235,000
+        - label: Junior IC
+          values: ["63", "12,000", "54,000", "157,000"]
+        - label: Mid-level IC
+          values: ["56", "34,800", "75,800", "210,000"]
+        - label: Senior IC
+          values: ["52", "44,200", "119,500", "339,927"]
+        - label: Lead / Staff / Principal IC
+          values: ["19", "38,400", "103,200", "201,342"]
+        - label: People Manager
+          values: ["23", "37,396", "139,100", "235,000"]
     plot:
       type: range
       xLabel: Total compensation (S$)
@@ -65,17 +68,20 @@ charts:
     sourceUrl: https://designpay.asia/reports/2023
     fallbackTable:
       columns:
-        - Years of design experience (n)
-        - Reported total compensation (SGD), min – median – max, not a population estimate
+        - Years of design experience
+        - n
+        - Minimum (S$)
+        - Median (S$)
+        - Maximum (S$)
       rows:
-        - label: 0–3 years (n=98)
-          value: S$12,000 – S$62,700 – S$230,636
-        - label: 4–6 years (n=55)
-          value: S$35,100 – S$96,000 – S$230,000
-        - label: 7–9 years (n=38)
-          value: S$48,000 – S$131,650 – S$208,000
-        - label: 10+ years (n=32)
-          value: S$52,000 – S$156,100 – S$355,000
+        - label: 0–3 years
+          values: ["98", "12,000", "62,700", "230,636"]
+        - label: 4–6 years
+          values: ["55", "35,100", "96,000", "230,000"]
+        - label: 7–9 years
+          values: ["38", "48,000", "131,650", "208,000"]
+        - label: 10+ years
+          values: ["32", "52,000", "156,100", "355,000"]
     plot:
       type: range
       xLabel: Total compensation (S$)
@@ -119,6 +125,15 @@ charts:
           value: S$70,100
         - label: International work experience (n=73)
           value: S$130,000
+    bars:
+      - label: No international work experience (n=150)
+        value: 54
+        tone: workhorse
+        displayValue: S$70,100
+      - label: International work experience (n=73)
+        value: 100
+        tone: workhorse
+        displayValue: S$130,000
   - id: sg-compensation-negotiation
     title: Median total compensation by salary negotiation
     caption: Reported median total compensation in SGD among Singapore survey respondents, grouped by their answer about negotiating current compensation. These survey medians are not population estimates. Blank responses are omitted.
@@ -139,6 +154,19 @@ charts:
           value: S$84,150
         - label: Not applicable (n=11)
           value: S$85,801
+    bars:
+      - label: Yes (n=121)
+        value: 98
+        tone: workhorse
+        displayValue: S$84,500
+      - label: No (n=88)
+        value: 98
+        tone: workhorse
+        displayValue: S$84,150
+      - label: Not applicable (n=11)
+        value: 100
+        tone: workhorse
+        displayValue: S$85,801
   - id: sg-compensation-negotiation-by-yoe
     title: Median total compensation by negotiation and years of design experience
     caption: Reported median total compensation in SGD among Singapore survey respondents who negotiated their current compensation versus those who did not, grouped by years of design experience (YOE). These survey medians are not population estimates. Per-cell sample sizes for this breakdown are not separately published; only the YOE-band totals shown in the years-of-experience chart above are reported.

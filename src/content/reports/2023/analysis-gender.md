@@ -44,25 +44,20 @@ charts:
     sourceUrl: https://designpay.asia/reports/2023
     fallbackTable:
       columns:
-        - Seniority level, gender (n)
-        - Reported median total compensation (SGD)
+        - Seniority level
+        - Men median (S$)
+        - Men n
+        - Women median (S$)
+        - Women n
       rows:
-        - label: Junior IC, Man (n=10)
-          value: S$47,600
-        - label: Junior IC, Woman (n=53)
-          value: S$54,000
-        - label: Mid-level IC, Man (n=20)
-          value: S$83,900
-        - label: Mid-level IC, Woman (n=35)
-          value: S$74,400
-        - label: Senior IC, Man (n=20)
-          value: S$133,150
-        - label: Senior IC, Woman (n=32)
-          value: S$105,050
-        - label: People Manager, Man (n=13)
-          value: S$151,380
-        - label: People Manager, Woman (n=10)
-          value: S$119,250
+        - label: Junior IC
+          values: ["47,600", "10", "54,000", "53"]
+        - label: Mid-level IC
+          values: ["83,900", "20", "74,400", "35"]
+        - label: Senior IC
+          values: ["133,150", "20", "105,050", "32"]
+        - label: People Manager
+          values: ["151,380", "13", "119,250", "10"]
     plot:
       type: groupedBar
       seriesALabel: Men

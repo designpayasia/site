@@ -30,6 +30,27 @@ charts:
           value: S$58,300
         - label: Startup (n=61)
           value: S$90,000
+    bars:
+      - label: Agency / Consulting (n=44)
+        value: 56
+        tone: workhorse
+        displayValue: S$63,548
+      - label: Government (n=11)
+        value: 73
+        tone: workhorse
+        displayValue: S$84,000
+      - label: Large enterprise (MNC) (n=81)
+        value: 100
+        tone: workhorse
+        displayValue: S$114,500
+      - label: Small-medium enterprise (n=18)
+        value: 51
+        tone: workhorse
+        displayValue: S$58,300
+      - label: Startup (n=61)
+        value: 79
+        tone: workhorse
+        displayValue: S$90,000
   - id: sg-compensation-industry
     title: Median total compensation by industry
     caption: Reported median total compensation in SGD among Singapore survey respondents in each published industry subgroup with at least 10 respondents. These survey medians are not population estimates. Subgroups below n=10, and unspecified industry responses, are suppressed.
@@ -104,6 +125,31 @@ charts:
           value: S$100,550
         - label: 10,001+ employees (n=51)
           value: S$112,500
+    bars:
+      - label: 1–10 employees (n=13)
+        value: 40
+        tone: workhorse
+        displayValue: S$44,900
+      - label: 11–50 employees (n=37)
+        value: 48
+        tone: workhorse
+        displayValue: S$54,000
+      - label: 51–200 employees (n=40)
+        value: 71
+        tone: workhorse
+        displayValue: S$80,200
+      - label: 201–1,000 employees (n=38)
+        value: 90
+        tone: workhorse
+        displayValue: S$100,700
+      - label: 1,001–10,000 employees (n=44)
+        value: 89
+        tone: workhorse
+        displayValue: S$100,550
+      - label: 10,001+ employees (n=51)
+        value: 100
+        tone: workhorse
+        displayValue: S$112,500
   - id: sg-compensation-hq
     title: Median total compensation by headquarters location
     caption: Reported median total compensation in SGD among Singapore survey respondents, grouped by whether they work physically at their company's headquarters. These survey medians are not population estimates.

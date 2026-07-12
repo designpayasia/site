@@ -29,14 +29,15 @@ charts:
     fallbackTable:
       columns:
         - Response
-        - Share (N=323)
+        - Respondents (N=323)
+        - Share (%)
       rows:
         - label: Yes
-          value: 174 (53.9%)
+          values: ["174", "53.9"]
         - label: No
-          value: 96 (29.7%)
+          values: ["96", "29.7"]
         - label: N/A
-          value: 53 (16.4%)
+          values: ["53", "16.4"]
     bars:
       - label: Yes
         value: 53.9
@@ -66,20 +67,21 @@ charts:
     fallbackTable:
       columns:
         - Increase bracket
-        - Share (N=216)
+        - Respondents (N=216)
+        - Share (%)
       rows:
         - label: No increase
-          value: 43 (19.9%)
+          values: ["43", "19.9"]
         - label: 0.1–5%
-          value: 41 (19.0%)
+          values: ["41", "19.0"]
         - label: 6–10%
-          value: 34 (15.7%)
+          values: ["34", "15.7"]
         - label: 11–15%
-          value: 23 (10.6%)
+          values: ["23", "10.6"]
         - label: 16–20%
-          value: 20 (9.3%)
+          values: ["20", "9.3"]
         - label: More than 20%
-          value: 55 (25.5%)
+          values: ["55", "25.5"]
     bars:
       - label: No increase
         value: 19.9
@@ -126,21 +128,22 @@ charts:
       columns:
         - Rating
         - Respondents
+        - Share (%)
       rows:
         - label: "1 - Strongly disagree"
-          value: 11 (3.4%)
+          values: ["11", "3.4"]
         - label: "2 - Disagree"
-          value: 29 (9.0%)
+          values: ["29", "9.0"]
         - label: "3 - Somewhat disagree"
-          value: 36 (11.1%)
+          values: ["36", "11.1"]
         - label: "4 - Neutral"
-          value: 69 (21.4%)
+          values: ["69", "21.4"]
         - label: "5 - Somewhat agree"
-          value: 79 (24.5%)
+          values: ["79", "24.5"]
         - label: "6 - Agree"
-          value: 50 (15.5%)
+          values: ["50", "15.5"]
         - label: "7 - Strongly agree"
-          value: 39 (12.1%)
+          values: ["39", "12.1"]
   - id: chart-switch-primary-work-area
     type: bar
     title: Switch primary area of work
@@ -162,22 +165,23 @@ charts:
     fallbackTable:
       columns:
         - Response
-        - Share (N=312)
+        - Respondents (N=312)
+        - Share (%)
       rows:
         - label: "1 - Strongly disagree"
-          value: 23 (7.4%)
+          values: ["23", "7.4"]
         - label: "2 - Disagree"
-          value: 31 (9.9%)
+          values: ["31", "9.9"]
         - label: "3 - Somewhat disagree"
-          value: 38 (12.2%)
+          values: ["38", "12.2"]
         - label: "4 - Neutral"
-          value: 60 (19.2%)
+          values: ["60", "19.2"]
         - label: "5 - Somewhat agree"
-          value: 74 (23.7%)
+          values: ["74", "23.7"]
         - label: "6 - Agree"
-          value: 56 (17.9%)
+          values: ["56", "17.9"]
         - label: "7 - Strongly agree"
-          value: 30 (9.6%)
+          values: ["30", "9.6"]
     bars:
       - label: "1 - Strongly disagree"
         value: 7.4
@@ -220,22 +224,23 @@ charts:
     fallbackTable:
       columns:
         - Response
-        - Share (N=309)
+        - Respondents (N=309)
+        - Share (%)
       rows:
         - label: "1 - Strongly disagree"
-          value: 70 (22.7%)
+          values: ["70", "22.7"]
         - label: "2 - Disagree"
-          value: 40 (12.9%)
+          values: ["40", "12.9"]
         - label: "3 - Somewhat disagree"
-          value: 44 (14.2%)
+          values: ["44", "14.2"]
         - label: "4 - Neutral"
-          value: 60 (19.4%)
+          values: ["60", "19.4"]
         - label: "5 - Somewhat agree"
-          value: 42 (13.6%)
+          values: ["42", "13.6"]
         - label: "6 - Agree"
-          value: 33 (10.7%)
+          values: ["33", "10.7"]
         - label: "7 - Strongly agree"
-          value: 20 (6.5%)
+          values: ["20", "6.5"]
     bars:
       - label: "1 - Strongly disagree"
         value: 22.7
@@ -278,22 +283,23 @@ charts:
     fallbackTable:
       columns:
         - Response
-        - Share (N=313)
+        - Respondents (N=313)
+        - Share (%)
       rows:
         - label: "1 - Strongly disagree"
-          value: 44 (14.1%)
+          values: ["44", "14.1"]
         - label: "2 - Disagree"
-          value: 31 (9.9%)
+          values: ["31", "9.9"]
         - label: "3 - Somewhat disagree"
-          value: 33 (10.5%)
+          values: ["33", "10.5"]
         - label: "4 - Neutral"
-          value: 51 (16.3%)
+          values: ["51", "16.3"]
         - label: "5 - Somewhat agree"
-          value: 42 (13.4%)
+          values: ["42", "13.4"]
         - label: "6 - Agree"
-          value: 44 (14.1%)
+          values: ["44", "14.1"]
         - label: "7 - Strongly agree"
-          value: 68 (21.7%)
+          values: ["68", "21.7"]
     bars:
       - label: "1 - Strongly disagree"
         value: 14.1

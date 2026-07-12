@@ -36,21 +36,22 @@ charts:
       columns:
         - Rating
         - Respondents
+        - Share (%)
       rows:
         - label: "1 - Strongly disagree"
-          value: 5 (1.5%)
+          values: ["5", "1.5"]
         - label: "2 - Disagree"
-          value: 10 (3.1%)
+          values: ["10", "3.1"]
         - label: "3 - Somewhat disagree"
-          value: 16 (5.0%)
+          values: ["16", "5.0"]
         - label: "4 - Neutral"
-          value: 32 (9.9%)
+          values: ["32", "9.9"]
         - label: "5 - Somewhat agree"
-          value: 60 (18.6%)
+          values: ["60", "18.6"]
         - label: "6 - Agree"
-          value: 92 (28.5%)
+          values: ["92", "28.5"]
         - label: "7 - Strongly agree"
-          value: 102 (31.6%)
+          values: ["102", "31.6"]
   - id: extra-hours-worked
     title: Extra hours worked
     caption: Distribution of extra hours worked outside regular hours (N=311).
@@ -72,15 +73,16 @@ charts:
       columns:
         - Extra hours
         - Respondents
+        - Share (%)
       rows:
         - label: "0"
-          value: 106 (32.8%)
+          values: ["106", "32.8"]
         - label: 1-2
-          value: 87 (26.9%)
+          values: ["87", "26.9"]
         - label: 3-5
-          value: 65 (20.1%)
+          values: ["65", "20.1"]
         - label: 5+
-          value: 53 (16.4%)
+          values: ["53", "16.4"]
     defaultSegmentLabel: All markets
     segments:
       - id: singapore
@@ -100,15 +102,16 @@ charts:
           columns:
             - Extra hours
             - Respondents
+            - Share (%)
           rows:
             - label: "0"
-              value: 67 (29.9%)
+              values: ["67", "29.9"]
             - label: 1-2
-              value: 66 (29.5%)
+              values: ["66", "29.5"]
             - label: 3-5
-              value: 42 (18.8%)
+              values: ["42", "18.8"]
             - label: 5+
-              value: 42 (18.8%)
+              values: ["42", "18.8"]
 keyFindings:
   - Work arrangement comfort scores highest of all sentiment categories at 5.57
     out of 7.

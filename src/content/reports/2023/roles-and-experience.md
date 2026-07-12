@@ -24,26 +24,27 @@ charts:
     fallbackTable:
       columns:
         - Job title
-        - Share (N=323)
+        - Respondents (N=323)
+        - Share (%)
       rows:
         - label: Product Designer
-          value: 33 (10.2%)
+          values: ["33", "10.2"]
         - label: UX Designer
-          value: 25 (7.7%)
+          values: ["25", "7.7"]
         - label: Senior Product Designer
-          value: 18 (5.6%)
+          values: ["18", "5.6"]
         - label: UI/UX Designer
-          value: 18 (5.6%)
+          values: ["18", "5.6"]
         - label: UX Researcher
-          value: 10 (3.1%)
+          values: ["10", "3.1"]
         - label: Product designer
-          value: 9 (2.8%)
+          values: ["9", "2.8"]
         - label: Senior UX Designer
-          value: 9 (2.8%)
+          values: ["9", "2.8"]
         - label: UIUX Designer
-          value: 7 (2.2%)
+          values: ["7", "2.2"]
         - label: Other
-          value: 194 (60.1%)
+          values: ["194", "60.1"]
     bars:
       - label: Product Designer
         value: 10.2
@@ -85,22 +86,23 @@ charts:
     fallbackTable:
       columns:
         - Career Level
-        - Share
+        - Respondents
+        - Share (%)
       rows:
         - label: Junior IC
-          value: 101 (31.3%)
+          values: ["101", "31.3"]
         - label: Mid-level IC
-          value: 76 (23.5%)
+          values: ["76", "23.5"]
         - label: Senior IC
-          value: 72 (22.3%)
+          values: ["72", "22.3"]
         - label: Lead / Staff / Principal IC
-          value: 32 (9.9%)
+          values: ["32", "9.9"]
         - label: People Manager
-          value: 27 (8.4%)
+          values: ["27", "8.4"]
         - label: Director
-          value: 11 (3.4%)
+          values: ["11", "3.4"]
         - label: VP
-          value: 4 (1.2%)
+          values: ["4", "1.2"]
     bars:
       - label: Junior IC
         value: 31.3
@@ -186,16 +188,17 @@ charts:
     fallbackTable:
       columns:
         - Years of design experience
-        - Share (N=323)
+        - Respondents (N=323)
+        - Share (%)
       rows:
         - label: 0–3 years
-          value: 152 (47.1%)
+          values: ["152", "47.1"]
         - label: 4–6 years
-          value: 75 (23.2%)
+          values: ["75", "23.2"]
         - label: 7–9 years
-          value: 46 (14.2%)
+          values: ["46", "14.2"]
         - label: 10+ years
-          value: 50 (15.5%)
+          values: ["50", "15.5"]
     bars:
       - label: 0–3 years
         value: 47.1
@@ -357,35 +360,36 @@ charts:
       columns:
         - Design × total YOE band
         - Respondents (N=323)
+        - Share (%)
       rows:
         - label: Design 0–3y / total 0–3y
-          value: 94 (29.1%)
+          values: ["94", "29.1"]
         - label: Design 0–3y / total 4–6y
-          value: 37 (11.5%)
+          values: ["37", "11.5"]
         - label: Design 0–3y / total 7–9y
-          value: 9 (2.8%)
+          values: ["9", "2.8"]
         - label: Design 0–3y / total 10+y
-          value: 12 (3.7%)
+          values: ["12", "3.7"]
         - label: Design 4–6y / total 0–3y
-          value: 5 (1.5%)
+          values: ["5", "1.5"]
         - label: Design 4–6y / total 4–6y
-          value: 43 (13.3%)
+          values: ["43", "13.3"]
         - label: Design 4–6y / total 7–9y
-          value: 11 (3.4%)
+          values: ["11", "3.4"]
         - label: Design 4–6y / total 10+y
-          value: 16 (5.0%)
+          values: ["16", "5.0"]
         - label: Design 7–9y / total 4–6y
-          value: 2 (0.6%)
+          values: ["2", "0.6"]
         - label: Design 7–9y / total 7–9y
-          value: 26 (8.0%)
+          values: ["26", "8.0"]
         - label: Design 7–9y / total 10+y
-          value: 18 (5.6%)
+          values: ["18", "5.6"]
         - label: Design 10+y / total 4–6y
-          value: 1 (0.3%)
+          values: ["1", "0.3"]
         - label: Design 10+y / total 7–9y
-          value: 4 (1.2%)
+          values: ["4", "1.2"]
         - label: Design 10+y / total 10+y
-          value: 45 (13.9%)
+          values: ["45", "13.9"]
   - id: chart-formal-education
     type: bar
     title: Highest level of formal education
@@ -405,18 +409,19 @@ charts:
     fallbackTable:
       columns:
         - Education level
-        - Share (N=323)
+        - Respondents (N=323)
+        - Share (%)
       rows:
         - label: Bachelor's degree
-          value: 214 (66.3%)
+          values: ["214", "66.3"]
         - label: Master's degree
-          value: 50 (15.5%)
+          values: ["50", "15.5"]
         - label: Diploma
-          value: 44 (13.6%)
+          values: ["44", "13.6"]
         - label: High school/secondary
-          value: 9 (2.8%)
+          values: ["9", "2.8"]
         - label: Doctoral or higher
-          value: 2 (0.6%)
+          values: ["2", "0.6"]
     bars:
       - label: Bachelor's degree
         value: 66.3
@@ -458,18 +463,19 @@ charts:
     fallbackTable:
       columns:
         - Pathway
-        - Count (Percent)
+        - Count
+        - Share (%)
       rows:
         - label: Formal design education
-          value: 161 (49.8%)
+          values: ["161", "49.8"]
         - label: Online certification
-          value: 94 (29.1%)
+          values: ["94", "29.1"]
         - label: Bootcamps
-          value: 90 (27.9%)
+          values: ["90", "27.9"]
         - label: In-person certified courses
-          value: 36 (11.1%)
+          values: ["36", "11.1"]
         - label: No formal design education
-          value: 72 (22.3%)
+          values: ["72", "22.3"]
   - id: chart-design-related-education
     title: Design-related education
     caption: Restored yes/no split for raw column 12 using the original report's intended grouping.
@@ -487,12 +493,13 @@ charts:
     fallbackTable:
       columns:
         - Answer
-        - Count (Percent)
+        - Count
+        - Share (%)
       rows:
         - label: Yes
-          value: 263 (81.4%)
+          values: ["263", "81.4"]
         - label: No
-          value: 60 (18.6%)
+          values: ["60", "18.6"]
   - id: chart-lived-and-worked-abroad
     title: Lived and worked abroad
     caption: Whether respondents had lived and worked outside their home country, out of 323 responses.
@@ -510,12 +517,13 @@ charts:
     fallbackTable:
       columns:
         - Answer
-        - Count (Percent)
+        - Count
+        - Share (%)
       rows:
         - label: Yes
-          value: 92 (28.5%)
+          values: ["92", "28.5"]
         - label: No
-          value: 231 (71.5%)
+          values: ["231", "71.5"]
 ---
 
 ## Job titles
