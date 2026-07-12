@@ -121,6 +121,8 @@ Career momentum is positive across the region, with 70.3% of all respondents rep
 
 ::chart{id="career-growth"}
 
+::pullquote{quote="Careers are moving. Pay is not keeping up."}
+
 ::chart{id="types-of-career-growth"}
 
 ::chart{id="pay-increase-career-growth"}

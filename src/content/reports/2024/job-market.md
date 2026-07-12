@@ -129,6 +129,8 @@ The 2024 job market for designers in Southeast Asia reflects broader global tech
 
 ::chart{id="layoff-impact"}
 
+::pullquote{quote="Job insecurity has outrun the actual job losses."}
+
 ::chart{id="layoff-effects"}
 
 ::chart{id="job-security-concern"}
