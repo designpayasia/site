@@ -219,6 +219,24 @@ function valueAxisMarginRight(
   return Math.max(base, Math.ceil(tickFormat(lastTick).length / 2) * MONO_CHAR_WIDTH + 4);
 }
 
+/**
+ * Vertical gap (px) between an annotation's text and the row/point it
+ * labels. Paired with `lineAnchor: 'bottom'` below, this is the *full*
+ * clearance: Plot's default lineAnchor ('middle') instead centres the text
+ * block on the offset point, so half the text height still overlapped the
+ * mark it was meant to clear (seen in review as the label crossing the
+ * range chart's own rule/dot at typical 44–56px row heights).
+ */
+const ANNOTATION_CLEARANCE = 12;
+
+/**
+ * Extra marginTop (px) reserved when an annotation labels the topmost
+ * row/category: enough for the clearance above plus one line of
+ * caption-sized text, so the label doesn't clip against the SVG's own top
+ * edge instead of the row below it.
+ */
+const ANNOTATION_TOP_RESERVE = 36;
+
 function annotationTextMarks(
   annotations: PlotAnnotation[] | undefined,
   { faceted = false, domainMax }: { faceted?: boolean; domainMax: number },
@@ -228,10 +246,13 @@ function annotationTextMarks(
     const position = faceted
       ? { x: () => annotation.x, fy: () => String(annotation.y) }
       : { x: () => annotation.x, y: () => annotation.y };
-    // Placement safety nets (form review): a small default dy lifts the
-    // text off the category's own marks, and annotations in the right 40%
-    // of the value domain auto-anchor 'end' so they extend inward rather
-    // than clipping past the frame edge. An explicit author anchor wins.
+    // Placement safety nets (form review): lineAnchor 'bottom' plus a fixed
+    // dy lifts the text's own baseline clear of the row/point it labels —
+    // Plot's default 'middle' lineAnchor only moves the text's centre by
+    // dy, leaving the label's lower half still over the mark. Annotations
+    // in the right 40% of the value domain auto-anchor 'end' so they
+    // extend inward rather than clipping past the frame edge. An explicit
+    // author anchor wins.
     const anchor =
       annotation.anchor ??
       (typeof annotation.x === 'number' && annotation.x > 0.6 * domainMax ? 'end' : 'start');
@@ -239,8 +260,9 @@ function annotationTextMarks(
       ...position,
       text: () => annotation.text,
       textAnchor: anchor,
+      lineAnchor: 'bottom',
       dx: anchor === 'end' ? -6 : 6,
-      dy: -10,
+      dy: -ANNOTATION_CLEARANCE,
     });
   });
 }
@@ -462,6 +484,14 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
   const tickFormat = makeTickFormat(valuePrefix, valueSuffix);
   marks.push(...annotationTextMarks(annotations, { domainMax }));
 
+  // A top-row annotation lifts above the topmost band, into the plot's
+  // own marginTop — widen it so the label has room instead of clipping at
+  // the SVG's top edge. Other rows have a full row height of headroom
+  // above them already, so only the first row needs the reserve.
+  const topRowHasAnnotation = (annotations ?? []).some(
+    (annotation) => rows.length > 0 && annotation.y === rows[0].label,
+  );
+
   const svg = Plot.plot({
     document: document as unknown as Document,
     figure: false,
@@ -470,6 +500,7 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
     height,
     marginLeft: categoryMarginLeft(labels),
     marginRight: valueAxisMarginRight(currencyAxis, tickFormat),
+    marginTop: topRowHasAnnotation ? ANNOTATION_TOP_RESERVE : undefined,
     marginBottom: 48,
     x: {
       label: xLabel,
@@ -605,6 +636,13 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
 
   const marginLeft = categoryMarginLeft(labels);
 
+  // Base marginTop (44) reserves room for the key row (below); a top-facet
+  // annotation needs more than that on top, or its label clips at the
+  // SVG's top edge instead of clearing the facet it names.
+  const topCategoryHasAnnotation = (annotations ?? []).some(
+    (annotation) => categories.length > 0 && annotation.y === categories[0].label,
+  );
+
   const svg = Plot.plot({
     document: document as unknown as Document,
     figure: false,
@@ -613,7 +651,7 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
     height,
     marginLeft,
     marginRight: valueAxisMarginRight(currencyAxis, tickFormat),
-    marginTop: 44,
+    marginTop: topCategoryHasAnnotation ? 44 + ANNOTATION_TOP_RESERVE : 44,
     marginBottom: 48,
     x: {
       label: xLabel ?? null,
