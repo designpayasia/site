@@ -210,17 +210,22 @@ export const renderRichTextHtml = (value: string | undefined) => {
   return blocks.map(renderBlock).join('\n');
 };
 
-/* ── Chart directive splitting (Brief A3) ──────────────────────────────
-   `::chart{id="…"}` on its own line marks the exact spot where a section's
-   colocated chart must be inserted. It is stripped out of the prose before
-   parsing and the surrounding text is rendered independently either side of
-   it, so headings/lists/quotes still resolve correctly right up to the
-   boundary. Matching against `charts[]` and enforcing that every chart is
-   referenced happens one layer up, in report-content.ts, which owns the
-   section/chart domain model. */
-const CHART_DIRECTIVE_RE = /^[ \t]*::chart\{id="([^"]+)"\}[ \t]*$/gm;
+/* ── Combined directive scan (Brief A3) ─────────────────────────────────
+   `::chart{id="…"}` and `::pullquote{quote="…" attribution="…"}` each mark
+   an exact spot in a section's body where that block must be inserted. Both
+   are matched by position in a single combined pass so they can be
+   interleaved freely; each directive is stripped from the prose and the
+   surrounding text is rendered independently either side of it, so
+   headings/lists/quotes still resolve correctly right up to the boundary.
+   Matching against `charts[]` and enforcing that every chart is referenced
+   happens one layer up, in report-content.ts, which owns the section/chart
+   domain model. */
+const DIRECTIVE_RE = /^[ \t]*::(chart|pullquote)\{([^}]*)\}[ \t]*$/gm;
 
-export type RichTextSegment = { type: 'prose'; html: string } | { type: 'chart'; chartId: string };
+export type RichTextSegment =
+  | { type: 'prose'; html: string }
+  | { type: 'chart'; chartId: string }
+  | { type: 'pullquote'; quote: string; attribution?: string };
 
 export const renderRichTextSegments = (value: string | undefined): RichTextSegment[] => {
   const source = value?.trim();
@@ -233,7 +238,7 @@ export const renderRichTextSegments = (value: string | undefined): RichTextSegme
   const segments: RichTextSegment[] = [];
   let cursor = 0;
 
-  for (const match of normalized.matchAll(CHART_DIRECTIVE_RE)) {
+  for (const match of normalized.matchAll(DIRECTIVE_RE)) {
     const index = match.index ?? 0;
     const proseHtml = renderRichTextHtml(normalized.slice(cursor, index));
 
@@ -241,7 +246,29 @@ export const renderRichTextSegments = (value: string | undefined): RichTextSegme
       segments.push({ type: 'prose', html: proseHtml });
     }
 
-    segments.push({ type: 'chart', chartId: match[1] });
+    const name = match[1];
+    const attrs = match[2];
+
+    if (name === 'chart') {
+      const idMatch = attrs.match(/id="([^"]+)"/);
+      if (!idMatch) {
+        throw new Error(`::chart directive is missing a required "id" attribute: "${match[0].trim()}"`);
+      }
+      segments.push({ type: 'chart', chartId: idMatch[1] });
+    } else {
+      // pilot limitation: a literal `"` inside quote's value breaks this match, leaking the directive as raw prose
+      const quoteMatch = attrs.match(/quote="([^"]+)"/);
+      if (!quoteMatch) {
+        throw new Error(`::pullquote directive is missing a required "quote" attribute: "${match[0].trim()}"`);
+      }
+      const attributionMatch = attrs.match(/attribution="([^"]*)"/);
+      segments.push({
+        type: 'pullquote',
+        quote: quoteMatch[1],
+        ...(attributionMatch ? { attribution: attributionMatch[1] } : {}),
+      });
+    }
+
     cursor = index + match[0].length;
   }
 
