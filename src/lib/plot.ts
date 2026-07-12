@@ -204,13 +204,18 @@ function currencyAxisTicks(domainMax: number): {
  *  slack is invisible but a text-measurement API would drag in jsdom. */
 const MONO_CHAR_WIDTH = 8;
 
-function categoryMarginLeft(labels: string[]): number {
+function categoryMarginLeft(labels: string[], width: number): number {
   // +2ch cushion on the widest label: form review caught the previous
   // estimate under-measuring by 1–2ch, which clipped leading glyphs.
   // Over-reserving costs a few px of plot width; under-reserving eats
   // the label.
   const longest = Math.max(...labels.map((label) => label.length));
-  return Math.min(240, Math.max(80, Math.ceil((longest + 2) * MONO_CHAR_WIDTH) + 24));
+  const estimate = Math.ceil((longest + 2) * MONO_CHAR_WIDTH) + 24;
+  // Cap relative to the plot's own width rather than a flat pixel value —
+  // a flat cap sized for shorter 2023 labels ("Staff / Principal IC")
+  // clipped longer 2024 rows like "Head of department / Senior leadership
+  // (n=15)" against the SVG's left edge.
+  return Math.min(Math.round(width * 0.7), Math.max(80, estimate));
 }
 
 /**
@@ -508,7 +513,7 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
     className: PLOT_CLASS_NAME,
     width,
     height,
-    marginLeft: categoryMarginLeft(labels),
+    marginLeft: categoryMarginLeft(labels, width),
     marginRight: valueAxisMarginRight(currencyAxis, tickFormat),
     marginTop: topRowHasAnnotation ? ANNOTATION_TOP_RESERVE : undefined,
     marginBottom: 48,
@@ -644,7 +649,7 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
   const tickFormat = makeTickFormat(valuePrefix, valueSuffix);
   marks.push(...annotationTextMarks(annotations, { faceted: true, domainMax }));
 
-  const marginLeft = categoryMarginLeft(labels);
+  const marginLeft = categoryMarginLeft(labels, width);
 
   // Base marginTop (44) reserves room for the key row (below); a top-facet
   // annotation needs more than that on top, or its label clips at the
