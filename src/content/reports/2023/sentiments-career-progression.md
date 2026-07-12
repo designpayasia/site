@@ -83,7 +83,6 @@ charts:
     bars:
       - label: No increase
         value: 19.9
-        tone: signal
       - label: 0.1–5%
         value: 19
         tone: workhorse
@@ -98,7 +97,6 @@ charts:
         tone: workhorse
       - label: More than 20%
         value: 25.5
-        tone: signal
   - id: career-progression-support
     title: Career progression support
     caption: Distribution of responses to the career progression support statement
@@ -195,7 +193,6 @@ charts:
         tone: workhorse
       - label: "5 - Somewhat agree"
         value: 23.7
-        tone: signal
       - label: "6 - Agree"
         value: 17.9
         tone: workhorse
@@ -242,7 +239,6 @@ charts:
     bars:
       - label: "1 - Strongly disagree"
         value: 22.7
-        tone: signal
       - label: "2 - Disagree"
         value: 12.9
         tone: workhorse
@@ -319,7 +315,6 @@ charts:
         tone: workhorse
       - label: "7 - Strongly agree"
         value: 21.7
-        tone: signal
 ---
 
 ## Career levelling progress

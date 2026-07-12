@@ -97,7 +97,6 @@ charts:
           min: 52000
           median: 156100
           max: 355000
-          tone: signal
       annotations:
         - x: 355000
           y: 10+ years (n=32)
@@ -184,7 +183,6 @@ charts:
         value: 70.9
       - label: 10+ years, negotiated
         value: 100
-        tone: signal
       - label: 10+ years, did not negotiate
         value: 90.3
 keyFindings:

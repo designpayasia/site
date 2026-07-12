@@ -104,10 +104,8 @@ charts:
     bars:
       - label: Banking & Capital Markets
         value: 19.6
-        tone: signal
       - label: Consumer Products
         value: 19.2
-        tone: signal
       - label: Transportation, Hospitality & Services
         value: 8.9
         tone: workhorse

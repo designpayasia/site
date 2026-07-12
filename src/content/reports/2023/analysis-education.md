@@ -78,7 +78,6 @@ charts:
         tone: workhorse
       - label: Senior
         value: 100
-        tone: signal
   - id: sg-education-no-formal-hq
     title: Median total compensation by headquarters location, no formal design education
     caption: Reported median total compensation in SGD by headquarters location, within the Singapore no-formal-design-education cohort (n=41). These survey medians are not population estimates.
@@ -102,7 +101,6 @@ charts:
         tone: workhorse
       - label: Not at headquarters
         value: 100
-        tone: signal
 keyFindings:
   - The pathway categories overlap. A respondent may appear in more than one
     group, so the counts should not be added or treated as percentages.

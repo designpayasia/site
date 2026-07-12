@@ -1,6 +1,6 @@
 ---
 report: '2024'
-title: 'Roles & Experiences'
+title: 'Roles & experiences'
 summary: 'Employment types, design functions, and career levels of respondents.'
 order: 30
 charts:
@@ -41,7 +41,7 @@ charts:
         - label: Intern/Apprentice
           value: '1.95%'
   - id: 'career-levels'
-    title: 'Career Level Distribution'
+    title: 'Career level distribution'
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Career level distribution comparing regional and Singapore profiles."

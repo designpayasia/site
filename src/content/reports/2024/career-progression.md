@@ -1,6 +1,6 @@
 ---
 report: '2024'
-title: 'Career Progression'
+title: 'Career progression'
 summary: 'Advancement rates, salary increases, and professional development.'
 order: 70
 charts:

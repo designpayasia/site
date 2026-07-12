@@ -6,7 +6,7 @@ summary: A young, diverse workforce concentrated in Singapore, with near-equal
 order: 20
 charts:
   - id: chart-geographic-distribution
-    title: Respondent Distribution by Country
+    title: Respondent distribution by country
     caption: Singapore dominates survey participation at 69.4%, followed by Malaysia
       (14.2%) and Indonesia (8.9%). Nine additional countries are represented in
       smaller numbers.
@@ -41,24 +41,18 @@ charts:
         tone: workhorse
       - label: Malaysia
         value: 14.2
-        tone: signal
       - label: Indonesia
         value: 8.9
-        tone: signal
       - label: Philippines
         value: 2.5
-        tone: signal
       - label: Vietnam
         value: 2.2
-        tone: signal
       - label: Thailand
         value: 0.9
-        tone: signal
       - label: Others
         value: 1.9
-        tone: signal
   - id: chart-gender-distribution
-    title: Gender Distribution
+    title: Gender distribution
     caption: The 2023 survey achieved a nearly equal gender split, with women at
       54.5% and men at 43.9%. This balance is notably different from later
       surveys.
@@ -87,13 +81,10 @@ charts:
         tone: workhorse
       - label: Men
         value: 43.9
-        tone: signal
       - label: Non-binary
         value: 0.6
-        tone: signal
       - label: Prefer not to state
         value: 0.6
-        tone: signal
   - id: chart-age-distribution
     type: bar
     title: Age distribution

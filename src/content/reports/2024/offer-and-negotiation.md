@@ -1,6 +1,6 @@
 ---
 report: '2024'
-title: 'Offer & Negotiation'
+title: 'Offer & negotiation'
 summary: 'Negotiation behaviour, confidence, and salary pressure among designers.'
 order: 60
 charts:
@@ -37,7 +37,7 @@ charts:
         - label: Senior leadership
           value: '82.6%'
   - id: 'negotiation-outcomes'
-    title: 'Negotiation Outcomes'
+    title: 'Negotiation outcomes'
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Distribution of negotiation outcomes."

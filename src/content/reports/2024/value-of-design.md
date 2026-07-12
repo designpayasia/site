@@ -1,6 +1,6 @@
 ---
 report: '2024'
-title: 'Value of Design'
+title: 'Value of design'
 summary: 'Perceptions of design'
 order: 80
 charts:
@@ -35,7 +35,7 @@ charts:
         - label: Weaker user focus
           value: '42.3%'
   - id: 'fair-compensation'
-    title: 'Fair Compensation Perceptions'
+    title: 'Fair compensation perceptions'
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Perception of fair compensation comparing Singapore to regional."

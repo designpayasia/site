@@ -121,7 +121,6 @@ charts:
         tone: workhorse
       - label: Senior IC
         value: 85.9
-        tone: signal
       - label: Lead / Staff / Principal IC
         value: 74.2
         tone: workhorse
@@ -161,7 +160,6 @@ charts:
               min: 44200
               median: 119500
               max: 339927
-              tone: signal
             - label: Lead / Staff / Principal IC (n=19)
               min: 38400
               median: 103200
@@ -221,7 +219,6 @@ charts:
               min: 63600
               median: 94325
               max: 174040
-              tone: signal
         fallbackTable:
           columns:
             - Career level
@@ -297,7 +294,6 @@ charts:
     bars:
       - label: Bonuses
         value: 54.8
-        tone: signal
       - label: Other annual compensation
         value: 30.3
         tone: workhorse
@@ -346,7 +342,6 @@ charts:
     bars:
       - label: Paid medical leave
         value: 83.3
-        tone: signal
       - label: PTO/vacation
         value: 77.4
         tone: workhorse

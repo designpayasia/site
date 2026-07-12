@@ -1,6 +1,6 @@
 ---
 report: '2024'
-title: 'Executive Summary'
+title: 'Executive summary'
 summary: 'Overview of the 2024 Design Pay Asia survey of 1,797 designers.'
 order: 10
 ---
