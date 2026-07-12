@@ -153,14 +153,9 @@ charts:
         tone: workhorse
     variants:
       - label: Indonesia
-        summary: "Indonesia's ranges are the widest in the region. Junior IC
-          (N=296): Rp6M – Rp240M, median Rp66M. Mid-level IC (N=611): Rp4M –
-          Rp768M, median Rp90M, the widest spread in the dataset. Senior IC
-          (N=262): Rp10M – Rp1,440M, median Rp130M. Lead / Staff / Principal
-          IC (N=136): Rp22M – Rp686M, median Rp133M. Manager (N=40): Rp23M –
-          Rp632M, median Rp256M. Head of department / Senior leadership
-          (N=15): Rp19M – Rp1,420M, median Rp195M. Director/VP (N=6) falls
-          below the 10-respondent disclosure threshold and is not shown."
+        summary: "Indonesia's ranges are the widest in the region, and they
+          broaden sharply with seniority. Director/VP (n=6) falls below the
+          10-respondent disclosure threshold and is not shown."
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-geographic-distribution
@@ -225,15 +220,9 @@ charts:
               values: ["15", "19,000,000", "195,000,000", "1,420,000,000"]
       - label: Singapore
         summary: "Singapore's progression is more even than Indonesia's up to
-          Senior IC, where variance widens. Junior IC (N=40): S$6,000 –
-          S$190,000, median S$60,000. Mid-level IC (N=54): S$30,000 –
-          S$165,000, median S$72,000. Senior IC (N=45): S$44,000 – S$434,000,
-          median S$103,000, the widest spread in the dataset. Lead / Staff /
-          Principal IC (N=12): S$39,000 – S$246,000, median S$120,000.
-          Manager (N=13): S$54,000 – S$267,000, median S$133,000.
-          Director/VP (N=2) and Head of department / Senior leadership (N=5)
-          fall below the 10-respondent disclosure threshold and are not
-          shown."
+          Senior IC, where variance widens. Director/VP (n=2) and Head of
+          department / Senior leadership (n=5) fall below the 10-respondent
+          disclosure threshold and are not shown."
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-sg-compensation
@@ -291,15 +280,11 @@ charts:
               values: ["13", "54,000", "133,000", "267,000"]
       - label: Malaysia
         summary: "Malaysia's publishable cohorts thin out earlier than
-          Indonesia's or Singapore's. Junior IC (N=15): RM24,000 – RM72,000,
-          median RM42,000. Mid-level IC (N=26): RM40,000 – RM180,000, median
-          RM76,000. Senior IC (N=22): RM68,000 – RM240,000, median RM108,000.
-          Lead / Staff / Principal IC (N=16): RM46,000 – RM317,000, median
-          RM154,000. Manager (N=4), Director/VP (N=6), and Head of department
-          / Senior leadership (N=2) fall below the 10-respondent disclosure
-          threshold and are not shown, despite Director/VP carrying the
-          highest published median in the region (RM353,000) before
-          suppression."
+          Indonesia's or Singapore's. Manager (n=4), Director/VP (n=6), and
+          Head of department / Senior leadership (n=2) fall below the
+          10-respondent disclosure threshold and are not shown, despite
+          Director/VP carrying the highest published median in the region
+          (RM353,000) before suppression."
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-geographic-distribution
