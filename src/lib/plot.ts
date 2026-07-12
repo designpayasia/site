@@ -444,6 +444,59 @@ export function renderScatterPlotSvg(options: ScatterPlotOptions): string {
   return finaliseSvg(svg, tone);
 }
 
+/** A step smaller than `PLOT_TEXT_SIZE` — the range chart's category
+ *  column trades size for wrapping to two lines, so its labels can afford
+ *  to sit closer to the axis-tick scale than the site's `--ui-meta` face. */
+const RANGE_Y_LABEL_FONT_SIZE = '10px';
+
+/** Small and muted by design — the static median readout should read as a
+ *  quiet number, not compete with the crimson median dot it sits above. */
+const MEDIAN_LABEL_FONT_SIZE = '9px';
+
+/** Narrower than `CATEGORY_CHAR_WIDTH`, matching `RANGE_Y_LABEL_FONT_SIZE` —
+ *  used only by the range chart's wrapped (not truncated) category column,
+ *  never by `categoryMarginLeft`/`truncateLabel`, which the two-series bar
+ *  chart still relies on for its single-line ellipsis behaviour. */
+const RANGE_CATEGORY_CHAR_WIDTH = 6;
+
+/**
+ * Left margin for the range chart's y-axis, sized for a label wrapped onto
+ * two lines rather than one full-width line — freeing the value axis (the
+ * data) most of the SVG's width. Capped at 30% of the SVG width (design
+ * ask: "~28–32% of width"), floored so short labels don't starve the
+ * column entirely.
+ */
+function rangeCategoryMarginLeft(labels: string[], width: number): number {
+  const longestHalf = Math.max(...labels.map((label) => Math.ceil(label.length / 2)));
+  const estimate = Math.ceil((longestHalf + 2) * RANGE_CATEGORY_CHAR_WIDTH) + 24;
+  return Math.min(Math.round(width * 0.3), Math.max(72, estimate));
+}
+
+/**
+ * Wrap a category label onto up to two lines instead of truncating it: the
+ * design ask is to keep the full label text (no ellipsis) now that the
+ * label column no longer has to hold it on one line. Breaks at the last
+ * space at or before the per-line character budget; falls back to a
+ * mid-word break only if no reasonable space exists. Joined with `\n`,
+ * which Plot's text/axis renderer splits into stacked lines by default
+ * (no `lineWidth` is set here, so Plot's own auto-wrap stays off and only
+ * this explicit break applies) — the underlying band-scale domain is
+ * untouched, same as `truncateLabel`.
+ */
+function wrapCategoryLabel(label: string, marginLeft: number): string {
+  const availableChars = Math.max(
+    4,
+    Math.floor((marginLeft - CATEGORY_LABEL_RIGHT_PADDING) / RANGE_CATEGORY_CHAR_WIDTH),
+  );
+  if (label.length <= availableChars) return label;
+  const breakWindow = label.slice(0, availableChars + 1);
+  const lastSpace = breakWindow.lastIndexOf(' ');
+  const breakAt = lastSpace > Math.floor(availableChars * 0.4) ? lastSpace : availableChars;
+  const firstLine = label.slice(0, breakAt).trimEnd();
+  const secondLine = label.slice(breakAt).trimStart();
+  return `${firstLine}\n${secondLine}`;
+}
+
 export interface RangeRow {
   label: string;
   min: number;
@@ -453,7 +506,14 @@ export interface RangeRow {
   q1?: number;
   /** Interquartile upper bound. Only rendered as a band when paired with `q1`. */
   q3?: number;
-  /** Signal at most one row — the finding, not a rainbow. @default 'workhorse' */
+  /**
+   * Historically singled out one row as the finding; `renderRangePlotSvg`
+   * now always renders the median dot in signal (crimson) tone regardless
+   * of this field, since the median is the finding for every row. Still
+   * partitions the q1–q3 band construction internally (both partitions
+   * render identically, neutral grey), so existing content setting this
+   * field keeps working unchanged. @default 'workhorse'
+   */
   tone?: ChartTone;
 }
 
@@ -474,11 +534,13 @@ export interface RangePlotOptions {
 }
 
 /**
- * Horizontal min–median–max dot-and-whisker per category: a muted rule
- * from min to max with an emphasised median dot. Signal-toned rows are
- * drawn as a second dot mark whose group carries the signal tone class,
- * so both tones resolve via `currentColor` against ChartBlock's CSS —
- * no inline colour anywhere.
+ * Horizontal min–median–max dot-and-whisker per category: a faint min–max
+ * rule, a muted grey q1–q3 band, and a crimson median dot. The median is
+ * the finding for every row in this chart, so every dot group carries the
+ * signal tone class regardless of `row.tone` — the band stays neutral so
+ * it never competes with the dot. A small muted median-value label sits
+ * above each dot. All colour resolves via `currentColor` against
+ * ChartBlock's CSS — no inline colour anywhere.
  */
 export function renderRangePlotSvg(options: RangePlotOptions): string {
   const {
@@ -512,7 +574,7 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
       x1: 'min',
       x2: 'max',
       stroke: 'currentColor',
-      strokeOpacity: 0.35,
+      strokeOpacity: 0.22,
       strokeWidth: 2,
     }),
   ];
@@ -526,7 +588,7 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
         x1: 'q1',
         x2: 'q3',
         stroke: 'currentColor',
-        strokeOpacity: 0.8,
+        strokeOpacity: 0.5,
         strokeWidth: 10,
       }),
     );
@@ -539,7 +601,7 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
         x1: 'q1',
         x2: 'q3',
         stroke: 'currentColor',
-        strokeOpacity: 0.8,
+        strokeOpacity: 0.5,
         strokeWidth: 10,
       }),
     );
@@ -568,8 +630,39 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
   const domainMax = Math.max(...rows.map((row) => row.max));
   const currencyAxis = valuePrefix ? currencyAxisTicks(domainMax) : undefined;
   const tickFormat = makeTickFormat(valuePrefix, valueSuffix);
-  const marginLeft = categoryMarginLeft(labels, width);
+  const marginLeft = rangeCategoryMarginLeft(labels, width);
+
+  // Static median readout — small and muted (no `fill` override, so it
+  // inherits `--color-ink-muted` from ChartBlock's `text` rule the same
+  // way axis ticks and annotations do), sitting just above the dot it
+  // labels so it reads as a quiet number, not a second finding.
+  marks.push(
+    Plot.text(rows, {
+      y: 'label',
+      x: 'median',
+      text: (row: RangeRow) => tickFormat(row.median),
+      textAnchor: 'middle',
+      lineAnchor: 'bottom',
+      dy: -10,
+      fontSize: MEDIAN_LABEL_FONT_SIZE,
+    }),
+  );
+
   marks.push(...annotationTextMarks(annotations, { domainMax }));
+
+  // Explicit axis mark, not the plot's implicit one: the top-level `y`
+  // scale options below (an inline object literal) are filtered against a
+  // fixed whitelist before Plot builds its own axis, silently dropping
+  // properties like `fontSize` — an explicit `Plot.axisY` mark is a full
+  // mark and accepts them directly. `axis: null` on the `y` scale further
+  // down suppresses the implicit one so this is the only y-axis rendered.
+  marks.push(
+    Plot.axisY({
+      label: null,
+      tickFormat: (label: string) => wrapCategoryLabel(label, marginLeft),
+      fontSize: RANGE_Y_LABEL_FONT_SIZE,
+    }),
+  );
 
   // A top-row annotation lifts above the topmost band, into the plot's
   // own marginTop — widen it so the label has room instead of clipping at
@@ -603,29 +696,25 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
     y: {
       label: null,
       domain: labels,
-      // Cosmetic only — the band scale still keys off the full label, so
-      // mark positioning and annotation matching (topRowHasAnnotation
-      // above) are unaffected.
-      tickFormat: (label: string) => truncateLabel(label, marginLeft),
+      // The implicit axis is suppressed — see the `Plot.axisY` mark above,
+      // which renders the (wrapped, smaller-font) y-axis instead. The band
+      // scale still keys off the full label, so mark positioning and
+      // annotation matching (topRowHasAnnotation above) are unaffected.
+      axis: null,
     },
     marks,
   }) as unknown as RenderedSvgElement;
 
-  // The signal dot mark was pushed after the workhorse dot mark, so its
-  // group is always the last `aria-label="dot"` group in document order —
-  // deterministic, since Plot emits marks in mark order.
-  if (signalRows.length > 0) {
-    const dotGroups = svg.querySelectorAll('g[aria-label="dot"]');
-    dotGroups[dotGroups.length - 1]?.classList.add('chart-block__fill--signal');
-  }
-
-  // The signal band mark (if any) is always the last `aria-label="rule"`
-  // group — it's pushed after the whisker and workhorse band, both also
-  // rules, and before the dot marks (a different mark type).
-  if (signalBandRows.length > 0) {
-    const ruleGroups = svg.querySelectorAll('g[aria-label="rule"]');
-    ruleGroups[ruleGroups.length - 1]?.classList.add('chart-block__fill--signal');
-  }
+  // Every row's median dot carries the signal (crimson) tone class — the
+  // median is the finding for every row in this chart, not only rows
+  // marked `tone: 'signal'`. There is one `aria-label="dot"` group when
+  // there are no signal rows, or two (workhorse rows + signal rows, pushed
+  // as separate marks) when there are; tag whichever exist. The q1–q3
+  // band groups are left untagged so they stay the neutral grey `tone`
+  // ink regardless of `row.tone`, never competing with the crimson dot.
+  svg
+    .querySelectorAll('g[aria-label="dot"]')
+    .forEach((group) => group.classList.add('chart-block__fill--signal'));
 
   return finaliseSvg(svg, tone);
 }
