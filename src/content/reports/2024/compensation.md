@@ -568,6 +568,8 @@ Median annual compensation varies dramatically across the five surveyed markets,
 
 ::chart{id="currency-distribution"}
 
+::pullquote{quote="In much of the region, your next salary is still anchored to your last one."}
+
 ::chart{id="salary-sharing-preference"}
 
 ::chart{id="compensation-trends-by-level"}
