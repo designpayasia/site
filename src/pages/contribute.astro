@@ -37,13 +37,11 @@ import Invitation from '../components/Invitation.astro';
     draftState="final"
   />
 
-  <div class="contribute-cta">
-    <a class="btn btn--primary" href="https://tally.so/r/3EDeGX">Share your pay</a>
-  </div>
-
   <Invitation
     question="Ready to put your number in?"
     questionDraft={false}
+    ctaLabel="Share your pay"
+    ctaHref="https://tally.so/r/3EDeGX"
   />
 </Base>
 
@@ -63,23 +61,10 @@ import Invitation from '../components/Invitation.astro';
     max-width: 14ch;
   }
 
-  .contribute-cta {
-    display: flex;
-    justify-content: center;
-    max-width: var(--site-max-width);
-    margin-inline: auto;
-    padding-inline: var(--space-8);
-    padding-block: var(--space-8);
-  }
-
   @media (max-width: 767px) {
     .contribute-page {
       padding-inline: var(--space-4);
       padding-block: var(--space-16);
-    }
-
-    .contribute-cta {
-      padding-inline: var(--space-4);
     }
   }
 </style>

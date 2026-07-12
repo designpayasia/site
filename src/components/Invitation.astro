@@ -5,12 +5,16 @@ interface Props {
   question?: string;
   questionDraft?: boolean;
   draftLabel?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
 }
 
 const {
   question,
   questionDraft = true,
   draftLabel = 'Draft for Jon',
+  ctaLabel,
+  ctaHref,
 } = Astro.props;
 
 const cleanQuestion = question?.trim();
@@ -34,6 +38,10 @@ const cleanQuestion = question?.trim();
     )}
 
     {questionDraft && <span class="invitation__flag label-mono">{draftLabel}</span>}
+
+    {ctaLabel && ctaHref && (
+      <a class="btn btn--primary invitation__cta" href={ctaHref}>{ctaLabel}</a>
+    )}
   </div>
 </section>
 
@@ -63,6 +71,10 @@ const cleanQuestion = question?.trim();
     margin: 0;
     max-width: 20ch;
     overflow-wrap: break-word;
+  }
+
+  .invitation__cta {
+    margin-top: var(--space-8);
   }
 
   .invitation__flag {
