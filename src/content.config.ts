@@ -109,6 +109,9 @@ const rangePlotSchema = z.object({
         min: z.number(),
         median: z.number(),
         max: z.number(),
+        /** Optional interquartile range — renders a q1–q3 band when both present. */
+        q1: z.number().optional(),
+        q3: z.number().optional(),
         /** Signal at most one row — the finding, not a rainbow. */
         tone: z.enum(['workhorse', 'signal']).default('workhorse'),
       }),
