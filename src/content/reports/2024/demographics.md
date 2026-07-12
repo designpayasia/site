@@ -5,7 +5,7 @@ summary: 'Age and gender profile of 1,797 surveyed designers across Southeast As
 order: 20
 charts:
   - id: 'geo-distribution'
-    title: 'Geographic Distribution of Respondents'
+    title: 'Geographic distribution of respondents'
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Geographic distribution of survey respondents across five Southeast Asian markets."
@@ -67,7 +67,7 @@ charts:
         - label: Ho Chi Minh City
           value: '26 (1.45%)'
   - id: 'gender-distribution'
-    title: 'Gender Distribution by Market'
+    title: 'Gender distribution by market'
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Gender distribution comparing regional aggregate to Singapore."

@@ -154,7 +154,7 @@ charts:
         - label: Manager
           value: 3M
   - id: 'compensation-mix'
-    title: 'Base Salary Share by Seniority Level'
+    title: 'Base salary share by seniority level'
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Base salary as a percentage of total compensation across seniority levels, showing the shift toward variable pay at higher levels."
@@ -178,7 +178,6 @@ charts:
       tone: workhorse
     - label: 'Manager'
       value: 84.3
-      tone: signal
     - label: 'Director/VP'
       value: 85.1
       tone: workhorse

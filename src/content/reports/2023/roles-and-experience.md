@@ -71,9 +71,8 @@ charts:
         tone: workhorse
       - label: Other
         value: 60.1
-        tone: signal
   - id: chart-career-level-distribution
-    title: Career Level Distribution
+    title: Career level distribution
     caption: Individual contributors dominate at 87% of respondents. Junior ICs make
       up the largest segment at 31.3%, with management roles collectively at
       13%.
@@ -114,16 +113,12 @@ charts:
         tone: workhorse
       - label: Lead / Staff IC
         value: 9.9
-        tone: signal
       - label: People Manager
         value: 8.4
-        tone: signal
       - label: Director
         value: 3.4
-        tone: signal
       - label: VP
         value: 1.2
-        tone: signal
   - id: chart-field-of-work
     type: bar
     title: Field of work
@@ -204,7 +199,6 @@ charts:
     bars:
       - label: 0–3 years
         value: 47.1
-        tone: signal
       - label: 4–6 years
         value: 23.2
         tone: workhorse
@@ -426,7 +420,6 @@ charts:
     bars:
       - label: Bachelor's degree
         value: 66.3
-        tone: signal
       - label: Master's degree
         value: 15.5
         tone: workhorse
@@ -450,7 +443,6 @@ charts:
     bars:
       - label: Formal design education
         value: 49.8
-        tone: signal
       - label: Online certification
         value: 29.1
         tone: workhorse
@@ -489,7 +481,6 @@ charts:
     bars:
       - label: Yes
         value: 81.4
-        tone: signal
       - label: No
         value: 18.6
         tone: workhorse
@@ -513,7 +504,6 @@ charts:
     bars:
       - label: Yes
         value: 28.5
-        tone: signal
       - label: No
         value: 71.5
         tone: workhorse

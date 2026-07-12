@@ -75,7 +75,6 @@ charts:
         tone: workhorse
       - label: Retail, Wholesale & Distribution
         value: 100
-        tone: signal
       - label: Transportation, Hospitality & Services
         value: 71.7
         tone: workhorse
@@ -128,7 +127,6 @@ charts:
         tone: workhorse
       - label: Not at headquarters
         value: 100
-        tone: signal
   - id: sg-compensation-work-arrangement
     title: Median total compensation by work arrangement
     caption: Reported median total compensation in SGD among Singapore survey respondents, grouped by work arrangement. These survey medians are not population estimates.
@@ -191,7 +189,6 @@ charts:
         tone: workhorse
       - label: "5+ hours"
         value: 100
-        tone: signal
 keyFindings:
   - Large enterprise respondents recorded S$114,500, the highest reported median
     among the published company-type cohorts.

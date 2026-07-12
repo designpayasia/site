@@ -1,6 +1,6 @@
 ---
 report: '2024'
-title: 'Job Market'
+title: 'Job market'
 summary: 'Layoff exposure, job security concerns, and market outlook.'
 order: 90
 charts:

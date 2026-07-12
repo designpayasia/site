@@ -1,6 +1,6 @@
 ---
 report: '2024'
-title: 'Company Landscape'
+title: 'Company landscape'
 summary: 'Organisation size, work models, and sector distribution.'
 order: 50
 charts:
@@ -83,7 +83,7 @@ charts:
         - label: Not applicable
           value: '10.4%'
   - id: 'work-model'
-    title: 'Work Model Distribution'
+    title: 'Work model distribution'
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Work model comparison showing Singapore vs regional preferences."

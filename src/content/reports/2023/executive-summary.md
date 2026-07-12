@@ -1,6 +1,6 @@
 ---
 report: "2023"
-title: Executive Summary
+title: Executive summary
 summary: The inaugural 2023 Design Pay Asia report captures the state of design
   careers across Southeast Asia based on 323 survey responses, with a landmark
   finding of a 42% gender pay gap in Singapore.
