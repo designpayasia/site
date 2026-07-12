@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import ConversationBlock from '../components/ConversationBlock.astro';
-import PullQuoteBeat from '../components/PullQuoteBeat.astro';
 import Invitation from '../components/Invitation.astro';
 ---
 
@@ -27,7 +26,9 @@ import Invitation from '../components/Invitation.astro';
       'Design Pay Asia is a community project. We collect and publish design pay data for Southeast Asia so designers can talk about money with facts, not guesswork.',
       'Across much of the region, discussing salary openly is still taboo, shaped by gender, business culture, education, immigration, and family background. That silence keeps pay unequal.',
       'The more we share, the fairer the industry gets. The reports are open, cited, and built with the community, for the community.',
+      'The data is open, cited, and built to be passed on, not owned by any one person.',
     ]}
+    quote={{ quote: 'Democratise pay data and empower people to start an honest conversation about pay, to shape a fairer, more transparent design industry.' }}
     metaEyebrow="The project"
     metaTitle="Community-run"
     metaItems={[
@@ -38,10 +39,6 @@ import Invitation from '../components/Invitation.astro';
     ]}
     metaNote="Created by the community, for the community."
     draftState="final"
-  />
-
-  <PullQuoteBeat
-    quote="Democratise pay data and empower people to start an honest conversation about pay, to shape a fairer, more transparent design industry."
   />
 
   <Invitation
