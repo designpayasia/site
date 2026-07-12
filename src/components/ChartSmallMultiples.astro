@@ -511,22 +511,29 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
   }
 
   .chart-small-multiples__table {
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     border-collapse: collapse;
   }
 
   .chart-small-multiples__table th,
   .chart-small-multiples__table td {
     padding-block: var(--space-3);
+    padding-inline: 0 var(--space-8);
     border-bottom: 1px solid var(--color-border-subtle);
     text-align: left;
     vertical-align: top;
     overflow-wrap: break-word;
   }
 
+  .chart-small-multiples__table th:last-child,
+  .chart-small-multiples__table td:last-child {
+    padding-inline-end: 0;
+  }
+
   /* Value columns are numeric (counts, medians, percentages) — right-align
      and set in the data face, tabular so digits line up down the column. */
-  .chart-small-multiples__table-value {
+  .chart-small-multiples__table td.chart-small-multiples__table-value {
     font-family: var(--font-data);
     text-align: right;
     font-variant-numeric: tabular-nums;
