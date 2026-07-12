@@ -25,6 +25,15 @@ charts:
           value: S$123,000
         - label: Woman (n=138)
           value: S$71,300
+    bars:
+      - label: Man (n=83)
+        value: 100
+        tone: workhorse
+        displayValue: S$123,000
+      - label: Woman (n=138)
+        value: 58
+        tone: workhorse
+        displayValue: S$71,300
   - id: sg-gender-pay-gap-by-level
     title: Median pay by level and gender
     caption: Reported median total compensation by gender at each Singapore survey seniority level where both gender cohorts meet the n=10 publication threshold. Grouped bars show each gender's median side by side at each level. Lead/Staff/Principal IC and Director levels are omitted because at least one gender cohort in each falls below n=10.
