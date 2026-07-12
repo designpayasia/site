@@ -533,6 +533,10 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
     white-space: nowrap;
   }
 
+  .chart-small-multiples__table th[scope='col']:not(:first-child) {
+    text-align: right;
+  }
+
   /* Accessible table alternative — removed from the visual flow only. */
   .visually-hidden {
     position: absolute;
