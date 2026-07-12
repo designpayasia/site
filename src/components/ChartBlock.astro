@@ -3,13 +3,26 @@ import { isSelfHostedSource } from '../lib/evidence';
 
 interface TableRow {
   label: string;
-  value: string;
+  /** Legacy single-value shape — only valid alongside a 2-column table. */
+  value?: string;
+  /** N-column shape: one printed value per non-label fallbackColumns entry. */
+  values?: string[];
+}
+
+/** Row shape after normalisation: always a `values` array, so every table
+ * branch below can render N columns without re-checking which shape the
+ * source data used. */
+interface NormalizedTableRow {
+  label: string;
+  values: string[];
 }
 
 interface Bar {
   label: string;
   value: number;
   tone?: 'workhorse' | 'signal';
+  /** Overrides the printed value text (e.g. "S$123,000"); width still derives from `value`. */
+  displayValue?: string;
 }
 
 interface Segment {
@@ -19,7 +32,8 @@ interface Segment {
   summary: string;
   averageLabel?: string;
   bars: Bar[];
-  fallbackColumns: [string, string];
+  /** 2–6 printed header cells: `[0]` is the row-label column. */
+  fallbackColumns: string[];
   fallbackRows: TableRow[];
 }
 
@@ -67,7 +81,8 @@ interface Variant {
    * bars markup.
    */
   plotSvg?: string;
-  fallbackColumns: [string, string];
+  /** 2–6 printed header cells: `[0]` is the row-label column. */
+  fallbackColumns: string[];
   fallbackRows: TableRow[];
 }
 
@@ -79,9 +94,17 @@ interface Props {
   sourceLabel: string;
   sourceUrl: string;
   reportPath?: string;
-  fallbackColumns: [string, string];
+  /** 2–6 printed header cells: `[0]` is the row-label column. */
+  fallbackColumns: string[];
   fallbackRows: TableRow[];
   bars: Bar[];
+  /**
+   * Archived chart PNG. Renders as the chart visual only when it's the
+   * *sole* visual — i.e. `bars` is empty and `plotSvg` is absent. When
+   * `plotSvg` or a non-empty `bars` is present, that renders as the chart
+   * instead and `pngPath` demotes to a "Download PNG proof" citation link
+   * in the meta row.
+   */
   pngPath?: string;
   /**
    * Pre-rendered Observable Plot SVG markup (build-time only — see
@@ -90,7 +113,8 @@ interface Props {
    * segments/variants) is unaffected. The SVG is inert (no client JS) and
    * carries its own `aria-hidden="true"`, so the `summary` prop remains
    * the sole accessible representation alongside the fallback table.
-   * Mutually exclusive with `pngPath` — `pngPath` wins if both are set.
+   * Takes precedence over both `bars` and `pngPath` as the chart visual;
+   * `pngPath` still renders as a download-proof link if also set.
    */
   plotSvg?: string;
   /**
@@ -131,6 +155,10 @@ interface Props {
 
 const LABEL_COLUMN_WIDTH_PX = 220;
 const GRIDLINE_PERCENTAGES = [0, 25, 50, 75, 100] as const;
+/** Bars below this track-width percentage render as a solid tick, not a
+ *  hollow pill — the value label already carries the magnitude, but an
+ *  outline pill this narrow collapses into an unreadable dot. */
+const MIN_TICK_PERCENTAGE = 3;
 
 const {
   title,
@@ -171,7 +199,22 @@ const normalizeBars = (inputBars: Bar[]) => {
   }));
 };
 
+/**
+ * Normalise the legacy single-`value` row shape into `values: string[]` so
+ * every table branch below renders N columns the same way regardless of
+ * which shape the source frontmatter used.
+ */
+const normalizeTableRows = (rows: TableRow[]): NormalizedTableRow[] =>
+  rows.map((row) => ({
+    label: row.label,
+    values: row.values ?? (row.value !== undefined ? [row.value] : []),
+  }));
+
 const renderedBars = normalizeBars(bars);
+/** pngPath renders as the chart visual only when it's the sole visual —
+ *  no plotSvg and no bars. Otherwise it demotes to a download-proof link. */
+const pngIsPrimaryVisual = Boolean(pngPath) && !plotSvg && renderedBars.length === 0;
+const normalizedFallbackRows = normalizeTableRows(fallbackRows);
 const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
 const showSource = !isSelfHostedSource(sourceUrl, reportPath);
 const makeBlockId = (...parts: Array<string | undefined>) =>
@@ -193,7 +236,7 @@ const segmentedViews = hasSegments
         summary,
         averageLabel,
         fallbackColumns,
-        fallbackRows,
+        fallbackRows: normalizedFallbackRows,
         renderedBars,
         pngPath,
         tabId: defaultTabId,
@@ -205,6 +248,7 @@ const segmentedViews = hasSegments
         tabId: `${chartBlockId}-tab-${segment.id}`,
         panelId: `${chartBlockId}-panel-${segment.id}`,
         renderedBars: normalizeBars(segment.bars),
+        fallbackRows: normalizeTableRows(segment.fallbackRows),
       })),
     ]
   : [];
@@ -223,6 +267,7 @@ const variantViews = hasVariants
         sourceUrl: variantSourceUrl,
         showSource: !isSelfHostedSource(variantSourceUrl, reportPath),
         renderedBars: normalizeBars(variant.bars),
+        fallbackRows: normalizeTableRows(variant.fallbackRows),
         evidenceLabel: variant.evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs',
         buttonId: `${variantBlockId}-variant-button`,
         panelId: `${variantBlockId}-variant-panel`,
@@ -321,6 +366,7 @@ const variantViews = hasVariants
                             bar.tone === 'signal'
                               ? 'chart-block__fill--signal'
                               : 'chart-block__fill--workhorse',
+                            bar.value < MIN_TICK_PERCENTAGE && 'chart-block__fill--tiny',
                           ]}
                           style={`width: ${bar.value}%;`}
                         />
@@ -332,7 +378,7 @@ const variantViews = hasVariants
                           bar.tone === 'signal' && 'chart-block__value--signal',
                         ]}
                       >
-                        {bar.value}%
+                        {bar.displayValue ?? `${bar.value}%`}
                       </div>
                     </div>
                   ))}
@@ -362,15 +408,18 @@ const variantViews = hasVariants
                       <table class="chart-block__table">
                         <thead>
                           <tr>
-                            <th>{view.fallbackColumns[0]}</th>
-                            <th>{view.fallbackColumns[1]}</th>
+                            {view.fallbackColumns.map((column) => (
+                              <th scope="col">{column}</th>
+                            ))}
                           </tr>
                         </thead>
                         <tbody>
                           {view.fallbackRows.map((row) => (
                             <tr>
                               <th scope="row">{row.label}</th>
-                              <td>{row.value}</td>
+                              {row.values.map((value) => (
+                                <td class="chart-block__table-value">{value}</td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -382,15 +431,18 @@ const variantViews = hasVariants
                     <table class="chart-block__table">
                       <thead>
                         <tr>
-                          <th>{view.fallbackColumns[0]}</th>
-                          <th>{view.fallbackColumns[1]}</th>
+                          {view.fallbackColumns.map((column) => (
+                            <th scope="col">{column}</th>
+                          ))}
                         </tr>
                       </thead>
                       <tbody>
                         {view.fallbackRows.map((row) => (
                           <tr>
                             <th scope="row">{row.label}</th>
-                            <td>{row.value}</td>
+                            {row.values.map((value) => (
+                              <td class="chart-block__table-value">{value}</td>
+                            ))}
                           </tr>
                         ))}
                       </tbody>
@@ -491,7 +543,7 @@ const variantViews = hasVariants
               <div class="chart-block__layout">
                 <div
                   class="chart-block__visual"
-                  {...(!view.pngPath && { role: 'img', 'aria-label': view.summary })}
+                  {...(!(view.pngPath && view.renderedBars.length === 0) && { role: 'img', 'aria-label': view.summary })}
                   style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
                 >
                   <p class="chart-block__summary">{view.summary}</p>
@@ -500,7 +552,7 @@ const variantViews = hasVariants
                     <p class="chart-block__average">{view.averageLabel}</p>
                   )}
 
-                  {view.pngPath ? (
+                  {view.pngPath && view.renderedBars.length === 0 ? (
                     <img
                       src={view.pngPath}
                       alt={view.summary}
@@ -544,6 +596,7 @@ const variantViews = hasVariants
                                   bar.tone === 'signal'
                                     ? 'chart-block__fill--signal'
                                     : 'chart-block__fill--workhorse',
+                                  bar.value < MIN_TICK_PERCENTAGE && 'chart-block__fill--tiny',
                                 ]}
                                 style={`width: ${bar.value}%;`}
                               />
@@ -555,7 +608,7 @@ const variantViews = hasVariants
                                 bar.tone === 'signal' && 'chart-block__value--signal',
                               ]}
                             >
-                              {bar.value}%
+                              {bar.displayValue ?? `${bar.value}%`}
                             </div>
                           </div>
                         ))}
@@ -593,15 +646,18 @@ const variantViews = hasVariants
                         <table class="chart-block__table">
                           <thead>
                             <tr>
-                              <th>{view.fallbackColumns[0]}</th>
-                              <th>{view.fallbackColumns[1]}</th>
+                              {view.fallbackColumns.map((column) => (
+                                <th scope="col">{column}</th>
+                              ))}
                             </tr>
                           </thead>
                           <tbody>
                             {view.fallbackRows.map((row) => (
                               <tr>
                                 <th scope="row">{row.label}</th>
-                                <td>{row.value}</td>
+                                {row.values.map((value) => (
+                                  <td class="chart-block__table-value">{value}</td>
+                                ))}
                               </tr>
                             ))}
                           </tbody>
@@ -613,15 +669,18 @@ const variantViews = hasVariants
                       <table class="chart-block__table">
                         <thead>
                           <tr>
-                            <th>{view.fallbackColumns[0]}</th>
-                            <th>{view.fallbackColumns[1]}</th>
+                            {view.fallbackColumns.map((column) => (
+                              <th scope="col">{column}</th>
+                            ))}
                           </tr>
                         </thead>
                         <tbody>
                           {view.fallbackRows.map((row) => (
                             <tr>
                               <th scope="row">{row.label}</th>
-                              <td>{row.value}</td>
+                              {row.values.map((value) => (
+                                <td class="chart-block__table-value">{value}</td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -705,7 +764,7 @@ const variantViews = hasVariants
       <div class="chart-block__layout">
         <div
           class="chart-block__visual"
-          {...(!pngPath && { role: 'img', 'aria-label': summary })}
+          {...(!pngIsPrimaryVisual && { role: 'img', 'aria-label': summary })}
           style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
         >
           <p class="chart-block__summary">{summary}</p>
@@ -714,15 +773,15 @@ const variantViews = hasVariants
             <p class="chart-block__average">{averageLabel}</p>
           )}
 
-          {pngPath ? (
+          {plotSvg ? (
+            <div class="chart-block__plot" set:html={plotSvg} />
+          ) : pngIsPrimaryVisual ? (
             <img
               src={pngPath}
               alt={summary}
               class="chart-block__png-image"
               loading="lazy"
             />
-          ) : plotSvg ? (
-            <div class="chart-block__plot" set:html={plotSvg} />
           ) : (
             <>
               <div class="chart-block__axis" aria-hidden="true">
@@ -760,6 +819,7 @@ const variantViews = hasVariants
                           bar.tone === 'signal'
                             ? 'chart-block__fill--signal'
                             : 'chart-block__fill--workhorse',
+                          bar.value < MIN_TICK_PERCENTAGE && 'chart-block__fill--tiny',
                         ]}
                         style={`width: ${bar.value}%;`}
                       />
@@ -771,7 +831,7 @@ const variantViews = hasVariants
                         bar.tone === 'signal' && 'chart-block__value--signal',
                       ]}
                     >
-                      {bar.value}%
+                      {bar.displayValue ?? `${bar.value}%`}
                     </div>
                   </div>
                 ))}
@@ -809,15 +869,18 @@ const variantViews = hasVariants
                 <table class="chart-block__table">
                   <thead>
                     <tr>
-                      <th>{fallbackColumns[0]}</th>
-                      <th>{fallbackColumns[1]}</th>
+                      {fallbackColumns.map((column) => (
+                        <th scope="col">{column}</th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {fallbackRows.map((row) => (
+                    {normalizedFallbackRows.map((row) => (
                       <tr>
                         <th scope="row">{row.label}</th>
-                        <td>{row.value}</td>
+                        {row.values.map((value) => (
+                          <td class="chart-block__table-value">{value}</td>
+                        ))}
                       </tr>
                     ))}
                   </tbody>
@@ -829,15 +892,18 @@ const variantViews = hasVariants
               <table class="chart-block__table">
                 <thead>
                   <tr>
-                    <th>{fallbackColumns[0]}</th>
-                    <th>{fallbackColumns[1]}</th>
+                    {fallbackColumns.map((column) => (
+                      <th scope="col">{column}</th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {fallbackRows.map((row) => (
+                  {normalizedFallbackRows.map((row) => (
                     <tr>
                       <th scope="row">{row.label}</th>
-                      <td>{row.value}</td>
+                      {row.values.map((value) => (
+                        <td class="chart-block__table-value">{value}</td>
+                      ))}
                     </tr>
                   ))}
                 </tbody>
@@ -993,6 +1059,18 @@ const variantViews = hasVariants
     background: var(--color-signal-fill);
   }
 
+  /* Below MIN_TICK_PERCENTAGE, the hollow workhorse pill's rounded border
+     collapses into an unreadable dot. Render a short solid tick of the
+     bar's tone instead — the value label already carries the magnitude. */
+  .chart-block__fill--tiny {
+    width: var(--space-3) !important;
+  }
+
+  .chart-block__fill--tiny.chart-block__fill--workhorse {
+    background: var(--color-border-strong);
+    border: none;
+  }
+
   .chart-block__value {
     min-width: 3ch;
     text-align: right;
@@ -1033,6 +1111,13 @@ const variantViews = hasVariants
     gap: var(--space-6);
   }
 
+  /* Horizontal scroll lives on the wrapper only, never the page — a wide
+     N-column fallback table (e.g. min/median/max/n) must never force the
+     document itself to scroll sideways. */
+  .chart-block__table-wrap {
+    overflow-x: auto;
+  }
+
   .chart-block__table {
     width: 100%;
     border-collapse: collapse;
@@ -1045,6 +1130,15 @@ const variantViews = hasVariants
     text-align: left;
     vertical-align: top;
     overflow-wrap: break-word;
+  }
+
+  /* Value columns are numeric (counts, medians, percentages) — right-align
+     and set in the data face, tabular so digits line up down the column. */
+  .chart-block__table-value {
+    font-family: var(--font-data);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   /* Collapsed table disclosure — quiet by default so it never competes with
@@ -1175,6 +1269,23 @@ const variantViews = hasVariants
 
   .chart-block__plot :global(text) {
     fill: var(--color-ink-muted);
+  }
+
+  /* Grouped/paired two-series bars (renderTwoSeriesBarSvg): `bar`/`key`
+     aria-labels are unique to that renderer, so this scoping never touches
+     scatter/range/single-series plot marks. Series A (solid) reads navy —
+     the secondary/accent role, not a whole-series crimson signal; series B
+     (outline + 0.12 fill-opacity, marked identically on bars and the key
+     swatch) reads as the warm chart-neutral support tone. Both tokens carry
+     dark-mode overrides in _dark.css already. */
+  .chart-block__plot :global(g[aria-label='bar']),
+  .chart-block__plot :global(g[aria-label='key']) {
+    color: var(--color-action);
+  }
+
+  .chart-block__plot :global(g[aria-label='bar'][fill-opacity='0.12']),
+  .chart-block__plot :global(rect[fill-opacity='0.12']) {
+    color: var(--color-chart-neutral);
   }
 
   .chart-block__segments {

@@ -3,7 +3,10 @@ import { isSelfHostedSource } from '../lib/evidence';
 
 interface TableRow {
   label: string;
-  value: string;
+  /** Legacy single-value shape — only valid alongside a 2-column table. */
+  value?: string;
+  /** N-column shape: one printed value per non-label fallbackColumns entry. */
+  values?: string[];
 }
 
 type DotTone = 'signal' | 'action' | 'neutral';
@@ -25,7 +28,8 @@ interface Props {
   sourceLabel: string;
   sourceUrl: string;
   reportPath?: string;
-  fallbackColumns: [string, string];
+  /** 2–6 printed header cells: `[0]` is the row-label column. */
+  fallbackColumns: string[];
   fallbackRows: TableRow[];
   rows: DotRow[];
   /** Passed through to each row's data-countup-duration (ms, clamped 1200–1800 by countup.ts). */
@@ -75,7 +79,19 @@ const normalizeRows = (inputRows: DotRow[]) => {
   }));
 };
 
+/**
+ * Normalise the legacy single-`value` row shape into `values: string[]` so
+ * the table below renders N columns the same way regardless of which shape
+ * the source frontmatter used.
+ */
+const normalizeTableRows = (inputRows: TableRow[]) =>
+  inputRows.map((row) => ({
+    label: row.label,
+    values: row.values ?? (row.value !== undefined ? [row.value] : []),
+  }));
+
 const renderedRows = normalizeRows(rows);
+const normalizedFallbackRows = normalizeTableRows(fallbackRows);
 const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
 const showSource = !isSelfHostedSource(sourceUrl, reportPath);
 ---
@@ -162,15 +178,18 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
             <table class="chart-dot-plot__table">
               <thead>
                 <tr>
-                  <th>{fallbackColumns[0]}</th>
-                  <th>{fallbackColumns[1]}</th>
+                  {fallbackColumns.map((column) => (
+                    <th scope="col">{column}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                {fallbackRows.map((row) => (
+                {normalizedFallbackRows.map((row) => (
                   <tr>
                     <th scope="row">{row.label}</th>
-                    <td>{row.value}</td>
+                    {row.values.map((value) => (
+                      <td class="chart-dot-plot__table-value">{value}</td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
@@ -182,15 +201,18 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
           <table class="chart-dot-plot__table">
             <thead>
               <tr>
-                <th>{fallbackColumns[0]}</th>
-                <th>{fallbackColumns[1]}</th>
+                {fallbackColumns.map((column) => (
+                  <th scope="col">{column}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {fallbackRows.map((row) => (
+              {normalizedFallbackRows.map((row) => (
                 <tr>
                   <th scope="row">{row.label}</th>
-                  <td>{row.value}</td>
+                  {row.values.map((value) => (
+                    <td class="chart-dot-plot__table-value">{value}</td>
+                  ))}
                 </tr>
               ))}
             </tbody>
@@ -371,6 +393,13 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     gap: var(--space-6);
   }
 
+  /* Horizontal scroll lives on the wrapper only, never the page — a wide
+     N-column fallback table (e.g. min/median/max/n) must never force the
+     document itself to scroll sideways. */
+  .chart-dot-plot__table-wrap {
+    overflow-x: auto;
+  }
+
   .chart-dot-plot__table {
     width: 100%;
     border-collapse: collapse;
@@ -383,6 +412,15 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     text-align: left;
     vertical-align: top;
     overflow-wrap: break-word;
+  }
+
+  /* Value columns are numeric (counts, medians, percentages) — right-align
+     and set in the data face, tabular so digits line up down the column. */
+  .chart-dot-plot__table-value {
+    font-family: var(--font-data);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   /* Accessible table alternative — removed from the visual flow only. */

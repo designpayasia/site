@@ -160,6 +160,53 @@ const plotSchema = z.discriminatedUnion('type', [
   pairedBarPlotSchema,
 ]);
 
+/**
+ * Fallback data table for a chart (ChartBlock/ChartRange/ChartDotPlot/
+ * ChartSmallMultiples all render the same shape). `columns` is the printed
+ * header row: `columns[0]` labels the row-label column, `columns[1..]`
+ * label each row's value column(s) — 2 to 6 columns total. A row carries
+ * either the legacy single `value` (only valid when there are exactly 2
+ * columns, i.e. one value column) or the newer `values` array, whose
+ * length must equal `columns.length - 1`.
+ */
+const fallbackTableRowSchema = z.union([
+  z.object({
+    label: z.string().min(1),
+    value: z.string().min(1),
+  }),
+  z.object({
+    label: z.string().min(1),
+    values: z.array(z.string().min(1)).min(1),
+  }),
+]);
+
+const fallbackTableSchema = z
+  .object({
+    columns: z.array(z.string().min(1)).min(2).max(6),
+    rows: z.array(fallbackTableRowSchema).min(1),
+  })
+  .superRefine((table, ctx) => {
+    const expectedValueCount = table.columns.length - 1;
+
+    table.rows.forEach((row, index) => {
+      if ('values' in row) {
+        if (row.values.length !== expectedValueCount) {
+          ctx.addIssue({
+            code: 'custom',
+            message: `fallbackTable row "${row.label}" has ${row.values.length} values but columns declares ${expectedValueCount} value column(s)`,
+            path: ['rows', index, 'values'],
+          });
+        }
+      } else if (expectedValueCount !== 1) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `fallbackTable row "${row.label}" uses a single "value" but columns declares ${expectedValueCount} value column(s); use "values" (array) instead`,
+          path: ['rows', index, 'value'],
+        });
+      }
+    });
+  });
+
 const chartSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
@@ -170,23 +217,14 @@ const chartSchema = z.object({
   sourceUrl: z.url(),
   pngPath: z.string().regex(/^\/.*\.png$/).optional(),
   averageLabel: z.string().min(1).optional(),
-  fallbackTable: z.object({
-    columns: z.array(z.string().min(1)).length(2),
-    rows: z
-      .array(
-        z.object({
-          label: z.string().min(1),
-          value: z.string().min(1),
-        }),
-      )
-      .min(1),
-  }),
+  fallbackTable: fallbackTableSchema,
   bars: z
     .array(
       z.object({
         label: z.string().min(1),
         value: z.number().min(0).max(100),
         tone: z.enum(['workhorse', 'signal']).default('workhorse'),
+        displayValue: z.string().min(1).optional(),
       }),
     )
     .default([]),
@@ -213,20 +251,11 @@ const chartSchema = z.object({
               label: z.string().min(1),
               value: z.number().min(0).max(100),
               tone: z.enum(['workhorse', 'signal']).default('workhorse'),
+              displayValue: z.string().min(1).optional(),
             }),
           )
           .min(1),
-        fallbackTable: z.object({
-          columns: z.array(z.string().min(1)).length(2),
-          rows: z
-            .array(
-              z.object({
-                label: z.string().min(1),
-                value: z.string().min(1),
-              }),
-            )
-            .min(1),
-        }),
+        fallbackTable: fallbackTableSchema,
       }),
     )
     .optional(),
@@ -264,20 +293,11 @@ const chartSchema = z.object({
               label: z.string().min(1),
               value: z.number().min(0).max(100),
               tone: z.enum(['workhorse', 'signal']).default('workhorse'),
+              displayValue: z.string().min(1).optional(),
             }),
           )
           .default([]),
-        fallbackTable: z.object({
-          columns: z.array(z.string().min(1)).length(2),
-          rows: z
-            .array(
-              z.object({
-                label: z.string().min(1),
-                value: z.string().min(1),
-              }),
-            )
-            .min(1),
-        }),
+        fallbackTable: fallbackTableSchema,
       }),
     )
     .optional(),
