@@ -3,7 +3,7 @@ report: "2023"
 title: "Analysis: company 🇸🇬"
 summary: Reported median total compensation among Singapore survey respondents,
   grouped by company type, industry, company size, design team size,
-  headquarters location, and work arrangement.
+  headquarters location, work arrangement, and weekly extra hours.
 order: 110
 charts:
   - id: sg-compensation-company-type
@@ -137,7 +137,6 @@ charts:
       - evidence:2023-sg-compensation-work-arrangement
     sourceLabel: Design Pay Asia 2022-23 survey data
     sourceUrl: https://designpay.asia/reports/2023
-    pngPath: /charts/2023/analysis-company/sg-compensation-work-arrangement.png
     fallbackTable:
       columns:
         - Subgroup among Singapore survey respondents (n)
@@ -149,6 +148,50 @@ charts:
           value: S$52,000
         - label: Remote (n=23)
           value: S$143,336
+    bars:
+      - label: Hybrid
+        value: 57.1
+        tone: workhorse
+      - label: In-office
+        value: 36.3
+        tone: workhorse
+      - label: Remote
+        value: 100
+        tone: signal
+  - id: sg-compensation-extra-hours
+    title: Median total compensation by weekly extra hours
+    caption: "Reported median total compensation in SGD among Singapore survey respondents, grouped by self-reported extra hours worked per week beyond contracted hours. The source report did not publish respondent counts for each band; these are survey medians for the Singapore SGD cohort (n=223), not population estimates."
+    summary: "Among Singapore survey respondents, reported median total compensation was S$78,650 for those working no extra hours, S$78,425 for 1–2 extra hours, S$83,200 for 3–5 extra hours, and S$110,632.50 for 5 or more extra hours per week. Respondent counts for each band were not published in the source report; these are survey medians, not population estimates."
+    evidenceIds:
+      - evidence:2023-sg-compensation-extra-hours
+    sourceLabel: Design Pay Asia 2022-23 survey data
+    sourceUrl: https://designpay.asia/reports/2023
+    fallbackTable:
+      columns:
+        - Self-reported extra hours per week (Singapore SGD cohort, n=223)
+        - Reported median total compensation (SGD), not a population estimate
+      rows:
+        - label: "0 hours"
+          value: S$78,650
+        - label: "1–2 hours"
+          value: S$78,425
+        - label: "3–5 hours"
+          value: S$83,200
+        - label: "5+ hours"
+          value: S$110,632.50
+    bars:
+      - label: "0 hours"
+        value: 71.1
+        tone: workhorse
+      - label: "1–2 hours"
+        value: 70.9
+        tone: workhorse
+      - label: "3–5 hours"
+        value: 75.2
+        tone: workhorse
+      - label: "5+ hours"
+        value: 100
+        tone: signal
 keyFindings:
   - Large enterprise respondents recorded S$114,500, the highest reported median
     among the published company-type cohorts.
@@ -159,7 +202,11 @@ keyFindings:
   - Non-local companies offered 67.1% more than companies physically
     headquartered in Singapore (S$120,280 vs S$72,000).
   - Remote respondents recorded S$143,336, Hybrid respondents S$81,900, and
-    In-office respondents S$52,000.
+    In-office respondents S$52,000 — the report puts Remote pay at roughly
+    2.7 times the In-office median and 1.8 times the Hybrid median.
+  - Reported median total compensation rises with self-reported weekly extra
+    hours, from S$78,650 at 0 hours to S$110,632.50 at 5 or more hours; the
+    source report did not publish respondent counts for each band.
 ---
 
 ## Company type
@@ -202,20 +249,17 @@ Respondents not physically based at their company's headquarters recorded a medi
 
 ## Work arrangement
 
-Remote respondents recorded a median of S$143,336. The corresponding medians were S$81,900 for Hybrid respondents and S$52,000 for In-office respondents. Role, seniority, employer, and other characteristics may differ across these groups, so this is an unadjusted comparison.
+Remote respondents recorded a median of S$143,336 — roughly 2.7 times the In-office median and 1.8 times the Hybrid median, as reported. The corresponding medians were S$81,900 for Hybrid respondents and S$52,000 for In-office respondents. Role, seniority, employer, and other characteristics may differ across these groups, so this is an unadjusted comparison.
 
 ::chart{id="sg-compensation-work-arrangement"}
 
 ## Working hours
 
-Directors and VPs work the most prolonged hours on average of any seniority level. Reported median total compensation also rises with self-reported extra hours worked per week:
+The published report's only seniority-linked claim here is that directors and VPs work the most prolonged hours on average of any seniority level; the report did not publish an hours-by-seniority breakdown we can independently verify, so this stays as the report's own hedged observation rather than a site-verified figure.
 
-| Extra hours per week | Reported median total compensation (SGD) |
-| --- | --- |
-| 0 | S$78,650 |
-| 1-2 | S$78,425 |
-| 3-5 | S$83,200 |
-| 5+ | S$110,632.50 |
+Reported median total compensation does rise with self-reported extra hours worked per week, though the source report did not publish respondent counts for each band, so read these medians as descriptive rather than cohort-verified.
+
+::chart{id="sg-compensation-extra-hours"}
 
 Extra hours and higher pay may both simply track seniority.
 

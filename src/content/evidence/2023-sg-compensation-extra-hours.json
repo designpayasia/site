@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2023-sg-compensation-extra-hours",
+  "title": "2023 Singapore reported median total compensation by weekly extra hours",
+  "summary": "Aggregate results from Design Pay Asia 2022-23 survey data, filtered exactly to Country = Singapore and Currency you draw your salary in = SGD (n=223). Reported median total compensation by self-reported extra hours worked per week was S$78,650 for 0 hours, S$78,425 for 1–2 hours, S$83,200 for 3–5 hours, and S$110,632.50 for 5 or more hours. The source report did not publish respondent counts for each extra-hours band; only the aggregate SGD cohort size (n=223) is known. These are respondent medians, not population estimates.",
+  "sourceName": "Design Pay Asia 2022-23 survey data",
+  "sourceUrl": "https://designpay.asia/reports/2023",
+  "year": 2023,
+  "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
+  "geography": ["Singapore"],
+  "methodology": "The authoritative worksheet was filtered using exact matches Country = Singapore and Currency you draw your salary in = SGD, leaving n=223. Values are self-reported total compensation medians as printed in the published report. The published report did not disclose per-band respondent counts for weekly extra hours, so band-level cohort size cannot be independently verified against the n=10 minimum-safe-cohort rule; the medians are published here as printed, per editorial approval, with this caveat carried in the chart caption and summary. No respondent-level data is exposed.",
+  "sampleSize": 223,
+  "sensitivity": "public"
+}
