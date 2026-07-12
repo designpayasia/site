@@ -235,7 +235,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               }))}
             />
           ) : segment.type === 'pullquote' ? (
-            <PullQuoteBeat quote={segment.quote} attribution={segment.attribution} />
+            <PullQuoteBeat quote={segment.quote} attribution={segment.attribution} tint />
           ) : (
             <div
               class={`section-copy prose${index === firstProseSegmentIndex ? ' section-copy--lead' : ''}`}

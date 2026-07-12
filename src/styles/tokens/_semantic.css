@@ -18,6 +18,7 @@
   --color-signal:      var(--color-crimson-600);
   --color-signal-fill: var(--color-crimson-600); /* surfaces, badges, buttons */
   --color-signal-text: var(--color-crimson-600); /* links, inline emphasis */
+  --color-signal-wash: var(--color-crimson-50); /* soft crimson wash — optional section tint */
   --color-workhorse:   var(--color-grey-900);
   --color-ambient:     var(--color-cream-50);
 

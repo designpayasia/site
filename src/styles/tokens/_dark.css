@@ -13,6 +13,7 @@
   --color-signal-fill: var(--color-crimson-400);
   --color-signal-text: var(--color-crimson-300);
   --color-signal: var(--color-crimson-400);
+  --color-signal-wash: var(--color-navy-700); /* faint dark surface, not light pink */
 
   --color-workhorse: var(--color-cream-50);
   --color-ambient: var(--color-navy-900);
