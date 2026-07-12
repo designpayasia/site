@@ -26,9 +26,9 @@ charts:
         - label: Woman (n=138)
           value: S$71,300
   - id: sg-gender-pay-gap-by-level
-    title: Pay gap by seniority level, gender
-    caption: Reported median total compensation by gender at each Singapore survey seniority level where both gender cohorts meet the n=10 publication threshold. Bars show the size of the gap between the two medians at each level. Lead/Staff/Principal IC and Director levels are omitted because at least one gender cohort in each falls below n=10.
-    summary: Among Singapore survey seniority levels with both gender cohorts published, men reported medians 11.85% lower than women at Junior IC. From Mid-level IC upward the direction reverses, women reported medians 11.32% lower at Mid-level IC, 21.1% lower at Senior IC, and 21.22% lower at People Manager. These are gaps between survey medians, not population estimates or matched-role comparisons.
+    title: Median pay by level and gender
+    caption: Reported median total compensation by gender at each Singapore survey seniority level where both gender cohorts meet the n=10 publication threshold. Grouped bars show each gender's median side by side at each level. Lead/Staff/Principal IC and Director levels are omitted because at least one gender cohort in each falls below n=10.
+    summary: "Among Singapore survey seniority levels with both gender cohorts published: Junior IC, Man S$47,600 (n=10) versus Woman S$54,000 (n=53); Mid-level IC, Man S$83,900 (n=20) versus Woman S$74,400 (n=35); Senior IC, Man S$133,150 (n=20) versus Woman S$105,050 (n=32); People Manager, Man S$151,380 (n=13) versus Woman S$119,250 (n=10). The direction reverses above Junior IC: men earn less at Junior IC, then women earn less from Mid-level IC upward. The gap is most pronounced among Senior ICs and People Managers, and the Senior IC cohort (n=52 combined, against n=23 at People Manager) gives the most reliable read at 21.1%. These are gaps between survey medians, not population estimates or matched-role comparisons."
     evidenceIds:
       - evidence:2023-gender-pay-gap
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -54,16 +54,93 @@ charts:
           value: S$151,380
         - label: People Manager, Woman (n=10)
           value: S$119,250
-    bars:
-      - label: Junior IC (men earn less)
-        value: 11.85
-      - label: Mid-level IC (women earn less)
-        value: 11.32
-      - label: Senior IC (women earn less)
-        value: 21.1
-      - label: People Manager (women earn less)
-        value: 21.22
-        tone: signal
+    plot:
+      type: groupedBar
+      seriesALabel: Men
+      seriesBLabel: Women
+      xLabel: Median total compensation (S$)
+      valuePrefix: "S$"
+      categories:
+        - label: Junior IC
+          a: 47600
+          b: 54000
+        - label: Mid-level IC
+          a: 83900
+          b: 74400
+        - label: Senior IC
+          a: 133150
+          b: 105050
+        - label: People Manager
+          a: 151380
+          b: 119250
+      annotations:
+        - x: 138000
+          y: Senior IC
+          text: "Women 21.1% lower"
+          anchor: start
+  - id: sg-gender-pay-rise-distribution
+    title: Pay-rise distribution by gender
+    caption: Share of each gender cohort among Singapore survey respondents reporting a pay rise in each bracket over the past year. Men (n=83) and Women (n=138) are each read as a share of their own cohort, not a share of all respondents.
+    summary: "Reported pay-rise shares for Singapore survey respondents, Men (n=83) versus Women (n=138): no increase, 19.5% versus 20.6%; 0.1–5%, 19.5% versus 18.3%; 6–10%, 15.9% versus 16.0%; 11–15%, 12.2% versus 9.9%; 16–20%, 8.5% versus 9.9%; more than 20%, 24.4% versus 25.2%. The two distributions track closely bracket for bracket, including at the no-increase and top brackets."
+    evidenceIds:
+      - evidence:2023-gender-pay-gap
+      - evidence:2023-sg-compensation-gender
+    sourceLabel: Design Pay Asia 2022-23 survey data
+    sourceUrl: https://designpay.asia/reports/2023
+    fallbackTable:
+      columns:
+        - Pay-rise bracket, gender (n)
+        - Share of cohort reporting this rise
+      rows:
+        - label: No increase, Men (n=83)
+          value: 19.5%
+        - label: No increase, Women (n=138)
+          value: 20.6%
+        - label: 0.1–5%, Men (n=83)
+          value: 19.5%
+        - label: 0.1–5%, Women (n=138)
+          value: 18.3%
+        - label: 6–10%, Men (n=83)
+          value: 15.9%
+        - label: 6–10%, Women (n=138)
+          value: 16.0%
+        - label: 11–15%, Men (n=83)
+          value: 12.2%
+        - label: 11–15%, Women (n=138)
+          value: 9.9%
+        - label: 16–20%, Men (n=83)
+          value: 8.5%
+        - label: 16–20%, Women (n=138)
+          value: 9.9%
+        - label: More than 20%, Men (n=83)
+          value: 24.4%
+        - label: More than 20%, Women (n=138)
+          value: 25.2%
+    plot:
+      type: pairedBar
+      seriesALabel: Men
+      seriesBLabel: Women
+      xLabel: Share of gender cohort reporting this pay rise
+      valueSuffix: "%"
+      categories:
+        - label: No increase
+          a: 19.5
+          b: 20.6
+        - label: 0.1–5%
+          a: 19.5
+          b: 18.3
+        - label: 6–10%
+          a: 15.9
+          b: 16.0
+        - label: 11–15%
+          a: 12.2
+          b: 9.9
+        - label: 16–20%
+          a: 8.5
+          b: 9.9
+        - label: More than 20%
+          a: 24.4
+          b: 25.2
 keyFindings:
   - Man respondents reported median total compensation of S$123,000.
   - Woman respondents reported median total compensation of S$71,300.
@@ -90,7 +167,7 @@ Much of that 42% reflects who is in each cohort, not unequal pay for the same wo
 
 ## Pay gap by seniority level
 
-Comparing medians within each seniority level, restricted to levels where both genders published, sharpens the picture. At Junior IC, men earned 11.85% less than women. From Mid-level IC upward the direction reverses: women earned 11.32% less at Mid-level IC, 21.1% less at Senior IC, and 21.22% less at People Manager.
+Comparing medians within each seniority level, restricted to levels where both genders published, sharpens the picture. At Junior IC, men earned 11.85% less than women. From Mid-level IC upward the direction reverses: women earned 11.32% less at Mid-level IC, 21.1% less at Senior IC, and 21.22% less at People Manager. Of the two levels with a gap above 20%, Senior IC has the larger combined cohort (n=52, against n=23 at People Manager), so its 21.1% gap is the more reliable reading of the two.
 
 Lead/Staff/Principal IC and Director levels aren't shown here. The Lead/Staff woman cohort (n=7) falls short of the publication threshold, and there's too little data at the Director level to say anything reliable about it.
 
@@ -102,7 +179,9 @@ Men negotiated their current compensation more often than women, 61% against 51%
 
 ## Pay rises
 
-The distribution of reported pay rises was broadly similar by gender. In the top bracket, more than 20%, 24.4% of men and 25.2% of women reported an increase: women's share was marginally higher. Rates of no increase at all were also close: 19.5% of men against 20.6% of women. Whatever is driving the per-level gaps above, it isn't a starkly unequal spread of rise sizes.
+Reported pay rises were broadly similar by gender across all six brackets (Men n=83, Women n=138). In the top bracket, more than 20%, 24.4% of men and 25.2% of women reported an increase: women's share was marginally higher. Rates of no increase at all were also close: 19.5% of men against 20.6% of women. Whatever is driving the per-level gaps above, it isn't a starkly unequal spread of rise sizes.
+
+::chart{id="sg-gender-pay-rise-distribution"}
 
 ## Sentiment by gender
 
