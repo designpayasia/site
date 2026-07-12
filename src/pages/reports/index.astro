@@ -2,133 +2,152 @@
 import { getCollection } from 'astro:content';
 
 import Base from '../../layouts/Base.astro';
+import CoverIndexSpread from '../../components/CoverIndexSpread.astro';
+import CoverCardInverse from '../../components/CoverCardInverse.astro';
+import MetricShelf from '../../components/MetricShelf.astro';
 
 const reports = (await getCollection('reports', ({ data }) => data.status === 'published')).sort(
   (left, right) => right.data.publishedAt.getTime() - left.data.publishedAt.getTime(),
 );
+
+// Cross-report headline stats for the masthead shelf, sourced from existing
+// evidence entries (src/content/evidence/2023-survey-overview.json,
+// 2023-gender-pay-gap.json, 2024-total-respondents.json,
+// 2024-geographic-distribution.json). At most one cell carries
+// color: 'signal' — MetricShelf's signal budget (DESIGN.md §1a).
+const heroMetrics = [
+  {
+    value: '1,797',
+    label: 'Responses, 2024 cycle',
+    evidenceId: 'evidence:2024-total-respondents',
+    sampleSize: 1797,
+  },
+  {
+    value: '5',
+    label: 'Markets covered, 2024 cycle',
+    evidenceId: 'evidence:2024-geographic-distribution',
+    sampleSize: 1797,
+  },
+  {
+    value: '323',
+    label: 'Responses, 2023 cycle',
+    evidenceId: 'evidence:2023-survey-overview',
+    sampleSize: 323,
+  },
+  {
+    value: '42',
+    unit: '%',
+    label: 'Singapore gender pay gap, 2023',
+    evidenceId: 'evidence:2023-gender-pay-gap',
+    sampleSize: 323,
+    color: 'signal' as const,
+  },
+];
+
+// Curated card copy per report: a short claim line plus one headline stat,
+// keyed by canonicalPath. Every figure here traces back to that report's own
+// evidence-linked stats (report.data.stats) or content-collection fields
+// (markets.length) — nothing invented. A report with no entry here falls
+// back to its own title and first published stat below, so a future report
+// still lists correctly without needing this map updated first.
+const cardCopy: Record<string, { claim: string; stat: { value: string; unit?: string; label: string } }> = {
+  '/reports/2024': {
+    claim: 'Five markets, one open method.',
+    stat: { value: '1,797', label: 'responses across five Southeast Asian markets' },
+  },
+  '/reports/2023': {
+    claim: 'The first count of design pay in the region.',
+    stat: { value: '42', unit: '%', label: 'Singapore gender pay gap, from 323 responses' },
+  },
+};
 ---
 
 <Base
   title="Reports - Design Pay Asia"
-  description="Structured reports, evidence-backed metrics, and publication-ready routes for Design Pay Asia."
+  description="Evidence-backed reports on design compensation across Southeast Asia, with every metric linked to its source."
 >
-  <section class="reports-hero">
-    <div class="reports-hero__inner">
-      <p class="label-mono">Reports</p>
-      <h1 class="t-h2">Evidence-backed reports for the public site.</h1>
-      <p class="prose">
-        Reports now resolve from structured content entries, not homepage-only copy.
-        This is the first step toward a stable publication contract.
-      </p>
+  <section class="reports-cover">
+    <div class="reports-cover__inner">
+      <CoverIndexSpread
+        eyebrow="Reports"
+        titleLines={['What Southeast Asian', 'designers get paid']}
+        emphasis="get paid"
+        thesis="Open reports on design pay across Southeast Asia. Every figure links to its source, and cohorts under ten stay unpublished."
+        meta={['2 survey cycles', '2023–2024']}
+      >
+        <MetricShelf slot="metrics" metrics={heroMetrics} />
+      </CoverIndexSpread>
     </div>
   </section>
 
   <section class="reports-list">
     <div class="reports-list__inner">
-      {reports.map((report) => (
-        <article class="report-card">
-          <p class="report-card__eyebrow label-mono">{report.data.eyebrow}</p>
-          <h2 class="report-card__title">
-            <a href={report.data.canonicalPath} class="report-card__link">
-              {report.data.title}
-            </a>
-          </h2>
-          <p class="report-card__meta label-mono">
-            {report.data.year} · {report.data.markets.length} markets
-          </p>
-          <p class="prose">{report.data.summary}</p>
-        </article>
-      ))}
+      <p class="label-mono reports-list__eyebrow">All reports</p>
+      <div class="reports-list__grid">
+        {reports.map((report) => {
+          const copy = cardCopy[report.data.canonicalPath];
+          const fallbackStat = report.data.stats[0];
+          const stat =
+            copy?.stat ??
+            (fallbackStat
+              ? { value: String(fallbackStat.value), unit: fallbackStat.unit, label: fallbackStat.label }
+              : undefined);
 
-      <article class="report-card report-card--stub">
-        <p class="report-card__eyebrow label-mono">Archive stub</p>
-        <h2 class="report-card__title">
-          <a href="/reports/2023" class="report-card__link">
-            2023 DPA Report
-          </a>
-        </h2>
-        <p class="report-card__meta label-mono">Archive route · canonical stub</p>
-        <p class="prose">
-          Preserved route for the pre-rebuild report while migration and redirect rules settle.
-        </p>
-      </article>
+          return (
+            <CoverCardInverse
+              href={report.data.canonicalPath}
+              year={report.data.year}
+              title={copy?.claim ?? report.data.title}
+              stat={stat}
+            />
+          );
+        })}
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .reports-hero,
+  .reports-cover,
   .reports-list {
     padding-inline: var(--space-8);
   }
 
-  .reports-hero {
-    padding-block: var(--space-24) var(--space-12);
+  .reports-cover {
+    padding-block: var(--space-24) var(--space-16);
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  .reports-hero__inner,
+  .reports-cover__inner,
   .reports-list__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
     padding-inline: var(--space-8);
   }
 
-  .reports-hero__inner h1 {
-    margin-top: var(--space-6);
-    max-width: 12ch;
-  }
-
   .reports-list {
     padding-block: var(--space-16) var(--space-24);
   }
 
-  .reports-list__inner {
-    display: grid;
-    gap: var(--space-8);
-  }
-
-  .report-card {
-    padding: var(--space-10);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 8px;
-    background: var(--color-surface);
-  }
-
-  .report-card--stub {
-    border-style: dashed;
-  }
-
-  .report-card__eyebrow,
-  .report-card__meta {
+  .reports-list__eyebrow {
+    margin: 0 0 var(--space-6);
     color: var(--color-ink-muted);
   }
 
-  .report-card__title {
-    margin-block: var(--space-4);
-  }
-
-  .report-card__link {
-    color: var(--color-ink);
-    text-decoration: none;
-  }
-
-  .report-card__link:hover {
-    color: var(--color-action);
+  .reports-list__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-6);
   }
 
   @media (max-width: 767px) {
-    .reports-hero,
+    .reports-cover,
     .reports-list {
       padding-inline: var(--space-4);
     }
 
-    .reports-hero {
+    .reports-cover {
       padding-block: var(--space-16);
-    }
-
-    .report-card {
-      padding: var(--space-8);
     }
   }
 </style>
