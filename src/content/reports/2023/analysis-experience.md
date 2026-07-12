@@ -58,7 +58,7 @@ charts:
   - id: sg-compensation-yoe-group
     title: Pay range by years of design experience
     caption: Reported minimum, median, and maximum total compensation in SGD among Singapore survey respondents, grouped by years of design experience (YOE). These are survey figures, not population estimates.
-    summary: Among Singapore survey respondents, reported total compensation ranged from S$12,000 to S$230,636 for 0-3 years of design experience (n=98, median S$62,700), S$35,100 to S$230,000 for 4-6 years (n=55, median S$96,000), S$48,000 to S$208,000 for 7-9 years (n=38, median S$131,650), and S$52,000 to S$355,000 for 10 or more years (n=32, median S$156,100). These are survey figures, not population estimates.
+    summary: Among Singapore survey respondents, reported total compensation ranged from S$12,000 to S$230,636 for 0–3 years of design experience (n=98, median S$62,700), S$35,100 to S$230,000 for 4–6 years (n=55, median S$96,000), S$48,000 to S$208,000 for 7–9 years (n=38, median S$131,650), and S$52,000 to S$355,000 for 10 or more years (n=32, median S$156,100). These are survey figures, not population estimates.
     evidenceIds:
       - evidence:2023-experience-salary
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -143,7 +143,7 @@ charts:
   - id: sg-compensation-negotiation-by-yoe
     title: Median total compensation by negotiation and years of design experience
     caption: Reported median total compensation in SGD among Singapore survey respondents who negotiated their current compensation versus those who did not, grouped by years of design experience (YOE). These survey medians are not population estimates. Per-cell sample sizes for this breakdown are not separately published; only the YOE-band totals shown in the years-of-experience chart above are reported.
-    summary: Among Singapore survey respondents grouped by years of design experience, those who negotiated reported lower medians than those who did not in the 0-3 year band (S$56,275 versus S$65,100) and the 4-6 year band (S$72,000 versus S$106,600). The pattern reverses from 7 years of experience onward, where those who negotiated reported higher medians, S$137,500 versus S$112,800 for 7-9 years and S$159,000 versus S$143,500 for 10 or more years.
+    summary: Among Singapore survey respondents grouped by years of design experience, those who negotiated reported lower medians than those who did not in the 0–3 year band (S$56,275 versus S$65,100) and the 4–6 year band (S$72,000 versus S$106,600). The pattern reverses from 7 years of experience onward, where those who negotiated reported higher medians, S$137,500 versus S$112,800 for 7–9 years and S$159,000 versus S$143,500 for 10 or more years.
     evidenceIds:
       - evidence:2023-experience-salary
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -153,34 +153,34 @@ charts:
         - Years of design experience, negotiation response
         - Reported median total compensation (SGD), not a population estimate
       rows:
-        - label: 0-3 years, negotiated
+        - label: 0–3 years, negotiated
           value: S$56,275
-        - label: 0-3 years, did not negotiate
+        - label: 0–3 years, did not negotiate
           value: S$65,100
-        - label: 4-6 years, negotiated
+        - label: 4–6 years, negotiated
           value: S$72,000
-        - label: 4-6 years, did not negotiate
+        - label: 4–6 years, did not negotiate
           value: S$106,600
-        - label: 7-9 years, negotiated
+        - label: 7–9 years, negotiated
           value: S$137,500
-        - label: 7-9 years, did not negotiate
+        - label: 7–9 years, did not negotiate
           value: S$112,800
         - label: 10+ years, negotiated
           value: S$159,000
         - label: 10+ years, did not negotiate
           value: S$143,500
     bars:
-      - label: 0-3 years, negotiated
+      - label: 0–3 years, negotiated
         value: 35.4
-      - label: 0-3 years, did not negotiate
+      - label: 0–3 years, did not negotiate
         value: 40.9
-      - label: 4-6 years, negotiated
+      - label: 4–6 years, negotiated
         value: 45.3
-      - label: 4-6 years, did not negotiate
+      - label: 4–6 years, did not negotiate
         value: 67.0
-      - label: 7-9 years, negotiated
+      - label: 7–9 years, negotiated
         value: 86.5
-      - label: 7-9 years, did not negotiate
+      - label: 7–9 years, did not negotiate
         value: 70.9
       - label: 10+ years, negotiated
         value: 100
@@ -191,7 +191,7 @@ keyFindings:
   - People Manager respondents recorded the highest reported median total
     compensation among the published seniority cohorts, at S$139,100.
   - Median total compensation rose steadily with years of design experience,
-    from S$62,700 at 0-3 years to S$156,100 at 10 or more years.
+    from S$62,700 at 0–3 years to S$156,100 at 10 or more years.
   - Respondents with international work experience recorded S$130,000, compared
     with S$70,100 among respondents without it.
   - Negotiation-response medians were S$84,500 for Yes, S$84,150 for No, and
@@ -212,9 +212,9 @@ These are cross-sectional groups with different roles and respondent profiles, n
 
 ## Years of design experience
 
-Median total compensation rose steadily with years of design experience: S$62,700 at 0-3 years, S$96,000 at 4-6 years, S$131,650 at 7-9 years, and S$156,100 at 10 or more years. Across the whole sample, reported total compensation increased by an average of S$10,839 for every additional year of design experience. That figure is the annualised slope behind the medians below, not a promise of an automatic yearly rise for any individual respondent.
+Median total compensation rose steadily with years of design experience: S$62,700 at 0–3 years, S$96,000 at 4–6 years, S$131,650 at 7–9 years, and S$156,100 at 10 or more years. Across the whole sample, reported total compensation increased by an average of S$10,839 for every additional year of design experience. That figure is the annualised slope behind the medians below, not a promise of an automatic yearly rise for any individual respondent.
 
-The reported range widens alongside the median. Respondents with 0-3 years of design experience span S$12,000 to S$230,636, while respondents with 10 or more years span S$52,000 to S$355,000, the widest published range in this section.
+The reported range widens alongside the median. Respondents with 0–3 years of design experience span S$12,000 to S$230,636, while respondents with 10 or more years span S$52,000 to S$355,000, the widest published range in this section.
 
 ::chart{id="sg-compensation-yoe-group"}
 
@@ -232,7 +232,7 @@ The three published negotiation-response groups recorded similar medians: S$84,5
 
 ### By years of design experience
 
-That aggregate is nearly flat, but it masks a split by career stage. Below 7 years of design experience, respondents who negotiated reported lower medians than those who did not: S$56,275 versus S$65,100 at 0-3 years, and S$72,000 versus S$106,600 at 4-6 years. From 7 years onward the pattern reverses: S$137,500 versus S$112,800 at 7-9 years, and S$159,000 versus S$143,500 at 10 or more years, a premium of roughly 11-22% for those who negotiated.
+That aggregate is nearly flat, but it masks a split by career stage. Below 7 years of design experience, respondents who negotiated reported lower medians than those who did not: S$56,275 versus S$65,100 at 0–3 years, and S$72,000 versus S$106,600 at 4–6 years. From 7 years onward the pattern reverses: S$137,500 versus S$112,800 at 7–9 years, and S$159,000 versus S$143,500 at 10 or more years, a premium of roughly 11–22% for those who negotiated.
 
 Read the early-career figures cautiously. This is a cross-sectional snapshot, not a study of individual outcomes, and selection effects cut both ways. Someone earning less may be more likely to negotiate in the first place, and a small gap at entry level is easily overstated. The impact of negotiating seems more pronounced for respondents with 7 or more years of design experience; it isn't a clean story below that.
 

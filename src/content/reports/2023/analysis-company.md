@@ -82,7 +82,7 @@ charts:
   - id: sg-compensation-company-size
     title: Median total compensation by company size
     caption: Reported median total compensation in SGD among Singapore survey respondents in each company-size subgroup. These survey medians are not population estimates.
-    summary: Reported median total compensation among Singapore survey respondents was S$44,900 at companies with 1-10 employees, S$54,000 at 11-50, S$80,200 at 51-200, S$100,700 at 201-1,000, S$100,550 at 1,001-10,000, and S$112,500 at 10,001 or more. These are survey medians, not population estimates.
+    summary: Reported median total compensation among Singapore survey respondents was S$44,900 at companies with 1–10 employees, S$54,000 at 11–50, S$80,200 at 51–200, S$100,700 at 201–1,000, S$100,550 at 1,001–10,000, and S$112,500 at 10,001 or more. These are survey medians, not population estimates.
     evidenceIds:
       - evidence:2023-sg-compensation-company-size
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -93,15 +93,15 @@ charts:
         - Subgroup among Singapore survey respondents (n)
         - Reported median total compensation (SGD), not a population estimate
       rows:
-        - label: 1-10 employees (n=13)
+        - label: 1–10 employees (n=13)
           value: S$44,900
-        - label: 11-50 employees (n=37)
+        - label: 11–50 employees (n=37)
           value: S$54,000
-        - label: 51-200 employees (n=40)
+        - label: 51–200 employees (n=40)
           value: S$80,200
-        - label: 201-1,000 employees (n=38)
+        - label: 201–1,000 employees (n=38)
           value: S$100,700
-        - label: 1,001-10,000 employees (n=44)
+        - label: 1,001–10,000 employees (n=44)
           value: S$100,550
         - label: 10,001+ employees (n=51)
           value: S$112,500
@@ -197,12 +197,12 @@ keyFindings:
     among the published company-type cohorts.
   - Among industries with at least 10 respondents, Retail, Wholesale &
     Distribution recorded the highest reported median at S$125,600.
-  - Reported medians ranged from S$44,900 at companies with 1-10 employees to
+  - Reported medians ranged from S$44,900 at companies with 1–10 employees to
     S$112,500 at companies with 10,001 or more employees.
   - Non-local companies offered 67.1% more than companies physically
     headquartered in Singapore (S$120,280 vs S$72,000).
   - Remote respondents recorded S$143,336, Hybrid respondents S$81,900, and
-    In-office respondents S$52,000 — the report puts Remote pay at roughly
+    In-office respondents S$52,000; the report puts Remote pay at roughly
     2.7 times the In-office median and 1.8 times the Hybrid median.
   - Reported median total compensation rises with self-reported weekly extra
     hours, from S$78,650 at 0 hours to S$110,632.50 at 5 or more hours; the
@@ -229,7 +229,7 @@ The figures describe the people who answered the survey. Respondent mix varies a
 
 ## Company size
 
-The reported medians were S$44,900 at companies with 1-10 employees and S$112,500 at companies with 10,001 or more. The two adjacent groups from 201 to 10,000 employees recorded similar medians: S$100,700 and S$100,550. The steepest step sits between the 51-200 and 201-1,000 employee bands, a 25.5% jump in reported median pay, from S$80,200 to S$100,700.
+The reported medians were S$44,900 at companies with 1–10 employees and S$112,500 at companies with 10,001 or more. The two adjacent groups from 201 to 10,000 employees recorded similar medians: S$100,700 and S$100,550. The steepest step sits between the 51–200 and 201–1,000 employee bands, a 25.5% jump in reported median pay, from S$80,200 to S$100,700.
 
 Respondent mix may differ across company-size groups. Read these figures as survey descriptions rather than expected pay at a given company.
 
@@ -249,7 +249,7 @@ Respondents not physically based at their company's headquarters recorded a medi
 
 ## Work arrangement
 
-Remote respondents recorded a median of S$143,336 — roughly 2.7 times the In-office median and 1.8 times the Hybrid median, as reported. The corresponding medians were S$81,900 for Hybrid respondents and S$52,000 for In-office respondents. Role, seniority, employer, and other characteristics may differ across these groups, so this is an unadjusted comparison.
+Remote respondents recorded a median of S$143,336, roughly 2.7 times the In-office median and 1.8 times the Hybrid median, as reported. The corresponding medians were S$81,900 for Hybrid respondents and S$52,000 for In-office respondents. Role, seniority, employer, and other characteristics may differ across these groups, so this is an unadjusted comparison.
 
 ::chart{id="sg-compensation-work-arrangement"}
 
