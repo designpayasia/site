@@ -48,24 +48,59 @@ charts:
   - id: 'city-breakdown'
     title: Country and city breakdown (top 3 cities per country)
     caption: Urban concentration of respondents across key Southeast Asian cities.
-    summary: 'Jakarta alone accounts for 48.36% of all respondents (869 of 1,797); capital cities dominate across all markets.'
+    summary: 'Jakarta accounts for 48.4% of respondents (870 of 1,797), the largest single city in the sample.'
     evidenceIds: ['evidence:2024-geographic-distribution']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
-    pngPath: /charts/2024/demographics/02-city-breakdown.png
+    bars:
+      - label: Jakarta
+        value: 48.4
+        tone: signal
+      - label: Singapore
+        value: 9.7
+        tone: workhorse
+      - label: Bandung
+        value: 6.3
+        tone: workhorse
+      - label: Kuala Lumpur
+        value: 4.5
+        tone: workhorse
+      - label: Surabaya
+        value: 3.8
+        tone: workhorse
+      - label: Yogyakarta
+        value: 3.4
+        tone: workhorse
+      - label: Bangkok
+        value: 2.3
+        tone: workhorse
+      - label: Tangerang
+        value: 1.9
+        tone: workhorse
+      - label: Other
+        value: 19.7
+        tone: workhorse
     fallbackTable:
       columns: [City, Respondents]
       rows:
         - label: Jakarta
-          value: '869 (48.36%)'
+          value: '48.4%'
         - label: Singapore
-          value: '174 (9.68%)'
+          value: '9.7%'
+        - label: Bandung
+          value: '6.3%'
         - label: Kuala Lumpur
-          value: '81 (4.51%)'
+          value: '4.5%'
+        - label: Surabaya
+          value: '3.8%'
+        - label: Yogyakarta
+          value: '3.4%'
         - label: Bangkok
-          value: '41 (2.28%)'
-        - label: Ho Chi Minh City
-          value: '26 (1.45%)'
+          value: '2.3%'
+        - label: Tangerang
+          value: '1.9%'
+        - label: Other
+          value: '19.7%'
   - id: 'gender-distribution'
     title: 'Gender distribution by market'
     sourceLabel: '2024 DPA Report'
@@ -105,39 +140,65 @@ charts:
   - id: 'age-group'
     title: Respondents by age group
     caption: Age distribution across all survey respondents.
-    summary: '80.19% of designers are under 30, with the 25–30 bracket accounting for 56.98% of all respondents.'
+    summary: '80.2% of respondents are under 30. The 25–30 bracket alone is 57.0% of the sample.'
     evidenceIds: ['evidence:2024-demographics-age-gender']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
-    pngPath: /charts/2024/demographics/04-age-group.png
+    bars:
+      - label: 18–24
+        value: 23.2
+        tone: workhorse
+      - label: 25–30
+        value: 57.0
+        tone: signal
+      - label: 31–35
+        value: 13.7
+        tone: workhorse
+      - label: 36+
+        value: 6.0
+        tone: workhorse
     fallbackTable:
       columns: [Age group, Proportion]
       rows:
         - label: 18–24 years
-          value: '23.21%'
+          value: '23.2%'
         - label: 25–30 years
-          value: '56.98%'
+          value: '57.0%'
         - label: 31–35 years
-          value: '13.83%'
+          value: '13.7%'
         - label: 36+ years
-          value: '6.04%'
+          value: '6.0%'
   - id: 'gender-by-age'
     title: Gender distribution by age group
     caption: Cross-analysis of gender and age groups across the full respondent set.
-    summary: 'The early-career cohort (18–24) is nearly balanced at 58% male / 42% female, while mid-career brackets show higher male representation.'
+    summary: 'Women are 41.7% of the 18–24 cohort, and their share falls with each older band to 31.5% at 36–50.'
     evidenceIds: ['evidence:2024-demographics-age-gender']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
-    pngPath: /charts/2024/demographics/05-gender-by-age-group.png
+    bars:
+      - label: 18–24
+        value: 41.7
+        tone: signal
+      - label: 25–30
+        value: 41.3
+        tone: signal
+      - label: 31–35
+        value: 37.3
+        tone: signal
+      - label: 36–50
+        value: 31.5
+        tone: signal
     fallbackTable:
       columns: [Age group, Female proportion]
       rows:
-        - label: 18–24 (early career)
-          value: '~42%'
-        - label: 25–30 (prime years)
-          value: '~41–37%'
-        - label: 36–45 (mid-career)
-          value: Lowest female share
+        - label: 18–24
+          value: '41.7%'
+        - label: 25–30
+          value: '41.3%'
+        - label: 31–35
+          value: '37.3%'
+        - label: 36–50
+          value: '31.5%'
 keyFindings:
   - 'Young workforce dominance (80% under 35) with strong urban concentration'
   - 'Clear geographic hub pattern centered on Indonesia, Singapore, Malaysia'
