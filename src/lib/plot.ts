@@ -204,18 +204,47 @@ function currencyAxisTicks(domainMax: number): {
  *  slack is invisible but a text-measurement API would drag in jsdom. */
 const MONO_CHAR_WIDTH = 8;
 
+/** Slightly tighter glyph estimate for the category label column only —
+ *  the axis tick face is a hair narrower than the key-row estimate above,
+ *  and a tighter number lets typical labels reserve less width, leaving
+ *  the value axis (the actual data) the majority of the SVG. */
+const CATEGORY_CHAR_WIDTH = 7;
+
+/** Small gap between the truncated label column and the plot area. */
+const CATEGORY_LABEL_RIGHT_PADDING = 8;
+
 function categoryMarginLeft(labels: string[], width: number): number {
   // +2ch cushion on the widest label: form review caught the previous
   // estimate under-measuring by 1–2ch, which clipped leading glyphs.
   // Over-reserving costs a few px of plot width; under-reserving eats
   // the label.
   const longest = Math.max(...labels.map((label) => label.length));
-  const estimate = Math.ceil((longest + 2) * MONO_CHAR_WIDTH) + 24;
-  // Cap relative to the plot's own width rather than a flat pixel value —
-  // a flat cap sized for shorter 2023 labels ("Staff / Principal IC")
-  // clipped longer 2024 rows like "Head of department / Senior leadership
-  // (n=15)" against the SVG's left edge.
-  return Math.min(Math.round(width * 0.7), Math.max(80, estimate));
+  const estimate = Math.ceil((longest + 2) * CATEGORY_CHAR_WIDTH) + 24;
+  // Cap at 38% of the SVG width, not a flat pixel value or the previous
+  // 70%: long rows like "Head of department / Senior leadership (n=15)"
+  // (45ch) were consuming most of the 640px canvas, crushing the value
+  // axis to a sliver. The value axis carries the data and always keeps
+  // the majority of the width now; labels that would overflow this
+  // capped column are truncated at render time (see truncateLabel) — the
+  // full string still lives in the chart's fallbackTable.
+  return Math.min(Math.round(width * 0.38), Math.max(80, estimate));
+}
+
+/**
+ * Truncate a category label so its rendered tick text fits within the
+ * capped left margin, appending an ellipsis. Purely cosmetic: it only
+ * reformats the axis tick text via Plot's `tickFormat`, so the underlying
+ * band-scale domain (and therefore mark positioning and annotation
+ * matching) is untouched, and the full label always lives in the chart's
+ * fallbackTable.
+ */
+function truncateLabel(label: string, marginLeft: number): string {
+  const availableChars = Math.floor(
+    (marginLeft - CATEGORY_LABEL_RIGHT_PADDING) / CATEGORY_CHAR_WIDTH,
+  );
+  if (label.length <= availableChars) return label;
+  const keep = Math.max(1, availableChars - 1);
+  return `${label.slice(0, keep)}…`;
 }
 
 /**
@@ -497,6 +526,7 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
   const domainMax = Math.max(...rows.map((row) => row.max));
   const currencyAxis = valuePrefix ? currencyAxisTicks(domainMax) : undefined;
   const tickFormat = makeTickFormat(valuePrefix, valueSuffix);
+  const marginLeft = categoryMarginLeft(labels, width);
   marks.push(...annotationTextMarks(annotations, { domainMax }));
 
   // A top-row annotation lifts above the topmost band, into the plot's
@@ -513,7 +543,7 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
     className: PLOT_CLASS_NAME,
     width,
     height,
-    marginLeft: categoryMarginLeft(labels, width),
+    marginLeft,
     marginRight: valueAxisMarginRight(currencyAxis, tickFormat),
     marginTop: topRowHasAnnotation ? ANNOTATION_TOP_RESERVE : undefined,
     marginBottom: 48,
@@ -531,6 +561,10 @@ export function renderRangePlotSvg(options: RangePlotOptions): string {
     y: {
       label: null,
       domain: labels,
+      // Cosmetic only — the band scale still keys off the full label, so
+      // mark positioning and annotation matching (topRowHasAnnotation
+      // above) are unaffected.
+      tickFormat: (label: string) => truncateLabel(label, marginLeft),
     },
     marks,
   }) as unknown as RenderedSvgElement;
@@ -696,6 +730,10 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
       // padding above so groups stay visually distinct from their own
       // paired bars.
       padding: 0.4,
+      // Cosmetic only, same as the range plot's y axis — the facet
+      // domain still keys off the full label, so bar/annotation matching
+      // is unaffected.
+      tickFormat: (label: string) => truncateLabel(label, marginLeft),
     },
     marks,
   }) as unknown as RenderedSvgElement;
