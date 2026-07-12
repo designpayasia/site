@@ -20,30 +20,31 @@ charts:
     fallbackTable:
       columns:
         - Currency
-        - Share (N=323)
+        - Respondents (N=323)
+        - Share (%)
       rows:
         - label: SGD
-          value: 224 (69.3%)
+          values: ["224", "69.3"]
         - label: MYR
-          value: 46 (14.2%)
+          values: ["46", "14.2"]
         - label: IDR
-          value: 27 (8.4%)
+          values: ["27", "8.4"]
         - label: PHP
-          value: 7 (2.2%)
+          values: ["7", "2.2"]
         - label: VND
-          value: 6 (1.9%)
+          values: ["6", "1.9"]
         - label: USD
-          value: 5 (1.5%)
+          values: ["5", "1.5"]
         - label: THB
-          value: 3 (0.9%)
+          values: ["3", "0.9"]
         - label: INR
-          value: 2 (0.6%)
+          values: ["2", "0.6"]
         - label: JPY
-          value: 1 (0.3%)
+          values: ["1", "0.3"]
         - label: RON
-          value: 1 (0.3%)
+          values: ["1", "0.3"]
         - label: TWD
-          value: 1 (0.3%)
+          values: ["1", "0.3"]
     bars:
       - label: SGD
         value: 69.3
@@ -178,18 +179,21 @@ charts:
         fallbackTable:
           columns:
             - Career level
-            - Min – median – max (S$)
+            - n
+            - Minimum (S$)
+            - Median (S$)
+            - Maximum (S$)
           rows:
-            - label: Junior IC (N=63)
-              value: "S$12,000 – S$54,000 – S$157,000"
-            - label: Mid-level IC (N=56)
-              value: "S$34,800 – S$75,800 – S$210,000"
-            - label: Senior IC (N=52)
-              value: "S$44,200 – S$119,500 – S$339,927"
-            - label: Lead / Staff / Principal IC (N=19)
-              value: "S$38,400 – S$103,200 – S$201,342"
-            - label: People Manager (N=23)
-              value: "S$37,396 – S$139,100 – S$235,000"
+            - label: Junior IC
+              values: ["63", "12,000", "54,000", "157,000"]
+            - label: Mid-level IC
+              values: ["56", "34,800", "75,800", "210,000"]
+            - label: Senior IC
+              values: ["52", "44,200", "119,500", "339,927"]
+            - label: Lead / Staff / Principal IC
+              values: ["19", "38,400", "103,200", "201,342"]
+            - label: People Manager
+              values: ["23", "37,396", "139,100", "235,000"]
       - label: Malaysia
         summary: "Malaysia's ranges widen quickly past Junior IC. Junior IC
           (N=13): RM30,000 – RM140,000, median RM55,000. Mid-level IC (N=13):
@@ -222,14 +226,17 @@ charts:
         fallbackTable:
           columns:
             - Career level
-            - Min – median – max (RM)
+            - n
+            - Minimum (RM)
+            - Median (RM)
+            - Maximum (RM)
           rows:
-            - label: Junior IC (N=13)
-              value: "RM30,000 – RM55,000 – RM140,000"
-            - label: Mid-level IC (N=13)
-              value: "RM54,000 – RM82,000 – RM233,400"
-            - label: Senior IC (N=10)
-              value: "RM63,600 – RM94,325 – RM174,040"
+            - label: Junior IC
+              values: ["13", "30,000", "55,000", "140,000"]
+            - label: Mid-level IC
+              values: ["13", "54,000", "82,000", "233,400"]
+            - label: Senior IC
+              values: ["10", "63,600", "94,325", "174,040"]
   - id: chart-compensation-indonesia
     type: bar
     title: Median total compensation, Indonesia (cohort-safe levels only)
@@ -319,26 +326,27 @@ charts:
     fallbackTable:
       columns:
         - Benefit
-        - Access (N=323)
+        - Respondents (of N=323)
+        - Share (%)
       rows:
         - label: Paid medical leave
-          value: 269 (83.3%)
+          values: ["269", "83.3"]
         - label: PTO/vacation
-          value: 250 (77.4%)
+          values: ["250", "77.4"]
         - label: Health insurance
-          value: 247 (76.5%)
+          values: ["247", "76.5"]
         - label: Flexible working arrangement
-          value: 222 (68.7%)
+          values: ["222", "68.7"]
         - label: Professional development/training fund
-          value: 150 (46.4%)
+          values: ["150", "46.4"]
         - label: Flexible schedule
-          value: 129 (39.9%)
+          values: ["129", "39.9"]
         - label: Dental
-          value: 127 (39.3%)
+          values: ["127", "39.3"]
         - label: Onsite food/snacks
-          value: 108 (33.4%)
+          values: ["108", "33.4"]
         - label: Equipment/home office budget
-          value: 68 (21.1%)
+          values: ["68", "21.1"]
     bars:
       - label: Paid medical leave
         value: 83.3

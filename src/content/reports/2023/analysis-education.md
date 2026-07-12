@@ -55,6 +55,27 @@ charts:
           value: S$92,500
         - label: No formal design education (n=48)
           value: S$85,500.50
+    bars:
+      - label: Formal design education (n=120)
+        value: 98
+        tone: workhorse
+        displayValue: S$90,510
+      - label: Online certification (n=49)
+        value: 99
+        tone: workhorse
+        displayValue: S$91,545
+      - label: Bootcamp (n=66)
+        value: 95
+        tone: workhorse
+        displayValue: S$87,910.50
+      - label: In-person certified courses (n=25)
+        value: 100
+        tone: workhorse
+        displayValue: S$92,500
+      - label: No formal design education (n=48)
+        value: 92
+        tone: workhorse
+        displayValue: S$85,500.50
   - id: sg-education-no-formal-levels
     title: Median total compensation by career level, no formal design education
     caption: Reported median total compensation in SGD by career level, within the Singapore no-formal-design-education cohort (n=41). Only levels with at least 10 respondents are shown; Mid-level, Lead/Staff, People Manager, Director, and VP cohorts within this subset are suppressed.

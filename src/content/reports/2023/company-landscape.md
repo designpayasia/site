@@ -83,24 +83,25 @@ charts:
     fallbackTable:
       columns:
         - Industry
-        - Share (N=224)
+        - Respondents (N=224)
+        - Share (%)
       rows:
         - label: Banking & Capital Markets
-          value: 44 (19.6%)
+          values: ["44", "19.6"]
         - label: Consumer Products
-          value: 43 (19.2%)
+          values: ["43", "19.2"]
         - label: Transportation, Hospitality & Services
-          value: 20 (8.9%)
+          values: ["20", "8.9"]
         - label: Government & Public Services
-          value: 18 (8.0%)
+          values: ["18", "8.0"]
         - label: Retail, Wholesale & Distribution
-          value: 11 (4.9%)
+          values: ["11", "4.9"]
         - label: Investment Management
-          value: 11 (4.9%)
+          values: ["11", "4.9"]
         - label: Health Care
-          value: 10 (4.5%)
+          values: ["10", "4.5"]
         - label: Other industries
-          value: 67 (29.9%)
+          values: ["67", "29.9"]
     bars:
       - label: Banking & Capital Markets
         value: 19.6
@@ -149,19 +150,20 @@ charts:
       columns:
         - Company size
         - Respondents
+        - Share (%)
       rows:
         - label: 1-10
-          value: 17 (5.3%)
+          values: ["17", "5.3"]
         - label: 11-50
-          value: 63 (19.5%)
+          values: ["63", "19.5"]
         - label: 51-200
-          value: 66 (20.4%)
+          values: ["66", "20.4"]
         - label: 201-1,000
-          value: 62 (19.2%)
+          values: ["62", "19.2"]
         - label: 1,001-10,000
-          value: 55 (17.0%)
+          values: ["55", "17.0"]
         - label: 10,001+
-          value: 60 (18.6%)
+          values: ["60", "18.6"]
     defaultSegmentLabel: All markets
     segments:
       - id: singapore
@@ -185,19 +187,20 @@ charts:
           columns:
             - Company size
             - Respondents
+            - Share (%)
           rows:
             - label: 1-10
-              value: 13 (5.8%)
+              values: ["13", "5.8"]
             - label: 11-50
-              value: 38 (17.0%)
+              values: ["38", "17.0"]
             - label: 51-200
-              value: 40 (17.9%)
+              values: ["40", "17.9"]
             - label: 201-1,000
-              value: 38 (17.0%)
+              values: ["38", "17.0"]
             - label: 1,001-10,000
-              value: 44 (19.6%)
+              values: ["44", "19.6"]
             - label: 10,001+
-              value: 51 (22.8%)
+              values: ["51", "22.8"]
   - id: design-team-size
     title: Design team size
     caption: Distribution of design-team size among all respondents (N=323).
@@ -221,17 +224,18 @@ charts:
       columns:
         - Team size
         - Respondents
+        - Share (%)
       rows:
         - label: Team of 1
-          value: 24 (7.4%)
+          values: ["24", "7.4"]
         - label: 2-10
-          value: 175 (54.2%)
+          values: ["175", "54.2"]
         - label: 11-50
-          value: 89 (27.6%)
+          values: ["89", "27.6"]
         - label: 51-200
-          value: 27 (8.4%)
+          values: ["27", "8.4"]
         - label: 200+
-          value: 8 (2.5%)
+          values: ["8", "2.5"]
     defaultSegmentLabel: All markets
     segments:
       - id: singapore
@@ -253,17 +257,18 @@ charts:
           columns:
             - Team size
             - Respondents
+            - Share (%)
           rows:
             - label: Team of 1
-              value: 16 (7.1%)
+              values: ["16", "7.1"]
             - label: 2-10
-              value: 116 (51.8%)
+              values: ["116", "51.8"]
             - label: 11-50
-              value: 59 (26.3%)
+              values: ["59", "26.3"]
             - label: 51-200
-              value: 25 (11.2%)
+              values: ["25", "11.2"]
             - label: 200+
-              value: 8 (3.6%)
+              values: ["8", "3.6"]
   - id: at-company-hq
     title: Company headquarters
     caption: Share of respondents physically located at their company's headquarters (N=323).
@@ -283,13 +288,14 @@ charts:
       columns:
         - Response
         - Respondents
+        - Share (%)
       rows:
         - label: Yes
-          value: 201 (62.2%)
+          values: ["201", "62.2"]
         - label: No
-          value: 96 (29.7%)
+          values: ["96", "29.7"]
         - label: Not applicable
-          value: 26 (8.0%)
+          values: ["26", "8.0"]
     defaultSegmentLabel: All markets
     segments:
       - id: singapore
@@ -307,13 +313,14 @@ charts:
           columns:
             - Response
             - Respondents
+            - Share (%)
           rows:
             - label: Yes
-              value: 139 (62.1%)
+              values: ["139", "62.1"]
             - label: No
-              value: 67 (29.9%)
+              values: ["67", "29.9"]
             - label: Not applicable
-              value: 18 (8.0%)
+              values: ["18", "8.0"]
   - id: work-arrangement
     title: Work arrangement
     caption: Share of respondents by working arrangement (N=323).
@@ -333,13 +340,14 @@ charts:
       columns:
         - Work arrangement
         - Respondents
+        - Share (%)
       rows:
         - label: Hybrid
-          value: 232 (71.8%)
+          values: ["232", "71.8"]
         - label: Remote
-          value: 54 (16.7%)
+          values: ["54", "16.7"]
         - label: In-Office
-          value: 37 (11.5%)
+          values: ["37", "11.5"]
     defaultSegmentLabel: All markets
     segments:
       - id: singapore
@@ -357,13 +365,14 @@ charts:
           columns:
             - Work arrangement
             - Respondents
+            - Share (%)
           rows:
             - label: Hybrid
-              value: 180 (80.4%)
+              values: ["180", "80.4"]
             - label: Remote
-              value: 23 (10.3%)
+              values: ["23", "10.3"]
             - label: In-Office
-              value: 21 (9.4%)
+              values: ["21", "9.4"]
 ---
 ## Company type
 

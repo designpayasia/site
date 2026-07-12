@@ -19,22 +19,23 @@ charts:
     fallbackTable:
       columns:
         - Country
-        - Share
+        - Respondents
+        - Share (%)
       rows:
         - label: Singapore
-          value: 224 (69.4%)
+          values: ["224", "69.4"]
         - label: Malaysia
-          value: 46 (14.2%)
+          values: ["46", "14.2"]
         - label: Indonesia
-          value: 29 (8.9%)
+          values: ["29", "8.9"]
         - label: Philippines
-          value: 8 (2.5%)
+          values: ["8", "2.5"]
         - label: Vietnam
-          value: 7 (2.2%)
+          values: ["7", "2.2"]
         - label: Thailand
-          value: 3 (0.9%)
+          values: ["3", "0.9"]
         - label: Others
-          value: 6 (1.9%)
+          values: ["6", "1.9"]
     bars:
       - label: Singapore
         value: 69.4
@@ -65,16 +66,17 @@ charts:
     fallbackTable:
       columns:
         - Gender
-        - Share
+        - Respondents
+        - Share (%)
       rows:
         - label: Women
-          value: 176 (54.5%)
+          values: ["176", "54.5"]
         - label: Men
-          value: 142 (43.9%)
+          values: ["142", "43.9"]
         - label: Non-binary
-          value: 2 (0.6%)
+          values: ["2", "0.6"]
         - label: Prefer not to state
-          value: 2 (0.6%)
+          values: ["2", "0.6"]
     bars:
       - label: Women
         value: 54.5
