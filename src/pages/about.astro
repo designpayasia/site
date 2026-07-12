@@ -1,53 +1,75 @@
 ---
 import Base from '../layouts/Base.astro';
+import ConversationBlock from '../components/ConversationBlock.astro';
+import PullQuoteBeat from '../components/PullQuoteBeat.astro';
+import Invitation from '../components/Invitation.astro';
 ---
 
 <Base
   title="About - Design Pay Asia"
-  description="Why Design Pay Asia publishes evidence-backed salary reporting for Southeast Asia."
+  description="Design Pay Asia is a community project collecting and publishing design pay data for Southeast Asia."
 >
-  <section class="stub-page">
-    <div class="stub-page__inner">
+  <section class="about-page">
+    <div class="about-page__inner">
       <p class="label-mono">About</p>
-      <h1 class="t-h2">Why this work stays public, cited, and boring.</h1>
+      <h1 class="t-h2">Community-run pay transparency for design in Southeast Asia.</h1>
       <p class="prose">
-        Design Pay Asia publishes salary reporting with explicit sources, stable routes,
-        and a bias toward reversible publication decisions.
+        Design Pay Asia collects and publishes design pay data so the region can talk about money with facts.
       </p>
-      <a href="/reports/2024" class="btn btn--primary">
-        Read the report
-      </a>
     </div>
   </section>
+
+  <ConversationBlock
+    id="about"
+    eyebrow="About"
+    title="Design Pay Asia"
+    paragraphs={[
+      'Design Pay Asia is a community project. We collect and publish design pay data for Southeast Asia so designers can talk about money with facts, not guesswork.',
+      'Across much of the region, discussing salary openly is still taboo, shaped by gender, business culture, education, immigration, and family background. That silence keeps pay unequal.',
+      'The more we share, the fairer the industry gets. The reports are open, cited, and built with the community, for the community.',
+    ]}
+    metaEyebrow="The project"
+    metaTitle="Community-run"
+    metaItems={[
+      { label: 'Reports', value: '2023, 2024' },
+      { label: 'Contribute', value: 'Share your pay', href: 'https://tally.so/r/3EDeGX' },
+      { label: 'LinkedIn', value: '@design-pay-asia', href: 'https://www.linkedin.com/company/design-pay-asia/' },
+      { label: 'Instagram', value: '@designpayasia', href: 'https://www.instagram.com/designpayasia/' },
+    ]}
+    metaNote="Created by the community, for the community."
+    draftState="final"
+  />
+
+  <PullQuoteBeat
+    quote="Democratise pay data and empower people to start an honest conversation about pay, to shape a fairer, more transparent design industry."
+  />
+
+  <Invitation
+    question="What would change if pay were something we could all see?"
+    questionDraft={false}
+  />
 </Base>
 
 <style>
-  .stub-page {
+  .about-page {
     padding-block: var(--space-24);
   }
 
-  .stub-page__inner {
+  .about-page__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
     padding-inline: var(--space-8);
   }
 
-  .stub-page__inner h1 {
+  .about-page__inner h1 {
     margin-block: var(--space-6);
     max-width: 14ch;
   }
 
-  .stub-page__inner .btn {
-    margin-top: var(--space-8);
-  }
-
   @media (max-width: 767px) {
-    .stub-page {
-      padding-block: var(--space-16);
-    }
-
-    .stub-page__inner {
+    .about-page {
       padding-inline: var(--space-4);
+      padding-block: var(--space-16);
     }
   }
 </style>
