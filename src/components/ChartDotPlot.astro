@@ -401,22 +401,29 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
   }
 
   .chart-dot-plot__table {
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     border-collapse: collapse;
   }
 
   .chart-dot-plot__table th,
   .chart-dot-plot__table td {
     padding-block: var(--space-3);
+    padding-inline: 0 var(--space-8);
     border-bottom: 1px solid var(--color-border-subtle);
     text-align: left;
     vertical-align: top;
     overflow-wrap: break-word;
   }
 
+  .chart-dot-plot__table th:last-child,
+  .chart-dot-plot__table td:last-child {
+    padding-inline-end: 0;
+  }
+
   /* Value columns are numeric (counts, medians, percentages) — right-align
      and set in the data face, tabular so digits line up down the column. */
-  .chart-dot-plot__table-value {
+  .chart-dot-plot__table td.chart-dot-plot__table-value {
     font-family: var(--font-data);
     text-align: right;
     font-variant-numeric: tabular-nums;

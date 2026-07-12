@@ -1129,22 +1129,29 @@ const variantViews = hasVariants
   }
 
   .chart-block__table {
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     border-collapse: collapse;
   }
 
   .chart-block__table th,
   .chart-block__table td {
     padding-block: var(--space-3);
+    padding-inline: 0 var(--space-8);
     border-bottom: 1px solid var(--color-border-subtle);
     text-align: left;
     vertical-align: top;
     overflow-wrap: break-word;
   }
 
+  .chart-block__table th:last-child,
+  .chart-block__table td:last-child {
+    padding-inline-end: 0;
+  }
+
   /* Value columns are numeric (counts, medians, percentages) — right-align
      and set in the data face, tabular so digits line up down the column. */
-  .chart-block__table-value {
+  .chart-block__table td.chart-block__table-value {
     font-family: var(--font-data);
     text-align: right;
     font-variant-numeric: tabular-nums;
