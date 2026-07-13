@@ -164,7 +164,7 @@ Before marking any task done:
 6. Evidence/data changes → `pnpm run audit:pii`
 7. URL/route changes → `pnpm run redirects:check`
 8. Redirect changes → `pnpm run redirects:sync` then `pnpm run redirects:check`
-9. Visual verify in browser: golden path (homepage → report hub → section detail → search) + edge cases
+9. Visual verify in browser: golden path (homepage → report hub → section detail → ops) + edge cases
 10. Run humanizer on all new or edited prose
 
 ## Delegation (per delegation-playbook.md)
