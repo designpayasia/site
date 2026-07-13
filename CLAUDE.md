@@ -2,7 +2,7 @@
 
 Design Pay Asia is Southeast Asia's design pay conversation: a public, cited, open website for reports, editorial context, and community-facing pay transparency work.
 
-Stack: Astro 6, pnpm, Node 22 via `.nvmrc`, plain CSS custom properties (3-tier token architecture), Pagefind search, Zod content schemas, no JS framework (React/Vue/Svelte).
+Stack: Astro 6, pnpm, Node 22 via `.nvmrc`, plain CSS custom properties (3-tier token architecture), Zod content schemas, no JS framework (React/Vue/Svelte).
 
 Site: `https://designpay.asia`. Repo: `designpayasia/site`.
 
@@ -11,7 +11,7 @@ Site: `https://designpay.asia`. Repo: `designpayasia/site`.
 ```bash
 nvm use && pnpm install           # first-time setup
 pnpm dev                          # dev server (localhost:4321)
-pnpm build                        # site + Pagefind index (required before search works)
+pnpm build                        # site build (alias for build:site plus a11y:charts)
 pnpm build:site                   # site only
 pnpm run check                    # Astro diagnostics + content schema check — run before every commit
 pnpm run redirects:sync           # regenerate public/_redirects from src/data/redirects.json
@@ -22,7 +22,6 @@ pnpm run audit:ops                # ops freshness audit
 pnpm run audit:pii                # PII audit — required before any content PR
 pnpm run a11y:charts              # chart accessibility — after adding/changing charts
 pnpm run a11y:contrast            # WCAG 2.1 AA contrast — after any style change
-pnpm run search:index             # Pagefind index rebuild (separate from build)
 pnpm run preview                  # local preview of built site
 ```
 
@@ -46,8 +45,6 @@ src/
     about.astro                    # about page
     contribute.astro               # contribute page
     ops.astro                      # continuity spine
-    resources.astro                # resources page
-    search.astro                   # Pagefind search page
     reports/index.astro            # report hub
     reports/[slug].astro           # report landing page
     reports/[year]/[section].astro # report section detail page

@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const ops = await readFile(resolve('src/pages/ops.astro'), 'utf8');
-const requiredRoutes = ['/', '/reports', '/reports/2024', '/reports/2023', '/docs', '/search', '/ops'];
+const requiredRoutes = ['/', '/reports', '/reports/2024', '/reports/2023', '/docs', '/ops'];
 const requiredTerms = ['evidenceId', 'redirect', 'Node 22', 'Ownership matrix'];
 const missing = [];
 

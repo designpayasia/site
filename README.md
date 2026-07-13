@@ -90,7 +90,6 @@ Each published metric must link to a named `evidenceId`. Cohorts smaller than 10
 
 - `/reports` for current and archive report routes
 - `/docs` for public runbooks
-- `/search` for static on-site search
 - `/ops` for continuity spine, ownership matrix, and route inventory
 
 ## Versioning
