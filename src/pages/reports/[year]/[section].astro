@@ -4,6 +4,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import ChartBlock from '../../../components/ChartBlock.astro';
 import PullQuoteBeat from '../../../components/PullQuoteBeat.astro';
 import DarkBeat from '../../../components/DarkBeat.astro';
+import ChapterRail from '../../../components/ChapterRail.astro';
+import ConversationSpine from '../../../components/ConversationSpine.astro';
 import Base from '../../../layouts/Base.astro';
 import { renderPlotSvg } from '../../../lib/plot';
 import {
@@ -18,6 +20,7 @@ import {
   getSectionsForReport,
   type ReportSectionView,
 } from '../../../lib/report-content';
+import { getSectionGroups } from '../../../lib/report-nav';
 
 export async function getStaticPaths() {
   const [reports, reportSections] = await Promise.all([
@@ -147,6 +150,10 @@ const nextSection =
   sectionIndex >= 0 && sectionIndex < navigableSections.length - 1
     ? navigableSections[sectionIndex + 1]
     : undefined;
+
+const reportSlug = getReportSlug(report);
+const navGroups = getSectionGroups(sections, reportSlug);
+
 const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
   report.data.publishedAt,
 );
@@ -171,31 +178,17 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       </div>
     </section>
 
-    <!-- ── Top section navigation ───────────────────────────────────── -->
-    <nav class="section-top-nav" aria-label="Report sections">
-      <div class="section-top-nav__inner">
-        <ul class="section-top-nav__chips" role="list">
-          {navigableSections.map((item) => {
-            const isCurrent = item.id === section.id;
-            return (
-              <li>
-                <a
-                  href={`${report.data.canonicalPath}/${item.id}`}
-                  class={`section-top-nav__chip${isCurrent ? ' section-top-nav__chip--current' : ''}`}
-                  aria-current={isCurrent ? 'page' : undefined}
-                >
-                  {item.title}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </nav>
-
-    <section class="section-body" aria-label={`${section.title} analysis`}>
-      <div class="section-body__inner">
-        {bodySegments.map((segment, index) =>
+    <ChapterRail
+      mode="section"
+      groups={navGroups}
+      reportPath={report.data.canonicalPath}
+      currentId={section.id}
+      progressLabel={section.title}
+    />
+    <div class="section-reading">
+      <section class="section-body" aria-label={`${section.title} analysis`}>
+          <div class="section-body__inner">
+            {bodySegments.map((segment, index) =>
           segment.type === 'chart' ? (
             <ChartBlock
               title={segment.chart.title}
@@ -389,78 +382,59 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             </div>
           )}
         </div>
-
-        {/* Questions — DarkBeat, kept as a visual beat within editorial flow */}
-        {section.questions.length > 0 && (
-          leadQuestion ? (
-            <div class="section-editorial__questions">
-              <DarkBeat
-                eyebrow="Questions worth exploring"
-                title={leadQuestion}
-                statement={section.id === 'closing' ? 'That question sits underneath every chart in this report. It is about money, but only partly. It is about whether the work is seen.\n\nAnd one admission before we go. Indonesia makes up close to 79% of who we heard from. A single market shapes much of what you have just read. Treat the regional picture as a sketch, not a census. We would rather tell you that than let you mistake it for the whole.' : undefined}
-                statementDraft={false}
-              />
-              {supportingQuestions.length > 0 && (
-                <section class="section-questions__more" data-theme="dark" aria-label={section.id === 'closing' ? 'Worth exploring next' : 'Supporting questions'}>
-                  <div class="section-questions__inner">
-                    <p class="section-questions__more-label label-mono">Worth exploring next</p>
-                    <ul class="section-questions__list">
-                      {supportingQuestions.map((question) => <li>{question}</li>)}
-                    </ul>
-                  </div>
-                </section>
-              )}
-            </div>
-          ) : (
-            <section class="section-questions__more section-questions__more--standalone" data-theme="dark" aria-labelledby="section-questions-title">
-              <div class="section-questions__inner">
-                <p class="label-mono">Questions worth exploring</p>
-                <h2 id="section-questions-title" class="section-questions__heading t-h2">
-                  Questions worth exploring
-                </h2>
-                <ul class="section-questions__list">
-                  {supportingQuestions.map((question) => <li>{question}</li>)}
-                </ul>
-              </div>
-            </section>
-          )
-        )}
       </section>
     )}
+    </div>
 
-
-    {/* ── Bottom prev/next ──────────────────────────────────────────── */}
-    <nav class="section-bottom-nav" aria-label="Previous and next section">
-      <div class="section-bottom-nav__inner">
-        {previousSection ? (
-          <a
-            href={`${report.data.canonicalPath}/${previousSection.id}`}
-            class="section-bottom-nav__side"
-          >
-            <span aria-hidden="true">←</span>
-            <span>{previousSection.title}</span>
-          </a>
+    {/* Questions — DarkBeat, full-bleed dark band between the reading column and spine */}
+    {section.questions.length > 0 && (
+      <div class="section-close-beat">
+        {leadQuestion ? (
+          <div class="section-editorial__questions">
+            <DarkBeat
+              eyebrow="Questions worth exploring"
+              title={leadQuestion}
+              statement={section.id === 'closing' ? 'That question sits underneath every chart in this report. It is about money, but only partly. It is about whether the work is seen.\n\nAnd one admission before we go. Indonesia makes up close to 79% of who we heard from. A single market shapes much of what you have just read. Treat the regional picture as a sketch, not a census. We would rather tell you that than let you mistake it for the whole.' : undefined}
+              statementDraft={false}
+            />
+            {supportingQuestions.length > 0 && (
+              <section class="section-questions__more" data-theme="dark" aria-label={section.id === 'closing' ? 'Worth exploring next' : 'Supporting questions'}>
+                <div class="section-questions__inner">
+                  <p class="section-questions__more-label label-mono">Worth exploring next</p>
+                  <ul class="section-questions__list">
+                    {supportingQuestions.map((question) => <li>{question}</li>)}
+                  </ul>
+                </div>
+              </section>
+            )}
+          </div>
         ) : (
-          <span></span>
-        )}
-
-        <a href={report.data.canonicalPath} class="section-bottom-nav__hub label-mono">
-          Back to {report.data.year} report
-        </a>
-
-        {nextSection ? (
-          <a
-            href={`${report.data.canonicalPath}/${nextSection.id}`}
-            class="section-bottom-nav__side"
-          >
-            <span>{nextSection.title}</span>
-            <span aria-hidden="true">→</span>
-          </a>
-        ) : (
-          <span></span>
+          <section class="section-questions__more section-questions__more--standalone" data-theme="dark" aria-labelledby="section-questions-title">
+            <div class="section-questions__inner">
+              <p class="label-mono">Questions worth exploring</p>
+              <h2 id="section-questions-title" class="section-questions__heading t-h2">
+                Questions worth exploring
+              </h2>
+              <ul class="section-questions__list">
+                {supportingQuestions.map((question) => <li>{question}</li>)}
+              </ul>
+            </div>
+          </section>
         )}
       </div>
-    </nav>
+    )}
+
+    <div class="section-nav__inner">
+      <ConversationSpine
+        mode="section"
+        groups={navGroups}
+        reportPath={report.data.canonicalPath}
+        currentId={section.id}
+        flushTop={section.questions.length > 0}
+        previousSection={previousSection ? { id: previousSection.id, title: previousSection.title } : undefined}
+        nextSection={nextSection ? { id: nextSection.id, title: nextSection.title } : undefined}
+      />
+    </div>
   </main>
 </Base>
 
@@ -469,8 +443,15 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
      Section detail page layout. Width zones follow reports/[slug].astro.
      ---------------------------------------------------------------------- */
 
+  /* Cap the hero to the same zone as .section-reading so .section-hero__inner
+     resolves to the identical width as .section-body__inner (both:
+     min(100% - space-8, zone-editorial) against a zone-editorial parent) —
+     their text then shares one left edge. */
   .section-hero {
+    max-width: var(--zone-editorial);
+    margin-inline: auto;
     padding-block: var(--space-16) var(--space-6);
+    margin-block-end: 0;
   }
 
   .section-hero__inner,
@@ -480,6 +461,12 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-sources__inner,
   .section-nav__inner {
     width: min(100% - var(--space-8), var(--zone-editorial));
+    margin-inline: auto;
+  }
+
+  .section-reading {
+    min-width: 0;
+    max-width: var(--zone-editorial);
     margin-inline: auto;
   }
 
@@ -523,7 +510,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-body__inner {
     display: grid;
     gap: var(--space-12);
-    padding-block: var(--space-16) var(--space-24);
+    padding-block: 0 var(--space-24);
   }
 
   /* ChartBlock is a direct grid child of .section-body__inner (same
@@ -630,11 +617,18 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   /* ═══════════════════════════════════════════════════════════════════
      Unified editorial block — commentary → audience grid →
-     what-this-means → DarkBeat questions → references.
+     what-this-means → references. DarkBeat questions render as a
+     full-bleed band after this block (see .section-close-beat).
      Light tinted wrapper, variety treatments per sub-part.
      ═══════════════════════════════════════════════════════════════════ */
 
+  /* Full-bleed muted band: the commentary block sits inside the width-capped
+     .section-reading column, so break its background out to the viewport edges
+     (content stays constrained by .section-editorial__inner). Same trick as
+     .section-close-beat. */
   .section-editorial {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
     background: var(--color-surface-muted);
     padding-block: var(--space-14);
   }
@@ -724,11 +718,23 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     color: var(--color-ink);
   }
 
-  /* Questions — DarkBeat kept as editorial beat.
-     Sits inside the wrapper; no forced seam. */
+  /* Questions — DarkBeat, full-bleed band between the reading column and the
+     nav spine. Breaks out of the centred column edge to edge. */
+
+  .section-close-beat {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  /* The band is already full-bleed; the DarkBeat inside caps at --site-max-width,
+     which crops its dark background. Let it fill the band edge to edge (its own
+     __inner keeps the copy at a readable measure). */
+  .section-close-beat :global(.dark-beat) {
+    max-width: none;
+  }
 
   .section-editorial__questions {
-    /* DarkBeat handles its own padding + background; nothing extra needed */
+    /* Sits inside .section-close-beat; DarkBeat handles its own padding + background */
   }
 
   /* DarkBeat supporting questions — inverse editorial list */
@@ -853,153 +859,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     font-weight: 700;
   }
 
-  /* ── Top section nav ────────────────────────────────────────────── */
-
-  .section-top-nav {
-    border-bottom: 1px solid var(--color-border-subtle);
-  }
-
-  .section-top-nav__inner {
-    width: min(100% - var(--space-8), var(--zone-editorial));
-    margin-inline: auto;
-    padding-block: var(--space-4) var(--space-8);
-  }
-
-  .section-top-nav__chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .section-top-nav__chip {
-    display: inline-block;
-    padding: var(--space-1) var(--space-3);
-    font-size: var(--font-size-sm);
-    color: var(--color-ink-muted);
-    text-decoration: none;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 6px;
-    background: var(--color-surface);
-    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-  }
-
-  .section-top-nav__chip:hover {
-    color: var(--color-ink);
-    border-color: var(--color-border);
-    background: var(--color-surface-muted);
-  }
-
-  .section-top-nav__chip:focus-visible {
-    outline: 2px solid var(--color-signal-fill);
-    outline-offset: 2px;
-  }
-
-  .section-top-nav__chip--current {
-    color: var(--color-cream-50);
-    font-weight: 700;
-    border-color: var(--color-signal-fill);
-    background: var(--color-signal-fill);
-  }
-  /* Bottom instance — border-top for visual separation */
-
-
-  /* ── Bottom prev/next ──────────────────────────────────────────── */
-
-  .section-bottom-nav {
-    margin-top: var(--space-16);
-    padding-block: var(--space-8);
-  }
-
-  .section-bottom-nav__inner {
-    width: min(100% - var(--space-8), var(--zone-editorial));
-    margin-inline: auto;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-  }
-
-  .section-bottom-nav__side {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    color: var(--color-ink);
-    font-weight: 700;
-    text-decoration: none;
-    font-size: var(--font-size-sm);
-    justify-self: start;
-  }
-
-  .section-bottom-nav__side:last-of-type {
-    justify-self: end;
-    text-align: right;
-  }
-
-  .section-bottom-nav__side:hover {
-    color: var(--color-ink-muted);
-  }
-
-  .section-bottom-nav__side:focus-visible {
-    outline: 2px solid var(--color-signal-fill);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-
-  .section-bottom-nav__hub {
-    color: var(--color-ink-muted);
-    text-decoration: none;
-  }
-
-  .section-bottom-nav__hub:hover {
-    color: var(--color-ink);
-  }
-
-  /* Section select dropdown + hub link */
-  .section-bottom-nav__center {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    flex-shrink: 0;
-  }
-
-  .section-bottom-nav__select-wrapper {
-    flex-shrink: 0;
-  }
-
-  .section-bottom-nav__select {
-    padding: var(--space-1) var(--space-4) var(--space-1) var(--space-3);
-    font-size: var(--font-size-sm);
-    font-family: inherit;
-    color: var(--color-ink);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 6px;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right var(--space-2) center;
-    padding-right: var(--space-7);
-  }
-
-  .section-bottom-nav__select:focus-visible {
-    outline: 2px solid var(--color-signal-fill);
-    outline-offset: 2px;
-  }
-
-  .section-bottom-nav__hub-link {
-    font-size: var(--font-size-sm);
-    color: var(--color-ink-muted);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .section-bottom-nav__hub-link:hover {
-    color: var(--color-ink);
-  }
-
   /* Screen-reader only */
   .sr-only {
     position: absolute;
@@ -1018,18 +877,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   @media (max-width: 768px) {
     .section-editorial__audience-grid {
       grid-template-columns: 1fr;
-    }
-
-    .section-bottom-nav__inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-      justify-items: center;
-    }
-
-    .section-bottom-nav__side,
-    .section-bottom-nav__side:last-of-type {
-      justify-self: center;
-      text-align: center;
     }
   }
 
