@@ -2,6 +2,7 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 import BigStat from '../../components/BigStat.astro';
+import ChapterRail from '../../components/ChapterRail.astro';
 import ChartBlock from '../../components/ChartBlock.astro';
 import TeamGrid from '../../components/TeamGrid.astro';
 import Base from '../../layouts/Base.astro';
@@ -13,6 +14,7 @@ import {
 } from '../../lib/evidence';
 import { renderRichTextHtml } from '../../lib/frontmatter-markdown';
 import { renderPlotSvg } from '../../lib/plot';
+import { CLOSING_ID, EXCLUDED_IDS, getSectionGroups } from '../../lib/report-nav';
 import {
   getReportSlug,
   getSectionsForReport,
@@ -89,38 +91,24 @@ for (const chart of signatureCharts) {
   }
 }
 
-// Grouped, scannable section list. Three buckets: Landscape, Sentiments, Analysis.
-// SENTIMENT_IDS and ANALYSIS_IDS are year-keyed to prevent cross-report bleed.
-const EXCLUDED_IDS = new Set(['executive-summary', 'methodology']);
-const CLOSING_ID = 'closing';
-const LANDSCAPE_IDS = ['demographics', 'roles-and-experiences', 'compensation', 'company-landscape'];
-const SENTIMENT_IDS_BY_SLUG: Record<string, string[]> = {
-  '2024': ['offer-and-negotiation', 'career-progression', 'value-of-design', 'job-market'],
-  '2023': ['sentiments-negotiations', 'sentiments-work-setup', 'sentiments-career-progression'],
-};
-const SENTIMENT_IDS = SENTIMENT_IDS_BY_SLUG[reportSlug] ?? [];
-const ANALYSIS_IDS_BY_SLUG: Record<string, string[]> = {
-  '2023': ['analysis-gender', 'analysis-experience', 'analysis-company', 'analysis-education'],
-};
-const ANALYSIS_IDS = ANALYSIS_IDS_BY_SLUG[reportSlug] ?? [];
-const ANALYSIS_LABEL = 'Singapore deep dive';
+// Grouped, scannable section list — grouping truth lives in report-nav.ts.
+const navGroups = getSectionGroups(sections, reportSlug);
 
 const routableSections = sections.filter(
   (section) => !EXCLUDED_IDS.has(section.id) && section.id !== CLOSING_ID,
 );
 const closingSection = sections.find((section) => section.id === CLOSING_ID);
-const allSections = [...routableSections];
-if (closingSection) allSections.push(closingSection);
 
-const landscapeSections = routableSections.filter((section) => LANDSCAPE_IDS.includes(section.id));
-const sentimentSections = routableSections.filter((section) => SENTIMENT_IDS.includes(section.id));
-const analysisSections = routableSections.filter((section) => ANALYSIS_IDS.includes(section.id));
-const otherSections = routableSections.filter(
-  (section) =>
-    !LANDSCAPE_IDS.includes(section.id) &&
-    !SENTIMENT_IDS.includes(section.id) &&
-    !ANALYSIS_IDS.includes(section.id),
-);
+// Hero CTA target: the first readable section, so "start reading" drops the
+// reader straight into the report rather than making them scan the hub.
+const firstSection = routableSections[0];
+
+const landscapeSections = navGroups.find((group) => group.key === 'landscape')?.sections ?? [];
+const sentimentSections = navGroups.find((group) => group.key === 'sentiments')?.sections ?? [];
+const analysisGroup = navGroups.find((group) => group.key === 'analysis');
+const analysisSections = analysisGroup?.sections ?? [];
+const ANALYSIS_LABEL = analysisGroup?.label ?? 'Singapore deep dive';
+const otherSections = navGroups.find((group) => group.key === 'other')?.sections ?? [];
 const hasSectionCommentary = routableSections.some(
   (section) => Boolean(section.hubCommentary ?? section.commentary),
 );
@@ -153,6 +141,11 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         {report.data.summary.split('\n\n').map(paragraph => (
           <p class="report-hero__lede-p">{paragraph}</p>
         ))}
+        {firstSection && (
+          <a class="btn btn--secondary report-hero__cta" href={`${report.data.canonicalPath}/${firstSection.id}`}>
+            Start reading &rarr;
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -177,18 +170,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       <div class="report-findings-header">
         <h2 class="report-findings-title t-h2">Key findings</h2>
         <p class="report-findings-header__lede">{findingsLede}</p>
-        <ul class="report-findings-header__chips" role="list">
-          {allSections.map((item) => (
-            <li>
-              <a
-                href={`${report.data.canonicalPath}/${item.id}`}
-                class="section-top-nav__chip"
-              >
-                {item.title}
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
 
       {signatureCharts.length > 0 && (
@@ -236,12 +217,20 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         </div>
       )}
 
-      <div class="report-sections">
+      <div class="report-reading-layout">
+        <ChapterRail
+          mode="hub"
+          groups={navGroups}
+          reportPath={report.data.canonicalPath}
+          progressLabel={`${navGroups.reduce((n, g) => n + g.sections.length, 0)} sections`}
+        />
+
+        <div class="report-sections">
         {landscapeSections.length > 0 && (
           <div class="report-section-bucket">
             <h3 class="report-section-bucket__heading label-mono">The landscape</h3>
             {landscapeSections.map((section) => (
-              <article class="report-section-row" id={section.id}>
+              <article class="report-section-row" id={section.id} data-spy>
                 <h4 class="report-section-row__title t-h2">{section.title}</h4>
                 {section.hubCommentary && (
                   <div class="report-section-row__intro">
@@ -271,7 +260,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <div class="report-section-bucket">
             <h3 class="report-section-bucket__heading label-mono">Sentiment and perceptions</h3>
             {sentimentSections.map((section) => (
-              <article class="report-section-row" id={section.id}>
+              <article class="report-section-row" id={section.id} data-spy>
                 <h4 class="report-section-row__title t-h2">{section.title}</h4>
                 {section.hubCommentary && (
                   <div class="report-section-row__intro">
@@ -301,7 +290,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <div class="report-section-bucket">
             <h3 class="report-section-bucket__heading label-mono">{ANALYSIS_LABEL}</h3>
             {analysisSections.map((section) => (
-              <article class="report-section-row" id={section.id}>
+              <article class="report-section-row" id={section.id} data-spy>
                 <h4 class="report-section-row__title t-h2">{section.title}</h4>
                 {section.hubCommentary && (
                   <div class="report-section-row__intro">
@@ -330,7 +319,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         {otherSections.length > 0 && (
           <div class="report-section-bucket">
             {otherSections.map((section) => (
-              <article class="report-section-row" id={section.id}>
+              <article class="report-section-row" id={section.id} data-spy>
                 <h4 class="report-section-row__title t-h2">{section.title}</h4>
                 {section.hubCommentary && (
                   <div class="report-section-row__intro">
@@ -355,16 +344,19 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             ))}
           </div>
         )}
+        </div>
+      </div>
 
-        {closingSection && (
-          <div class="report-invitation">
+      {closingSection && (
+        <div class="report-invitation" id={closingSection.id} data-spy>
+          <div class="report-invitation__inner">
             <p class="report-invitation__q t-h2">Where do you sit in this data, <span class="signal-word">and does it match</span> how you feel about the value of your work?</p>
             <a href={`${report.data.canonicalPath}/${closingSection.id}`} class="report-invitation__eyebrow">
               {closingSection.title} &rarr;
             </a>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {(methodologySection || methodologyStrip) && (
         <aside class="report-methodology" aria-labelledby="report-methodology-title">
@@ -497,6 +489,11 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .report-hero__lede-p:last-child {
     margin-bottom: 0;
+  }
+
+  .report-hero__cta {
+    margin-top: var(--space-8);
+    align-self: start;
   }
 
   .report-hero .prose + .prose {
@@ -644,10 +641,16 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .report-invitation {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
     padding-block: var(--space-32);
     text-align: center;
-    border-top: 1px solid var(--color-border-subtle);
-    border-bottom: 1px solid var(--color-border-subtle);
+    border-block: 1px solid var(--color-border-subtle);
+  }
+
+  .report-invitation__inner {
+    max-width: var(--zone-prose);
+    margin-inline: auto;
   }
 
   .report-invitation__eyebrow {
@@ -937,37 +940,18 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     }
   }
 
-  /* ── Chip nav inside key findings header ───────────────────────────── */
+  /* ── Hub reading layout — sticky rail beside inline section stack ──── */
 
-  .report-findings-header__chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin: var(--space-5) 0 0;
-    padding: 0;
-    list-style: none;
+  .report-reading-layout {
+    display: grid;
+    grid-template-columns: 236px minmax(0, var(--zone-editorial));
+    gap: var(--space-16);
+    align-items: start;
   }
 
-  .section-top-nav__chip {
-    display: inline-block;
-    padding: var(--space-1) var(--space-3);
-    font-size: var(--font-size-sm);
-    color: var(--color-ink-muted);
-    text-decoration: none;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 6px;
-    background: var(--color-surface);
-    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-  }
-
-  .section-top-nav__chip:hover {
-    color: var(--color-ink);
-    border-color: var(--color-border);
-    background: var(--color-surface-muted);
-  }
-
-  .section-top-nav__chip:focus-visible {
-    outline: 2px solid var(--color-signal-fill);
-    outline-offset: 2px;
+  @media (max-width: 900px) {
+    .report-reading-layout {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
