@@ -20,6 +20,8 @@ import PullQuoteBeat from '../../components/PullQuoteBeat.astro';
 import StickyMeta from '../../components/StickyMeta.astro';
 import TocScrollspy from '../../components/TocScrollspy.astro';
 import FilterCompare from '../../components/FilterCompare.astro';
+import ConversationSpine from '../../components/ConversationSpine.astro';
+import type { NavGroup } from '../../lib/report-nav';
 
 // Shared sample data. Fictional but DPA-plausible — no real employers, no
 // real names, every sampleSize at or above MIN_SAFE_COHORT (10).
@@ -223,6 +225,19 @@ const stickyMetaItems = [
   { label: 'Published', value: 'March 2025', href: '/reports' },
 ];
 
+const navPatternGroups = [
+  { key: 'landscape', label: 'Landscape', sections: [
+    { id: 'demographics', title: 'Demographics', summary: 'Who the region’s designers are.' },
+    { id: 'compensation', title: 'Compensation', summary: 'What designers were paid.' },
+  ]},
+  { key: 'sentiments', label: 'Sentiments', sections: [
+    { id: 'offer-and-negotiation', title: 'Offer & negotiation', summary: 'How pay gets decided.' },
+  ]},
+  { key: 'close', label: 'Close', sections: [
+    { id: 'closing', title: 'The year’s question', summary: 'What this year leaves open.' },
+  ]},
+] as unknown as NavGroup[];
+
 const tocItems = [
   { id: 'cover-index-spread', label: 'Cover — index spread' },
   { id: 'cover-split-editorial', label: 'Cover — split editorial' },
@@ -244,6 +259,7 @@ const tocItems = [
   { id: 'sticky-meta', label: 'Sticky meta' },
   { id: 'toc-scrollspy', label: 'Toc scrollspy (this rail)' },
   { id: 'filter-compare', label: 'Filter & compare' },
+  { id: 'nav-wayfinding', label: 'Nav & wayfinding' },
 ];
 ---
 
@@ -722,6 +738,31 @@ const tocItems = [
             columns={['Market', 'Level', 'Median pay']}
             groups={filterGroups}
             rows={filterRows}
+          />
+        </div>
+      </section>
+
+      <section id="nav-wayfinding" class="pattern-demo">
+        <p class="label-mono">Navigation</p>
+        <h2>Pattern 06 — nav & wayfinding</h2>
+        <p class="pattern-demo__note">
+          The report's two-register nav: the navy <strong>chapter rail</strong> is functional,
+          sticky, and page-scoped — it runs a window-scroll progress script and clones itself
+          into a mobile jump-sheet, so it only lives on a real report page (see it live on
+          <a href="/reports/2024/compensation">the 2024 compensation section</a>). The
+          <strong>conversation spine</strong> below is editorial and self-contained — Instrument
+          Serif labels, a crimson "you are here" dot, and a prev/next pager — so it demos safely
+          here.
+        </p>
+        <div class="pattern-demo__frame">
+          <ConversationSpine
+            mode="section"
+            groups={navPatternGroups}
+            reportPath="/reports/2024"
+            currentId="compensation"
+            previousSection={{ id: 'demographics', title: 'Demographics' }}
+            nextSection={{ id: 'offer-and-negotiation', title: 'Offer & negotiation' }}
+            eyebrow="Where this sits in the conversation"
           />
         </div>
       </section>
