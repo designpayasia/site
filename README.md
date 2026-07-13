@@ -6,7 +6,7 @@ This repository contains the Astro site for `designpay.asia`.
 
 ## Status
 
-The 2024 report rebuild is complete on `main`. The site serves 31 pages: hub, 8 report detail sections, closing, 2023 archive, and supporting pages. Content is modelled as Astro 6 structured collections with evidence-backed metrics, editorial commentary, reader guidance, and community attribution.
+The 2024 report rebuild is complete on `main`. The site serves 29 pages: hub, 8 report detail sections, closing, 2023 archive, and supporting pages. Content is modelled as Astro 6 structured collections with evidence-backed metrics, editorial commentary, reader guidance, and community attribution.
 
 ## Stack
 
