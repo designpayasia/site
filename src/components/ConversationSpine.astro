@@ -1,0 +1,398 @@
+---
+/**
+ * ConversationSpine — the report's cross-section wayfinder.
+ *
+ * mode="hub": quiet navy thread on the report hub, sitting immediately above
+ * the invitation block. Every station is an in-page anchor (`#id`), jumped to
+ * via the same offset-scroll pattern as TocScrollspy — never `scrollIntoView`.
+ * No crimson; the hub spends zero crimson of its own.
+ *
+ * mode="section": the full spine on a section detail page. Stations are real
+ * cross-page links to sibling sections; the current section is a plain,
+ * non-interactive label with a single crimson dot (the only crimson in the
+ * spine). Stations after the current one render hollow ("upcoming"). A
+ * prev/next pager follows the thread.
+ *
+ * Never invents copy: each station's label is `section.provocation` if set,
+ * else `section.title` — both sourced from content, nothing authored here.
+ */
+import type { NavGroup } from '../lib/report-nav';
+
+interface Props {
+  groups: NavGroup[];
+  mode: 'hub' | 'section';
+  reportPath: string;
+  /** Section mode only: the id of the section currently being read. */
+  currentId?: string;
+  previousSection?: { id: string; title: string };
+  nextSection?: { id: string; title: string };
+  /** Eyebrow above the thread. Defaults to "Where this sits in the conversation". */
+  eyebrow?: string;
+  /**
+   * Drop the top rule + top spacing when something above (e.g. a full-bleed
+   * dark beat) already separates the spine from the reading. 2023 sections
+   * have no dark beat and want the rule; 2024's questions beat supplies its own.
+   */
+  flushTop?: boolean;
+}
+
+const {
+  groups,
+  mode,
+  reportPath,
+  currentId,
+  previousSection,
+  nextSection,
+  eyebrow = 'Where this sits in the conversation',
+  flushTop = false,
+} = Astro.props;
+
+// Origin station label, e.g. "/reports/2024" → "2024 report" — mirrors the
+// two-line pattern of the real stations (mono group line + provocation line).
+const reportShortLabel = `${reportPath.split('/').filter(Boolean).pop() ?? ''} report`.trim();
+
+interface StationView {
+  id: string;
+  groupLabel: string;
+  label: string;
+  href: string;
+  isCurrent: boolean;
+  isUpcoming: boolean;
+}
+
+const flatSections = groups.flatMap((group) =>
+  group.sections.map((section) => ({ group, section })),
+);
+
+const currentIndex =
+  mode === 'section' ? flatSections.findIndex(({ section }) => section.id === currentId) : -1;
+
+const stations: StationView[] = flatSections.map(({ group, section }, index) => {
+  const isCurrent = mode === 'section' && section.id === currentId;
+  const isUpcoming = mode === 'section' && currentIndex > -1 && index > currentIndex;
+
+  return {
+    id: section.id,
+    groupLabel: group.label,
+    label: section.provocation ?? section.title,
+    href: mode === 'section' ? `${reportPath}/${section.id}` : `#${section.id}`,
+    isCurrent,
+    isUpcoming,
+  };
+});
+---
+
+<section class:list={['spine', { 'spine--flush': flushTop }]} aria-label="Where this section sits in the report" data-conversation-spine>
+  <p class="spine__eyebrow label-mono">{eyebrow}</p>
+
+  <ol class="thread">
+    {mode === 'section' && (
+      <li class="station station--origin">
+        <svg class="station__node station__node--origin" viewBox="0 0 400 400" aria-hidden="true">
+          <path d="M0 400 V133.14 A80 80 0 0 1 23.43 76.57 L76.57 23.43 A80 80 0 0 1 133.14 0 H200 A200 200 0 0 1 200 400 Z" />
+        </svg>
+        <p class="station__group label-mono">Overview</p>
+        <a class="station__label station__label--origin" href={reportPath}>
+          {reportShortLabel}
+        </a>
+      </li>
+    )}
+    {stations.map((station) => (
+      <li
+        class:list={[
+          'station',
+          { 'station--current': station.isCurrent, 'station--upcoming': station.isUpcoming },
+        ]}
+      >
+        <span class="station__node" aria-hidden="true"></span>
+        <p class="station__group label-mono">{station.groupLabel}</p>
+        {station.isCurrent ? (
+          <span class="station__label station__label--current" aria-current="location">
+            {station.label}
+            <span class="station__here label-mono">you are here</span>
+          </span>
+        ) : (
+          <a class="station__label" href={station.href} data-spine-jump={mode === 'hub' ? true : undefined}>
+            {station.label}
+          </a>
+        )}
+      </li>
+    ))}
+  </ol>
+
+  {mode === 'section' && (previousSection || nextSection) && (
+    <nav class="pager" aria-label="Section pagination">
+      {previousSection && (
+        <a class="pager__link pager__link--prev" href={`${reportPath}/${previousSection.id}`}>
+          <span class="pager__dir label-mono">&larr; Previous</span>
+          <span class="pager__name">{previousSection.title}</span>
+        </a>
+      )}
+      {nextSection && (
+        <a class="pager__link pager__link--next" href={`${reportPath}/${nextSection.id}`}>
+          <span class="pager__dir label-mono">Next &rarr;</span>
+          <span class="pager__name">{nextSection.title}</span>
+        </a>
+      )}
+    </nav>
+  )}
+</section>
+
+<script is:inline>
+  (function () {
+    const root = document.currentScript?.previousElementSibling;
+
+    if (!(root instanceof HTMLElement) || !root.matches('[data-conversation-spine]')) {
+      return;
+    }
+
+    const links = Array.from(root.querySelectorAll('[data-spine-jump]'));
+
+    if (links.length === 0) {
+      return;
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const headerOffset = 32;
+
+    links.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const id = link.getAttribute('href')?.slice(1);
+        const target = id ? document.getElementById(id) : null;
+
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+
+        const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+        window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
+
+        if (history.pushState) {
+          history.pushState(null, '', `#${id}`);
+        }
+      });
+    });
+  })();
+</script>
+
+<style>
+  .spine {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  /* Flush: a dark beat above already separates the spine, so drop the rule —
+     but keep the top margin so the spine still breathes below the dark band. */
+  .spine--flush {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .spine__eyebrow {
+    color: var(--color-action);
+    margin: 0 0 var(--space-6);
+  }
+
+  .thread {
+    position: relative;
+    margin: 0;
+    padding: 0 0 0 var(--space-8);
+    list-style: none;
+    max-width: var(--zone-editorial);
+  }
+
+  /* Connect each node to the next with a per-station segment rather than one
+     full-height rule, so the thread stops at the last (close) dot instead of
+     overshooting past it. Each segment runs from its own node (top: 6px) down a
+     full station height to meet the next node. */
+  .station:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--space-8) + 5px);
+    top: 6px;
+    height: 100%;
+    width: 2px;
+    background: var(--color-border-subtle);
+    border-radius: 999px;
+  }
+
+  .station {
+    position: relative;
+    padding: 0 0 var(--space-6);
+  }
+
+  .station__node {
+    position: absolute;
+    left: calc(-1 * var(--space-8) + 1px);
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-action);
+    border: 2px solid var(--color-action);
+  }
+
+  .station--current .station__node {
+    background: var(--color-signal);
+    border-color: var(--color-signal);
+    /* Sonar: a single soft crimson ring expands out of the current node and
+       fades, marking "here" without a second crimson fill. */
+    animation: sonar-pulse-subtle 2.4s ease-out infinite;
+  }
+
+  @keyframes sonar-pulse-subtle {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-signal) 42%, transparent);
+    }
+    70% {
+      box-shadow: 0 0 0 12px color-mix(in oklab, var(--color-signal) 0%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-signal) 0%, transparent);
+    }
+  }
+
+  .station--upcoming .station__node {
+    background: var(--color-ambient);
+    border-color: var(--color-border-strong);
+  }
+
+  .station__group {
+    color: var(--color-ink-muted);
+    margin: 0 0 var(--space-1);
+  }
+
+  .station__label {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    text-align: left;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--font-size-xl);
+    line-height: var(--leading-pullquote);
+    color: var(--color-ink);
+    max-width: 36ch;
+    text-decoration: none;
+    transition: color var(--transition-hover);
+  }
+
+  a.station__label:hover {
+    color: var(--color-action);
+  }
+
+  a.station__label:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Current station: same provocation face as the others (display italic), one
+     step up in size, highlighted with crimson text rather than a font swap. */
+  .station__label--current {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: var(--weight-regular);
+    font-size: var(--font-size-xl);
+    color: var(--color-signal-text);
+    min-height: 0;
+    /* Override the base row flow so "you are here" stacks beneath the label. */
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* "you are here" — small mono caption on its own line beneath the label. */
+  .station__here {
+    display: block;
+    margin-top: var(--space-1);
+    font-weight: var(--weight-regular);
+    color: var(--color-ink-muted);
+  }
+
+  .station--origin {
+    padding-bottom: var(--space-8);
+  }
+
+  /* Origin marker is a mini DPA blob (navy) rather than a dot — the "back to
+     the whole report" station carries the brand mark. Overrides the base
+     circular-dot node styling; the blob path is filled via `fill`. */
+  .station__node--origin {
+    top: 4px;
+    left: calc(-1 * var(--space-8) - 1px);
+    width: 14px;
+    height: 14px;
+    border: none;
+    border-radius: 0;
+    background: none;
+    fill: var(--color-action);
+  }
+
+  /* Origin label inherits the base serif-italic station treatment so the
+     back-to-report station reads as one more station, not a footnote. */
+
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+
+  .pager__link {
+    display: block;
+    min-height: 44px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-blob-motif);
+    padding: var(--space-6);
+    text-decoration: none;
+    transition: background var(--transition-hover), border-color var(--transition-hover);
+  }
+
+  .pager__link:hover {
+    background: var(--color-surface-muted);
+    border-color: var(--color-action);
+  }
+
+  .pager__link:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+  }
+
+  .pager__dir {
+    display: block;
+    color: var(--color-ink-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .pager__name {
+    font-family: var(--font-display);
+    font-size: var(--font-size-xl);
+    color: var(--color-ink);
+  }
+
+  .pager__link--next {
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .pager {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .station__label,
+    .pager__link {
+      transition: none;
+    }
+
+    /* No sonar sweep; fall back to a static ring so "here" still reads. */
+    .station--current .station__node {
+      animation: none;
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-signal) 18%, transparent);
+    }
+  }
+</style>

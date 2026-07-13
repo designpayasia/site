@@ -1,0 +1,741 @@
+---
+/**
+ * ChapterRail — cross-report chapter navigation.
+ *
+ * Two render modes, one component:
+ * - `hub`   — report hub page. Items are on-page anchors (`#id`) into
+ *             `.section-card`-style blocks; the hosting page must mark each
+ *             spied block with `data-spy` and a matching `id`. Active state
+ *             is entirely scroll-driven (IntersectionObserver).
+ * - `section` — section detail page. The edge-spine is a compact cross-page
+ *             node map: an origin node linking to the report hub, then one
+ *             node per section, each a link to `${reportPath}/${id}`. The
+ *             current section's node is not a link (a non-interactive
+ *             marker); every node's title chip reveals on hover/focus only.
+ *             The edge-spine hides itself once `[data-conversation-spine]`
+ *             scrolls into view.
+ *
+ * Jump behaviour always uses `window.scrollTo` with a fixed offset — never
+ * `scrollIntoView` — matching `TocScrollspy.astro`'s pattern and its
+ * `headerOffset = 32` default.
+ *
+ * On narrow viewports the rail is replaced by a sticky jump bar that opens
+ * a bottom-sheet dialog containing a cloned copy of the rail nav.
+ */
+import type { NavGroup } from '../lib/report-nav';
+
+interface Props {
+  groups: NavGroup[];
+  mode: 'hub' | 'section';
+  /** Report hub path, e.g. "/reports/2024". */
+  reportPath: string;
+  /** Section mode: the current section's id. */
+  currentId?: string;
+  /** e.g. "Section 07 / 09 · reading Compensation"; hub: "09 sections". */
+  progressLabel?: string;
+}
+
+const { groups, mode, reportPath, currentId, progressLabel } = Astro.props;
+
+const sheetTitleId = 'chapter-rail-sheet-title';
+---
+
+{mode === 'section' && (
+  <div class="chapter-rail-jumpbar" data-jump-bar>
+    <div class="chapter-rail-jumpbar__inner">
+      <button
+        type="button"
+        class="chapter-rail-jumpbar__button"
+        data-jump-open
+        aria-haspopup="dialog"
+        aria-controls="chapter-rail-sheet"
+        aria-expanded="false"
+      >
+        <span class="chapter-rail-jumpbar__dot" aria-hidden="true"></span>
+        Sections
+      </button>
+      <div class="chapter-rail-jumpbar__progress" aria-hidden="true">
+        <i class="chapter-rail-jumpbar__progress-fill" data-progress-fill></i>
+      </div>
+      {progressLabel && <span class="chapter-rail-jumpbar__pos">{progressLabel}</span>}
+    </div>
+  </div>
+)}
+
+{mode === 'hub' && (
+  <aside class="chapter-rail" data-chapter-rail>
+    <div class="chapter-rail__progress" aria-hidden="true">
+      <i class="chapter-rail__progress-fill" data-progress-fill></i>
+    </div>
+    {progressLabel && <p class="chapter-rail__progress-label">{progressLabel}</p>}
+
+    <nav data-rail aria-label="Report sections">
+      {groups.map((group) => (
+        <div class="chapter-rail__group" data-group={group.key}>
+          <p class="chapter-rail__group-label">{group.label}</p>
+          <ul class="chapter-rail__list">
+            {group.sections.map((section) => {
+              const isCurrent = section.id === currentId;
+              return (
+                <li class={`chapter-rail__item${isCurrent ? ' is-current' : ''}`}>
+                  <a
+                    href={`#${section.id}`}
+                    class="chapter-rail__link"
+                    data-rail-link
+                    data-target-id={section.id}
+                    aria-current={isCurrent ? 'page' : undefined}
+                  >
+                    {section.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  </aside>
+)}
+
+
+<div class="chapter-rail-sheet" data-sheet role="dialog" aria-modal="true" aria-labelledby={sheetTitleId} id="chapter-rail-sheet">
+  <div class="chapter-rail-sheet__scrim" data-jump-close></div>
+  <div class="chapter-rail-sheet__panel">
+    <div class="chapter-rail-sheet__grip"></div>
+    <button type="button" class="chapter-rail-sheet__close" data-jump-close aria-label="Close sections">✕</button>
+    {progressLabel && <p class="chapter-rail-sheet__title" id={sheetTitleId}>{progressLabel}</p>}
+    {mode === 'hub' ? (
+      <nav data-rail-mobile aria-label="Sections menu"></nav>
+    ) : (
+      <nav data-rail aria-label="Report sections">
+        <a href={reportPath} class="chapter-rail-sheet__origin-link label-mono">The report</a>
+        {groups.map((group) => (
+          <div class="chapter-rail__group" data-group={group.key}>
+            <p class="chapter-rail__group-label">{group.label}</p>
+            <ul class="chapter-rail__list">
+              {group.sections.map((section) => {
+                const isCurrent = section.id === currentId;
+                return (
+                  <li class={`chapter-rail__item${isCurrent ? ' is-current' : ''}`}>
+                    <a
+                      href={`${reportPath}/${section.id}`}
+                      class="chapter-rail__link"
+                      data-rail-link
+                      data-target-id={section.id}
+                      aria-current={isCurrent ? 'page' : undefined}
+                    >
+                      {section.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    )}
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    // headerOffset parity with TocScrollspy.astro's default (line 30).
+    var offset = 32;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function jumpTo(target) {
+      if (!target) return;
+      var top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    // Intercept only in-page (#id) links; cross-page links fall through to
+    // native navigation (kept as real hrefs for the no-JS fallback).
+    function wireInPageLinks(root) {
+      if (!root) return;
+      Array.from(root.querySelectorAll('a[href^="#"]')).forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          var id = link.getAttribute('data-target-id');
+          var target = id ? document.getElementById(id) : null;
+          if (!target) return;
+          event.preventDefault();
+          jumpTo(target);
+          if (history.pushState) history.pushState(null, '', '#' + id);
+        });
+      });
+    }
+
+    var railNav = document.querySelector('[data-rail]');
+    wireInPageLinks(railNav);
+
+    // Clone the rail into the mobile sheet. Strip aria-current so the DOM
+    // never carries two "current" items at once — the clone is a static
+    // snapshot (not live-synced to later scrollspy updates), matching the
+    // ported prototype's behaviour.
+    var mobileHost = document.querySelector('[data-rail-mobile]');
+    if (railNav && mobileHost) {
+      var clone = railNav.cloneNode(true);
+      clone.removeAttribute('data-rail');
+      Array.from(clone.querySelectorAll('[aria-current]')).forEach(function (el) {
+        el.removeAttribute('aria-current');
+        el.setAttribute('data-current', 'true');
+      });
+      mobileHost.appendChild(clone);
+      wireInPageLinks(mobileHost);
+    }
+
+    // Reading/report progress = page scroll %. No CSS transition on the
+    // fill — it is scroll-driven, a transition would only add lag.
+    var fills = Array.from(document.querySelectorAll('[data-progress-fill]'));
+    var verticalFills = Array.from(document.querySelectorAll('[data-progress-fill-y]'));
+    function updateProgress() {
+      var doc = document.documentElement;
+      var scrollable = doc.scrollHeight - window.innerHeight;
+      var p = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      fills.forEach(function (fill) {
+        fill.style.width = (p * 100).toFixed(1) + '%';
+      });
+      verticalFills.forEach(function (fill) {
+        // Report position, not single-page scroll: fill sits at the current node
+        // and advances toward the next as this section is read. Nodes are laid out
+        // at idx/(total-1), so the fill uses the same denominator to stay aligned.
+        var idx = parseInt(fill.getAttribute('data-section-index'), 10);
+        var total = parseInt(fill.getAttribute('data-section-total'), 10);
+        var frac = isFinite(idx) && total > 1
+          ? Math.min(1, Math.max(0, (idx + p) / (total - 1)))
+          : p;
+        fill.style.height = (frac * 100).toFixed(1) + '%';
+      });
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+
+    // ── scrollspy ──
+    // hub only: spies on-page [data-spy] cards elsewhere on the page, sets
+    // aria-current on the matching top-level rail link. Section-mode edge-spine
+    // has no scrollspy — its current node is fixed at build time (currentId).
+    if ('IntersectionObserver' in window) {
+      var railLinks = Array.from(document.querySelectorAll('[data-rail-link]'));
+      var spySections = Array.from(document.querySelectorAll('[data-spy]'));
+      if (spySections.length) {
+        var hubObserver = new IntersectionObserver(
+          function (entries) {
+            var visible = entries.filter(function (e) { return e.isIntersecting; });
+            if (!visible.length) return;
+            var topMost = visible.reduce(function (a, b) {
+              return a.boundingClientRect.top < b.boundingClientRect.top ? a : b;
+            });
+            var id = topMost.target.id;
+            railLinks.forEach(function (link) {
+              if (link.getAttribute('data-target-id') === id) {
+                link.setAttribute('aria-current', 'page');
+              } else {
+                link.removeAttribute('aria-current');
+              }
+            });
+          },
+          { rootMargin: '-12% 0px -75% 0px', threshold: 0 }
+        );
+        spySections.forEach(function (s) { hubObserver.observe(s); });
+      }
+    }
+
+    // ── sticky jumpbar reveal: the "Sections" strip stays hidden over the hero,
+    // slides in once the reader scrolls past it, and steps aside when the bottom
+    // ConversationSpine (the full wayfinder) comes into view so they never
+    // compete. Same control opens the modal (desktop) or bottom sheet (mobile). ──
+    var jumpBar = document.querySelector('[data-jump-bar]');
+    if (jumpBar) {
+      var barDormant = false;
+
+      function syncJumpBar() {
+        if (barDormant) return;
+        jumpBar.classList.toggle('is-visible', window.scrollY > 140);
+      }
+      window.addEventListener('scroll', syncJumpBar, { passive: true });
+      syncJumpBar();
+
+      // The bottom ConversationSpine renders later in the document than this
+      // inline script, so its node is not in the DOM at parse time — defer the
+      // lookup until the full document has parsed before wiring dormancy.
+      function attachJumpBarDormancy() {
+        var conversationSpine = document.querySelector('[data-conversation-spine]');
+        if (!conversationSpine || !('IntersectionObserver' in window)) return;
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              barDormant = entry.isIntersecting;
+              if (barDormant) jumpBar.classList.remove('is-visible');
+              else syncJumpBar();
+            });
+          },
+          { threshold: 0 }
+        );
+        observer.observe(conversationSpine);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', attachJumpBarDormancy);
+      } else {
+        attachJumpBarDormancy();
+      }
+    }
+
+    // ── mobile sheet: real modal (focus in, focus trap, focus returns, Esc closes) ──
+    var sheet = document.querySelector('[data-sheet]');
+    var lastFocus = null;
+
+    function setTriggersExpanded(isOpen) {
+      Array.from(document.querySelectorAll('[data-jump-open]')).forEach(function (btn) {
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    }
+
+    function openSheet() {
+      if (!sheet) return;
+      lastFocus = document.activeElement;
+      sheet.setAttribute('data-open', 'true');
+      document.body.style.overflow = 'hidden';
+      setTriggersExpanded(true);
+      var closeBtn = sheet.querySelector('.chapter-rail-sheet__close');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeSheet() {
+      if (!sheet) return;
+      document.body.style.overflow = '';
+      setTriggersExpanded(false);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+
+      // Reduced motion (or nothing open): drop immediately, no exit keyframe.
+      if (reduceMotion || sheet.getAttribute('data-open') !== 'true') {
+        sheet.setAttribute('data-open', 'false');
+        sheet.removeAttribute('data-closing');
+        return;
+      }
+
+      // Keep data-open='true' (so display stays block) and flag data-closing to
+      // swap in the exit keyframe; tear the panel down only once it finishes.
+      var panel = sheet.querySelector('.chapter-rail-sheet__panel');
+      sheet.setAttribute('data-closing', 'true');
+
+      function finish() {
+        sheet.setAttribute('data-open', 'false');
+        sheet.removeAttribute('data-closing');
+      }
+      if (panel) {
+        panel.addEventListener('animationend', finish, { once: true });
+        setTimeout(finish, 320); // fallback if animationend never fires
+      } else {
+        finish();
+      }
+    }
+
+    Array.from(document.querySelectorAll('[data-jump-open]')).forEach(function (btn) {
+      btn.addEventListener('click', openSheet);
+    });
+    Array.from(document.querySelectorAll('[data-jump-close]')).forEach(function (btn) {
+      btn.addEventListener('click', closeSheet);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (!sheet || sheet.getAttribute('data-open') !== 'true') return;
+      if (event.key === 'Escape') {
+        closeSheet();
+        return;
+      }
+      if (event.key === 'Tab') {
+        var focusable = Array.from(sheet.querySelectorAll('button, a, [tabindex]')).filter(function (el) {
+          return el.offsetParent !== null;
+        });
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  })();
+</script>
+
+<style>
+  /* ═══ desktop rail ═══ */
+  .chapter-rail {
+    position: sticky;
+    top: var(--space-6);
+    align-self: start;
+    max-height: calc(100vh - var(--space-12));
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding-right: var(--space-2);
+  }
+
+  .chapter-rail__progress {
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-surface-muted);
+    overflow: hidden;
+    margin: 0 0 var(--space-2);
+  }
+
+  .chapter-rail__progress-fill,
+  .chapter-rail-jumpbar__progress-fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--color-action);
+  }
+
+  .chapter-rail__progress-label {
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    letter-spacing: var(--tracking-mono);
+    color: var(--color-ink-muted);
+    margin: 0 0 var(--space-6);
+  }
+
+  .chapter-rail__group {
+    margin-bottom: var(--space-5);
+  }
+
+  .chapter-rail__group-label {
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--color-action);
+    margin: 0 0 var(--space-2);
+    padding-left: var(--space-3);
+  }
+
+  .chapter-rail__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .chapter-rail__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chapter-rail__link {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 0 var(--space-3);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: none;
+    font-size: var(--font-size-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-ink-subtle);
+    text-decoration: none;
+    transition:
+      background-color var(--transition-hover),
+      color var(--transition-hover),
+      border-color var(--transition-hover);
+  }
+
+  .chapter-rail__link:hover {
+    background: var(--color-surface-muted);
+    border-color: var(--color-border-strong);
+    color: var(--color-ink);
+  }
+
+  .chapter-rail__link:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+  }
+
+  .chapter-rail__link[aria-current='page'] {
+    background: var(--color-action);
+    border-color: var(--color-action);
+    color: var(--color-inverse-text);
+    font-weight: var(--weight-bold);
+  }
+
+  /* Mobile sheet: the current section reads crimson (matching the spines' here
+     marker), not the hub rail's navy. White-on-crimson keeps AA. */
+  .chapter-rail-sheet__panel .chapter-rail__link[aria-current='page'] {
+    background: var(--color-signal);
+    border-color: var(--color-signal);
+  }
+
+  /* ═══ sticky jumpbar (section + hub) — reveals on scroll, opens the sheet ═══ */
+  .chapter-rail-jumpbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: color-mix(in oklab, var(--color-ambient) 90%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding: var(--space-3) var(--space-4);
+    /* Hidden over the hero; JS slides it down once the reader scrolls past,
+       and hides it again when the bottom ConversationSpine is in view. */
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+    transition:
+      opacity var(--transition-hover),
+      transform var(--transition-hover);
+  }
+
+  .chapter-rail-jumpbar.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .chapter-rail-jumpbar__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    /* Centre the strip's contents on wider viewports so it reads as a docked
+       desktop bar, not an edge-to-edge band. */
+    max-width: var(--zone-editorial);
+    margin-inline: auto;
+  }
+
+  .chapter-rail-jumpbar__button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface-muted);
+    border-radius: 999px;
+    padding: 0 var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-ink);
+  }
+
+  .chapter-rail-jumpbar__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-action);
+  }
+
+  .chapter-rail-jumpbar__progress {
+    flex: 1;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-surface-muted);
+    overflow: hidden;
+  }
+
+  .chapter-rail-jumpbar__pos {
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    letter-spacing: var(--tracking-mono);
+    color: var(--color-ink-muted);
+    white-space: nowrap;
+  }
+
+  /* ═══ sheet: bottom sheet (≤900px) / centred modal (≥901px) ═══ */
+  .chapter-rail-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: none;
+  }
+
+  .chapter-rail-sheet[data-open='true'] {
+    display: block;
+  }
+
+  .chapter-rail-sheet__scrim {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in oklab, var(--color-inverse-surface) 45%, transparent);
+  }
+
+  /* Enter animation. display toggles none→block on open, so a keyframe (not a
+     transition) is what actually plays. Base = mobile slide-up; the ≥901px
+     block below swaps in a centred fade-scale for the modal. */
+  .chapter-rail-sheet[data-open='true'] .chapter-rail-sheet__scrim {
+    animation: sheet-scrim-in 200ms ease-out;
+  }
+
+  .chapter-rail-sheet__panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 82vh;
+    overflow-y: auto;
+    background: var(--color-ambient);
+    border-radius: var(--radius-blob-motif) var(--radius-blob-motif) 0 0;
+    padding: var(--space-6) var(--space-6) var(--space-16);
+    box-shadow: 0 -12px 40px color-mix(in oklab, var(--color-inverse-surface) 18%, transparent);
+  }
+
+  .chapter-rail-sheet[data-open='true'] .chapter-rail-sheet__panel {
+    animation: sheet-panel-up 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes sheet-scrim-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes sheet-panel-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  @keyframes sheet-panel-pop {
+    from {
+      opacity: 0;
+      transform: translate(-50%, calc(-50% + 12px)) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  /* Exit: data-closing plays the reverse while display is still block; JS drops
+     data-open on animationend. Base = mobile slide-down; ≥901px = fade-collapse. */
+  .chapter-rail-sheet[data-closing='true'] .chapter-rail-sheet__scrim {
+    animation: sheet-scrim-out 200ms ease-in forwards;
+  }
+
+  .chapter-rail-sheet[data-closing='true'] .chapter-rail-sheet__panel {
+    animation: sheet-panel-down 220ms ease-in forwards;
+  }
+
+  @keyframes sheet-scrim-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes sheet-panel-down {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+  }
+
+  @keyframes sheet-panel-collapse {
+    from {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate(-50%, calc(-50% + 12px)) scale(0.98);
+    }
+  }
+
+  .chapter-rail-sheet__grip {
+    width: 40px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--color-border-strong);
+    margin: 0 auto var(--space-6);
+  }
+
+  .chapter-rail-sheet__close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border-subtle);
+    background: var(--color-surface-muted);
+    border-radius: 50%;
+  }
+
+  .chapter-rail-sheet__title {
+    font-family: var(--font-data);
+    font-size: var(--ui-meta);
+    letter-spacing: var(--tracking-mono);
+    color: var(--color-ink-muted);
+    margin: 0 0 var(--space-4);
+  }
+
+  .chapter-rail-sheet__origin-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 var(--space-3);
+    margin: 0 0 var(--space-3);
+    border-bottom: 1px solid var(--color-border-subtle);
+    color: var(--color-action);
+    text-decoration: none;
+  }
+
+  .chapter-rail-sheet__origin-link:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+    border-radius: 10px;
+  }
+
+  /* the cloned nav reuses .chapter-rail__* classes for identical styling */
+
+  /* ≥901px: the sheet becomes a centred modal (the mobile bottom-sheet is the
+     ≤900px experience). Same dialog, same content — only the framing changes. */
+  @media (min-width: 901px) {
+    .chapter-rail-sheet__panel {
+      top: 50%;
+      left: 50%;
+      right: auto;
+      bottom: auto;
+      transform: translate(-50%, -50%);
+      width: min(92vw, 460px);
+      max-height: 78vh;
+      border-radius: var(--radius-blob-motif);
+      padding-block: var(--space-8);
+      box-shadow: 0 24px 64px color-mix(in oklab, var(--color-inverse-surface) 28%, transparent);
+    }
+
+    /* Centred fade-scale replaces the mobile slide-up (ends at the panel's
+       translate-centre so it lands in place). */
+    .chapter-rail-sheet[data-open='true'] .chapter-rail-sheet__panel {
+      animation: sheet-panel-pop 260ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .chapter-rail-sheet[data-closing='true'] .chapter-rail-sheet__panel {
+      animation: sheet-panel-collapse 220ms ease-in forwards;
+    }
+
+    /* Grip is a bottom-sheet drag affordance; a centred modal has no use for it. */
+    .chapter-rail-sheet__grip {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .chapter-rail {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chapter-rail__link,
+    .chapter-rail-jumpbar {
+      transition: none;
+    }
+
+    .chapter-rail-sheet[data-open='true'] .chapter-rail-sheet__scrim,
+    .chapter-rail-sheet[data-open='true'] .chapter-rail-sheet__panel {
+      animation: none;
+    }
+  }
+</style>
