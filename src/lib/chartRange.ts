@@ -1,4 +1,4 @@
-import { makeTickFormat } from './chartFormat';
+import { currencyAxisTicks, makeTickFormat } from './chartFormat';
 
 /** Mirrors rangePlotSchema's `tone` enum (src/content.config.ts:116). */
 export type RangeTone = 'workhorse' | 'signal';
@@ -67,10 +67,21 @@ const AXIS_TICK_FRACTIONS = [0, 0.25, 0.5, 0.75, 1] as const;
  * Scales raw min/median/max/q1/q3 values to 0–100% of a shared `[0, max]`
  * domain (max of every row's `max` — matches the 0-based axis convention
  * the deleted SVG renderer used) and formats axis/value labels.
+ *
+ * Currency axes (`valuePrefix` truthy) additionally pad that domain to a
+ * round number via `currencyAxisTicks` — the same helper the deleted SVG
+ * renderer used — before scaling positions and computing axis ticks, so
+ * charts like "S$0 · S$85k · S$170k · S$254.9k · S$339.9k" instead read
+ * "S$0 · S$100k · S$200k · S$300k · S$400k". Row positions and axis ticks
+ * are derived from the same rounded domain, or the two would disagree.
+ * Non-currency axes (no real content uses this today) keep the raw max,
+ * matching `makeTickFormat`'s own prefix-only branch into compact
+ * formatting.
  */
 export function toChartRangeRows(options: RangePlotOptions): ChartRangeVisual {
   const { rows, valuePrefix = '', valueSuffix = '', annotations = [] } = options;
-  const domainMax = Math.max(...rows.map((row) => row.max));
+  const rawDomainMax = Math.max(...rows.map((row) => row.max));
+  const domainMax = valuePrefix ? currencyAxisTicks(rawDomainMax).domain[1] : rawDomainMax;
   const tickFormat = makeTickFormat(valuePrefix, valueSuffix);
   const toPercent = (value: number) => (domainMax === 0 ? 0 : (value / domainMax) * 100);
 

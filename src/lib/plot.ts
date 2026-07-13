@@ -1,6 +1,6 @@
 import { parseHTML } from 'linkedom';
 import * as Plot from '@observablehq/plot';
-import { makeTickFormat } from './chartFormat';
+import { currencyAxisTicks, makeTickFormat } from './chartFormat';
 
 /**
  * Build-time Observable Plot renderer — produces a static SVG string, no
@@ -143,30 +143,6 @@ function finaliseSvg(svg: RenderedSvgElement, tone: ChartTone): string {
 
 /** Tick-count hint for non-currency value axes (short labels). */
 const MAX_X_TICKS = 5;
-
-/**
- * Hard tick control for currency axes. `ticks: N` is only a d3 hint and
- * awkward domains (e.g. 0–355k) can render 8 ticks whose compact labels
- * jam together (gotcha 15, seen again in rendered review). Compute at
- * most five round tick values ourselves — always including 0 — extend
- * the domain to the last tick, and pass the array form, which d3 honours
- * exactly.
- */
-function currencyAxisTicks(domainMax: number): {
-  domain: [number, number];
-  tickValues: number[];
-} {
-  const targetIntervals = 4;
-  const rawStep = Math.max(1, domainMax) / targetIntervals;
-  const magnitude = 10 ** Math.floor(Math.log10(rawStep));
-  const step =
-    [1, 2, 2.5, 5, 10].map((multiple) => multiple * magnitude).find((s) => s >= rawStep) ??
-    10 * magnitude;
-  // step >= domainMax / 4, so intervals <= 4 and tick count <= 5.
-  const intervals = Math.max(1, Math.ceil(domainMax / step));
-  const tickValues = Array.from({ length: intervals + 1 }, (_, index) => index * step);
-  return { domain: [0, intervals * step], tickValues };
-}
 
 /** Estimated mono-glyph advance (px) at the site's caption size — used only
  *  to lay out category margins and the two-series key, where a few px of
