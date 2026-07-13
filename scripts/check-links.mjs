@@ -41,7 +41,6 @@ for (const file of htmlFiles) {
       !target.startsWith('/') ||
       target.startsWith('//') ||
       target.startsWith('/_astro/') ||
-      target.startsWith('/pagefind/') ||
       target.startsWith('/charts/') ||
       target === '/favicon.ico' ||
       target === '/favicon.svg' ||

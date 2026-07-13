@@ -17,8 +17,6 @@ const files = [
   'src/components/GuidePage.astro',
   'src/pages/index.astro',
   'src/pages/ops.astro',
-  'src/pages/resources.astro',
-  'src/pages/search.astro',
   'src/pages/reports/index.astro',
   'src/pages/reports/[slug].astro',
   'src/pages/docs/index.astro',

@@ -9,9 +9,8 @@
   "scripts": {
     "dev": "astro dev",
     "build:site": "astro build",
-    "build": "pnpm run a11y:charts && pnpm run build:site && pnpm run search:index",
+    "build": "pnpm run a11y:charts && pnpm run build:site",
     "check": "astro check",
-    "search:index": "pagefind --site dist",
     "check-links": "node ./scripts/check-links.mjs",
     "audit:tokens": "node ./scripts/check-token-usage.mjs",
     "audit:ops": "node ./scripts/check-ops-freshness.mjs",
@@ -30,7 +29,6 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "pagefind": "^1.3.0",
     "zod": "^4.4.3"
   }
 }
