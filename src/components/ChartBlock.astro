@@ -1,5 +1,6 @@
 ---
 import { isSelfHostedSource } from '../lib/evidence';
+import ChartRangeRows, { type RangeRow as ChartRangeRow } from './ChartRangeRows.astro';
 
 interface TableRow {
   label: string;
@@ -81,6 +82,14 @@ interface Variant {
    * bars markup.
    */
   plotSvg?: string;
+  /**
+   * Pre-scaled range-chart rows for this variant — see
+   * `toChartRangeRows` in `src/lib/chartRange.ts`. Same precedence tier as
+   * `plotSvg`: when present it replaces this variant's axis + bars track.
+   */
+  rangeRows?: ChartRangeRow[];
+  /** Axis tick labels paired with `rangeRows`. */
+  rangeAxisTickLabels?: [string, string, string, string, string];
   /** 2–6 printed header cells: `[0]` is the row-label column. */
   fallbackColumns: string[];
   fallbackRows: TableRow[];
@@ -117,6 +126,15 @@ interface Props {
    * `pngPath` still renders as a download-proof link if also set.
    */
   plotSvg?: string;
+  /**
+   * Pre-scaled range-chart rows — see `toChartRangeRows` in
+   * `src/lib/chartRange.ts`. Same precedence tier as `plotSvg`: when
+   * present it replaces the bars/plotSvg track in the chart zone. Renders
+   * via `ChartRangeRows`, `ChartRange.astro`'s shared visual partial.
+   */
+  rangeRows?: ChartRangeRow[];
+  /** Axis tick labels paired with `rangeRows`. */
+  rangeAxisTickLabels?: [string, string, string, string, string];
   /**
    * Optional plain-text headline stat rendered above the distribution bars
    * (e.g. "Mean: 4.57 / 7"). Used for Likert-style rating charts where the
@@ -176,6 +194,8 @@ const {
   variants,
   pngPath,
   plotSvg,
+  rangeRows,
+  rangeAxisTickLabels,
   averageLabel,
   hideTable = false,
   tableMode,
@@ -326,7 +346,9 @@ const variantViews = hasVariants
                 aria-label={view.summary}
                 style={`--chart-label-column: ${LABEL_COLUMN_WIDTH_PX}px;`}
               >
-                <p class="chart-block__summary">{view.summary}</p>{view.plotSvg ? (
+                <p class="chart-block__summary">{view.summary}</p>{view.rangeRows ? (
+                  <ChartRangeRows rows={view.rangeRows} axisTickLabels={view.rangeAxisTickLabels} />
+                ) : view.plotSvg ? (
                   <div class="chart-block__plot" set:html={view.plotSvg} />
                 ) : (
                   <>
@@ -783,7 +805,9 @@ const variantViews = hasVariants
             <p class="chart-block__average">{averageLabel}</p>
           )}
 
-          {plotSvg ? (
+          {rangeRows ? (
+            <ChartRangeRows rows={rangeRows} axisTickLabels={rangeAxisTickLabels} />
+          ) : plotSvg ? (
             <div class="chart-block__plot" set:html={plotSvg} />
           ) : pngIsPrimaryVisual ? (
             <img
