@@ -504,6 +504,8 @@ const reportSections = defineCollection({
     report: reference('reports'),
     title: z.string().min(1),
     summary: z.string().min(1),
+    // Editorial one-liner for the conversation-spine station; falls back to title when absent.
+    provocation: z.string().min(1).optional(),
     order: z.number(),
     commentary: z.string().min(1).optional(),
     hubCommentary: z.string().optional(),
