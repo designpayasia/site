@@ -50,7 +50,7 @@ const tickLabels = axisTickLabels ?? DEFAULT_TICK_LABELS;
  * A low-confidence row is never allowed to be the signal row — a thin
  * sample can't be "the one finding that matters".
  */
-export const normalizeRows = (inputRows: RangeRow[]) => {
+const normalizeRows = (inputRows: RangeRow[]) => {
   const signalIndex = inputRows.findIndex(
     (row) => row.tone === 'signal' && row.confidence !== 'low',
   );
