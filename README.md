@@ -26,7 +26,7 @@ pnpm install
 pnpm dev
 ```
 
-Build the production site and search index:
+Build the production site:
 
 ```sh
 pnpm run build:site
@@ -82,7 +82,7 @@ All audit scripts live under `scripts/` and are verified in CI.
 
 ## Public contract
 
-The public site contract includes permanent URL structure, published content and data schemas, redirect manifests, search index generation, and documented integration points. During `0.y.z` initial development, anything may change. `1.0.0` marks the first stable public launch.
+The public site contract includes permanent URL structure, published content and data schemas, redirect manifests, and documented integration points. During `0.y.z` initial development, anything may change. `1.0.0` marks the first stable public launch.
 
 Each published metric must link to a named `evidenceId`. Cohorts smaller than 10 must be sampled or suppressed rather than published as granular facts.
 
