@@ -296,6 +296,8 @@ Full-time employment dominates the respondent pool at 79.3%, with the remainder 
 
 ::chart{id="design-experience-distribution"}
 
+::pullquote{quote="A young field: most of us are five years in or less."}
+
 ::chart{id="total-working-experience"}
 
 ::chart{id="experience-correlation"}

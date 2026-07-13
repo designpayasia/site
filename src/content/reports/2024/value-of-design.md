@@ -130,6 +130,8 @@ Singapore designers offer a nuanced view of how design is valued within their or
 
 ::chart{id="fair-compensation"}
 
+::pullquote{quote="Design here is praised in principle and paid at a discount."}
+
 ::chart{id="design-advocacy-effort"}
 
 On user-centricity, 42.9% of Singapore respondents believe user needs are a genuine priority in their organisation's decision-making. This relatively low figure points to persistent tension between user-centred design principles and business-driven priorities. However, strategic alignment is stronger: 66.1% report that design is well-aligned with their company's strategic goals, indicating that while design may not always lead, it is increasingly integrated into strategic planning.
