@@ -1,5 +1,6 @@
 ---
 import { isSelfHostedSource } from '../lib/evidence';
+import ChartRangeRows, { type RangeRow } from './ChartRangeRows.astro';
 
 interface TableRow {
   label: string;
@@ -7,29 +8,6 @@ interface TableRow {
   value?: string;
   /** N-column shape: one printed value per non-label fallbackColumns entry. */
   values?: string[];
-}
-
-type RangeTone = 'signal' | 'action';
-
-interface RangeRow {
-  label: string;
-  /** Position of the median dot, percent along the shared axis (0–100). */
-  medianPosition: number;
-  /** Left edge of the IQR / confidence band, percent along the shared axis. */
-  bandStart: number;
-  /** Right edge of the IQR / confidence band, percent along the shared axis. */
-  bandEnd: number;
-  /** Printed headline value, e.g. "SGD 72k". */
-  valueLabel: string;
-  /** Printed spread/caveat text, e.g. "±8k IQR" or "n=34 — directional only". */
-  rangeLabel?: string;
-  tone?: RangeTone;
-  /**
-   * "low" renders the band dashed and the dot as a smaller neutral marker,
-   * regardless of tone — the DPA way of disclosing a thin sample without
-   * deleting the row. Pair with rangeLabel explaining the n.
-   */
-  confidence?: 'standard' | 'low';
 }
 
 interface Props {
@@ -64,7 +42,6 @@ interface Props {
 }
 
 const LABEL_COLUMN_WIDTH_PX = 140;
-const GRIDLINE_PERCENTAGES = [0, 25, 50, 75, 100] as const;
 const DEFAULT_TICK_LABELS: [string, string, string, string, string] = ['0%', '25%', '50%', '75%', '100%'];
 
 const {
@@ -87,23 +64,6 @@ const tickLabels = axisTickLabels ?? DEFAULT_TICK_LABELS;
 const resolvedTableMode: 'collapsed' | 'open' | 'hidden' = tableMode ?? 'collapsed';
 
 /**
- * §1d colour contract: at most one row carries the crimson signal tone.
- * A low-confidence row is never allowed to be the signal row — a thin
- * sample can't be "the one finding that matters".
- */
-const normalizeRows = (inputRows: RangeRow[]) => {
-  const signalIndex = inputRows.findIndex(
-    (row) => row.tone === 'signal' && row.confidence !== 'low',
-  );
-
-  return inputRows.map((row, index) => ({
-    ...row,
-    tone: index === signalIndex ? 'signal' : row.tone === 'signal' ? 'action' : row.tone ?? 'action',
-    confidence: row.confidence ?? 'standard',
-  }));
-};
-
-/**
  * Normalise the legacy single-`value` row shape into `values: string[]` so
  * the table below renders N columns the same way regardless of which shape
  * the source frontmatter used.
@@ -114,7 +74,6 @@ const normalizeTableRows = (inputRows: TableRow[]) =>
     values: row.values ?? (row.value !== undefined ? [row.value] : []),
   }));
 
-const renderedRows = normalizeRows(rows);
 const normalizedFallbackRows = normalizeTableRows(fallbackRows);
 const evidenceLabel = evidenceIds.length === 1 ? 'Evidence ID' : 'Evidence IDs';
 const showSource = !isSelfHostedSource(sourceUrl, reportPath);
@@ -136,56 +95,7 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     >
       <p class="chart-range__summary">{summary}</p>
 
-      <div class="chart-range__axis" aria-hidden="true">
-        <div class="chart-range__axis-spacer"></div>
-        <div class="chart-range__ticks">
-          {GRIDLINE_PERCENTAGES.map((percentage, index) => (
-            <span style={`left: ${percentage}%;`}>{tickLabels[index]}</span>
-          ))}
-        </div>
-        <div class="chart-range__axis-value-spacer"></div>
-      </div>
-
-      <div class="chart-range__rows">
-        {renderedRows.map((row) => (
-          <div class="chart-range__row">
-            <div class="chart-range__label">{row.label}</div>
-
-            <div class="chart-range__track" aria-hidden="true">
-              <div class="chart-range__gridlines">
-                {GRIDLINE_PERCENTAGES.map((percentage) => (
-                  <span style={`left: ${percentage}%;`}></span>
-                ))}
-              </div>
-
-              <span
-                class:list={[
-                  'chart-range__band',
-                  row.confidence === 'low' && 'chart-range__band--low-confidence',
-                ]}
-                style={`left: ${row.bandStart}%; width: ${row.bandEnd - row.bandStart}%;`}
-              ></span>
-
-              <span
-                class:list={[
-                  'chart-range__dot',
-                  row.confidence === 'low'
-                    ? 'chart-range__dot--low-confidence'
-                    : row.tone === 'signal'
-                      ? 'chart-range__dot--signal'
-                      : 'chart-range__dot--action',
-                ]}
-                style={`left: ${row.medianPosition}%;`}
-              ></span>
-            </div>
-
-            <div class="chart-range__value">
-              <span class="chart-range__value-headline">{row.valueLabel}</span>
-              {row.rangeLabel && <span class="chart-range__value-note">{row.rangeLabel}</span>}
-            </div>
-          </div>
-        ))}
-      </div>
+      <ChartRangeRows rows={rows} axisTickLabels={tickLabels} />
 
       {note && <p class="chart-range__note">{note}</p>}
 
@@ -289,135 +199,6 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
     margin: 0;
     color: var(--color-ink-muted);
     overflow-wrap: anywhere;
-  }
-
-  .chart-range__axis,
-  .chart-range__row {
-    display: grid;
-    grid-template-columns: var(--chart-label-column) minmax(0, 1fr) auto;
-    column-gap: var(--space-4);
-    align-items: center;
-  }
-
-  .chart-range__axis {
-    color: var(--color-ink-muted);
-    font-family: var(--font-data);
-    font-size: var(--ui-meta);
-  }
-
-  .chart-range__ticks,
-  .chart-range__track {
-    position: relative;
-  }
-
-  .chart-range__ticks {
-    height: 1.5rem;
-  }
-
-  .chart-range__ticks span,
-  .chart-range__gridlines span {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--color-border-subtle);
-  }
-
-  .chart-range__ticks span {
-    background: none;
-    width: auto;
-    bottom: auto;
-    transform: translateX(-50%);
-  }
-
-  .chart-range__rows {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .chart-range__label {
-    color: var(--color-ink);
-    font-family: var(--font-data);
-    line-height: 1.4;
-    overflow-wrap: break-word;
-  }
-
-  .chart-range__track {
-    min-height: 1.5rem;
-  }
-
-  .chart-range__gridlines {
-    position: absolute;
-    inset: 0;
-  }
-
-  /* Band is always chart-neutral at reduced emphasis — per §1d only the dot
-     carries the tone-dependent colour, so the band never competes with it. */
-  .chart-range__band {
-    position: absolute;
-    top: 50%;
-    height: 5px;
-    border-radius: 999px;
-    background: var(--color-chart-neutral);
-    opacity: 0.35;
-    transform: translateY(-50%);
-  }
-
-  .chart-range__band--low-confidence {
-    opacity: 1;
-    background-color: transparent;
-    background-image: repeating-linear-gradient(
-      90deg,
-      var(--color-chart-neutral) 0 4px,
-      transparent 4px 8px
-    );
-  }
-
-  .chart-range__dot {
-    position: absolute;
-    top: 50%;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid var(--color-surface);
-    box-shadow: 0 0 0 1px var(--color-border-strong);
-  }
-
-  .chart-range__dot--signal {
-    background: var(--color-signal-fill);
-  }
-
-  .chart-range__dot--action {
-    background: var(--color-action);
-  }
-
-  .chart-range__dot--low-confidence {
-    width: 9px;
-    height: 9px;
-    background: var(--color-chart-neutral);
-    box-shadow: none;
-  }
-
-  .chart-range__value {
-    display: grid;
-    justify-items: end;
-    text-align: right;
-    row-gap: 2px;
-  }
-
-  .chart-range__value-headline {
-    font-family: var(--font-data);
-    color: var(--color-ink);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-
-  .chart-range__value-note {
-    font-family: var(--font-data);
-    font-size: var(--ui-meta);
-    color: var(--color-ink-muted);
-    overflow-wrap: break-word;
   }
 
   .chart-range__note {
@@ -567,36 +348,7 @@ const showSource = !isSelfHostedSource(sourceUrl, reportPath);
 
   .chart-range,
   .chart-range__visual,
-  .chart-range__row,
   .chart-range__support {
     min-width: 0;
-  }
-
-  /* Container query, not a viewport media query: see ChartBlock.astro for
-     the same pattern and threshold reasoning. */
-  @container (max-width: 600px) {
-    .chart-range__visual {
-      --chart-label-column: min(220px, 38vw);
-    }
-
-    .chart-range__axis,
-    .chart-range__row {
-      grid-template-columns: 1fr;
-      row-gap: var(--space-2);
-    }
-
-    .chart-range__axis-spacer,
-    .chart-range__axis-value-spacer {
-      display: none;
-    }
-
-    .chart-range__axis {
-      display: none;
-    }
-
-    .chart-range__value {
-      justify-items: start;
-      text-align: left;
-    }
   }
 </style>
