@@ -272,7 +272,6 @@ const stations: StationView[] = flatSections.map(({ group, section }, index) => 
     align-items: center;
     text-align: left;
     font-family: var(--font-display);
-    font-style: italic;
     font-size: var(--font-size-xl);
     line-height: var(--leading-pullquote);
     color: var(--color-ink);
@@ -291,11 +290,10 @@ const stations: StationView[] = flatSections.map(({ group, section }, index) => 
     border-radius: 4px;
   }
 
-  /* Current station: same provocation face as the others (display italic), one
+  /* Current station: same provocation face as the others, one
      step up in size, highlighted with crimson text rather than a font swap. */
   .station__label--current {
     font-family: var(--font-display);
-    font-style: italic;
     font-weight: var(--weight-regular);
     font-size: var(--font-size-xl);
     color: var(--color-signal-text);
@@ -331,7 +329,7 @@ const stations: StationView[] = flatSections.map(({ group, section }, index) => 
     fill: var(--color-action);
   }
 
-  /* Origin label inherits the base serif-italic station treatment so the
+  /* Origin label inherits the base serif station treatment so the
      back-to-report station reads as one more station, not a footnote. */
 
   .pager {
