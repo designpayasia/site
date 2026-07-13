@@ -194,6 +194,8 @@ Just over half of designers, 52.5%, actively negotiate their compensation when r
 
 ::chart{id="past-salary-disclosure"}
 
+::pullquote{quote="Whatever the guidance says, most employers still ask what you earned last."}
+
 ::chart{id="salary-disclosure-pressure"}
 
 ::chart{id="salary-decline-outcomes"}

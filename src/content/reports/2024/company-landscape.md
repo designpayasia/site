@@ -174,6 +174,8 @@ Enterprise organisations (500+ employees) employ 32.8% of Singapore-based design
 
 ::chart{id="industry-sectors"}
 
+::pullquote{quote="The field's centre of gravity sits at startups, working for tech."}
+
 ::chart{id="design-team-structures"}
 
 ::chart{id="hq-vs-regional"}

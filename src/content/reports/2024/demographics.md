@@ -249,6 +249,8 @@ The 2024 DPA survey captured a predominantly young design workforce. An overwhel
 
 ::chart{id="gender-distribution"}
 
+::pullquote{quote="Same profession, different rooms: Singapore skews female, the region male."}
+
 ::chart{id="age-group"}
 
 ::chart{id="gender-by-age"}
