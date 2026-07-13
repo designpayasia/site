@@ -237,8 +237,8 @@ function valueAxisMarginRight(
  * labels. Paired with `lineAnchor: 'bottom'` below, this is the *full*
  * clearance: Plot's default lineAnchor ('middle') instead centres the text
  * block on the offset point, so half the text height still overlapped the
- * mark it was meant to clear (seen in review as the label crossing the
- * range chart's own rule/dot at typical 44–56px row heights).
+ * mark it was meant to clear (seen in review as the label crossing its own
+ * row's mark at typical 44–56px row heights).
  */
 const ANNOTATION_CLEARANCE = 12;
 
@@ -563,9 +563,8 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
       // padding above so groups stay visually distinct from their own
       // paired bars.
       padding: 0.4,
-      // Cosmetic only, same as the range plot's y axis — the facet
-      // domain still keys off the full label, so bar/annotation matching
-      // is unaffected.
+      // Cosmetic only — the facet domain still keys off the full label,
+      // so bar/annotation matching is unaffected.
       tickFormat: (label: string) => truncateLabel(label, marginLeft),
     },
     marks,
