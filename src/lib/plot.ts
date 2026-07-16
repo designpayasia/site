@@ -1,5 +1,6 @@
 import { parseHTML } from 'linkedom';
 import * as Plot from '@observablehq/plot';
+import { currencyAxisTicks, makeTickFormat } from './chartFormat';
 
 /**
  * Build-time Observable Plot renderer — produces a static SVG string, no
@@ -140,64 +141,8 @@ function finaliseSvg(svg: RenderedSvgElement, tone: ChartTone): string {
   return svg.outerHTML;
 }
 
-/**
- * Deterministic thousands grouping — never `toLocaleString`, whose output
- * can vary with the build machine's ICU data.
- */
-function formatThousands(value: number): string {
-  const sign = value < 0 ? '-' : '';
-  const [whole, fraction] = Math.abs(value).toString().split('.');
-  const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return `${sign}${grouped}${fraction ? `.${fraction}` : ''}`;
-}
-
-/**
- * Compact tick form for currency axes (OWID convention): 20,000 → 20k.
- * Full values remain in the fallback table, so nothing is lost. Values
- * under 1,000 fall through to plain grouping.
- */
-function formatCompact(value: number): string {
-  if (Math.abs(value) >= 1000) {
-    const thousands = Math.round((value / 1000) * 10) / 10;
-    return `${formatThousands(thousands)}k`;
-  }
-  return formatThousands(value);
-}
-
-function makeTickFormat(prefix: string, suffix: string): (value: number) => string {
-  // A prefix marks a currency axis — compact its ticks (S$20k) so they
-  // cannot jam together at 640px. Suffix-only axes (e.g. "%") keep full
-  // values, which are short by nature.
-  const format = prefix ? formatCompact : formatThousands;
-  return (value) => `${prefix}${format(value)}${suffix}`;
-}
-
 /** Tick-count hint for non-currency value axes (short labels). */
 const MAX_X_TICKS = 5;
-
-/**
- * Hard tick control for currency axes. `ticks: N` is only a d3 hint and
- * awkward domains (e.g. 0–355k) can render 8 ticks whose compact labels
- * jam together (gotcha 15, seen again in rendered review). Compute at
- * most five round tick values ourselves — always including 0 — extend
- * the domain to the last tick, and pass the array form, which d3 honours
- * exactly.
- */
-function currencyAxisTicks(domainMax: number): {
-  domain: [number, number];
-  tickValues: number[];
-} {
-  const targetIntervals = 4;
-  const rawStep = Math.max(1, domainMax) / targetIntervals;
-  const magnitude = 10 ** Math.floor(Math.log10(rawStep));
-  const step =
-    [1, 2, 2.5, 5, 10].map((multiple) => multiple * magnitude).find((s) => s >= rawStep) ??
-    10 * magnitude;
-  // step >= domainMax / 4, so intervals <= 4 and tick count <= 5.
-  const intervals = Math.max(1, Math.ceil(domainMax / step));
-  const tickValues = Array.from({ length: intervals + 1 }, (_, index) => index * step);
-  return { domain: [0, intervals * step], tickValues };
-}
 
 /** Estimated mono-glyph advance (px) at the site's caption size — used only
  *  to lay out category margins and the two-series key, where a few px of
@@ -268,8 +213,8 @@ function valueAxisMarginRight(
  * labels. Paired with `lineAnchor: 'bottom'` below, this is the *full*
  * clearance: Plot's default lineAnchor ('middle') instead centres the text
  * block on the offset point, so half the text height still overlapped the
- * mark it was meant to clear (seen in review as the label crossing the
- * range chart's own rule/dot at typical 44–56px row heights).
+ * mark it was meant to clear (seen in review as the label crossing its own
+ * row's mark at typical 44–56px row heights).
  */
 const ANNOTATION_CLEARANCE = 12;
 
@@ -444,281 +389,6 @@ export function renderScatterPlotSvg(options: ScatterPlotOptions): string {
   return finaliseSvg(svg, tone);
 }
 
-/** A step smaller than `PLOT_TEXT_SIZE` — the range chart's category
- *  column trades size for wrapping to two lines, so its labels can afford
- *  to sit closer to the axis-tick scale than the site's `--ui-meta` face. */
-const RANGE_Y_LABEL_FONT_SIZE = '10px';
-
-/** Small and muted by design — the static median readout should read as a
- *  quiet number, not compete with the crimson median dot it sits above. */
-const MEDIAN_LABEL_FONT_SIZE = '9px';
-
-/** Narrower than `CATEGORY_CHAR_WIDTH`, matching `RANGE_Y_LABEL_FONT_SIZE` —
- *  used only by the range chart's wrapped (not truncated) category column,
- *  never by `categoryMarginLeft`/`truncateLabel`, which the two-series bar
- *  chart still relies on for its single-line ellipsis behaviour. */
-const RANGE_CATEGORY_CHAR_WIDTH = 6;
-
-/**
- * Left margin for the range chart's y-axis, sized for a label wrapped onto
- * two lines rather than one full-width line — freeing the value axis (the
- * data) most of the SVG's width. Capped at 30% of the SVG width (design
- * ask: "~28–32% of width"), floored so short labels don't starve the
- * column entirely.
- */
-function rangeCategoryMarginLeft(labels: string[], width: number): number {
-  const longestHalf = Math.max(...labels.map((label) => Math.ceil(label.length / 2)));
-  const estimate = Math.ceil((longestHalf + 2) * RANGE_CATEGORY_CHAR_WIDTH) + 24;
-  return Math.min(Math.round(width * 0.3), Math.max(72, estimate));
-}
-
-/**
- * Wrap a category label onto up to two lines instead of truncating it: the
- * design ask is to keep the full label text (no ellipsis) now that the
- * label column no longer has to hold it on one line. Breaks at the last
- * space at or before the per-line character budget; falls back to a
- * mid-word break only if no reasonable space exists. Joined with `\n`,
- * which Plot's text/axis renderer splits into stacked lines by default
- * (no `lineWidth` is set here, so Plot's own auto-wrap stays off and only
- * this explicit break applies) — the underlying band-scale domain is
- * untouched, same as `truncateLabel`.
- */
-function wrapCategoryLabel(label: string, marginLeft: number): string {
-  const availableChars = Math.max(
-    4,
-    Math.floor((marginLeft - CATEGORY_LABEL_RIGHT_PADDING) / RANGE_CATEGORY_CHAR_WIDTH),
-  );
-  if (label.length <= availableChars) return label;
-  const breakWindow = label.slice(0, availableChars + 1);
-  const lastSpace = breakWindow.lastIndexOf(' ');
-  const breakAt = lastSpace > Math.floor(availableChars * 0.4) ? lastSpace : availableChars;
-  const firstLine = label.slice(0, breakAt).trimEnd();
-  const secondLine = label.slice(breakAt).trimStart();
-  return `${firstLine}\n${secondLine}`;
-}
-
-export interface RangeRow {
-  label: string;
-  min: number;
-  median: number;
-  max: number;
-  /** Interquartile lower bound. Only rendered as a band when paired with `q3`. */
-  q1?: number;
-  /** Interquartile upper bound. Only rendered as a band when paired with `q1`. */
-  q3?: number;
-  /**
-   * Historically singled out one row as the finding; `renderRangePlotSvg`
-   * now always renders the median dot in signal (crimson) tone regardless
-   * of this field, since the median is the finding for every row. Still
-   * partitions the q1–q3 band construction internally (both partitions
-   * render identically, neutral grey), so existing content setting this
-   * field keeps working unchanged. @default 'workhorse'
-   */
-  tone?: ChartTone;
-}
-
-export interface RangePlotOptions {
-  rows: RangeRow[];
-  xLabel: string;
-  /** Prepended to axis tick values, e.g. "S$". */
-  valuePrefix?: string;
-  /** Appended to axis tick values, e.g. "%". */
-  valueSuffix?: string;
-  /** @default 640 */
-  width?: number;
-  /** @default derived from row count */
-  height?: number;
-  /** Root tone for rules and workhorse dots. @default 'workhorse' */
-  tone?: ChartTone;
-  annotations?: PlotAnnotation[];
-}
-
-/**
- * Horizontal min–median–max dot-and-whisker per category: a faint min–max
- * rule, a muted grey q1–q3 band, and a crimson median dot. The median is
- * the finding for every row in this chart, so every dot group carries the
- * signal tone class regardless of `row.tone` — the band stays neutral so
- * it never competes with the dot. A small muted median-value label sits
- * above each dot. All colour resolves via `currentColor` against
- * ChartBlock's CSS — no inline colour anywhere.
- */
-export function renderRangePlotSvg(options: RangePlotOptions): string {
-  const {
-    rows,
-    xLabel,
-    valuePrefix = '',
-    valueSuffix = '',
-    width = 640,
-    tone = 'workhorse',
-    annotations,
-  } = options;
-
-  const height = options.height ?? 20 + rows.length * 44 + 48;
-
-  const { document } = parseHTML('<!doctype html><html><body></body></html>');
-
-  const labels = rows.map((row) => row.label);
-  const workhorseRows = rows.filter((row) => row.tone !== 'signal');
-  const signalRows = rows.filter((row) => row.tone === 'signal');
-
-  const workhorseBandRows = workhorseRows.filter(
-    (row) => row.q1 !== undefined && row.q3 !== undefined,
-  );
-  const signalBandRows = signalRows.filter(
-    (row) => row.q1 !== undefined && row.q3 !== undefined,
-  );
-
-  const marks: Plot.Markish[] = [
-    Plot.ruleY(rows, {
-      y: 'label',
-      x1: 'min',
-      x2: 'max',
-      stroke: 'currentColor',
-      strokeOpacity: 0.22,
-      strokeWidth: 2,
-    }),
-  ];
-
-  // IQR band — only for rows carrying both q1 and q3. Rows without them are
-  // untouched by this mark, so the whisker + dot render exactly as before.
-  if (workhorseBandRows.length > 0) {
-    marks.push(
-      Plot.ruleY(workhorseBandRows, {
-        y: 'label',
-        x1: 'q1',
-        x2: 'q3',
-        stroke: 'currentColor',
-        strokeOpacity: 0.5,
-        strokeWidth: 10,
-      }),
-    );
-  }
-
-  if (signalBandRows.length > 0) {
-    marks.push(
-      Plot.ruleY(signalBandRows, {
-        y: 'label',
-        x1: 'q1',
-        x2: 'q3',
-        stroke: 'currentColor',
-        strokeOpacity: 0.5,
-        strokeWidth: 10,
-      }),
-    );
-  }
-
-  marks.push(
-    Plot.dot(workhorseRows, {
-      y: 'label',
-      x: 'median',
-      fill: 'currentColor',
-      r: 5.5,
-    }),
-  );
-
-  if (signalRows.length > 0) {
-    marks.push(
-      Plot.dot(signalRows, {
-        y: 'label',
-        x: 'median',
-        fill: 'currentColor',
-        r: 5.5,
-      }),
-    );
-  }
-
-  const domainMax = Math.max(...rows.map((row) => row.max));
-  const currencyAxis = valuePrefix ? currencyAxisTicks(domainMax) : undefined;
-  const tickFormat = makeTickFormat(valuePrefix, valueSuffix);
-  const marginLeft = rangeCategoryMarginLeft(labels, width);
-
-  // Static median readout — small and muted (no `fill` override, so it
-  // inherits `--color-ink-muted` from ChartBlock's `text` rule the same
-  // way axis ticks and annotations do), sitting just above the dot it
-  // labels so it reads as a quiet number, not a second finding.
-  marks.push(
-    Plot.text(rows, {
-      y: 'label',
-      x: 'median',
-      text: (row: RangeRow) => tickFormat(row.median),
-      textAnchor: 'middle',
-      lineAnchor: 'bottom',
-      dy: -10,
-      fontSize: MEDIAN_LABEL_FONT_SIZE,
-    }),
-  );
-
-  marks.push(...annotationTextMarks(annotations, { domainMax }));
-
-  // Explicit axis mark, not the plot's implicit one: the top-level `y`
-  // scale options below (an inline object literal) are filtered against a
-  // fixed whitelist before Plot builds its own axis, silently dropping
-  // properties like `fontSize` — an explicit `Plot.axisY` mark is a full
-  // mark and accepts them directly. `axis: null` on the `y` scale further
-  // down suppresses the implicit one so this is the only y-axis rendered.
-  marks.push(
-    Plot.axisY({
-      label: null,
-      tickFormat: (label: string) => wrapCategoryLabel(label, marginLeft),
-      fontSize: RANGE_Y_LABEL_FONT_SIZE,
-    }),
-  );
-
-  // A top-row annotation lifts above the topmost band, into the plot's
-  // own marginTop — widen it so the label has room instead of clipping at
-  // the SVG's top edge. Other rows have a full row height of headroom
-  // above them already, so only the first row needs the reserve.
-  const topRowHasAnnotation = (annotations ?? []).some(
-    (annotation) => rows.length > 0 && annotation.y === rows[0].label,
-  );
-
-  const svg = Plot.plot({
-    document: document as unknown as Document,
-    figure: false,
-    className: PLOT_CLASS_NAME,
-    width,
-    height,
-    marginLeft,
-    marginRight: valueAxisMarginRight(currencyAxis, tickFormat),
-    marginTop: topRowHasAnnotation ? ANNOTATION_TOP_RESERVE : undefined,
-    marginBottom: 48,
-    x: {
-      label: xLabel,
-      tickFormat,
-      // Currency axes get hard-capped explicit ticks (array form); short
-      // non-currency labels keep the d3 hint + nice domain.
-      ...(currencyAxis
-        ? { domain: currencyAxis.domain, ticks: currencyAxis.tickValues }
-        : { ticks: MAX_X_TICKS, nice: true }),
-      labelAnchor: 'center',
-      labelArrow: 'none',
-    },
-    y: {
-      label: null,
-      domain: labels,
-      // The implicit axis is suppressed — see the `Plot.axisY` mark above,
-      // which renders the (wrapped, smaller-font) y-axis instead. The band
-      // scale still keys off the full label, so mark positioning and
-      // annotation matching (topRowHasAnnotation above) are unaffected.
-      axis: null,
-    },
-    marks,
-  }) as unknown as RenderedSvgElement;
-
-  // Every row's median dot carries the signal (crimson) tone class — the
-  // median is the finding for every row in this chart, not only rows
-  // marked `tone: 'signal'`. There is one `aria-label="dot"` group when
-  // there are no signal rows, or two (workhorse rows + signal rows, pushed
-  // as separate marks) when there are; tag whichever exist. The q1–q3
-  // band groups are left untagged so they stay the neutral grey `tone`
-  // ink regardless of `row.tone`, never competing with the crimson dot.
-  svg
-    .querySelectorAll('g[aria-label="dot"]')
-    .forEach((group) => group.classList.add('chart-block__fill--signal'));
-
-  return finaliseSvg(svg, tone);
-}
-
 export interface TwoSeriesCategory {
   label: string;
   /** Series A value — rendered as solid workhorse fill. */
@@ -869,9 +539,8 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
       // padding above so groups stay visually distinct from their own
       // paired bars.
       padding: 0.4,
-      // Cosmetic only, same as the range plot's y axis — the facet
-      // domain still keys off the full label, so bar/annotation matching
-      // is unaffected.
+      // Cosmetic only — the facet domain still keys off the full label,
+      // so bar/annotation matching is unaffected.
       tickFormat: (label: string) => truncateLabel(label, marginLeft),
     },
     marks,
@@ -899,7 +568,6 @@ export function renderTwoSeriesBarSvg(options: TwoSeriesBarOptions): string {
 /** Discriminated plot spec union mirroring `plotSchema` in content.config.ts. */
 export type PlotSpec =
   | ({ type: 'scatter' } & ScatterPlotOptions)
-  | ({ type: 'range' } & RangePlotOptions)
   | ({ type: 'groupedBar' | 'pairedBar' } & TwoSeriesBarOptions);
 
 /** Dispatch a validated plot spec to its renderer. */
@@ -907,8 +575,6 @@ export function renderPlotSvg(spec: PlotSpec): string {
   switch (spec.type) {
     case 'scatter':
       return renderScatterPlotSvg(spec);
-    case 'range':
-      return renderRangePlotSvg(spec);
     case 'groupedBar':
     case 'pairedBar':
       return renderTwoSeriesBarSvg(spec);

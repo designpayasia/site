@@ -7,6 +7,7 @@ import DarkBeat from '../../../components/DarkBeat.astro';
 import ChapterRail from '../../../components/ChapterRail.astro';
 import ConversationSpine from '../../../components/ConversationSpine.astro';
 import Base from '../../../layouts/Base.astro';
+import { toChartRangeRows } from '../../../lib/chartRange';
 import { renderPlotSvg } from '../../../lib/plot';
 import {
   assertEvidenceIdsExist,
@@ -78,12 +79,18 @@ const chartPlotSvgById = new Map<string, string>();
 // Variants carry no id, so per-variant SVGs key on chart id + variant
 // label (labels are schema-enforced unique within a chart).
 const variantPlotSvgByKey = new Map<string, string>();
+const chartRangeRowsById = new Map<string, ReturnType<typeof toChartRangeRows>>();
+const variantRangeRowsByKey = new Map<string, ReturnType<typeof toChartRangeRows>>();
 for (const chart of sectionCharts) {
-  if (chart.plot) {
+  if (chart.plot?.type === 'range') {
+    chartRangeRowsById.set(chart.id, toChartRangeRows(chart.plot));
+  } else if (chart.plot) {
     chartPlotSvgById.set(chart.id, renderPlotSvg(chart.plot));
   }
   for (const variant of chart.variants ?? []) {
-    if (variant.plot) {
+    if (variant.plot?.type === 'range') {
+      variantRangeRowsByKey.set(`${chart.id}::${variant.label}`, toChartRangeRows(variant.plot));
+    } else if (variant.plot) {
       variantPlotSvgByKey.set(`${chart.id}::${variant.label}`, renderPlotSvg(variant.plot));
     }
   }
@@ -203,6 +210,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               bars={segment.chart.bars}
               pngPath={segment.chart.pngPath}
               plotSvg={chartPlotSvgById.get(segment.chart.id)}
+              rangeRows={chartRangeRowsById.get(segment.chart.id)?.rows}
+              rangeAxisTickLabels={chartRangeRowsById.get(segment.chart.id)?.axisTickLabels}
               averageLabel={segment.chart.averageLabel}
               segments={segment.chart.segments?.map((chartSegment) => ({
                 id: chartSegment.id,
@@ -223,6 +232,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 sourceUrl: variant.sourceUrl,
                 bars: variant.bars,
                 plotSvg: variantPlotSvgByKey.get(`${segment.chart.id}::${variant.label}`),
+                rangeRows: variantRangeRowsByKey.get(`${segment.chart.id}::${variant.label}`)?.rows,
+                rangeAxisTickLabels: variantRangeRowsByKey.get(`${segment.chart.id}::${variant.label}`)?.axisTickLabels,
                 fallbackColumns: getFallbackColumns(variant.fallbackTable.columns),
                 fallbackRows: variant.fallbackTable.rows,
               }))}

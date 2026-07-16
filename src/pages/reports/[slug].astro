@@ -12,6 +12,7 @@ import {
   buildEvidenceMap,
   getVisibleMetrics,
 } from '../../lib/evidence';
+import { toChartRangeRows } from '../../lib/chartRange';
 import { renderRichTextHtml } from '../../lib/frontmatter-markdown';
 import { renderPlotSvg } from '../../lib/plot';
 import { CLOSING_ID, EXCLUDED_IDS, getSectionGroups } from '../../lib/report-nav';
@@ -80,12 +81,18 @@ const signatureCharts = reportCharts.filter((chart) =>
 // on chart id + variant label (labels are schema-enforced unique).
 const chartPlotSvgById = new Map<string, string>();
 const variantPlotSvgByKey = new Map<string, string>();
+const chartRangeRowsById = new Map<string, ReturnType<typeof toChartRangeRows>>();
+const variantRangeRowsByKey = new Map<string, ReturnType<typeof toChartRangeRows>>();
 for (const chart of signatureCharts) {
-  if (chart.plot) {
+  if (chart.plot?.type === 'range') {
+    chartRangeRowsById.set(chart.id, toChartRangeRows(chart.plot));
+  } else if (chart.plot) {
     chartPlotSvgById.set(chart.id, renderPlotSvg(chart.plot));
   }
   for (const variant of chart.variants ?? []) {
-    if (variant.plot) {
+    if (variant.plot?.type === 'range') {
+      variantRangeRowsByKey.set(`${chart.id}::${variant.label}`, toChartRangeRows(variant.plot));
+    } else if (variant.plot) {
       variantPlotSvgByKey.set(`${chart.id}::${variant.label}`, renderPlotSvg(variant.plot));
     }
   }
@@ -185,6 +192,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               reportPath={report.data.canonicalPath}
               pngPath={chart.pngPath}
               plotSvg={chartPlotSvgById.get(chart.id)}
+              rangeRows={chartRangeRowsById.get(chart.id)?.rows}
+              rangeAxisTickLabels={chartRangeRowsById.get(chart.id)?.axisTickLabels}
               averageLabel={chart.averageLabel}
               fallbackColumns={chart.fallbackTable.columns as [string, string]}
               fallbackRows={chart.fallbackTable.rows}
@@ -208,6 +217,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 sourceUrl: variant.sourceUrl,
                 bars: variant.bars,
                 plotSvg: variantPlotSvgByKey.get(`${chart.id}::${variant.label}`),
+                rangeRows: variantRangeRowsByKey.get(`${chart.id}::${variant.label}`)?.rows,
+                rangeAxisTickLabels: variantRangeRowsByKey.get(`${chart.id}::${variant.label}`)?.axisTickLabels,
                 fallbackColumns: variant.fallbackTable.columns as [string, string],
                 fallbackRows: variant.fallbackTable.rows,
               }))}
