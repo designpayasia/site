@@ -7,6 +7,7 @@ description: >
   the conversation is the work. Primary audience: the design community
   (civic register). Secondary: institutions, press, employers.
 colors:
+  primary: "#991844"
   signal: "#991844"
   signal-fill: "#991844"
   signal-text: "#991844"
@@ -41,6 +42,11 @@ typography:
     letterSpacing: -0.03em
     fontWeight: 400
     fontFeature: "lining-nums tabular-nums"
+  stat-label:
+    fontFamily: "Plus Jakarta Sans"
+    fontSize: 12px
+    lineHeight: 1.4
+    fontWeight: 400
   pull-quote:
     fontFamily: "Instrument Serif"
     fontSize: 36px
@@ -92,10 +98,9 @@ rounded:
 components:
   big-stat:
     typography: "{typography.stat}"
-    textColor: "{colors.signal-text}"
+    textColor: "{colors.workhorse}"
   big-stat-label:
-    fontFamily: "Plus Jakarta Sans"
-    fontSize: 12px
+    typography: "{typography.stat-label}"
     textColor: "{colors.ink-muted}"
   button-primary:
     backgroundColor: "{colors.signal-fill}"
@@ -114,7 +119,7 @@ components:
     textColor: "{colors.signal-text}"
   pull-quote:
     typography: "{typography.pull-quote}"
-    textColor: "{colors.signal-text}"
+    textColor: "{colors.workhorse}"
   site-header:
     backgroundColor: "{colors.ambient}"
     textColor: "{colors.workhorse}"
@@ -149,6 +154,20 @@ DPA-consistent work. If a value is not in the tokens, it does not exist in the b
 notes lives in the Obsidian vault at `workbench/dpa/design system/DPA Design System —
 Master Reference.md`. DESIGN.md and the implementation in `src/styles/` remain
 canonical for values.
+
+**Pattern source of truth:** use the following hierarchy when choosing or changing a
+reusable report component:
+
+1. `DESIGN.md` defines the visual system, editorial constraints, and selection rules.
+2. `src/components/<Component>.astro` defines the executable prop API and rendering behaviour.
+3. `/docs/patterns` (`src/pages/docs/patterns.astro`) is the maintained visual catalogue: it
+   demonstrates each supported pattern with fictional data, records its source path, and
+   distinguishes a production reference from a docs-only specimen.
+4. A production route is the integration reference for a mature pattern. Inspect its caller
+   before changing an API or assuming a gallery example covers every content case.
+
+Do not duplicate prop interfaces in this document or invent a component API from a gallery
+example. Read the component's `Props` interface and the report schema in `src/content.config.ts`.
 
 **Reference set:** The Pudding (playful rigour), Kontinentalist (SEA data storytelling),
 Rest of World (humane non-Western editorial), the-symposium.live (salon discourse,
@@ -192,10 +211,10 @@ the mark, data highlights. Never use it as a background wash or decorative fill.
 | Inverse beat | `--color-inverse-surface` | `#0f1c2e` |
 | Inverse text | `--color-inverse-text` | `#faf8f4` |
 
-One intentional dark inversion beat on the homepage (`DarkBeat.astro`). Outside of
-`DarkBeat.astro`, dark mode is driven entirely by `_dark.css` semantic overrides.
+Intentional dark inversion beats use `DarkBeat.astro` on the homepage and in report sections.
+Outside an inverse-beat component, dark mode is driven entirely by `_dark.css` semantic overrides.
 
-**Data-viz palette** (post-v1 themed Observable charts; v1 ships existing embeds as-is):
+**Data-viz palette** (build-time Plot SVGs, bars, and archived PNG proof):
 
 | Series | Token / Hex | Role |
 |--------|-------------|------|
@@ -228,7 +247,7 @@ Poppins is retired. It appears only in legacy embedded Looker dashboards.
 | Hero | `--type-hero-*` | 132px (8.25rem) | 0.88 | −0.018em | Instrument Serif | Tight line-height is deliberate |
 | H2 | `--type-h2-*` | 64px (4rem) | 1.00 | −0.018em | Instrument Serif | Italic stress allowed; signal colour allowed |
 | Stat | `--type-stat-*` | 132px (8.25rem) | 0.92 | −0.03em | DM Mono | `lining-nums tabular-nums`; unit at 0.42em, 0.12em gap after number |
-| Pull-quote | `--type-pullquote-*` | 36px (2.25rem) | 1.18 | 0 | Instrument Serif | Italic always; crimson always. The only italic-only moment. |
+| Pull-quote | `--type-pullquote-*` | 36px (2.25rem) | 1.18 | 0 | Instrument Serif | Italic always; workhorse text with a crimson rule. The only italic-only moment. |
 
 **Sub-display scale:**
 
@@ -290,7 +309,7 @@ stats are intentional interruptions of the column grid.
 DPA is flat. No shadow system, no elevation layers. Visual depth comes from:
 - Contrast between ambient (cream) and workhorse (near-black) text
 - The D-blob shape creating figure/ground separation
-- The one dark inversion beat (`DarkBeat.astro`) on the homepage
+- Intentional dark inversion beats (`DarkBeat.astro`) where editorial pacing calls for them
 
 Do not introduce box-shadow as a depth signal. If a container needs separation,
 use the border token or a tint from the ambient ramp.
@@ -323,9 +342,32 @@ chamfer. Use for non-button container rounding where the blob motif is reference
 
 All components are `.astro` only. PascalCase filenames. No React, Vue, or Svelte.
 
+`/docs/patterns` is the component catalogue. It is deliberately denser than a real page, so use
+it to compare patterns and inspect their source references, never as a composition to copy. The
+component file remains the API contract; the gallery and its production links establish intended use.
+
+### Pattern catalogue
+
+| Family | Components | Selection rule |
+|--------|------------|----------------|
+| Covers and archive | `CoverIndexSpread`, `CoverSplitEditorial`, `CoverFullBleed`, `CoverCardInverse` | Use the index spread for a report-listing cover, the split editorial when a question needs evidence beside it, full bleed for a ceremonial flagship moment, and the inverse card for a report archive or related-report rail. |
+| Metrics | `FindingsStrip`, `MetricShelf`, `BigStat`, `StatTakeover` | Use the fixed three-metric strip to open a findings section, the 2 to 6 cell shelf inline, a bare `BigStat` for one figure, and `StatTakeover` for a single annotated hero finding. |
+| Charts | `ChartBlock`, `ChartSmallMultiples`, `ChartRange`, `ChartDotPlot` | Start with `ChartBlock` for a flat bar, Plot, or PNG-backed chart. Use a specialised chart only when the relationship needs panels, a distribution range, or a shared-axis dot comparison. |
+| Registers | `Invitation`, `RegisterCards`, `PullQuote`, `PullQuoteBeat` | Reserve invitations for one standalone question, register cards for a fixed-register grid, pull quotes for an inline quote, and pull-quote beats for a full-width editorial interruption. |
+| Navigation | `StickyMeta`, `TocScrollspy`, `FilterCompare`, `ConversationSpine`, `ChapterRail` | Separate section metadata, page anchors, progressive filter comparison, editorial progress, and page-scoped report navigation. Do not make a new sticky or scroll-aware pattern without checking these first. |
+| Report support | `ConversationBlock`, `TeamGrid` | Use the established conversation framing and volunteer grid rather than recreating them in a page. |
+
+The gallery identifies components that currently have a production route and those that are
+docs-only specimens. A docs-only component is available for reuse, but needs deliberate visual
+verification in its first production context.
+
+### Core primitives and support components
+
 **`BigStat.astro`** ✓ implemented
 - The 132px DM Mono stat with label below. Unit sits at 0.42em font-size, 0.12em gap
-  after number — enforced in component, not freestyle. Stat value in `--color-signal-text`.
+  after number when the `hero` variant is used. `finding` is the default and `compact` is for
+  dense report cells. The value is workhorse by default; select `color="signal"` only for the
+  one highlighted finding.
 - Pattern: `<BigStat value="62%" label="received no pay increase in 2024" />`
 
 **`Blob.astro`** ✓ implemented
@@ -343,21 +385,25 @@ All components are `.astro` only. PascalCase filenames. No React, Vue, or Svelte
 
 **`SiteHeader.astro` / `SiteFooter.astro`** ✓ implemented
 - Header: cream ambient background. Navigation in Plus Jakarta Sans.
-- Footer: TBC (aspirational). Should not use Instrument Serif for pitch copy.
+- Footer: inverse navy surface, cream copy, and crimson-derived mark and labels. Do not use
+  Instrument Serif for pitch copy.
 
 **`PullQuote.astro`** ✓ implemented
-- 36px Instrument Serif italic, crimson. The only italic-only moment.
+- 36px Instrument Serif italic in workhorse, with a crimson left rule. The only italic-only moment.
 - Never nest multiple pull-quotes within a single section.
 
 **`DarkBeat.astro`** ✓ implemented
-- Homepage dark inversion section. navy-900 surface, cream text, crimson accents.
-- Uses inverse token set. This is the only dark section in light mode.
+- Intentional dark inversion section for the homepage or a report section. navy-900 surface,
+  cream text, crimson accents, an editorial statement, and up to three evidence-backed metrics.
+- Uses the inverse token set. Do not use it as a generic dark wrapper.
 
 **`ChartBlock.astro`** ✓ implemented
 - Wrapper for all charts. Required fields: `title`, `caption`, `summary`
-  (accessibility), `evidenceIds`, `sourceLabel`, `sourceUrl`, `fallbackTable`, `bars`.
+  (accessibility), `evidenceIds`, `sourceLabel`, `sourceUrl`, and `fallbackTable` in report
+  frontmatter. The page adapter supplies `fallbackColumns` and `fallbackRows` to the component.
 - Bar tone: `workhorse` (neutral, `--color-workhorse` fill) or `signal` (crimson fill).
-- v1: ships existing Observable embeds via `pngPath`. Themed Observable = post-v1.
+- A chart visual is exactly one of bars, a build-time Plot SVG, or an archived `pngPath` proof.
+  The schema rejects a chart with no visual, and rejects `pngPath` together with `plot`.
 
 **`StickyMeta.astro`** ✓ implemented
 - Scroll-aware meta panels. Use only this pattern for sticky positioning.
@@ -446,11 +492,14 @@ Editorially, abbreviate pay values of six digits or more at hero stat moments (`
 
 ✓ Default chart mode: editorial summary register (OWID-style — clean, standardised, cited)  
 ✓ Feature chart mode: data essay register (Pudding-style — narrative annotated, 3–4 per report)  
-✓ Every chart requires: `title`, `caption`, `summary` (a11y), `evidenceIds`, `fallbackTable`, `bars`  
+✓ Every chart requires: `title`, `caption`, `summary` (a11y), `evidenceIds`, and `fallbackTable`
+✓ Use exactly one chart visual: bars, a build-time `plot`, or archived `pngPath` proof
+✓ `fallbackTable.columns` has 2 to 6 columns. Use a row `value` only for a two-column table; otherwise use `values[]`
+✓ Use either `segments` for one evidence set or `variants` for distinct evidence cuts, never both
 ✓ Bar tone `workhorse` for neutral data; `signal` for the key finding or highlighted category  
 
 ✗ Never ship a chart without an accessibility summary — CI fails  
-✗ Never create themed Observable charts in v1 — that is a post-v1 workstream  
+✗ Never write a ChartBlock prop shape directly into report frontmatter — follow `chartSchema`
 
 ### Voice
 

@@ -111,6 +111,42 @@ sections:
 
 ---
 
+## Runbook: reuse or add report UI
+
+**When:** You are adding a reusable report surface, substantially restyling one, or deciding whether a new component is justified.
+
+**Source-of-truth hierarchy:** `DESIGN.md` owns visual and editorial constraints; `src/components/<Component>.astro` owns the exact `Props` API and rendering behaviour; `/docs/patterns` (`src/pages/docs/patterns.astro`) owns rendered examples, source references, and production-status notes; `src/content.config.ts` owns report frontmatter. This runbook owns the implementation and verification workflow.
+
+**Steps:**
+
+1. **Read the contract and gallery.** Read the relevant parts of `DESIGN.md`, then inspect `/docs/patterns` or `src/pages/docs/patterns.astro` for the closest pattern family and its source reference.
+
+2. **Prefer reuse or composition.** Reuse an existing component first. Compose established components only when the existing patterns together meet the need. Do not create a parallel version merely to make a one-page layout easier.
+
+3. **Inspect the executable contracts.** Read the selected component's `Props` interface and its production caller, if the gallery identifies one. For report data, read the relevant schema in `src/content.config.ts`; do not infer a frontmatter shape from a gallery invocation.
+
+4. **Make the narrowest change.** Keep component APIs and content contracts stable unless the task explicitly requires an API change. Reuse semantic tokens and the established pattern's accessibility treatment.
+
+5. **Maintain the gallery.** Update `/docs/patterns` when a reusable component is added, removed, materially restyled, or its intended selection rule changes. Keep its source path and production status or example accurate.
+
+6. **Check the rendered route.** Run the affected report or docs route locally. The gallery is a specimen sheet, so also verify the real composition where the pattern is used.
+
+7. **Run the focused checks.** At minimum run:
+
+   ```bash
+   rtk pnpm run check
+   rtk pnpm run build
+   ```
+
+   Add `rtk pnpm run audit:tokens`, `rtk pnpm run a11y:charts`, and `rtk pnpm run a11y:contrast` when the change touches tokens, chart rendering, or contrast.
+
+**Caveats:**
+- A docs-only specimen is eligible for use, but its first production context needs deliberate visual verification.
+- `/docs/patterns` documents intent and examples. The component file and `src/content.config.ts` remain authoritative when examples and contracts differ.
+- Do not copy the gallery's deliberately dense layout into a report page.
+
+---
+
 ## Runbook: add or update a chart
 
 **When:** You need to add a new chart to a report, or update an existing one.
@@ -152,20 +188,24 @@ charts:
           value: SGD 62,000
 ```
 
-3. **If the chart has an archived PNG:** download the PNG to `public/charts/<year>/<section>/<chart-id>.png` and set `pngPath: /charts/<year>/<section>/<chart-id>.png`.
+3. **Choose the visual treatment.** Use bars, a build-time `plot`, or archived `pngPath` proof as the primary visual. A `plot` and `pngPath` are mutually exclusive. A PNG with non-empty bars is retained only as download proof, so choose one clear primary treatment.
 
-4. **Cross-reference chart IDs** in the section's `charts[]` array — each must match a chart in the report's `charts[]`.
+4. **Use specialised chart data deliberately.** For a range visual, set `plot.type: range` and provide `plot.rows` with `min`, `median`, and `max`; the page renderer derives its range rows. Use `segments` for alternate views of one evidence set, or `variants` for cuts with their own evidence. Never declare both.
 
-5. **Run the checklist:**
-   - `pnpm run check` — schema validation
-   - `pnpm build:site` — evidence resolution
-   - `pnpm run a11y:charts` — chart accessibility checks
-   - `pnpm run audit:pii` — no PII
+5. **If the chart has an archived PNG:** download the PNG to `public/charts/<year>/<section>/<chart-id>.png` and set `pngPath: /charts/<year>/<section>/<chart-id>.png`.
+
+6. **Cross-reference chart IDs** in the section's `charts[]` array: each must match a chart in the report's `charts[]`.
+
+7. **Run the checklist:**
+   - `rtk pnpm run check` — schema validation
+   - `rtk pnpm run build:site` — evidence resolution
+   - `rtk pnpm run a11y:charts` — chart accessibility checks
+   - `rtk pnpm run audit:pii` — no PII
 
 **Caveats:**
 - `summary` is used for accessibility — never leave empty or placeholder text.
 - `bars[].value` must be 0–100 (percentage scale). For raw values, use `fallbackTable`.
-- `fallbackTable` must have exactly 2 columns and at least 1 row.
+- `fallbackTable` must have 2 to 6 columns and at least 1 row. A two-column table may use `value`; wider rows must use `values[]` with one entry per value column.
 - `evidenceIds` must all reference existing entries in `src/content/evidence/`.
 - `id` format: `^[a-z0-9-]+$`.
 - Chart tone: `workhorse` (neutral fill) or `signal` (crimson fill). Default workhorse.
