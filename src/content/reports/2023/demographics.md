@@ -141,7 +141,7 @@ charts:
 
 ## Geographic distribution
 
-The inaugural 2023 survey reached designers across 10 countries. Three markets formed the core: Singapore at 224 respondents (69.4%), Malaysia at 46 (14.2%), and Indonesia at 29 (8.9%). The Philippines contributed 8 respondents (2.5%), Vietnam 7 (2.2%), Thailand 3 (0.9%), and six others from Taiwan, India, Romania, and Japan. While Singapore represents the majority of responses, the survey also reached neighbouring markets that grew in the years that followed.
+The inaugural 2023 survey reached designers across 10 countries. Three markets formed the core: Singapore at 224 respondents (69.4%), Malaysia at 46 (14.2%), and Indonesia at 29 (8.9%). The Philippines contributed 8 respondents (2.5%), Vietnam 7 (2.2%), Thailand 3 (0.9%), and six others from Taiwan, India, Romania, and Japan. Singapore accounts for most responses. Eight designers came from the Philippines, too few to clear our ten-response reporting floor, so we don't publish median pay or rate figures for that market on its own.
 
 ::chart{id="chart-geographic-distribution"}
 

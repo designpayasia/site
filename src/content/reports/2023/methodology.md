@@ -32,7 +32,7 @@ A total of 323 valid responses were retained after data cleaning. Cleaning proce
 
 **First-year limitations:** As an inaugural survey, the 2023 report has limited ability to identify trends over time. Comparisons with subsequent years should account for changes in methodology, distribution channels, and respondent demographics.
 
-**Small-cohort sensitivity:** Country-level data for markets with fewer than 30 respondents (Indonesia, Philippines, Vietnam, Thailand, and others) should be treated as indicative rather than conclusive. See [data safety rules](/docs/data-safety) for the site's suppression and disclosure thresholds.
+**Small-cohort sensitivity:** Country-level data for markets with fewer than 30 respondents (Indonesia, Philippines, Vietnam, Thailand, and others) should be treated as indicative rather than conclusive. See [data safety rules](/docs/data-safety) for the site's suppression and disclosure thresholds. Two thresholds apply here. Below ten respondents, covering the Philippines (8), Vietnam (7), and Thailand (3), a market falls under the site's suppression threshold: we publish the respondent count as a demographic fact but no median pay or rate figures for it. Between ten and twenty-nine respondents, a market clears that floor and we publish its figures, flagged as indicative rather than representative.
 
 ## Singapore focus
 
