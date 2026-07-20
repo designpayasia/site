@@ -13,21 +13,21 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/company-landscape/01-company-types.png
     fallbackTable:
-      columns: [Company type, Proportion]
+      columns: [Company type, Respondents (n), Proportion]
       rows:
         - label: Startup
-          value: '30.3%'
+          values: ['544', '30.3%']
         - label: Agency/Consulting
-          value: '22.7%'
+          values: ['407', '22.7%']
         - label: Large enterprise
-          value: '20.8%'
+          values: ['374', '20.8%']
         - label: SME
-          value: '16.0%'
+          values: ['287', '16.0%']
         - label: Public/Education
-          value: '4.9%'
+          values: ['88', '4.9%']
   - id: 'industry-sectors'
     title: Industry distribution
-    caption: Sector distribution of design employment across Southeast Asian markets.
+    caption: Sector distribution of design employment across Southeast Asian markets. Based on N=1,797 responses.
     summary: 'Technology & Telecommunications leads at 32.8%, with financial services at 14.8% combined and an 18.1% ''other'' category suggesting emerging sectors.'
     evidenceIds: ['evidence:2024-company-profile']
     sourceLabel: '2024 DPA Report'
@@ -55,16 +55,16 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/company-landscape/03-design-team-structures.png
     fallbackTable:
-      columns: [Team size, Proportion]
+      columns: [Team size, Respondents (n), Proportion]
       rows:
         - label: Solo designer
-          value: '22.6%'
+          values: ['406', '22.6%']
         - label: Small (2–10 people)
-          value: '59.3%'
+          values: ['1,065', '59.3%']
         - label: Mid-size (11–50)
-          value: '13.7%'
+          values: ['240', '13.7%']
         - label: 'Large (>50)'
-          value: '4.4%'
+          values: ['86', '4.4%']
   - id: 'hq-vs-regional'
     title: Located at company headquarters
     caption: Distribution of designers by office location — headquarters versus satellite or regional offices.
@@ -74,14 +74,14 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/company-landscape/04-headquarters-vs-regional-structure.png
     fallbackTable:
-      columns: [Location type, Proportion]
+      columns: [Location type, Respondents (n), Proportion]
       rows:
         - label: Headquarters
-          value: '60.1%'
+          values: ['1,080', '60.1%']
         - label: Satellite/Regional office
-          value: '29.6%'
+          values: ['531', '29.6%']
         - label: Not applicable
-          value: '10.4%'
+          values: ['186', '10.4%']
   - id: 'work-model'
     title: 'Work model distribution'
     sourceLabel: '2024 DPA Report'
@@ -114,20 +114,21 @@ charts:
     fallbackTable:
       columns:
       - 'Model'
+      - 'Respondents (n)'
       - 'Share'
       rows:
       - label: 'Hybrid (SG)'
-        value: '70.1%'
+        values: ['122', '70.1%']
       - label: 'Hybrid (Regional)'
-        value: '36.0%'
+        values: ['645', '36.0%']
       - label: 'Remote (SG)'
-        value: '14.4%'
+        values: ['25', '14.4%']
       - label: 'Remote (Regional)'
-        value: '24.9%'
+        values: ['446', '24.9%']
       - label: 'Onsite (SG)'
-        value: '15.5%'
+        values: ['27', '15.5%']
       - label: 'Onsite (Regional)'
-        value: '39.0%'
+        values: ['706', '39.0%']
 keyFindings:
   - 'Startup/tech sector leading the group (63.1% combined)'
   - 'Predominantly lean teams (81.9% under 10 people, 22.6% solo designers)'

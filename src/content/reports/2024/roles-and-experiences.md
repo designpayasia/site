@@ -30,16 +30,16 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/02-employment-type.png
     fallbackTable:
-      columns: [Employment type, Proportion]
+      columns: [Employment type, Respondents (n), Proportion]
       rows:
         - label: Full-time
-          value: '79.3%'
+          values: ['1,425', '79.3%']
         - label: Fixed-term contractor
-          value: '13.75%'
+          values: ['247', '13.75%']
         - label: Self-employed/Freelancer
-          value: '5.01%'
+          values: ['90', '5.01%']
         - label: Intern/Apprentice
-          value: '1.95%'
+          values: ['35', '1.95%']
   - id: 'career-levels'
     title: 'Career level distribution'
     sourceLabel: '2024 DPA Report'
@@ -69,21 +69,22 @@ charts:
     fallbackTable:
       columns:
       - 'Level'
+      - 'Respondents (n)'
       - 'Share'
       rows:
       - label: 'Junior'
-        value: '21.0%'
+        values: ['382', '21.0%']
       - label: 'Mid'
-        value: '42.6%'
+        values: ['765', '42.6%']
       - label: 'Senior'
-        value: '21.0%'
+        values: ['369', '21.0%']
       - label: 'Leadership'
-        value: '5.9%'
+        values: ['106', '5.9%']
       - label: 'SG Senior+'
-        value: '11.5%'
+        values: ['20', '11.5%']
   - id: 'primary-field-of-work'
     title: Primary field of work
-    caption: Distribution of primary design specialisation across all respondents.
+    caption: Distribution of primary design specialisation across all respondents. Based on N=1,797 responses.
     summary: 'Digital design accounts for 61.83% (led by Product/UX at 41.74%), while traditional design makes up 22.65% and emerging specialities 8.67%.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
@@ -104,7 +105,7 @@ charts:
           value: '~5%'
   - id: 'design-experience-distribution'
     title: Years of relevant design experience
-    caption: Distribution of design-specific years of experience across all respondents.
+    caption: Distribution of design-specific years of experience across all respondents. Based on N=1,797 responses.
     summary: 'Peak concentration is at 3 years (20.31%), with more than 60% having 1–5 years of design experience; senior designers (10+ years) account for 7.95%.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
@@ -123,7 +124,7 @@ charts:
           value: '1.62%'
   - id: 'total-working-experience'
     title: Years of total working experience
-    caption: Distribution of total working years (across all industries) for all respondents.
+    caption: Distribution of total working years (across all industries) for all respondents. Based on N=1,797 responses.
     summary: 'Early-career respondents (2–5 years total) are the largest group at 37.37%, but 17.20% have 20+ years of total work experience.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
@@ -166,16 +167,16 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/08-highest-formal-education.png
     fallbackTable:
-      columns: [Education level, Proportion]
+      columns: [Education level, Respondents (n), Proportion]
       rows:
         - label: 'Bachelor''s degree'
-          value: '77.46%'
+          values: ['1,392', '77.46%']
         - label: Diploma
-          value: '8.40%'
+          values: ['151', '8.40%']
         - label: 'Master''s degree'
-          value: '5.23%'
+          values: ['94', '5.23%']
         - label: High school/Secondary
-          value: '7.85%'
+          values: ['141', '7.85%']
   - id: 'design-related-education'
     title: Design-related education (formal or informal)
     caption: Whether respondents have any design-related educational background.
@@ -185,12 +186,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/09-design-related-education.png
     fallbackTable:
-      columns: [Education status, Proportion]
+      columns: [Education status, Respondents (n), Proportion]
       rows:
         - label: Has design-related education
-          value: '65.33%'
+          values: ['1,174', '65.33%']
         - label: No formal design training
-          value: '34.67%'
+          values: ['623', '34.67%']
   - id: 'education-types'
     title: Design-related education types
     caption: Distribution of design learning formats among those with design education.
@@ -200,18 +201,18 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/10-design-related-education-types.png
     fallbackTable:
-      columns: [Education type, Proportion]
+      columns: [Education type, Respondents (n), Proportion]
       rows:
         - label: Formal academic
-          value: '65.57%'
+          values: ['775', '65.57%']
         - label: Self-taught/Informal
-          value: '34.01%'
+          values: ['402', '34.01%']
         - label: Online certifications
-          value: '32.99%'
+          values: ['390', '32.99%']
         - label: Bootcamps/Workshops
-          value: '32.74%'
+          values: ['387', '32.74%']
         - label: In-person certified courses
-          value: '10.07%'
+          values: ['119', '10.07%']
   - id: 'education-cooccurrence'
     title: Co-occurrence of education types (heatmap)
     caption: Heatmap showing how designers combine different learning formats.
@@ -221,16 +222,16 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/11-high-complementary-use-of-multiple-learning-types.png
     fallbackTable:
-      columns: [Combination, Co-occurrence]
+      columns: [Combination, Respondents (n), Co-occurrence]
       rows:
         - label: Self-taught + Online certification
-          value: '17.21%'
+          values: ['202', '17.21%']
         - label: Formal + Self-taught
-          value: '17.12%'
+          values: ['201', '17.12%']
         - label: Bootcamps + Online certification
-          value: '16.52%'
+          values: ['194', '16.52%']
         - label: Formal + Online certification
-          value: '15.33%'
+          values: ['180', '15.33%']
   - id: 'overseas-experience'
     title: Overseas working experience
     caption: Share of designers with international versus domestic career experience.
@@ -240,12 +241,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/12-overseas-working-experience.png
     fallbackTable:
-      columns: [Career scope, Proportion]
+      columns: [Career scope, Respondents (n), Proportion]
       rows:
         - label: Domestic career
-          value: '85.81%'
+          values: ['1,542', '85.81%']
         - label: International experience
-          value: '14.19%'
+          values: ['255', '14.19%']
 keyFindings:
   - 'Digital design roles dominate (61.8%), particularly product/UX design (41.7%)'
   - 'High proportion of mid-level ICs (42.6%) with limited leadership representation (5.9%)'

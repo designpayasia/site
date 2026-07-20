@@ -13,12 +13,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/career-progression/01-career-growth.png
     fallbackTable:
-      columns: [Outcome, Proportion]
+      columns: [Outcome, Respondents (n), Proportion]
       rows:
         - label: Advanced career
-          value: '70.3%'
+          values: ['1,248', '70.3%']
         - label: No advancement
-          value: '29.7%'
+          values: ['530', '29.7%']
   - id: 'types-of-career-growth'
     title: Types of career progress made in the past year
     caption: Breakdown of advancement types among designers who reported career progress.
@@ -28,12 +28,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/career-progression/02-types-of-career-growth.png
     fallbackTable:
-      columns: [Type, Percentage]
+      columns: [Type, Respondents (n), Percentage]
       rows:
         - label: Increased project impact
-          value: '64.3%'
+          values: ['813', '64.3%']
         - label: Promotions
-          value: '25.3%'
+          values: ['319', '25.3%']
   - id: 'pay-increase-career-growth'
     title: Compensation increase for career progress
     caption: Pay recognition for career advancement among designers who progressed in the past year.
@@ -43,12 +43,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/career-progression/03-pay-increase-for-career-growth.png
     fallbackTable:
-      columns: [Outcome, Proportion]
+      columns: [Outcome, Respondents (n), Proportion]
       rows:
         - label: No pay increase
-          value: '46.2%'
+          values: ['570', '46.2%']
         - label: Received pay increase
-          value: '53.8%'
+          values: ['664', '53.8%']
   - id: 'compensation-increase-distribution'
     title: Distribution of compensation increase amount
     caption: Size of pay increases among designers who received a raise.
@@ -58,12 +58,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/career-progression/04-breakdown-of-compensation-increase.png
     fallbackTable:
-      columns: [Increase band, Proportion]
+      columns: [Increase band, Respondents (n), Proportion]
       rows:
         - label: 'Above 5%'
-          value: '83.8%'
+          values: ['554', '83.8%']
         - label: 'Above 20%'
-          value: '24.3%'
+          values: ['161', '24.3%']
   - id: 'career-satisfaction'
     title: I am satisfied with my current career progression
     caption: Career satisfaction rating distribution across all designers surveyed.
@@ -73,12 +73,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/career-progression/05-career-satisfaction.png
     fallbackTable:
-      columns: [Rating range, Proportion]
+      columns: [Rating range, Respondents (n), Proportion]
       rows:
         - label: Highly satisfied (5–7)
-          value: '42.1%'
+          values: ['737', '42.1%']
         - label: Mid-range (4–5)
-          value: '48.5%'
+          values: ['847', '48.5%']
 keyFindings:
   - '70.3% of designers reported career advancement in the past year'
   - 'Soft skills like increased project influence (64.3%) lead growth'

@@ -13,12 +13,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/value-of-design/01-role-value-perception.png
     fallbackTable:
-      columns: [Response, Proportion]
+      columns: [Response, Respondents (n), Proportion]
       rows:
         - label: Feels valued (ratings 5–7)
-          value: '70.2%'
+          values: ['1,233', '70.2%']
         - label: Does not feel valued
-          value: '29.8%'
+          values: ['523', '29.8%']
   - id: 'user-centricity'
     title: I feel that my organisation genuinely prioritises user needs in our decisions
     caption: 'Designer assessment of their organisation''s commitment to user-centred decision-making.'
@@ -28,12 +28,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/value-of-design/02-user-centricity.png
     fallbackTable:
-      columns: [Response, Proportion]
+      columns: [Response, Respondents (n), Proportion]
       rows:
         - label: Strong user focus (ratings 5–7)
-          value: '57.7%'
+          values: ['1,009', '57.7%']
         - label: Weaker user focus
-          value: '42.3%'
+          values: ['743', '42.3%']
   - id: 'fair-compensation'
     title: 'Fair compensation perceptions'
     sourceLabel: '2024 DPA Report'
@@ -60,16 +60,17 @@ charts:
     fallbackTable:
       columns:
       - 'Response'
+      - 'Respondents (n)'
       - 'Share'
       rows:
       - label: 'Fair (Singapore)'
-        value: '49.1%'
+        values: ['83', '49.1%']
       - label: 'Fair (Regional)'
-        value: '51.4%'
+        values: ['897', '51.4%']
       - label: 'Unfair (Singapore)'
-        value: '50.9%'
+        values: ['86', '50.9%']
       - label: 'Unfair (Regional)'
-        value: '48.6%'
+        values: ['849', '48.6%']
   - id: 'design-advocacy-effort'
     title: I have to put in extra effort to educate other cross-functional teams about design in order to do my job effectively
     caption: How frequently designers must advocate for design to cross-functional colleagues.
@@ -79,12 +80,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/value-of-design/04-design-education-efforts.png
     fallbackTable:
-      columns: [Response, Proportion]
+      columns: [Response, Respondents (n), Proportion]
       rows:
         - label: High advocacy effort (ratings 5–7)
-          value: '69.2%'
+          values: ['1,210', '69.2%']
         - label: Lower advocacy effort
-          value: '30.8%'
+          values: ['535', '30.8%']
 keyFindings:
   - '70.2% feel their role is valued in their organisations'
   - '57.7% believe their organisations prioritise user needs in decision making'
