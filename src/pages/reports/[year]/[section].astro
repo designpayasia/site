@@ -201,6 +201,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               title={segment.chart.title}
               caption={segment.chart.caption}
               summary={segment.chart.summary}
+              suppressionNote={segment.chart.suppressionNote}
               evidenceIds={segment.chart.evidenceIds}
               sourceLabel={segment.chart.sourceLabel}
               sourceUrl={segment.chart.sourceUrl}
@@ -218,6 +219,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 label: chartSegment.label,
                 caption: chartSegment.caption,
                 summary: chartSegment.summary,
+                suppressionNote: chartSegment.suppressionNote,
                 averageLabel: chartSegment.averageLabel,
                 bars: chartSegment.bars,
                 fallbackColumns: getFallbackColumns(chartSegment.fallbackTable.columns),
@@ -227,6 +229,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               variants={segment.chart.variants?.map((variant) => ({
                 label: variant.label,
                 summary: variant.summary,
+                suppressionNote: variant.suppressionNote,
                 evidenceIds: variant.evidenceIds,
                 sourceLabel: variant.sourceLabel,
                 sourceUrl: variant.sourceUrl,
