@@ -3,7 +3,6 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 import BigStat from '../../components/BigStat.astro';
 import ChapterRail from '../../components/ChapterRail.astro';
-import ChartBlock from '../../components/ChartBlock.astro';
 import TeamGrid from '../../components/TeamGrid.astro';
 import Base from '../../layouts/Base.astro';
 import {
@@ -12,9 +11,7 @@ import {
   buildEvidenceMap,
   getVisibleMetrics,
 } from '../../lib/evidence';
-import { toChartRangeRows } from '../../lib/chartRange';
 import { renderRichTextHtml } from '../../lib/frontmatter-markdown';
-import { renderPlotSvg } from '../../lib/plot';
 import { CLOSING_ID, EXCLUDED_IDS, getSectionGroups } from '../../lib/report-nav';
 import {
   getReportSlug,
@@ -66,37 +63,6 @@ for (const chart of reportCharts) {
 // records); we only removed the visual evidence list, not the asserts.
 const stats = getVisibleMetrics(report.data.stats);
 const methodologySection = sections.find((section) => section.id === 'methodology');
-
-// Hub renders only three signature charts; all 7 remain in frontmatter data.
-const SIGNATURE_CHART_IDS_BY_SLUG: Record<string, string[]> = {
-  '2024': ['geo-distribution', 'career-levels', 'compensation-mix', 'compensation-by-level'],
-  '2023': ['chart-geographic-distribution', 'chart-career-level-distribution', 'chart-compensation-by-level', 'chart-gender-pay-gap'],
-};
-const signatureCharts = reportCharts.filter((chart) =>
-  (SIGNATURE_CHART_IDS_BY_SLUG[reportSlug] ?? []).includes(chart.id),
-);
-
-// Build-time Plot SVGs for signature charts — same pattern as
-// [year]/[section].astro. Variants carry no id, so per-variant SVGs key
-// on chart id + variant label (labels are schema-enforced unique).
-const chartPlotSvgById = new Map<string, string>();
-const variantPlotSvgByKey = new Map<string, string>();
-const chartRangeRowsById = new Map<string, ReturnType<typeof toChartRangeRows>>();
-const variantRangeRowsByKey = new Map<string, ReturnType<typeof toChartRangeRows>>();
-for (const chart of signatureCharts) {
-  if (chart.plot?.type === 'range') {
-    chartRangeRowsById.set(chart.id, toChartRangeRows(chart.plot));
-  } else if (chart.plot) {
-    chartPlotSvgById.set(chart.id, renderPlotSvg(chart.plot));
-  }
-  for (const variant of chart.variants ?? []) {
-    if (variant.plot?.type === 'range') {
-      variantRangeRowsByKey.set(`${chart.id}::${variant.label}`, toChartRangeRows(variant.plot));
-    } else if (variant.plot) {
-      variantPlotSvgByKey.set(`${chart.id}::${variant.label}`, renderPlotSvg(variant.plot));
-    }
-  }
-}
 
 // Grouped, scannable section list — grouping truth lives in report-nav.ts.
 const navGroups = getSectionGroups(sections, reportSlug);
@@ -178,55 +144,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         <h2 class="report-findings-title t-h2">Key findings</h2>
         <p class="report-findings-header__lede">{findingsLede}</p>
       </div>
-
-      {signatureCharts.length > 0 && (
-        <div class="report-charts">
-          {signatureCharts.map((chart) => (
-            <ChartBlock
-              title={chart.title}
-              caption={chart.caption}
-              summary={chart.summary}
-              evidenceIds={chart.evidenceIds}
-              sourceLabel={chart.sourceLabel}
-              sourceUrl={chart.sourceUrl}
-              reportPath={report.data.canonicalPath}
-              pngPath={chart.pngPath}
-              plotSvg={chartPlotSvgById.get(chart.id)}
-              rangeRows={chartRangeRowsById.get(chart.id)?.rows}
-              rangeAxisTickLabels={chartRangeRowsById.get(chart.id)?.axisTickLabels}
-              averageLabel={chart.averageLabel}
-              fallbackColumns={chart.fallbackTable.columns as [string, string]}
-              fallbackRows={chart.fallbackTable.rows}
-              bars={chart.bars}
-              segments={chart.segments?.map((chartSegment) => ({
-                id: chartSegment.id,
-                label: chartSegment.label,
-                caption: chartSegment.caption,
-                summary: chartSegment.summary,
-                averageLabel: chartSegment.averageLabel,
-                bars: chartSegment.bars,
-                fallbackColumns: chartSegment.fallbackTable.columns as [string, string],
-                fallbackRows: chartSegment.fallbackTable.rows,
-              }))}
-              defaultSegmentLabel={chart.defaultSegmentLabel}
-              variants={chart.variants?.map((variant) => ({
-                label: variant.label,
-                summary: variant.summary,
-                evidenceIds: variant.evidenceIds,
-                sourceLabel: variant.sourceLabel,
-                sourceUrl: variant.sourceUrl,
-                bars: variant.bars,
-                plotSvg: variantPlotSvgByKey.get(`${chart.id}::${variant.label}`),
-                rangeRows: variantRangeRowsByKey.get(`${chart.id}::${variant.label}`)?.rows,
-                rangeAxisTickLabels: variantRangeRowsByKey.get(`${chart.id}::${variant.label}`)?.axisTickLabels,
-                fallbackColumns: variant.fallbackTable.columns as [string, string],
-                fallbackRows: variant.fallbackTable.rows,
-              }))}
-              hideTable
-            />
-          ))}
-        </div>
-      )}
 
       <div class="report-reading-layout">
         <ChapterRail
@@ -535,8 +452,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     gap: var(--space-16);
   }
 
-  .report-copy,
-  .report-charts {
+  .report-copy {
     max-width: var(--zone-editorial);
   }
 
@@ -546,11 +462,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
   .report-copy.prose p:last-child {
     margin-block-end: 0;
-  }
-
-  .report-charts {
-    display: grid;
-    gap: var(--space-16);
   }
 
   /* Key findings heading */
@@ -940,7 +851,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     }
 
     .report-copy,
-    .report-charts,
     .report-sections,
     .report-section-bucket,
     .report-methodology,
