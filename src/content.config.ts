@@ -215,6 +215,7 @@ const chartSchema = z.object({
   title: z.string().min(1),
   caption: z.string().min(1),
   summary: z.string().min(1),
+  suppressionNote: z.string().min(1).optional(),
   evidenceIds: z.array(z.string().regex(/^evidence:[a-z0-9-]+$/)).min(1),
   sourceLabel: z.string().min(1),
   sourceUrl: z.url(),
@@ -247,6 +248,7 @@ const chartSchema = z.object({
         label: z.string().min(1),
         caption: z.string().min(1),
         summary: z.string().min(1),
+        suppressionNote: z.string().min(1).optional(),
         averageLabel: z.string().min(1).optional(),
         bars: z
           .array(
@@ -278,6 +280,7 @@ const chartSchema = z.object({
       z.object({
         label: z.string().min(1),
         summary: z.string().min(1),
+        suppressionNote: z.string().min(1).optional(),
         evidenceIds: z.array(z.string().regex(/^evidence:[a-z0-9-]+$/)).min(1),
         sourceLabel: z.string().min(1).optional(),
         sourceUrl: z.url().optional(),
