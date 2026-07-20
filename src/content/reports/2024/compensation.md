@@ -115,6 +115,9 @@ charts:
       and above; Malaysia's ranges stay comparatively tight up to Lead / Staff
       / Principal IC, the highest level with a publishable cohort. Select a
       country to see its per-level range.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2024-median-compensation
       - evidence:2024-sg-compensation
@@ -156,6 +159,9 @@ charts:
         summary: "Indonesia's ranges are the widest in the region, and they
           broaden sharply with seniority. Director/VP (n=6) falls below the
           10-respondent disclosure threshold and is not shown."
+        suppressionNote: >-
+          Some cohorts here are too small to publish without identifying
+          individuals, so we hold those figures back.
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-geographic-distribution
@@ -235,6 +241,9 @@ charts:
           Senior IC, where variance widens. Director/VP (n=2) and Head of
           department / Senior leadership (n=5) fall below the 10-respondent
           disclosure threshold and are not shown."
+        suppressionNote: >-
+          Some cohorts here are too small to publish without identifying
+          individuals, so we hold those figures back.
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-sg-compensation
@@ -307,6 +316,9 @@ charts:
           10-respondent disclosure threshold and are not shown, despite
           Director/VP carrying the highest published median in the region
           (RM353,000) before suppression."
+        suppressionNote: >-
+          Some cohorts here are too small to publish without identifying
+          individuals, so we hold those figures back.
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-geographic-distribution
