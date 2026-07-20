@@ -80,6 +80,9 @@ charts:
     title: Median total compensation by career level, no formal design education
     caption: Reported median total compensation in SGD by career level, within the Singapore no-formal-design-education cohort (n=41). Only levels with at least 10 respondents are shown; Mid-level, Lead/Staff, People Manager, Director, and VP cohorts within this subset are suppressed.
     summary: Within the no-formal-design-education cohort, Junior IC respondents reported a median total compensation of S$63,800 (n=12) and Senior respondents reported S$129,450 (n=10). Other career levels in this subset fall below the minimum safe disclosure threshold and are not shown individually.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2023-sg-education-no-formal-levels
     sourceLabel: Design Pay Asia 2022-23 survey data

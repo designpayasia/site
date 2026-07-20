@@ -90,6 +90,9 @@ charts:
     summary: Compensation ranges widen with seniority in both markets, with
       the broadest spread at Senior IC in Singapore. Select a country to see
       its per-level range.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2023-compensation
       - evidence:2023-roles-experience
@@ -139,6 +142,9 @@ charts:
           S$37,396 – S$235,000, median S$139,100. Director (N=8) and VP
           (N=2) fall below the 10-respondent disclosure threshold and are not
           shown."
+        suppressionNote: >-
+          Some cohorts here are too small to publish without identifying
+          individuals, so we hold those figures back.
         evidenceIds:
           - evidence:2023-compensation
           - evidence:2023-sg-compensation-range
@@ -201,6 +207,9 @@ charts:
           RM174,040, median RM94,325. Lead / Staff / Principal IC (N=5),
           People Manager (N=3), and Director (N=2) fall below the
           10-respondent disclosure threshold and are not shown."
+        suppressionNote: >-
+          Some cohorts here are too small to publish without identifying
+          individuals, so we hold those figures back.
         evidenceIds:
           - evidence:2023-compensation-malaysia
           - evidence:2023-my-compensation-range
@@ -248,6 +257,9 @@ charts:
     summary: Junior IC median total compensation is Rp62,000,000, below the
       all-respondent median of Rp84,000,000. Other career levels cannot be
       reported individually because their cohorts are too small.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2023-compensation-indonesia
     sourceLabel: Design Pay Asia 2023 Survey

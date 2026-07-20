@@ -10,6 +10,9 @@ charts:
     title: Pay range by seniority
     caption: Reported minimum, median, and maximum total compensation in SGD among Singapore survey respondents in each published seniority subgroup. These are survey figures, not population estimates. Subgroups below n=10 are suppressed.
     summary: Among the published Singapore survey subgroups, reported total compensation ranged from S$12,000 to S$157,000 for Junior IC respondents (median S$54,000), S$34,800 to S$210,000 for Mid-level IC respondents (median S$75,800), S$44,200 to S$339,927 for Senior IC respondents (median S$119,500), S$38,400 to S$201,342 for Lead, Staff, or Principal IC respondents (median S$103,200), and S$37,396 to S$235,000 for People Manager respondents (median S$139,100). These are survey figures, not population estimates.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2023-sg-compensation-seniority
     sourceLabel: Design Pay Asia 2022-23 survey data

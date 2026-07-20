@@ -11,6 +11,9 @@ charts:
     title: Median total compensation by gender
     caption: Reported median total compensation in SGD for the published gender cohorts among Singapore survey respondents. These survey medians are not population estimates. Cohorts below n=10 are suppressed.
     summary: Among published gender cohorts in the Singapore survey, Man respondents reported median total compensation of S$123,000 and Woman respondents reported S$71,300. These are survey medians, not population estimates. Other gender cohorts are suppressed because they contain fewer than 10 respondents.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2023-sg-compensation-gender
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -38,6 +41,9 @@ charts:
     title: Median pay by level and gender
     caption: Reported median total compensation by gender at each Singapore survey seniority level where both gender cohorts meet the n=10 publication threshold. Grouped bars show each gender's median side by side at each level. Lead/Staff/Principal IC and Director levels are omitted because at least one gender cohort in each falls below n=10.
     summary: "Among Singapore survey seniority levels with both gender cohorts published: Junior IC, Man S$47,600 (n=10) versus Woman S$54,000 (n=53); Mid-level IC, Man S$83,900 (n=20) versus Woman S$74,400 (n=35); Senior IC, Man S$133,150 (n=20) versus Woman S$105,050 (n=32); People Manager, Man S$151,380 (n=13) versus Woman S$119,250 (n=10). The direction reverses above Junior IC: men earn less at Junior IC, then women earn less from Mid-level IC upward. The gap is most pronounced among Senior ICs and People Managers, and the Senior IC cohort (n=52 combined, against n=23 at People Manager) gives the most reliable read at 21.1%. These are gaps between survey medians, not population estimates or matched-role comparisons."
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2023-gender-pay-gap
     sourceLabel: Design Pay Asia 2022-23 survey data
