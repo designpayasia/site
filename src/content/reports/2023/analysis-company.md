@@ -260,7 +260,7 @@ keyFindings:
 
 ## Company type
 
-Large enterprise respondents recorded a median of S$114,500. Startup respondents recorded S$90,000, Government respondents S$84,000, Agency / Consulting respondents S$63,548, and Small-medium enterprise respondents S$58,300. Company types with fewer than 10 respondents are omitted.
+Large enterprise respondents recorded a median of S$114,500. Startup respondents recorded S$90,000, Government respondents S$84,000, Agency / Consulting respondents S$63,548, and Small-medium enterprise respondents S$58,300. Company types with fewer than 10 respondents are omitted. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
 
 The figures describe the people who answered the survey. Respondent mix varies across company types, and the comparison is unadjusted.
 
