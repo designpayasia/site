@@ -272,15 +272,62 @@ const tocItems = [
       <p class="label-mono">Docs</p>
       <h1>Pattern library</h1>
       <p class="prose">
-        A contributor reference, not a public report page. Every pattern component built for report
-        pages, rendered here with fictional Southeast Asian pay data so a reviewer can see the real
-        markup and styling without opening a live report.
+        A contributor reference, not a public report page. Every reusable report and report-adjacent
+        component is rendered here with fictional Southeast Asian pay data so a reviewer can see the
+        real markup and styling without opening a live report.
       </p>
       <p class="prose">
         This page stacks every pattern back to back on purpose — that breaks the one-signal-per-view
         rule every real report page should hold to. Treat the density here as a specimen sheet, not a
         layout to copy.
       </p>
+      <details class="pattern-library-reference">
+        <summary class="label-mono">Component source and production reference</summary>
+        <p>
+          Each specimen imports the component named below from the listed source file. Production links
+          are observed callers, not an exhaustive usage catalogue. Docs-only means the component is a
+          maintained specimen without a direct page caller yet.
+        </p>
+        <div class="pattern-library-reference__table-wrap">
+          <table class="pattern-library-reference__table">
+            <thead>
+              <tr>
+                <th scope="col">Pattern</th>
+                <th scope="col">Source</th>
+                <th scope="col">Current reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Cover index spread</th><td><code>src/components/CoverIndexSpread.astro</code></td><td><a href="/reports">Production: reports index</a></td></tr>
+              <tr><th scope="row">Cover split editorial</th><td><code>src/components/CoverSplitEditorial.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Dark beat</th><td><code>src/components/DarkBeat.astro</code></td><td><a href="/">Production: homepage</a></td></tr>
+              <tr><th scope="row">Cover full bleed</th><td><code>src/components/CoverFullBleed.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Cover card inverse</th><td><code>src/components/CoverCardInverse.astro</code></td><td><a href="/reports">Production: reports index</a></td></tr>
+              <tr><th scope="row">Findings strip</th><td><code>src/components/FindingsStrip.astro</code></td><td><a href="/">Production: homepage</a></td></tr>
+              <tr><th scope="row">Metric shelf</th><td><code>src/components/MetricShelf.astro</code></td><td><a href="/reports">Production: reports index</a></td></tr>
+              <tr><th scope="row">Big stat</th><td><code>src/components/BigStat.astro</code></td><td><a href="/">Production: homepage</a></td></tr>
+              <tr><th scope="row">Stat takeover</th><td><code>src/components/StatTakeover.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Chart block</th><td><code>src/components/ChartBlock.astro</code></td><td><a href="/reports/2024/compensation">Production: report section</a></td></tr>
+              <tr><th scope="row">Chart small multiples</th><td><code>src/components/ChartSmallMultiples.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Chart range</th><td><code>src/components/ChartRange.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Chart dot plot</th><td><code>src/components/ChartDotPlot.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Invitation</th><td><code>src/components/Invitation.astro</code></td><td><a href="/about">Production: about</a></td></tr>
+              <tr><th scope="row">Register cards</th><td><code>src/components/RegisterCards.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Pull quote</th><td><code>src/components/PullQuote.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Pull-quote beat</th><td><code>src/components/PullQuoteBeat.astro</code></td><td><a href="/reports/2024/compensation">Production: report section</a></td></tr>
+              <tr><th scope="row">Sticky meta</th><td><code>src/components/StickyMeta.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Toc scrollspy</th><td><code>src/components/TocScrollspy.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Filter compare</th><td><code>src/components/FilterCompare.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Conversation spine</th><td><code>src/components/ConversationSpine.astro</code></td><td><a href="/reports/2024/compensation">Production: report section</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <code>ChapterRail</code>, <code>ConversationBlock</code>, and <code>TeamGrid</code> are
+          production report-support components, documented in <code>DESIGN.md</code> but not rendered
+          as standalone gallery specimens.
+        </p>
+      </details>
     </div>
   </header>
 
@@ -788,6 +835,51 @@ const tocItems = [
 
   .pattern-library-intro__inner p + p {
     margin-top: var(--space-4);
+  }
+
+  .pattern-library-reference {
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .pattern-library-reference summary {
+    cursor: pointer;
+    color: var(--color-action);
+  }
+
+  .pattern-library-reference > p {
+    margin: var(--space-4) 0 0;
+    color: var(--color-ink-muted);
+    font-size: var(--type-caption);
+  }
+
+  .pattern-library-reference__table-wrap {
+    margin-top: var(--space-4);
+    overflow-x: auto;
+  }
+
+  .pattern-library-reference__table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: var(--type-caption);
+  }
+
+  .pattern-library-reference__table th,
+  .pattern-library-reference__table td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-border-subtle);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .pattern-library-reference__table th {
+    color: var(--color-workhorse);
+  }
+
+  .pattern-library-reference__table code {
+    font-size: 0.9em;
   }
 
   .pattern-library {
