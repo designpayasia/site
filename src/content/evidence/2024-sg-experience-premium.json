@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-experience-premium",
+  "title": "2024 Singapore pay by years of experience",
+  "summary": "Distribution of self-reported total annual compensation (minimum, quartiles, median, maximum) for Singapore respondents paid in SGD, grouped by years of design experience. Adjacent experience bands below the minimum safe size of 10 are merged and labelled with their combined range.",
+  "sourceName": "Design Pay Asia 2024 survey",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct–Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Raw survey responses filtered to Singapore respondents paid in SGD; compensation summarised per experience band; sub-threshold adjacent bands merged; MIN_SAFE_COHORT = 10 enforced before publication.",
+  "sampleSize": 171,
+  "sensitivity": "small-cohort"
+}

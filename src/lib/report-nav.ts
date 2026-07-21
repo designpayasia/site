@@ -19,6 +19,7 @@ const SENTIMENT_IDS_BY_SLUG: Record<string, string[]> = {
   '2023': ['sentiments-negotiations', 'sentiments-work-setup', 'sentiments-career-progression'],
 };
 const ANALYSIS_IDS_BY_SLUG: Record<string, string[]> = {
+  '2024': ['analysis-singapore'],
   '2023': ['analysis-gender', 'analysis-experience', 'analysis-company', 'analysis-education'],
 };
 const ANALYSIS_LABEL = 'Singapore deep dive';

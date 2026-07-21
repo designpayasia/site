@@ -33,3 +33,6 @@ screenshots/
 
 # pnpm store (accidental artefact)
 .pnpm-store/
+
+# working artifacts derived from PII inputs — never committed
+tmp/
