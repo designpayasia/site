@@ -375,6 +375,119 @@ charts:
               values: ["22", "68,000", "108,000", "240,000"]
             - label: Lead / Staff / Principal IC
               values: ["16", "46,000", "154,000", "317,000"]
+  - id: 'employment-type-comp'
+    title: Compensation by employment type
+    caption: "Median annual-equivalent compensation, full-time employees versus
+      contractors and freelancers (n=337 combined: 247 fixed-term contractors
+      plus 90 self-employed freelancers), within each market's own currency,
+      at an all-levels aggregate grain rather than broken out by seniority.
+      Figures are total annual compensation as reported; for contractors and
+      freelancers the annual total assumes a full year of engagements, so it
+      may overstate for those with unpaid gaps. Interns (n=35) are excluded.
+      Cohorts below the 10-respondent disclosure threshold are not shown;
+      Malaysia, Thailand, Vietnam, Japan, and the Philippines are named in the
+      accompanying text rather than charted. Select a market to view its
+      comparison."
+    summary: Where both cohorts cleared 10 respondents, contractors and
+      freelancers' median annual-equivalent pay sits below full-time pay in
+      both Indonesia and Singapore. This is an all-levels aggregate, not a
+      per-seniority-level comparison. Select a market to see its figures.
+    suppressionNote: >-
+      Malaysia, Thailand, Vietnam, Japan, and the Philippines are not shown:
+      their contractor/freelancer cohorts fell below the 10-respondent
+      disclosure threshold.
+    evidenceIds:
+      - evidence:2024-employment-type-compensation
+    sourceLabel: '2024 DPA Report'
+    sourceUrl: 'https://designpay.asia/reports/2024'
+    fallbackTable:
+      columns: [Employment type, Median annual-equivalent comp]
+      rows:
+        - label: Full-time
+          value: 'Rp 97,200,000'
+        - label: Contractors and freelancers
+          value: 'Rp 80,620,000'
+    bars:
+      - label: Full-time
+        value: 100
+        tone: workhorse
+      - label: Contractors and freelancers
+        value: 83
+        tone: signal
+    variants:
+      - label: Indonesia
+        summary: "Indonesia full-time (n=1,050) versus contractors and
+          freelancers (n=286) median annual-equivalent compensation, all
+          levels combined, in Indonesian Rupiah: contractors and freelancers
+          earn a median of Rp80,620,000 against Rp97,200,000 for full-time
+          employees. This is an all-levels aggregate, not a per-seniority-level
+          comparison."
+        evidenceIds:
+          - evidence:2024-employment-type-compensation
+          - evidence:2024-geographic-distribution
+        plot:
+          type: range
+          xLabel: Annual-equivalent compensation (Rp)
+          valuePrefix: "Rp"
+          rows:
+            - label: Full-time (n=1,050)
+              min: 8400000
+              median: 97200000
+              q1: 68535000
+              q3: 150000000
+              max: 1440000000
+              tone: workhorse
+            - label: Contractors and freelancers (n=286)
+              min: 3600000
+              median: 80620000
+              q1: 54000000
+              q3: 117750000
+              max: 532000000
+              tone: signal
+        fallbackTable:
+          columns:
+            - Career level
+            - Full-time median (Rp)
+            - Contractors and freelancers median (Rp)
+          rows:
+            - label: All levels
+              values: ["97,200,000", "80,620,000"]
+      - label: Singapore
+        summary: "Singapore full-time (n=150) versus contractors and
+          freelancers (n=19) median annual-equivalent compensation, all levels
+          combined, in Singapore Dollars: contractors and freelancers earn a
+          median of S$66,000 against S$83,594 for full-time employees. This is
+          an all-levels aggregate, not a per-seniority-level comparison."
+        evidenceIds:
+          - evidence:2024-employment-type-compensation
+          - evidence:2024-sg-compensation
+        plot:
+          type: range
+          xLabel: Annual-equivalent compensation (S$)
+          valuePrefix: "S$"
+          rows:
+            - label: Full-time (n=150)
+              min: 30000
+              median: 83594
+              q1: 60635
+              q3: 125058
+              max: 542000
+              tone: workhorse
+            - label: Contractors and freelancers (n=19)
+              min: 34800
+              median: 66000
+              q1: 54000
+              q3: 89928
+              max: 144850
+              tone: signal
+        fallbackTable:
+          columns:
+            - Career level
+            - Full-time median (S$)
+            - Contractors and freelancers median (S$)
+          rows:
+            - label: All levels
+              values: ["83,594", "66,000"]
   - id: 'compensation-trends-vn'
     title: Annual total compensation by level of seniority in Vietnam
     caption: Bar/distribution plot of annual compensation (VND) by seniority level among Vietnamese designers.
@@ -608,6 +721,16 @@ Median annual compensation varies dramatically across the five surveyed markets,
 ::chart{id="compensation-mix"}
 
 ::chart{id="other-benefits"}
+
+## Full-time versus contractors and freelancers, side by side
+
+Nearly one in five people in the 2024 sample — 18.76%, or roughly 337 designers — work as contractors or freelancers rather than employees. Until now their pay sat folded inside the market medians. Here it is on its own.
+
+The comparison only holds within a single market and a single currency, so this reads market by market rather than as one regional number. Contractors and freelancers answered the same base-salary question as everyone. These figures are their total annual compensation, taken as reported. That annual total quietly assumes a full year of engagements — and for someone who contracts, that assumption rarely holds: the number sits above what a year of uneven projects, unpaid gaps, self-funded healthcare, and the tax an employer would otherwise carry actually leaves in hand. Read it with that gap in mind. Cohorts too small to show safely are held back. Interns (n=35) are excluded from this comparison entirely.
+
+::chart{id="employment-type-comp"}
+
+Contractor and freelancer cohorts in Malaysia, Thailand, Vietnam, Japan and the Philippines fell below the 10-respondent disclosure threshold and are not broken out here.
 
 When adjusted for purchasing power parity, Singapore predictably leads, but the gap narrows considerably. Indonesian designers, despite lower nominal salaries, benefit from a rapidly growing tech ecosystem that has driven year-on-year increases. Regional designers in markets like Vietnam and Thailand report the fastest relative growth in compensation, albeit from a lower base.
 
