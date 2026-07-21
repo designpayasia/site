@@ -52,7 +52,7 @@ charts:
           anchor: end
   - id: sg-2024-experience-premium
     title: Singapore total compensation by years of design experience, 2024
-    caption: Reported total compensation distribution (25th percentile, median, 75th percentile, and full range) by years of design experience among Singapore survey respondents paid in SGD, 2024. Adjacent experience bands below the n=10 publication threshold are merged, so the 11-15 and 16+ year bands are combined into a single band because neither meets the threshold alone.
+    caption: Reported total compensation distribution (25th percentile, median, 75th percentile, and full range) by years of design experience among Singapore survey respondents paid in SGD, 2024. Adjacent experience bands below the n=10 publication threshold are merged. The 16+ band has only n=5 on its own, below that threshold, so it is combined with the adjacent 11-15 band (n=19), which clears the threshold comfortably.
     summary: "Among Singapore survey respondents paid in SGD in 2024: 0-2 years (n=34), median S$60,000, 25th to 75th percentile S$49,700 to S$75,585; 3-5 years (n=64), median S$72,000, S$57,600 to S$94,100; 6-10 years (n=49), median S$105,600, S$74,100 to S$150,000; 11-15 to 16+ years combined (n=24), median S$137,500, S$94,800 to S$173,550. Total compensation rises steadily with experience across every published band."
     evidenceIds:
       - evidence:2024-sg-experience-premium
@@ -213,7 +213,7 @@ Design Pay Asia's [2023 Singapore gender pay gap analysis](/reports/2023/analysi
 
 ## Compensation by years of experience
 
-Total compensation rises steadily with years of design experience among Singapore respondents paid in SGD. Median total compensation was S$60,000 at 0-2 years (n=34), S$72,000 at 3-5 years (n=64), and S$105,600 at 6-10 years (n=49). The 11-15 and 16+ year bands don't individually clear the n=10 threshold, so we merge them into a single 11-15-to-16+ band, which reports a median of S$137,500 (n=24).
+Total compensation rises steadily with years of design experience among Singapore respondents paid in SGD. Median total compensation was S$60,000 at 0-2 years (n=34), S$72,000 at 3-5 years (n=64), and S$105,600 at 6-10 years (n=49). The 16+ band alone has only n=5, below the n=10 threshold, so we merge it into the adjacent 11-15 band (n=19), which clears the threshold on its own, and publish a combined 11-15-to-16+ figure at a median of S$137,500 (n=24).
 
 ::chart{id="sg-2024-experience-premium"}
 
