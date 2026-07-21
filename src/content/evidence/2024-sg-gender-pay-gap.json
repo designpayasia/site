@@ -1,7 +1,7 @@
 {
   "id": "evidence:2024-sg-gender-pay-gap",
   "title": "2024 Singapore gender pay gap (unadjusted median comparison)",
-  "summary": "Unadjusted cross-sectional comparison of self-reported median total annual compensation for Man and Woman respondents based in Singapore and paid in SGD, computed with the same method as the 2023 report and broken down by seniority level. Cohorts below the minimum safe size of 10 are suppressed.",
+  "summary": "Unadjusted median total annual compensation for Singapore respondents paid in SGD, 2024 survey cycle (n=171: 58 men, 113 women), calculated with the same method as the 2023 report's 42% figure: man median S$92,400 versus woman median S$76,000, a gap of 17.7% with women earning less. At every seniority level with a publishable cohort (Junior IC, Mid-level IC, and Senior IC), women's median compensation is at or above men's; Lead-and-above and other levels fall below the minimum safe cohort of 10 and are suppressed. The aggregate gap tracks the seniority mix rather than within-level pay: women are concentrated in the lower-paying Junior IC and Mid-level IC tiers (60.2% of women versus 44.8% of men), while men are more represented from Lead-and-above upward (27.6% of men versus 14.2% of women).",
   "sourceName": "Design Pay Asia 2024 survey",
   "sourceUrl": "https://designpay.asia/reports/2024",
   "year": 2024,
