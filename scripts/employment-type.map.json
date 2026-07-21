@@ -1,0 +1,18 @@
+{
+  "columns": {
+    "employmentType": "What is your current type of employment?",
+    "country": "Country",
+    "seniority": "Level of seniority",
+    "compValue": "Annual Total Comp",
+    "compCurrency": "Currency you draw your salary in",
+    "compBasis": "Would you like to share your base salary on a monthly or annual basis?"
+  },
+  "employmentTypeValues": {
+    "contract-freelance": ["Fixed term contractor", "Self-employed (Freelancers; own company)"],
+    "full-time": ["Full-time employee"]
+  },
+  "basisValues": {
+    "annual": ["Annual"],
+    "monthly": ["Monthly"]
+  }
+}
