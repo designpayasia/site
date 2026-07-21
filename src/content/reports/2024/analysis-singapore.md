@@ -193,13 +193,13 @@ references:
     url: 'https://designpay.asia/reports/2024/compensation'
 ---
 
-This section is a deep dive into Singapore's 2024 survey data: how the gender pay gap breaks down by seniority level, how total compensation scales with years of experience, and how it varies by company type. The starting point is the headline figure reported in [Compensation](/reports/2024/compensation): among Singapore respondents paid in SGD, women's median total compensation was 17.7% lower than men's (Man S$92,400 versus Woman S$76,000, n=171: 58 men, 113 women).
+This section looks in detail at Singapore's 2024 survey data: how the gender pay gap breaks down by seniority level, how total compensation scales with years of experience, and how it varies by company type. The starting point is the headline figure reported in [Compensation](/reports/2024/compensation): among Singapore respondents paid in SGD, women's median total compensation was 17.7% lower than men's (Man S$92,400 versus Woman S$76,000, n=171: 58 men, 113 women).
 
 ## Why the aggregate gap doesn't match the per-level story
 
-That 17.7% aggregate gap is a composition effect, not a per-level pay gap, and understanding the difference matters before you read the chart below. Women in the Singapore sample are concentrated in earlier-career tiers: 60.2% of women sit at Junior or Mid-level IC, against 44.8% of men. Men are more than twice as likely to sit at Lead and above: 27.6% of men, against 14.2% of women. Pool those two different seniority mixes into one median each, and the more senior, male-skewed group posts a higher overall number, even though, level for level, women's reported medians are at or above men's everywhere we can publish a comparison.
+That 17.7% aggregate gap is a composition effect, not a per-level pay gap. Keep that distinction in mind before you read the chart below. Women in the Singapore sample are concentrated in earlier-career tiers: 60.2% of women sit at Junior or Mid-level IC, against 44.8% of men. Men are more than twice as likely to sit at Lead and above: 27.6% of men, against 14.2% of women. Pool those two different seniority mixes into one median each, and the more senior, male-skewed group posts a higher overall number, even though, level for level, women's reported medians are at or above men's everywhere we can publish a comparison.
 
-Hold onto that before looking at the chart: at Junior IC, Mid-level IC, and Senior IC, women's median sits at or above men's. That isn't a contradiction of the 17.7% headline. It's the mechanism behind it. Design Pay Asia's [data safety rules](/docs/data-safety) explain why we can't publish every level individually, but the three levels below are the ones where both gender cohorts clear the minimum safe cohort of 10.
+Hold onto that before looking at the chart: at Junior IC, Mid-level IC, and Senior IC, women's median sits at or above men's. That's the mechanism behind the 17.7% headline, not a contradiction of it. Design Pay Asia's [data safety rules](/docs/data-safety) explain why we can't publish every level individually, but the three levels below are the ones where both gender cohorts clear the minimum safe cohort of 10.
 
 ## Pay by seniority level
 
@@ -209,7 +209,7 @@ At Junior IC, women's reported median was 3.1% higher than men's (Man S$58,200, 
 
 ## How 2024 compares with 2023
 
-Design Pay Asia's [2023 Singapore gender pay gap analysis](/reports/2023/analysis-gender) reported a 42% gap that year (Man S$123,000 versus Woman S$71,300, n=223: 83 men, 138 women), computed the same way: unadjusted median total compensation for Man and Woman respondents based in Singapore and paid in SGD, with no adjustment for role or seniority. The 2024 figure of 17.7% is smaller, but the two years aren't a like-for-like read on progress on their own: sample size, seniority mix, and which respondents opted in all changed between survey cycles. What has stayed consistent is the finding that composition, not per-level pay, drives most of the headline number in both years.
+Design Pay Asia's [2023 Singapore gender pay gap analysis](/reports/2023/analysis-gender) reported a 42% gap that year (Man S$123,000 versus Woman S$71,300, n=223: 83 men, 138 women), computed the same way: unadjusted median total compensation for Man and Woman respondents based in Singapore and paid in SGD, with no adjustment for role or seniority. The 2024 figure of 17.7% is smaller, but the two years aren't a like-for-like read on progress on their own: sample size, seniority mix, and which respondents opted in all changed between survey cycles. Composition, not per-level pay, has driven most of the headline number in both years.
 
 ## Compensation by years of experience
 
