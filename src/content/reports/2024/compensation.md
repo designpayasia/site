@@ -685,16 +685,19 @@ hubCommentary: |-
 whatThisMeansIndividuals: |-
   Understand how your company rewards deep design expertise versus management skills.
   Consider how you plan your career path based on impact as compared to just going up the career ladder.
+  If you contract or freelance, read your annualised pay against these salaried medians with the gaps in mind. The annual figure assumes a full year of billable work, and benefits, unpaid time, and tax are yours to cover.
 whatThisMeansLeaders: |-
   Think about creating career paths for designers who want to stay hands-on rather than manage.
   Be ready to show how your design team adds value to justify good pay.
   Check if your design team structure and pay matches how important design is to your business.
   Review if your pay ranges help you keep good designers.
+  When you compare a contractor rate with a salaried band, load in the costs the salary already carries before deciding which is cheaper.
 questions:
   - 'Will we keep paying managers much more, or will we create better-paid roles for senior designers?'
   - 'How does basing new job offers on previous salary (plus 20%) affect the industry long term?'
   - 'What happens when managers must both lead and do design work themselves?'
   - 'How can companies pay fairly across different countries when teams work remotely?'
+  - 'When your annual figure quietly assumes you bill every month of the year, what does it actually take to match a salaried offer?'
 references:
   - label: 'Indonesia design manager salaries range from Rp 13.5M to Rp 16.5M monthly'
     url: 'https://id.jobstreet.com/career-advice/role/design-manager/salary'
@@ -724,13 +727,13 @@ Median annual compensation varies dramatically across the five surveyed markets,
 
 ## Full-time versus contractors and freelancers, side by side
 
-Nearly one in five people in the 2024 sample — 18.76%, or roughly 337 designers — work as contractors or freelancers rather than employees. Until now their pay sat folded inside the market medians. Here it is on its own.
+Nearly one in five people in the 2024 sample, 18.75% or roughly 337 designers, work as contractors or freelancers rather than employees. Until now their pay sat folded inside the market medians. Here it is on its own.
 
-The comparison only holds within a single market and a single currency, so this reads market by market rather than as one regional number. Contractors and freelancers answered the same base-salary question as everyone. These figures are their total annual compensation, taken as reported. That annual total quietly assumes a full year of engagements — and for someone who contracts, that assumption rarely holds: the number sits above what a year of uneven projects, unpaid gaps, self-funded healthcare, and the tax an employer would otherwise carry actually leaves in hand. Read it with that gap in mind. Cohorts too small to show safely are held back. Interns (n=35) are excluded from this comparison entirely.
+The comparison only holds within a single market and a single currency, so this reads market by market rather than as one regional number. Contractors and freelancers answered the same base-salary question as everyone else. These figures are their total annual compensation, taken as reported, and that annual total quietly assumes a full year of engagements. For someone who contracts, that assumption rarely holds: the number sits above what a year of uneven projects, unpaid gaps, self-funded healthcare, and the tax an employer would otherwise carry actually leaves in hand. Read it with that gap in mind. Cohorts too small to show safely are held back, and interns (n=35) are excluded from this comparison entirely.
 
 ::chart{id="employment-type-comp"}
 
-Contractor and freelancer cohorts in Malaysia, Thailand, Vietnam, Japan and the Philippines fell below the 10-respondent disclosure threshold and are not broken out here.
+Contractor and freelancer cohorts in Malaysia, Thailand, Vietnam, Japan, and the Philippines fell below the 10-respondent disclosure threshold and are not broken out here.
 
 When adjusted for purchasing power parity, Singapore predictably leads, but the gap narrows considerably. Indonesian designers, despite lower nominal salaries, benefit from a rapidly growing tech ecosystem that has driven year-on-year increases. Regional designers in markets like Vietnam and Thailand report the fastest relative growth in compensation, albeit from a lower base.
 
