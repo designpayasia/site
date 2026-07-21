@@ -74,18 +74,36 @@ export function aggregate(rows, map, cut) {
     const annual = normaliseAnnualEquivalent(row[col.compValue], row[col.compBasis], map);
     if (annual === null) continue; // unparseable comp — skip
     const level = cut === 'by-seniority' ? String(row[col.seniority] ?? '').trim() : null;
-    const key = [market, employmentType, level ?? ''].join('||');
+    // Currency is part of the bucket key so distinct currencies within the same
+    // market/employmentType/level are NEVER pooled together.
+    const key = [market, employmentType, level ?? '', currency].join('||');
     if (!buckets.has(key)) buckets.set(key, { market, employmentType, level, currency, values: [] });
     buckets.get(key).values.push(annual);
   }
-  const groups = [...buckets.values()].map((b) => {
-    const sorted = [...b.values].sort((x, y) => x - y);
+  // Group the per-currency buckets back up by (market, employmentType, level).
+  // Only the largest-n currency bucket is published as that combination's group —
+  // it is the market's dominant/canonical currency. Smaller-currency buckets are
+  // excluded from the published stats (never merged into the dominant bucket's n),
+  // but the excluded count is recorded so the exclusion is visible, not silent.
+  const combos = new Map();
+  for (const b of buckets.values()) {
+    const comboKey = [b.market, b.employmentType, b.level ?? ''].join('||');
+    if (!combos.has(comboKey)) combos.set(comboKey, []);
+    combos.get(comboKey).push(b);
+  }
+  const groups = [...combos.values()].map((currencyBuckets) => {
+    const dominant = currencyBuckets.reduce((a, b) => (b.values.length > a.values.length ? b : a));
+    const excludedForeignCurrency = currencyBuckets
+      .filter((b) => b !== dominant)
+      .reduce((sum, b) => sum + b.values.length, 0);
+    const sorted = [...dominant.values].sort((x, y) => x - y);
     return {
-      market: b.market, employmentType: b.employmentType, level: b.level,
-      n: sorted.length, currency: b.currency, basis: 'annual-equivalent',
+      market: dominant.market, employmentType: dominant.employmentType, level: dominant.level,
+      n: sorted.length, currency: dominant.currency, basis: 'annual-equivalent',
       min: sorted[0] ?? 0, q1: quantile(sorted, 0.25), median: quantile(sorted, 0.5),
       q3: quantile(sorted, 0.75), max: sorted[sorted.length - 1] ?? 0,
       belowThreshold: sorted.length < MIN_SAFE_COHORT,
+      excludedForeignCurrency,
     };
   });
   return { cut, groups: groups.sort((a, b) => b.n - a.n) };

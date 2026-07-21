@@ -36,3 +36,24 @@ test('aggregate groups by market and employment type within one currency', () =>
   assert.equal(idFree.n, 1);
   assert.equal(idFree.belowThreshold, true); // n < 10
 });
+
+test('aggregate never mixes currencies within a market/employmentType/level group', () => {
+  const rows = [
+    // Indonesia full-time: 4 IDR rows (dominant) + 1 USD row (minority, must be excluded)
+    { 'Employment Type': 'Full-time', Country: 'Indonesia', Seniority: 'Junior IC', 'Annual Total Comp': '5000000', Currency: 'IDR', 'Pay Frequency': 'Monthly' },
+    { 'Employment Type': 'Full-time', Country: 'Indonesia', Seniority: 'Junior IC', 'Annual Total Comp': '7000000', Currency: 'IDR', 'Pay Frequency': 'Monthly' },
+    { 'Employment Type': 'Full-time', Country: 'Indonesia', Seniority: 'Junior IC', 'Annual Total Comp': '9000000', Currency: 'IDR', 'Pay Frequency': 'Monthly' },
+    { 'Employment Type': 'Full-time', Country: 'Indonesia', Seniority: 'Junior IC', 'Annual Total Comp': '11000000', Currency: 'IDR', 'Pay Frequency': 'Monthly' },
+    { 'Employment Type': 'Full-time', Country: 'Indonesia', Seniority: 'Junior IC', 'Annual Total Comp': '2880', Currency: 'USD', 'Pay Frequency': 'Monthly' },
+    { 'Employment Type': 'Fixed term contractor', Country: 'Indonesia', Seniority: 'Junior IC', 'Annual Total Comp': '9000000', Currency: 'IDR', 'Pay Frequency': 'Monthly' },
+  ];
+  const out = aggregate(rows, map, 'overall');
+  const idFull = out.groups.find((g) => g.market === 'Indonesia' && g.employmentType === 'full-time');
+  // Only the dominant IDR bucket is published — the single USD row must never be pooled in.
+  assert.equal(idFull.n, 4);
+  assert.equal(idFull.currency, 'IDR');
+  assert.equal(idFull.median, 8000000); // median of the 4 IDR values only (5M,7M,9M,11M)
+  assert.equal(idFull.min, 5000000); // the USD row (2,880) must not leak into min/max
+  assert.equal(idFull.max, 11000000);
+  assert.equal(idFull.excludedForeignCurrency, 1); // the 1 USD row is counted, not silently dropped
+});
