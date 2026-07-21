@@ -13,12 +13,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/job-market/01-layoff-impact.png
     fallbackTable:
-      columns: [Outcome, Proportion]
+      columns: [Outcome, Respondents (n), Proportion]
       rows:
         - label: Impacted by layoffs
-          value: '22.9%'
+          values: ['405', '22.9%']
         - label: Unimpacted
-          value: '77.1%'
+          values: ['1,360', '77.1%']
   - id: 'layoff-effects'
     title: Ways of being impacted by layoffs in the past year
     caption: Breakdown of how layoffs affected designers among those who reported an impact.
@@ -28,18 +28,18 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/job-market/02-layoff-effects.png
     fallbackTable:
-      columns: [Impact type, Proportion]
+      columns: [Impact type, Respondents (n), Proportion]
       rows:
         - label: Personal job loss
-          value: '11.1%'
+          values: ['201', '11.1%']
         - label: Reduced job security
-          value: '8.2%'
+          values: ['149', '8.2%']
         - label: Limited growth
-          value: '7.1%'
+          values: ['128', '7.1%']
         - label: Emotional stress
-          value: '6.9%'
+          values: ['126', '6.9%']
         - label: Increased workload
-          value: '4.4%'
+          values: ['79', '4.4%']
   - id: 'job-security-concern'
     title: I am concerned about my job security in the current job market
     caption: Job security concern rating distribution across all designers surveyed.
@@ -49,12 +49,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/job-market/03-job-security.png
     fallbackTable:
-      columns: [Concern level, Proportion]
+      columns: [Concern level, Respondents (n), Proportion]
       rows:
         - label: Concerned (rating 5 or higher)
-          value: '74.8%'
+          values: ['1,307', '74.8%']
         - label: Not concerned (rating below 5)
-          value: '25.2%'
+          values: ['439', '25.2%']
   - id: 'role-alignment'
     title: I feel that my current job scope is aligned with my primary field of work
     caption: 'Self-reported alignment between current role and designer''s primary field.'
@@ -64,12 +64,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/job-market/04-role-alignment.png
     fallbackTable:
-      columns: [Response, Proportion]
+      columns: [Response, Respondents (n), Proportion]
       rows:
         - label: Strong alignment (ratings 5–7)
-          value: '77.3%'
+          values: ['1,349', '77.3%']
         - label: Low alignment (below 5)
-          value: '22.7%'
+          values: ['395', '22.7%']
   - id: 'market-opportunities'
     title: There are enough opportunities for career advancement in the current job market
     caption: Designer perceptions of available career advancement opportunities.
@@ -79,12 +79,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/job-market/05-market-opportunities.png
     fallbackTable:
-      columns: [Response, Proportion]
+      columns: [Response, Respondents (n), Proportion]
       rows:
         - label: Sufficient opportunities (ratings 5–7)
-          value: '46.3%'
+          values: ['806', '46.3%']
         - label: Insufficient opportunities
-          value: '53.7%'
+          values: ['940', '53.7%']
 keyFindings:
   - 'Layoffs affected 22.9% of designers in the past year'
   - 'High job security concerns: 74.8% expressing market uncertainty'

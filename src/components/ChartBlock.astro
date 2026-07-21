@@ -36,6 +36,10 @@ interface Segment {
   /** 2–6 printed header cells: `[0]` is the row-label column. */
   fallbackColumns: string[];
   fallbackRows: TableRow[];
+  /** Footnote explaining a small-cohort suppression or aggregation choice for
+   *  this segment specifically — rendered with a fixed link to the data
+   *  safety policy. See the top-level `suppressionNote` prop for details. */
+  suppressionNote?: string;
 }
 
 /**
@@ -93,6 +97,10 @@ interface Variant {
   /** 2–6 printed header cells: `[0]` is the row-label column. */
   fallbackColumns: string[];
   fallbackRows: TableRow[];
+  /** Footnote explaining a small-cohort suppression or aggregation choice for
+   *  this variant specifically — rendered with a fixed link to the data
+   *  safety policy. See the top-level `suppressionNote` prop for details. */
+  suppressionNote?: string;
 }
 
 interface Props {
@@ -141,6 +149,10 @@ interface Props {
    * bare 1-7 bar labels give no sense of central tendency on their own.
    */
   averageLabel?: string;
+  /** Footnote explaining a small-cohort suppression or aggregation choice
+   *  (e.g. "Medians below n=10 are suppressed"). Rendered below the source/
+   *  evidence meta with a fixed link to `/docs/data-safety`. */
+  suppressionNote?: string;
   segments?: Segment[];
   defaultSegmentLabel?: string;
   /**
@@ -197,6 +209,7 @@ const {
   rangeRows,
   rangeAxisTickLabels,
   averageLabel,
+  suppressionNote,
   hideTable = false,
   tableMode,
 } = Astro.props;
@@ -255,6 +268,7 @@ const segmentedViews = hasSegments
         caption,
         summary,
         averageLabel,
+        suppressionNote,
         fallbackColumns,
         fallbackRows: normalizedFallbackRows,
         renderedBars,
@@ -285,6 +299,10 @@ const variantViews = hasVariants
         ...variant,
         sourceLabel: variantSourceLabel,
         sourceUrl: variantSourceUrl,
+        // Falls through to the base chart's note when this variant has none
+        // of its own — mirrors the sourceLabel/sourceUrl fallback above, so a
+        // top-level suppressionNote on a variants chart is never dropped.
+        suppressionNote: variant.suppressionNote ?? suppressionNote,
         showSource: !isSelfHostedSource(variantSourceUrl, reportPath),
         renderedBars: normalizeBars(variant.bars),
         fallbackRows: normalizeTableRows(variant.fallbackRows),
@@ -418,6 +436,13 @@ const variantViews = hasVariants
                   <p class="chart-block__evidence">
                     {view.evidenceLabel}: {view.evidenceIds.join(', ')}
                   </p>
+
+                  {view.suppressionNote && (
+                    <p class="chart-block__suppression">
+                      {view.suppressionNote}{' '}
+                      <a href="/docs/data-safety">Read our data safety rules</a>
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -661,6 +686,13 @@ const variantViews = hasVariants
                         Download PNG proof
                       </a>
                     )}
+
+                    {view.suppressionNote && (
+                      <p class="chart-block__suppression">
+                        {view.suppressionNote}{' '}
+                        <a href="/docs/data-safety">Read our data safety rules</a>
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -891,6 +923,13 @@ const variantViews = hasVariants
               <a href={pngPath} class="chart-block__png-link">
                 Download PNG proof
               </a>
+            )}
+
+            {suppressionNote && (
+              <p class="chart-block__suppression">
+                {suppressionNote}{' '}
+                <a href="/docs/data-safety">Read our data safety rules</a>
+              </p>
             )}
           </div>
         </div>
@@ -1125,6 +1164,18 @@ const variantViews = hasVariants
     font-size: var(--ui-meta);
     line-height: var(--leading-ui);
     overflow-wrap: anywhere;
+  }
+
+  .chart-block__suppression {
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+    font-size: var(--type-footnote);
+    color: var(--color-ink-muted);
+  }
+
+  .chart-block__suppression a {
+    color: var(--color-action);
   }
 
   .chart-block__png-link,

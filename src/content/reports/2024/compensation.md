@@ -6,7 +6,7 @@ order: 40
 charts:
   - id: 'currency-distribution'
     title: Currency distribution for pay
-    caption: Breakdown of currencies used to report compensation across 13 currencies; the smallest three (AUD, AED, BND) each round to 0.06%.
+    caption: Breakdown of currencies used to report compensation across 13 currencies; the smallest three (AUD, AED, BND) each round to 0.06%. Based on N=1,797 responses.
     summary: '76.18% of pay is reported in Indonesian Rupiah, followed by SGD (10.02%) and MYR (5.23%); the remaining ten currencies each account for under 3%.'
     evidenceIds: ['evidence:2024-currency-compensation-structure']
     sourceLabel: '2024 DPA Report'
@@ -82,19 +82,19 @@ charts:
         tone: workhorse
   - id: 'salary-sharing-preference'
     title: Base salary sharing preferences
-    caption: Preference for monthly versus annual pay reporting across all respondents.
+    caption: Preference for monthly versus annual pay reporting across all respondents (N=1,797).
     summary: '94.55% of designers report pay on a monthly basis, reflecting the standard Southeast Asian compensation practice.'
     evidenceIds: ['evidence:2024-currency-compensation-structure']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/compensation/02-base-salary-sharing-preference.png
     fallbackTable:
-      columns: [Reporting format, Proportion]
+      columns: [Reporting format, Respondents (n), Proportion]
       rows:
         - label: Monthly
-          value: '94.55%'
+          values: ['1,699', '94.55%']
         - label: Annual
-          value: '5.45%'
+          values: ['98', '5.45%']
     bars:
       - label: Monthly
         value: 94.55
@@ -115,6 +115,9 @@ charts:
       and above; Malaysia's ranges stay comparatively tight up to Lead / Staff
       / Principal IC, the highest level with a publishable cohort. Select a
       country to see its per-level range.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2024-median-compensation
       - evidence:2024-sg-compensation
@@ -156,6 +159,9 @@ charts:
         summary: "Indonesia's ranges are the widest in the region, and they
           broaden sharply with seniority. Director/VP (n=6) falls below the
           10-respondent disclosure threshold and is not shown."
+        suppressionNote: >-
+          Some cohorts here are too small to publish without identifying
+          individuals, so we hold those figures back.
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-geographic-distribution
@@ -235,6 +241,9 @@ charts:
           Senior IC, where variance widens. Director/VP (n=2) and Head of
           department / Senior leadership (n=5) fall below the 10-respondent
           disclosure threshold and are not shown."
+        suppressionNote: >-
+          Some cohorts here are too small to publish without identifying
+          individuals, so we hold those figures back.
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-sg-compensation
@@ -307,6 +316,9 @@ charts:
           10-respondent disclosure threshold and are not shown, despite
           Director/VP carrying the highest published median in the region
           (RM353,000) before suppression."
+        suppressionNote: >-
+          Some cohorts here are too small to publish without identifying
+          individuals, so we hold those figures back.
         evidenceIds:
           - evidence:2024-median-compensation
           - evidence:2024-geographic-distribution
@@ -409,7 +421,7 @@ charts:
     title: 'Base salary share by seniority level'
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
-    caption: "Base salary as a percentage of total compensation across seniority levels, showing the shift toward variable pay at higher levels."
+    caption: "Base salary as a percentage of total compensation across seniority levels, showing the shift toward variable pay at higher levels. Based on N=1,797 responses."
     summary: "Base salary declines from 90.5% for junior ICs to 83.7% for heads of design, with the sharpest drop at manager level (84.3%). Stock grants rise to 4.3% at head level, and bonuses peak at 11.3% for senior leadership."
     evidenceIds: ["evidence:2024-currency-compensation-structure"]
     columns:
@@ -464,38 +476,38 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/compensation/09-other-benefits-breakdown.png
     fallbackTable:
-      columns: [Benefit, Proportion]
+      columns: [Benefit, Respondents (n), Proportion]
       rows:
         - label: Health insurance
-          value: '52.0%'
+          values: ['935', '52.0%']
         - label: Paid time off / vacation time
-          value: '32.4%'
+          values: ['582', '32.4%']
         - label: Paid medical leave
-          value: '28.4%'
+          values: ['511', '28.4%']
         - label: Professional development, training, or learning fund
-          value: '23.5%'
+          values: ['423', '23.5%']
         - label: Dental insurance
-          value: '23.3%'
+          values: ['418', '23.3%']
         - label: Flexible schedule
-          value: '22.1%'
+          values: ['398', '22.1%']
         - label: Allowance for flexible working arrangement (remote/co-working space)
-          value: '20.8%'
+          values: ['373', '20.8%']
         - label: Onsite food / snacks
-          value: '19.5%'
+          values: ['351', '19.5%']
         - label: Transport subsidies
-          value: '12.6%'
+          values: ['226', '12.6%']
         - label: Meal subsidies
-          value: '12.1%'
+          values: ['218', '12.1%']
         - label: Internet / mobile phone subsidies
-          value: '12.1%'
+          values: ['217', '12.1%']
         - label: Budget for equipment or home office setup
-          value: '10.7%'
+          values: ['192', '10.7%']
         - label: Wellness (gym, fitness, etc.)
-          value: '9.2%'
+          values: ['165', '9.2%']
         - label: Flexible spending account
-          value: '3.6%'
+          values: ['65', '3.6%']
         - label: Other
-          value: '1.8%'
+          values: ['33', '1.8%']
     bars:
       - label: Health insurance
         value: 52.0

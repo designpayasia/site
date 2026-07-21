@@ -13,15 +13,15 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/01-negotiation-landscape.png
     fallbackTable:
-      columns: [Category, Proportion]
+      columns: [Category, Respondents (n), Proportion]
       rows:
         - label: Negotiate
-          value: '52.5%'
+          values: ['938', '52.5%']
         - label: Do not negotiate
-          value: '47.5%'
+          values: ['846', '47.5%']
   - id: 'negotiation-by-seniority'
     title: Negotiation for current total compensation by level of seniority
-    caption: 'Negotiation rates by career stage, showing the sharp increase from junior to senior levels.'
+    caption: 'Negotiation rates by career stage, showing the sharp increase from junior to senior levels. Based on N=1,797 responses.'
     summary: 'Senior leadership negotiates at 82.6%, more than double junior designers (39.1%), with mid-level at 53.6%.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
@@ -65,21 +65,22 @@ charts:
     fallbackTable:
       columns:
       - 'Outcome'
+      - 'Respondents (n)'
       - 'Share'
       rows:
       - label: '5-10% increase'
-        value: '25.6%'
+        values: ['239', '25.6%']
       - label: '11-20% increase'
-        value: '20.0%'
+        values: ['183', '20.0%']
       - label: '>20% increase'
-        value: '19.8%'
+        values: ['185', '19.8%']
       - label: '<5% increase'
-        value: '15.0%'
+        values: ['135', '15.0%']
       - label: 'No increase'
-        value: '20.5%'
+        values: ['191', '20.5%']
   - id: 'negotiation-confidence'
     title: I feel confident in my compensation negotiation skills
-    caption: Distribution of negotiation confidence levels (1–7 scale) across all designers.
+    caption: Distribution of negotiation confidence levels (1–7 scale) across all designers. Based on N=1,775 responses.
     summary: '65.9% of designers rate their negotiation confidence at 4 or above, but high confidence (6–7) is reported by only 22.2%.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
@@ -103,12 +104,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/05-past-salary-information.png
     fallbackTable:
-      columns: [Employer requirement, Proportion]
+      columns: [Employer requirement, Respondents (n), Proportion]
       rows:
         - label: Required disclosure
-          value: '58.1%'
+          values: ['1,033', '58.1%']
         - label: No requirement
-          value: '41.9%'
+          values: ['741', '41.9%']
   - id: 'salary-disclosure-pressure'
     title: I felt pressured to provide my past salary information to progress forward when interviewing
     caption: Perceived pressure level to disclose salary history during the interview process.
@@ -118,12 +119,12 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/06-successfully-declining-remains-challenging.png
     fallbackTable:
-      columns: [Pressure level, Proportion]
+      columns: [Pressure level, Respondents (n), Proportion]
       rows:
         - label: Moderate to high pressure (4–7)
-          value: '70.3%'
+          values: ['721', '70.3%']
         - label: Low pressure (1–3)
-          value: '29.7%'
+          values: ['304', '29.7%']
   - id: 'salary-decline-outcomes'
     title: Instances of declining to provide past salary information
     caption: Outcomes for designers who attempted to decline salary disclosure.
@@ -133,14 +134,14 @@ charts:
     sourceUrl: 'https://designpay.asia/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/07-alt.png
     fallbackTable:
-      columns: [Outcome, Proportion]
+      columns: [Outcome, Respondents (n), Proportion]
       rows:
         - label: Never able to decline
-          value: '55.6%'
+          values: ['570', '55.6%']
         - label: Sometimes successful
-          value: '35.6%'
+          values: ['365', '35.6%']
         - label: Always successful
-          value: '8.8%'
+          values: ['91', '8.8%']
 keyFindings:
   - '52.5% of designers actively negotiate compensation'
   - 'Senior leaders 2.1x more likely to negotiate than junior designers'

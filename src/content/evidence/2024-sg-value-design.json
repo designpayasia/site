@@ -1,13 +1,13 @@
 {
   "id": "evidence:2024-sg-value-design",
-  "title": "Singapore design value: higher perceived value, split compensation fairness",
-  "summary": "Singapore designers report stronger value recognition: 73.3% feel valued (ratings 5-7, vs 70.2% regional). Fair compensation: 49.1% feel fairly compensated (ratings 5-7, vs 51.4% regional). User-centricity: 63.1% report strong user prioritisation (vs 57.7%). Design advocacy: 70.6% report education efforts, with 39.1% high effort (vs regional higher). The data suggests more mature design integration in Singapore organizations.",
+  "title": "Singapore design value: role value, user-centricity, advocacy effort, and compensation fairness",
+  "summary": "Among Singapore designers: 53.3% feel their role is valued (ratings 5-7 of 169 valid responses). 42.9% say their organisation genuinely prioritises user needs (of 168 valid responses). 70.4% invest significant extra effort educating cross-functional teams about design (of 169 valid responses). 49.1% feel fairly compensated for their role and level, while 50.9% do not (of 169 valid responses). These figures are Singapore-only and are not comparable to the regional figures reported elsewhere in the 2024 report.",
   "sourceName": "2024 DPA Report",
   "sourceUrl": "https://designpay.asia/reports/2024",
   "year": 2024,
   "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
   "geography": ["Singapore"],
-  "methodology": "Self-reported perception of design value, compensation fairness, user-centricity, and advocacy efforts in anonymous online survey, filtered to Singapore",
+  "methodology": "Self-reported perception of design value, compensation fairness, user-centricity, and advocacy efforts in an anonymous online survey, filtered to Singapore respondents (Country == 'Singapore'). Each question is a 7-point Likert scale bucketed as agree (ratings 5-7) versus disagree or neutral (ratings 1-4); blank and non-numeric responses are excluded from both the bucket counts and the valid-response base.",
   "sampleSize": 174,
   "sensitivity": "small-cohort"
 }

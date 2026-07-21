@@ -10,6 +10,9 @@ charts:
     title: Median total compensation by company type
     caption: Reported median total compensation in SGD among Singapore survey respondents in each published company-type subgroup. These survey medians are not population estimates. Subgroups below n=10 are suppressed.
     summary: Among published company-type subgroups in the Singapore survey, reported median total compensation ranged from S$58,300 for Small-medium enterprise respondents to S$114,500 for Large enterprise respondents. These are survey medians, not population estimates.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2023-sg-compensation-company-type
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -55,6 +58,9 @@ charts:
     title: Median total compensation by industry
     caption: Reported median total compensation in SGD among Singapore survey respondents in each published industry subgroup with at least 10 respondents. These survey medians are not population estimates. Subgroups below n=10, and unspecified industry responses, are suppressed.
     summary: Among industry subgroups with at least 10 Singapore survey respondents, reported median total compensation ranged from S$71,000 for Health Care respondents to S$125,600 for Retail, Wholesale & Distribution respondents. These are survey medians, not population estimates.
+    suppressionNote: >-
+      Some cohorts here are too small to publish without identifying
+      individuals, so we hold those figures back.
     evidenceIds:
       - evidence:2023-sg-compensation-industry
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -254,7 +260,7 @@ keyFindings:
 
 ## Company type
 
-Large enterprise respondents recorded a median of S$114,500. Startup respondents recorded S$90,000, Government respondents S$84,000, Agency / Consulting respondents S$63,548, and Small-medium enterprise respondents S$58,300. Company types with fewer than 10 respondents are omitted.
+Large enterprise respondents recorded a median of S$114,500. Startup respondents recorded S$90,000, Government respondents S$84,000, Agency / Consulting respondents S$63,548, and Small-medium enterprise respondents S$58,300. Company types with fewer than 10 respondents are omitted. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
 
 The figures describe the people who answered the survey. Respondent mix varies across company types, and the comparison is unadjusted.
 

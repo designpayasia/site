@@ -33,18 +33,19 @@ charts:
     fallbackTable:
       columns:
       - 'Country'
+      - 'Respondents (n)'
       - 'Share'
       rows:
       - label: 'Indonesia'
-        value: '79.0%'
+        values: ['1,419', '79.0%']
       - label: 'Singapore'
-        value: '9.7%'
+        values: ['174', '9.7%']
       - label: 'Malaysia'
-        value: '5.1%'
+        values: ['92', '5.1%']
       - label: 'Vietnam'
-        value: '2.9%'
+        values: ['53', '2.9%']
       - label: 'Thailand'
-        value: '2.4%'
+        values: ['44', '2.4%']
   - id: 'city-breakdown'
     title: Country and city breakdown (top 3 cities per country)
     caption: Urban concentration of respondents across key Southeast Asian cities.
@@ -81,26 +82,26 @@ charts:
         value: 19.7
         tone: workhorse
     fallbackTable:
-      columns: [City, Respondents]
+      columns: [City, Respondents (n), Share]
       rows:
         - label: Jakarta
-          value: '48.4%'
+          values: ['870', '48.4%']
         - label: Singapore
-          value: '9.7%'
+          values: ['174', '9.7%']
         - label: Bandung
-          value: '6.3%'
+          values: ['113', '6.3%']
         - label: Kuala Lumpur
-          value: '4.5%'
+          values: ['81', '4.5%']
         - label: Surabaya
-          value: '3.8%'
+          values: ['69', '3.8%']
         - label: Yogyakarta
-          value: '3.4%'
+          values: ['61', '3.4%']
         - label: Bangkok
-          value: '2.3%'
+          values: ['41', '2.3%']
         - label: Tangerang
-          value: '1.9%'
+          values: ['35', '1.9%']
         - label: Other
-          value: '19.7%'
+          values: ['353', '19.7%']
   - id: 'gender-distribution'
     title: 'Gender distribution by market'
     sourceLabel: '2024 DPA Report'
@@ -127,16 +128,17 @@ charts:
     fallbackTable:
       columns:
       - 'Gender'
+      - 'Respondents (n)'
       - 'Share'
       rows:
       - label: 'Female (Regional)'
-        value: '39.8%'
+        values: ['716', '39.8%']
       - label: 'Male (Regional)'
-        value: '59.3%'
+        values: ['1,065', '59.3%']
       - label: 'Female (Singapore)'
-        value: '65.5%'
+        values: ['114', '65.5%']
       - label: 'Male (Singapore)'
-        value: '34.5%'
+        values: ['60', '34.5%']
   - id: 'age-group'
     title: Respondents by age group
     caption: Age distribution across all survey respondents.
@@ -158,16 +160,16 @@ charts:
         value: 6.0
         tone: workhorse
     fallbackTable:
-      columns: [Age group, Proportion]
+      columns: [Age group, Respondents (n), Proportion]
       rows:
         - label: 18–24 years
-          value: '23.2%'
+          values: ['417', '23.2%']
         - label: 25–30 years
-          value: '57.0%'
+          values: ['1,024', '57.0%']
         - label: 31–35 years
-          value: '13.7%'
+          values: ['246', '13.7%']
         - label: 36+ years
-          value: '6.0%'
+          values: ['108', '6.0%']
   - id: 'gender-by-age'
     title: Gender distribution by age group
     caption: Cross-analysis of gender and age groups across the full respondent set.
@@ -189,16 +191,16 @@ charts:
         value: 31.5
         tone: signal
     fallbackTable:
-      columns: [Age group, Female proportion]
+      columns: [Age group, Respondents (n), Female proportion]
       rows:
         - label: 18–24
-          value: '41.7%'
+          values: ['417', '41.7%']
         - label: 25–30
-          value: '41.3%'
+          values: ['1,024', '41.3%']
         - label: 31–35
-          value: '37.3%'
+          values: ['246', '37.3%']
         - label: 36–50
-          value: '31.5%'
+          values: ['108', '31.5%']
 keyFindings:
   - 'Young workforce dominance (80% under 35) with strong urban concentration'
   - 'Clear geographic hub pattern centered on Indonesia, Singapore, Malaysia'
