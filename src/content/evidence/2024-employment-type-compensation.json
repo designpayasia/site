@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-employment-type-compensation",
+  "title": "Annual-equivalent compensation by employment type (2024)",
+  "summary": "Median annual-equivalent compensation for full-time employees versus contractors and freelancers (fixed-term contractors plus self-employed freelancers, n=337 combined: 247 fixed-term contractors plus 90 self-employed freelancers), within each market's own currency, at an all-levels aggregate grain rather than broken out by seniority. Published only where both cohorts reached the 10-respondent threshold: Indonesia full-time Rp97,200,000 (n=1,050) versus contractors and freelancers Rp80,620,000 (n=286); Singapore full-time S$83,594 (n=150) versus contractors and freelancers S$66,000 (n=19). Interns (n=35) are excluded from this comparison.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported Annual Total Comp grouped by employment type within each market's local currency. Contractors and freelancers are a merged bucket (fixed-term contractors plus self-employed freelancers); interns are excluded. They answered the same monthly or annual base-salary question as everyone else; the 2024 data holds no day or hourly pay bases. The comparison value is the precomputed Annual Total Comp (base plus bonus or 13th-month pay), already annualised for every pay basis and taken as reported. For contractors and freelancers, that annual total assumes a full year of engagements, which is how the figures were computed, so it may overstate what a year of uneven projects with unpaid gaps actually leaves. This is a caveat about what the data means, not about our calculation. Cohorts below 10 respondents suppressed or merged to 'All levels'.",
+  "sampleSize": 1797,
+  "sensitivity": "aggregate-only"
+}
