@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-company-pay",
+  "title": "2024 Singapore pay by company type",
+  "summary": "Median self-reported total annual compensation for Singapore respondents paid in SGD, grouped by company type. Company types below the minimum safe size of 10 are folded into a single \"Other (merged)\" bucket, published only when that bucket itself reaches 10.",
+  "sourceName": "Design Pay Asia 2024 survey",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct–Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Raw survey responses filtered to Singapore respondents paid in SGD; median compensation per company type; sub-threshold types folded into one merged bucket; MIN_SAFE_COHORT = 10 enforced before publication.",
+  "sampleSize": 171,
+  "sensitivity": "small-cohort"
+}

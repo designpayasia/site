@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-sg-gender-pay-gap",
+  "title": "2024 Singapore gender pay gap (unadjusted median comparison)",
+  "summary": "Unadjusted cross-sectional comparison of self-reported median total annual compensation for Man and Woman respondents based in Singapore and paid in SGD, computed with the same method as the 2023 report and broken down by seniority level. Cohorts below the minimum safe size of 10 are suppressed.",
+  "sourceName": "Design Pay Asia 2024 survey",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct–Nov 2024)",
+  "geography": ["Singapore"],
+  "methodology": "Raw survey responses filtered to Singapore respondents paid in SGD; median total annual compensation per gender cohort and per seniority level; unadjusted, not matched by role; MIN_SAFE_COHORT = 10 enforced before publication.",
+  "sampleSize": 171,
+  "sensitivity": "small-cohort"
+}
