@@ -2,8 +2,8 @@
 title: 2023 Design Pay Asia Report
 summary: The inaugural 2023 Design Pay Asia survey captured 323 responses from
   designers across Southeast Asia. This report covers demographics,
-  compensation, company profiles, career progression, and a landmark analysis
-  revealing a 42% gender pay gap in Singapore's design industry.
+  compensation, company profiles, career progression, and the first
+  documented 42% gender pay gap in Singapore's design industry.
 year: 2023
 publishedAt: 2023-06-01
 markets:
@@ -83,15 +83,15 @@ team:
     country: Singapore
     linkedin: https://www.linkedin.com/in/thisiskylel/
     photo: /team/2023/kyle-lai.jpg
-acknowledgement: This first ever report was driven by the community both inside
-  and out. It exists because 323 designers chose to share what they earn, which
-  gave us a first look into the design community across Southeast Asia. We are
-  incredibly grateful for all your contributions. Thank you.
+acknowledgement: This first-ever report was driven by the community, inside
+  and out. It exists because 323 designers chose to share what they earn,
+  giving us a first look at the design community across Southeast Asia.
+  We're grateful for every contribution. Thank you.
 support:
   heading: Support this community initiative
-  body: "Help grow our understanding of design pay in Southeast Asia: share this
-    report with your networks, contribute to our open pay database, or take part
-    in future research."
+  body: "Design pay in Southeast Asia stays opaque until more people share
+    data. Share this report, contribute to our open pay database, or take
+    part in future research."
   ctaLabel: Contribute anonymously today
   ctaUrl: https://tally.so/r/3EDeGX
 methodologyStrip:
