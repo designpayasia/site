@@ -137,7 +137,7 @@ references:
     url: 'https://www.nngroup.com/articles/prepare-for-ai/'
 ---
 
-The 2024 job market for designers in Southeast Asia reflects broader global tech industry turbulence. Nearly a quarter of respondents, 22.9%, report being directly affected by layoffs in the past year — either through personal job loss or the loss of design colleagues. This figure is consistent with global tech restructuring trends that accelerated through 2024.
+Nearly a quarter of respondents, 22.9%, report being directly affected by layoffs in the past year, either through personal job loss or the loss of design colleagues.
 
 ::chart{id="layoff-impact"}
 
@@ -151,6 +151,6 @@ The 2024 job market for designers in Southeast Asia reflects broader global tech
 
 ::chart{id="market-opportunities"}
 
-Job security anxiety is widespread: 74.8% of designers express concern about their job security, a significant increase from previous survey years. This anxiety is highest among junior designers and those at early-stage startups, where runway uncertainty compounds personal career risk. Mid-career designers at established enterprises report the lowest concern levels, though still elevated.
+Put the last three findings together and a pattern appears: designers feel aligned in the work they're doing, but most don't see enough room to grow from where they sit. Fit isn't the shortfall. Room is.
 
-Despite these headwinds, the long-term outlook remains cautiously optimistic. Demand for digital product design skills continues to grow across the region, particularly in fintech, health-tech, and AI-enabled products. Designers who diversify their skills into adjacent areas such as design operations, research, and service design report greater confidence in their employability.
+Whether that gap closes as the market steadies, or hardens into how designers plan their careers from here, is still open.

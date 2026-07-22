@@ -256,7 +256,7 @@ references:
     url: 'https://asiapacific.unwomen.org/sites/default/files/2023-06/asean-re-gender-roadmape6b5.pdf'
 ---
 
-The 2024 DPA survey captured a predominantly young design workforce. An overwhelming 93.9% of all respondents are aged 35 or under, confirming that Southeast Asia's design industry is driven by early-to-mid career professionals. This demographic concentration has significant implications for career development programmes, mentorship initiatives, and compensation structures tailored to emerging talent.
+93.9% of respondents are aged 35 or under. Design as a profession is still young in Southeast Asia, and its workforce reads that way too.
 
 ::chart{id="geo-distribution"}
 
@@ -270,8 +270,6 @@ The 2024 DPA survey captured a predominantly young design workforce. An overwhel
 
 ::chart{id="gender-by-age"}
 
-Gender distribution across the full sample shows 39.8% female and 59.3% male respondents, with a small percentage identifying as non-binary or preferring not to disclose. The gender ratio varies notably by market: Singapore stands out with 65.5% female respondents, significantly higher than the regional average. This may reflect both Singapore's progressive workplace policies and specific outreach to women in design during the survey period.
-
-Regional markets outside Singapore show a more traditional gender split, with male respondents forming the majority. Indonesia, given its dominant share of the sample, largely shapes the regional aggregate. These gender patterns highlight opportunities for targeted initiatives to support women in design across the region, particularly in markets where female representation in the profession remains lower.
+Indonesia's size in the sample sets the regional aggregate. Singapore's gender split sits apart from that picture and is worth reading on its own terms.
 
 One market from 2023 is largely missing here: the Philippines. Eight designers took part last year; this year too few responded to clear our ten-response reporting floor, so the Philippines doesn't appear in the charts above. Our reach there hasn't grown alongside the rest of the region. We thank UXPH, one of this report's community partners, for supporting this effort.

@@ -129,7 +129,7 @@ references:
     url: 'https://designsingapore.org/resources/5427/'
 ---
 
-Career momentum is positive across the region, with 70.3% of all respondents reporting some form of career advancement in the past year — whether a promotion, lateral move, expanded scope, or significant salary increase. Singapore designers are particularly mobile, with 69.7% reporting a salary increase in the past year, reflecting a competitive talent market.
+Singapore tells a different story to the rest of the region here. Its overall advancement rate runs below the regional average, yet when a Singapore designer does advance, pay follows more often: 69.7% received a raise alongside it, against 53.8% regionally. Progress and reward move together more tightly in Singapore than they do elsewhere in Southeast Asia.
 
 ::chart{id="career-growth"}
 
@@ -143,6 +143,4 @@ Career momentum is positive across the region, with 70.3% of all respondents rep
 
 ::chart{id="career-satisfaction"}
 
-The most common forms of advancement are salary increases (reported by the largest share), followed by role title changes and expanded responsibilities. Designers who switched employers saw the largest compensation jumps, averaging 15-25% increases, compared to 5-10% for those who advanced within the same organisation.
-
-Professional development is unevenly distributed. Singapore-based designers report higher access to formal training, conference budgets, and mentorship programmes. Regional designers rely more heavily on self-directed learning, online courses, and community-driven skill development. This gap in structured development opportunities may contribute to the slower career velocity observed in some regional markets.
+That gap between advancing and being paid for it is not evenly spread. Designers report far easier access to expanded scope than to the formal recognition that would normally follow it: a new title, a corresponding raise.

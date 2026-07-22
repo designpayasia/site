@@ -753,9 +753,3 @@ The comparison only holds within a single market and a single currency, so this 
 ::chart{id="employment-type-comp"}
 
 Contractor and freelancer cohorts in Malaysia, Thailand, Vietnam, Japan, and the Philippines fell below the 10-respondent disclosure threshold and are not broken out here.
-
-When adjusted for purchasing power parity, Singapore predictably leads, but the gap narrows considerably. Indonesian designers, despite lower nominal salaries, benefit from a rapidly growing tech ecosystem that has driven year-on-year increases. Regional designers in markets like Vietnam and Thailand report the fastest relative growth in compensation, albeit from a lower base.
-
-The survey also reveals significant compensation variation within markets based on company type. Designers at multinational corporations and well-funded startups consistently out-earn peers at local agencies and small businesses. Experience level remains the strongest predictor of compensation, with senior designers earning 2-3x the median of junior practitioners across all markets.
-
-Compensation transparency remains low: fewer than 30% of respondents report that their organisations openly share salary bands or pay ranges. This opacity is a key driver of pay inequity and a recurring theme in qualitative feedback from survey participants.

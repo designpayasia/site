@@ -52,8 +52,8 @@ charts:
           anchor: end
   - id: sg-2024-experience-premium
     title: Singapore total compensation by years of design experience, 2024
-    caption: Reported total compensation distribution (25th percentile, median, 75th percentile, and full range) by years of design experience among Singapore survey respondents paid in SGD, 2024. Adjacent experience bands below the n=10 publication threshold are merged. The 16+ band has only n=5 on its own, below that threshold, so it is combined with the adjacent 11-15 band (n=19), which clears the threshold comfortably.
-    summary: "Among Singapore survey respondents paid in SGD in 2024: 0-2 years (n=34), median S$60,000, 25th to 75th percentile S$49,700 to S$75,585; 3-5 years (n=64), median S$72,000, S$57,600 to S$94,100; 6-10 years (n=49), median S$105,600, S$74,100 to S$150,000; 11-15 to 16+ years combined (n=24), median S$137,500, S$94,800 to S$173,550. Total compensation rises steadily with experience across every published band."
+    caption: Reported total compensation distribution (25th percentile, median, 75th percentile, and full range) by years of design experience among Singapore survey respondents paid in SGD, 2024. Adjacent experience bands below the n=10 publication threshold are merged. The 16+ band has only n=5 on its own, below that threshold, so it is combined with the adjacent 11–15 band (n=19), which clears the threshold comfortably.
+    summary: "Among Singapore survey respondents paid in SGD in 2024: 0–2 years (n=34), median S$60,000, 25th to 75th percentile S$49,700 to S$75,585; 3–5 years (n=64), median S$72,000, S$57,600 to S$94,100; 6–10 years (n=49), median S$105,600, S$74,100 to S$150,000; 11–15 to 16+ years combined (n=24), median S$137,500, S$94,800 to S$173,550. Total compensation rises steadily with experience across every published band."
     evidenceIds:
       - evidence:2024-sg-experience-premium
     sourceLabel: '2024 DPA Report'
@@ -197,7 +197,7 @@ This section looks in detail at Singapore's 2024 survey data: how the gender pay
 
 ## Why the aggregate gap doesn't match the per-level story
 
-That 17.7% aggregate gap is a composition effect, not a per-level pay gap. Keep that distinction in mind before you read the chart below. Women in the Singapore sample are concentrated in earlier-career tiers: 60.2% of women sit at Junior or Mid-level IC, against 44.8% of men. Men are almost twice as likely to sit at Lead and above: 27.6% of men, against 14.2% of women. Pool those two different seniority mixes into one median each, and the more senior, male-skewed group posts a higher overall number, even though, level for level, women's reported medians are at or above men's everywhere we can publish a comparison.
+That 17.7% aggregate gap is a composition effect. It is not a per-level pay gap, and keeping that distinction in mind matters before you read the chart below. Women in the Singapore sample are concentrated in earlier-career tiers: 60.2% of women sit at Junior or Mid-level IC, against 44.8% of men. Men are almost twice as likely to sit at Lead and above: 27.6% of men, against 14.2% of women. Pool those two different seniority mixes into one median each, and the more senior, male-skewed group posts a higher overall number, even though, level for level, women's reported medians are at or above men's everywhere we can publish a comparison.
 
 Hold onto that before looking at the chart: at Junior IC, Mid-level IC, and Senior IC, women's median sits at or above men's. That's the mechanism behind the 17.7% headline, not a contradiction of it. The three levels below are the ones where both gender cohorts clear the minimum safe cohort of 10.
 
@@ -209,11 +209,11 @@ At Junior IC, women's reported median was 3.1% higher than men's (Man S$58,200, 
 
 ## How 2024 compares with 2023
 
-Design Pay Asia's [2023 Singapore gender pay gap analysis](/reports/2023/analysis-gender) reported a 42% gap that year (Man S$123,000 versus Woman S$71,300, n=223: 83 men, 138 women), computed the same way: unadjusted median total compensation for Man and Woman respondents based in Singapore and paid in SGD, with no adjustment for role or seniority. The 2024 figure of 17.7% is smaller, but the two years aren't a like-for-like read on progress on their own: sample size, seniority mix, and which respondents opted in all changed between survey cycles. Composition, not per-level pay, has driven most of the headline number in both years.
+Design Pay Asia's [2023 Singapore gender pay gap analysis](/reports/2023/analysis-gender) reported a 42% gap that year (Man S$123,000 versus Woman S$71,300, n=223: 83 men, 138 women), computed the same way: unadjusted median total compensation for Man and Woman respondents based in Singapore and paid in SGD, with no adjustment for role or seniority. The 2024 figure of 17.7% is smaller, but the two years aren't a like-for-like read on progress on their own: sample size, seniority mix, and which respondents opted in all changed between survey cycles. Composition has driven most of the headline number in both years; per-level pay has not.
 
 ## Compensation by years of experience
 
-Total compensation rises steadily with years of design experience among Singapore respondents paid in SGD. Median total compensation was S$60,000 at 0-2 years (n=34), S$72,000 at 3-5 years (n=64), and S$105,600 at 6-10 years (n=49). The 16+ band alone has only n=5, below the n=10 threshold, so we merge it into the adjacent 11-15 band (n=19), which clears the threshold on its own, and publish a combined 11-15-to-16+ figure at a median of S$137,500 (n=24).
+Total compensation rises steadily with years of design experience among Singapore respondents paid in SGD. Median total compensation was S$60,000 at 0–2 years (n=34), S$72,000 at 3–5 years (n=64), and S$105,600 at 6–10 years (n=49). The 16+ band alone has only n=5, below the n=10 threshold, so we merge it into the adjacent 11–15 band (n=19), which clears the threshold on its own, and publish a combined 11–15-to-16+ figure at a median of S$137,500 (n=24).
 
 ::chart{id="sg-2024-experience-premium"}
 
