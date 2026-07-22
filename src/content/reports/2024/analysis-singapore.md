@@ -199,7 +199,7 @@ This section looks in detail at Singapore's 2024 survey data: how the gender pay
 
 That 17.7% aggregate gap is a composition effect, not a per-level pay gap. Keep that distinction in mind before you read the chart below. Women in the Singapore sample are concentrated in earlier-career tiers: 60.2% of women sit at Junior or Mid-level IC, against 44.8% of men. Men are almost twice as likely to sit at Lead and above: 27.6% of men, against 14.2% of women. Pool those two different seniority mixes into one median each, and the more senior, male-skewed group posts a higher overall number, even though, level for level, women's reported medians are at or above men's everywhere we can publish a comparison.
 
-Hold onto that before looking at the chart: at Junior IC, Mid-level IC, and Senior IC, women's median sits at or above men's. That's the mechanism behind the 17.7% headline, not a contradiction of it. Design Pay Asia's [data safety rules](/docs/data-safety) explain why we can't publish every level individually, but the three levels below are the ones where both gender cohorts clear the minimum safe cohort of 10.
+Hold onto that before looking at the chart: at Junior IC, Mid-level IC, and Senior IC, women's median sits at or above men's. That's the mechanism behind the 17.7% headline, not a contradiction of it. The three levels below are the ones where both gender cohorts clear the minimum safe cohort of 10.
 
 ## Pay by seniority level
 
@@ -219,7 +219,7 @@ Total compensation rises steadily with years of design experience among Singapor
 
 ## Compensation by company type
 
-Median total compensation by company type ranged from S$59,900 at small/medium enterprises (n=30) to S$126,000 at government employers (n=13), with large enterprise/MNC (n=57, S$99,560), start-up (n=37, S$78,800), and agency/consulting (n=29, S$61,600) in between. Non-profit, academia, bank, and F&B respondents are folded into a merged "Other" bucket, and that merged bucket still falls below the n=10 threshold (n=5), so it's omitted entirely rather than shown as an unreliable bar. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
+Median total compensation by company type ranged from S$59,900 at small/medium enterprises (n=30) to S$126,000 at government employers (n=13), with large enterprise/MNC (n=57, S$99,560), start-up (n=37, S$78,800), and agency/consulting (n=29, S$61,600) in between. Non-profit, academia, bank, and F&B respondents are folded into a merged "Other" bucket, and that merged bucket still falls below the n=10 threshold (n=5), so it's omitted entirely rather than shown as an unreliable bar.
 
 ::chart{id="sg-2024-company-type-pay"}
 

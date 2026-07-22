@@ -268,7 +268,7 @@ Reported median total compensation by company type:
 - Agency / Consulting: S$63,548
 - Small-medium enterprise: S$58,300
 
-Company types with fewer than 10 respondents are omitted. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
+Company types with fewer than 10 respondents are omitted.
 
 The figures describe the people who answered the survey. Respondent mix varies across company types, and the comparison is unadjusted.
 

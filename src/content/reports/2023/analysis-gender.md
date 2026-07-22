@@ -165,7 +165,7 @@ keyFindings:
 
 ## Reported medians by gender
 
-Man respondents recorded median total compensation of S$123,000. Woman respondents recorded S$71,300, a 42% gap between the two published cohorts' raw medians. Other gender responses are omitted because each cohort falls below the publication threshold. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
+Man respondents recorded median total compensation of S$123,000. Woman respondents recorded S$71,300, a 42% gap between the two published cohorts' raw medians. Other gender responses are omitted because each cohort falls below the publication threshold.
 
 This is a cross-sectional, unadjusted comparison of two respondent cohorts, not a population-wide estimate or a matched-role analysis.
 
@@ -185,7 +185,7 @@ Comparing medians within each seniority level, restricted to levels where both g
 
 Of the two levels with a gap above 20%, Senior IC has the larger combined cohort (n=52, against n=23 at People Manager), so its 21.1% gap is the more reliable reading of the two.
 
-Lead/Staff/Principal IC and Director levels aren't shown here. The Lead/Staff woman cohort (n=7) falls short of the publication threshold, and there's too little data at the Director level to say anything reliable about it. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
+Lead/Staff/Principal IC and Director levels aren't shown here. The Lead/Staff woman cohort (n=7) falls short of the publication threshold, and there's too little data at the Director level to say anything reliable about it.
 
 ::chart{id="sg-gender-pay-gap-by-level"}
 
