@@ -240,7 +240,7 @@ The published seniority cohorts have different reported medians:
 
 The full reported range widens at higher levels. Junior IC responses span S$12,000 to S$157,000, while Senior IC responses span S$44,200 to S$339,927, the highest reported figure among the published cohorts.
 
-These are cross-sectional groups with different roles and respondent profiles, not an individual salary path. Director and Vice President responses are omitted because those cohorts fall below the publication threshold. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
+These are cross-sectional groups with different roles and respondent profiles, not an individual salary path. Director and Vice President responses are omitted because those cohorts fall below the publication threshold.
 
 ::chart{id="sg-compensation-seniority"}
 

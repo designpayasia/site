@@ -59,6 +59,21 @@ const evidenceMap = buildEvidenceMap(evidenceEntries);
 const reportPath = report.data.canonicalPath;
 const sectionCharts = section.charts;
 
+// Consolidated suppression note (site-owner decision): individual charts
+// render fully clean — no inline suppression text — and instead this page
+// collects every distinct, non-empty suppressionNote across the section's
+// charts (top-level, plus each variant/segment) into one deduplicated list,
+// rendered once near the bottom of the page, immediately before Commentary.
+const sectionSuppressionNotes = [
+  ...new Set(
+    sectionCharts.flatMap((chart) => [
+      chart.suppressionNote,
+      ...(chart.variants ?? []).map((variant) => variant.suppressionNote),
+      ...(chart.segments ?? []).map((chartSegment) => chartSegment.suppressionNote),
+    ]).filter((note): note is string => Boolean(note)),
+  ),
+];
+
 for (const chart of sectionCharts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
 
@@ -252,6 +267,27 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         )}
       </div>
     </section>
+
+    {/* Consolidated suppression note — one per distinct string, once per
+        page, sitting immediately before the editorial block (whether or not
+        that block itself renders). Rendered in its own standalone container,
+        independent of hasEditorialBlock, so a page with only a suppression
+        note and no other editorial content gets just the note — not the
+        full-bleed editorial band or the evidence-disclosure collapsible.
+        Replaces the removed per-chart ChartBlock suppression footnote (see
+        ChartBlock.astro). */}
+    {sectionSuppressionNotes.length > 0 && (
+      <div class="section-suppression-note-standalone">
+        <div class="section-suppression-note">
+          {sectionSuppressionNotes.map((note) => (
+            <p>{note}</p>
+          ))}
+          <p>
+            <a href="/docs/data-safety">Read our data safety rules</a>
+          </p>
+        </div>
+      </div>
+    )}
 
     {/* ── Unified editorial block ──────────────────────────────────── */}
 
@@ -473,7 +509,8 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-editorial__inner,
   .section-questions__inner,
   .section-sources__inner,
-  .section-nav__inner {
+  .section-nav__inner,
+  .section-suppression-note-standalone {
     width: min(100% - var(--space-8), var(--zone-editorial));
     margin-inline: auto;
   }
@@ -651,6 +688,36 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     display: grid;
     gap: var(--space-10);
     padding-block: var(--space-16) var(--space-24);
+  }
+
+  /* Standalone wrapper: lightweight vertical spacing only — no full-bleed
+     band, no muted background. Renders regardless of hasEditorialBlock, so
+     it must supply its own breathing room above/below when the editorial
+     block itself does not render. */
+  .section-suppression-note-standalone {
+    padding-block: var(--space-8);
+  }
+
+  /* Consolidated suppression note — one per page, footnote register, sits
+     above Commentary with its own top border for separation from the
+     charts above. Replaces the removed per-chart ChartBlock treatment
+     (moved here so it appears once per page, not once per chart). */
+  .section-suppression-note {
+    display: grid;
+    gap: var(--space-2);
+    max-width: var(--zone-prose);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .section-suppression-note p {
+    margin: 0;
+    font-size: var(--type-footnote);
+    color: var(--color-ink-muted);
+  }
+
+  .section-suppression-note a {
+    color: var(--color-action);
   }
 
   /* Commentary lead — editorial prose, no quote styling */

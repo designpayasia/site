@@ -413,7 +413,7 @@ Singapore's median total compensation is S$84,000 (N=223), with strong represent
 - Lead / Staff IC: S$103,200
 - People Manager: S$139,100
 
-Director and VP cohorts fall below the minimum safe disclosure threshold of 10 respondents and are not reported individually. See our [data safety rules](/docs/data-safety) for how we handle small cohorts. Pay varies widely within each level too: Senior IC alone ranges from S$44,200 to S$339,927, the widest spread in the dataset.
+Director and VP cohorts fall below the minimum safe disclosure threshold of 10 respondents and are not reported individually. Pay varies widely within each level too: Senior IC alone ranges from S$44,200 to S$339,927, the widest spread in the dataset.
 
 ::chart{id="chart-compensation-by-level"}
 
@@ -425,11 +425,11 @@ Malaysia's median annual total compensation is RM83,000, based on 46 respondents
 - Mid-level IC: RM82,000 (N=13)
 - Senior IC: RM94,325 (N=10)
 
-Lead / Staff / Principal IC (N=5), People Manager (N=3), and Director (N=2) fall below the minimum safe disclosure threshold and are not reported individually. See our [data safety rules](/docs/data-safety) for how we handle small cohorts. Ranges widen quickly past Junior IC: Mid-level IC alone spans RM54,000 – RM233,400.
+Lead / Staff / Principal IC (N=5), People Manager (N=3), and Director (N=2) fall below the minimum safe disclosure threshold and are not reported individually. Ranges widen quickly past Junior IC: Mid-level IC alone spans RM54,000 – RM233,400.
 
 ## Indonesia
 
-Indonesia's median annual total compensation is Rp84,000,000, based on 27 respondents. Only the Junior IC cohort (N=15, median Rp62,000,000) meets the minimum safe disclosure threshold of 10 respondents. See our [data safety rules](/docs/data-safety) for how we handle small cohorts. The published report gives medium confidence for Junior IC salary trends only, noting that more data points are needed before other levels can be reported with confidence.
+Indonesia's median annual total compensation is Rp84,000,000, based on 27 respondents. Only the Junior IC cohort (N=15, median Rp62,000,000) meets the minimum safe disclosure threshold of 10 respondents. The published report gives medium confidence for Junior IC salary trends only, noting that more data points are needed before other levels can be reported with confidence.
 
 ::chart{id="chart-compensation-indonesia"}
 
