@@ -152,8 +152,6 @@ charts:
           a: 24.4
           b: 25.2
 keyFindings:
-  - Man respondents reported median total compensation of S$123,000.
-  - Woman respondents reported median total compensation of S$71,300.
   - Other gender cohorts are omitted because they fall below the minimum safe
     cohort size of 10.
   - Per-level gaps range from 11% to 21% against women at Mid-level IC, Senior
@@ -161,6 +159,21 @@ keyFindings:
     11.85% less.
   - Men negotiated current compensation more often than women (61% versus
     51%) and reported more formal levelling progress (62% versus 52%).
+metrics:
+  - value: "123,000"
+    unit: SGD
+    label: median total compensation, men
+    color: workhorse
+    evidenceId: evidence:2023-sg-compensation-gender
+    sampleSize: 83
+    publishMode: published
+  - value: "71,300"
+    unit: SGD
+    label: median total compensation, women
+    color: signal
+    evidenceId: evidence:2023-sg-compensation-gender
+    sampleSize: 138
+    publishMode: published
 ---
 
 ## Reported medians by gender

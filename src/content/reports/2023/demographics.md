@@ -4,13 +4,6 @@ title: Demographics
 summary: A young, diverse workforce concentrated in Singapore, with near-equal
   gender representation and a strong urban skew.
 order: 20
-keyFindings:
-  - Singapore accounts for 69.4% of respondents, followed by Malaysia (14.2%)
-    and Indonesia (8.9%), with nine further countries represented (N=323).
-  - The 2023 cohort splits nearly evenly by gender, women at 54.5% and men at
-    43.9%, a balance that shifts in later surveys.
-  - 43% of respondents are 25–30 years old, the largest single age band, with
-    31–35 second at 25.4% (N=323).
 metrics:
   - value: "69.4"
     unit: "%"

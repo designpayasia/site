@@ -10,8 +10,14 @@ keyFindings:
   - Banking / Capital Markets and Consumer Products are the two largest
     industry groups, each accounting for roughly one in five respondents
     (N=224, Singapore).
-  - About three in five respondents work at their company's headquarters,
-    a share almost identical in Singapore specifically.
+metrics:
+  - value: "62.2"
+    unit: "%"
+    label: work at their company's headquarters
+    color: workhorse
+    evidenceId: evidence:2023-company-landscape
+    sampleSize: 323
+    publishMode: published
 charts:
   - id: chart-company-type
     type: bar
