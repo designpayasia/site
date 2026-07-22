@@ -13,4 +13,4 @@ Several biases should be noted when interpreting results. The sample skews towar
 
 Some cohorts in this report are too small to publish without identifying individuals, so we hold those figures back. See [data safety rules](/docs/data-safety) for the site's suppression and disclosure thresholds.
 
-Despite these limitations, the 2024 DPA dataset represents the most comprehensive view of design compensation and careers in Southeast Asia available to date. Readers are encouraged to consider market-specific breakdowns alongside aggregate findings and to interpret results within the context of their local market conditions.
+None of this cancels the findings, but it does mean market-specific breakdowns should carry more weight than the regional aggregate whenever the two disagree.

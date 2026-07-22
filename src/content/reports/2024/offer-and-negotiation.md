@@ -56,7 +56,7 @@ charts:
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Distribution of negotiation outcomes."
-    summary: "79.5% achieve some increase. Most common: 5-10% (25.6%). Above 20%: 19.8%. No increase: 20.5%."
+    summary: "79.5% achieve some increase. Most common: 5–10% (25.6%). Above 20%: 19.8%. No increase: 20.5%."
     evidenceIds: ["evidence:2024-negotiation"]
     columns:
     - 'Outcome'
@@ -195,7 +195,7 @@ references:
     url: 'https://oxfordre.com/economics/abstract/10.1093/acrefore/9780190625979.001.0001/acrefore-9780190625979-e-860'
 ---
 
-Just over half of designers, 52.5%, actively negotiate their compensation when receiving a job offer. This rate varies by gender, with male designers more likely to negotiate than female designers, though the gap has narrowed since previous survey years. Confidence plays a decisive role: 74.0% of respondents rate their negotiation confidence at 4 or above on a 7-point scale.
+Just over half of designers, 52.5%, actively negotiate their compensation when receiving a job offer, fewer than the share who say they feel ready to. That gap between confidence and action is the more interesting number here.
 
 ::chart{id="negotiation-landscape"}
 
@@ -213,6 +213,4 @@ Just over half of designers, 52.5%, actively negotiate their compensation when r
 
 ::chart{id="salary-decline-outcomes"}
 
-Among those who negotiate, outcomes are meaningful: 25.6% secure a 5-10% increase, 20.0% achieve an 11-20% increase, and another 19.8% report increases exceeding 20%. However, 15.0% see minimal gains under 5%, and 20.5% report no increase at all despite negotiating. These figures underscore both the value of negotiation and its inconsistent returns.
-
-Salary pressure is a growing concern: 52.2% of respondents report feeling pressure to accept compensation below their expectations, driven by market conditions, employer leverage, and the competitive job landscape. This pressure is most acute among junior designers and those in markets with fewer alternative opportunities.
+Asking is not the same as winning. One in five designers who negotiate still walk away with nothing to show for it.

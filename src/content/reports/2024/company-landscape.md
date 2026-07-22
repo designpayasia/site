@@ -182,7 +182,7 @@ references:
     url: 'https://www.connectone.com.sg/insights/fractional-leadership-why-is-it-slower-to-take-off-in-asia-and-how-to-tap-into-this-growth-hack'
 ---
 
-Enterprise organisations (500+ employees) employ 32.8% of Singapore-based designers, compared to lower enterprise penetration in regional markets. Startups and scale-ups dominate in Indonesia and Vietnam, where the tech ecosystem is younger and more venture-funded. Mid-size companies (50-499) are the most common employers across all markets combined.
+Enterprise organisations employ 32.8% of Singapore-based designers, against 20.8% regionally. Singapore's design workforce sits inside a more established employer base than the rest of the region does.
 
 ::chart{id="company-types"}
 
@@ -196,6 +196,6 @@ Enterprise organisations (500+ employees) employ 32.8% of Singapore-based design
 
 ::chart{id="work-model"}
 
-Work model preferences show a stark Singapore-regional divide. Hybrid work is the norm for 70.1% of Singapore designers, versus only 36.0% in regional markets. Remote work accounts for 14.4% in Singapore and 24.9% regionally. Fully onsite work remains common regionally at 39.0%, compared to just 15.5% in Singapore. These patterns reflect differences in internet infrastructure, office culture norms, and employer flexibility across Southeast Asia.
+In Singapore, hybrid is the default. Elsewhere in the region, onsite work still leads by a wide margin, even as employers experiment with flexibility as a hiring lever.
 
-The technology sector is the largest employer of designers at over 60%, followed by financial services, e-commerce, and digital agencies. Singapore shows greater diversification into fintech and enterprise SaaS, while Indonesia and Vietnam have stronger concentrations in consumer technology and super-app ecosystems.
+Financial services is where Singapore diverges most sharply from the rest of the region: 26.9% of its designers work in banking, insurance, or financial services, against 14.8% regionally — nearly double, and consistent with the city's role as a financial hub.

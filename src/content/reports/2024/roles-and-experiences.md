@@ -297,7 +297,7 @@ references:
     url: 'https://uxdesign.cc/designer-engagement-report-c44a701d2ef5'
 ---
 
-Full-time employment dominates the respondent pool at 79.3%, with the remainder composed of freelancers, contractors, and those in part-time or transitional roles. Product design and UX design together account for 41.7% of all design functions represented, underscoring the maturation of digital product design as a distinct profession in Southeast Asia.
+Full-time employment dominates the respondent pool at 79.3%, with the remainder made up of freelancers, contractors, and those in part-time or transitional roles. Product design and UX design together account for 41.7% of all design functions represented.
 
 ::chart{id="job-titles-wordcloud"}
 
@@ -325,6 +325,6 @@ Full-time employment dominates the respondent pool at 79.3%, with the remainder 
 
 ::chart{id="overseas-experience"}
 
-Mid-level individual contributors form the largest career cohort at 42.6%, followed by junior designers at 21.0% and senior practitioners at 21.0%. Leadership roles, including heads of design and directors, represent 5.9% of respondents. Singapore shows a higher concentration of senior and leadership roles at approximately 11.5% senior-plus, reflecting its position as a regional hub for more established design practices.
+Mid-level individual contributors form the largest career cohort at 42.6%, followed by junior designers at 21.0% and senior practitioners at 21.0%. Leadership roles, including heads of design and directors, represent 5.9% of respondents. Singapore shows a higher concentration of senior and leadership roles, 11.5% senior-plus, consistent with its larger share of established employers.
 
 Educational background in design is strong: 65.3% of respondents hold a formal design-related qualification, whether a degree, diploma, or certificate. This high proportion of formally trained designers speaks to the growing maturity of design education infrastructure across the region, though it also raises questions about accessibility for career-switchers and self-taught practitioners.

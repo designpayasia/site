@@ -516,6 +516,4 @@ Designers across Indonesia, Singapore, Malaysia, Vietnam, and Thailand see desig
 
 ::chart{id="design-advocacy-effort"}
 
-On user-centricity, agreement ranges from 42.9% in Singapore to 59.7% in Indonesia. Even at the high end, two in five designers don't think user needs shape how their organisation actually decides things. That gap is the old tension between user-centred design principles and business-driven priorities, still unresolved.
-
-Qualitative feedback points to a recurring frustration: designers feel valued for execution rather than strategic input, while organisations that involve them early report higher satisfaction and retention. One reading of this: the case for treating design as a strategic partner, rather than a service function, now rests on operations as much as craft.
+On user-centricity, agreement ranges from 42.9% in Singapore to 59.7% in Indonesia. Even at the high end, two in five designers don't think user needs shape how their organisation actually decides things. That gap is the tension between what user-centred design claims and what the organisation actually rewards.
