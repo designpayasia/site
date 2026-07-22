@@ -4,6 +4,13 @@ title: Compensation
 summary: Local currency dominates, median compensation varies across markets,
   and annual bonuses remain a significant part of total pay packages.
 order: 40
+keyFindings:
+  - 69.3% of respondents are paid in SGD, tracking Singapore's share of the
+    survey (N=323).
+  - 54.8% receive bonuses beyond base salary. Fewer than a third receive other
+    annual compensation, and fewer than one in six hold stock grants.
+  - Medical leave, paid time off, and health insurance are the most widely
+    held benefits; equipment or home-office budget access sits at 21.1%.
 charts:
   - id: chart-currency-drawn-in
     type: bars

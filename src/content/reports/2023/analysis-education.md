@@ -134,8 +134,8 @@ keyFindings:
     education reported 15.4% higher median pay than respondents with formal
     design education, despite slightly less design experience.
   - 90.2% of the no-formal-design-education cohort hold tertiary education in
-    another field, and 85% work as individual contributors. This reads as a
-    cohort of career switchers, not unqualified entrants.
+    another field, and 85% work as individual contributors, consistent with
+    career switchers rather than unqualified entrants.
   - Within the no-formal-design-education cohort, respondents not at their
     company's headquarters reported 91.1% more than respondents at
     headquarters.

@@ -5,6 +5,15 @@ summary: Product design dominates, individual contributors are the norm, and
   many designers are career switchers with more total work experience than
   design-specific experience.
 order: 30
+keyFindings:
+  - Product design is the dominant discipline at 67.5% of respondents.
+    Research, design leadership, graphic design, content design, and design
+    operations each account for 2–8% (N=323).
+  - Individual contributors make up 87% of respondents. Junior IC is the
+    largest single segment at 31.3% (N=323).
+  - Median total working experience is 6 years, two years ahead of median
+    design experience at 4 years, a gap consistent with career switchers
+    bringing broader professional experience into design roles (N=323).
 charts:
   - id: chart-job-title-distribution
     type: bar
