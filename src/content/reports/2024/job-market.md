@@ -3,6 +3,21 @@ report: '2024'
 title: 'Job market'
 summary: 'Layoff exposure, job security concerns, and market outlook.'
 order: 90
+metrics:
+  - value: '74.8'
+    unit: '%'
+    label: of designers report job security concerns
+    color: workhorse
+    evidenceId: evidence:2024-job-market
+    sampleSize: 1746
+    publishMode: published
+  - value: '77.3'
+    unit: '%'
+    label: say their role matches their skills
+    color: workhorse
+    evidenceId: evidence:2024-job-market
+    sampleSize: 1744
+    publishMode: published
 charts:
   - id: 'layoff-impact'
     title: Impacted by layoffs
@@ -87,9 +102,6 @@ charts:
           values: ['940', '53.7%']
 keyFindings:
   - 'Layoffs affected 22.9% of designers in the past year'
-  - 'High job security concerns: 74.8% expressing market uncertainty'
-  - 'Current roles well-aligned: 77.3% report match between job scope and expertise'
-  - 'Career advancement opportunities perceived as limited in current climate'
 commentary: |-
   Looking at the job market for designers across Southeast Asia, there is a notable gap between perception and reality.
   

@@ -3,6 +3,21 @@ report: '2024'
 title: 'Company landscape'
 summary: 'Organisation size, work models, and sector distribution.'
 order: 50
+metrics:
+  - value: '30.3'
+    unit: '%'
+    label: of respondents work at startups
+    color: workhorse
+    evidenceId: evidence:2024-company-profile
+    sampleSize: 1797
+    publishMode: published
+  - value: '81.9'
+    unit: '%'
+    label: of design teams have fewer than 10 people
+    color: workhorse
+    evidenceId: evidence:2024-company-profile
+    sampleSize: 1797
+    publishMode: published
 charts:
   - id: 'company-types'
     title: Company type distribution
@@ -130,8 +145,6 @@ charts:
       - label: 'Onsite (Regional)'
         values: ['706', '39.0%']
 keyFindings:
-  - 'Startup/tech sector leading the group (63.1% combined)'
-  - 'Predominantly lean teams (81.9% under 10 people, 22.6% solo designers)'
   - 'Emerging hybrid work patterns (36% hybrid, 24.9% fully remote)'
 commentary: |-
   How design teams are structured in companies suggests a landscape of lean, distributed teams.

@@ -3,6 +3,21 @@ report: '2024'
 title: 'Compensation'
 summary: 'Median annual compensation across five Southeast Asian markets.'
 order: 40
+metrics:
+  - value: '76.18'
+    unit: '%'
+    label: of pay is reported in Indonesian Rupiah
+    color: workhorse
+    evidenceId: evidence:2024-currency-compensation-structure
+    sampleSize: 1797
+    publishMode: published
+  - value: '94.55'
+    unit: '%'
+    label: of designers report pay on a monthly basis
+    color: workhorse
+    evidenceId: evidence:2024-currency-compensation-structure
+    sampleSize: 1797
+    publishMode: published
 charts:
   - id: 'currency-distribution'
     title: Currency distribution for pay
@@ -667,11 +682,7 @@ charts:
         value: 1.8
         tone: workhorse
 keyFindings:
-  - 'Regional currency dominance (96.9%) suggesting primarily local market focus'
-  - 'Wide compensation variances, particularly at leadership levels'
   - 'Notable compensation jumps between IC and management tracks'
-  - 'Compensation structures vary across markets: Indonesia widest ranges, Singapore more predictable, Malaysia distinct director-level'
-  - 'Consistent outliers across markets, particularly in mid to senior IC roles'
 commentary: |-
   When it comes to pay and benefits, design salaries vary widely across the region.
 

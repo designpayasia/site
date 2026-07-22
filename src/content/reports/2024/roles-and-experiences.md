@@ -3,6 +3,21 @@ report: '2024'
 title: 'Roles & experiences'
 summary: 'Employment types, design functions, and career levels of respondents.'
 order: 30
+metrics:
+  - value: '41.74'
+    unit: '%'
+    label: work in product/UX design
+    color: workhorse
+    evidenceId: evidence:2024-roles-experience
+    sampleSize: 1797
+    publishMode: published
+  - value: '42.6'
+    unit: '%'
+    label: are mid-level individual contributors
+    color: workhorse
+    evidenceId: evidence:2024-roles-experience
+    sampleSize: 1797
+    publishMode: published
 charts:
   - id: 'job-titles-wordcloud'
     title: Job titles word cloud
@@ -248,9 +263,6 @@ charts:
         - label: International experience
           values: ['255', '14.19%']
 keyFindings:
-  - 'Digital design roles dominate (61.8%), particularly product/UX design (41.7%)'
-  - 'High proportion of mid-level ICs (42.6%) with limited leadership representation (5.9%)'
-  - 'Strong formal design education (77.5%), often complemented with self-taught skills'
   - 'Primarily local roles, with limited international exposure (14.19%)'
 commentary: |-
   In understanding where design teams stand today, we find that for every design manager there are 16 individual designers. This might suggest we need more design leaders.
