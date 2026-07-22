@@ -272,7 +272,14 @@ The figures describe the people who answered the survey. Respondent mix varies a
 
 ## Industry
 
-Among industries with at least 10 respondents, Retail, Wholesale & Distribution recorded the highest reported median, ahead of Investment Management and Consumer Products. Banking & Capital Markets is the largest published cohort at 43 respondents, and its median sits below the top of this range. Government & Public Services, Transportation, Hospitality & Services, and Health Care round out the published ranking.
+Among industries with at least 10 respondents, the published ranking runs high to low:
+
+- Retail, Wholesale & Distribution
+- Investment Management
+- Consumer Products
+- Banking & Capital Markets (the largest cohort, n=43)
+- Transportation, Hospitality & Services
+- Health Care
 
 The figures describe the people who answered the survey. Respondent mix varies across industries, and the comparison is unadjusted.
 

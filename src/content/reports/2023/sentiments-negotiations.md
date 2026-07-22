@@ -409,9 +409,13 @@ But access to resources for staying informed on market rate drops to 3.86 out of
 
 ## Negotiation confidence
 
-Negotiation confidence averages 4.51 out of 7, with 52% agreeing they feel confident negotiating (ratings 5–7) against 29% who disagree (ratings 1–3). More people actually negotiate (57.1%, see above) than say they feel confident doing so, which suggests plenty go ahead despite the discomfort.
+Negotiation confidence averages 4.51 out of 7, with 52% agreeing they feel confident negotiating (ratings 5–7) against 29% who disagree (ratings 1–3).
 
 ::chart{id="chart-negotiation-confidence"}
+
+::pullquote{quote="More people negotiate than say they feel confident doing so."}
+
+Plenty negotiate anyway, discomfort and all.
 
 ## Compensated fairly for effort
 
