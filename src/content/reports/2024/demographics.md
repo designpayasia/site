@@ -3,6 +3,21 @@ report: '2024'
 title: 'Demographics'
 summary: 'Age and gender profile of 1,797 surveyed designers across Southeast Asia.'
 order: 20
+metrics:
+  - value: '79.0'
+    unit: '%'
+    label: of respondents are based in Indonesia
+    color: workhorse
+    evidenceId: evidence:2024-geographic-distribution
+    sampleSize: 1797
+    publishMode: published
+  - value: '57.0'
+    unit: '%'
+    label: of respondents are aged 25–30
+    color: workhorse
+    evidenceId: evidence:2024-demographics-age-gender
+    sampleSize: 1797
+    publishMode: published
 charts:
   - id: 'geo-distribution'
     title: 'Geographic distribution of respondents'
@@ -202,8 +217,6 @@ charts:
         - label: 36–50
           values: ['108', '31.5%']
 keyFindings:
-  - 'Young workforce dominance (80% under 35) with strong urban concentration'
-  - 'Clear geographic hub pattern centered on Indonesia, Singapore, Malaysia'
   - 'Notable gender distribution showing more balance in early career stages'
 commentary: |-
   Most designers work in major tech cities, but we might be missing voices from places like the Philippines and Thailand, perhaps due to language barriers and survey reach.

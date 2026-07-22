@@ -3,6 +3,21 @@ report: '2024'
 title: 'Offer & negotiation'
 summary: 'Negotiation behaviour, confidence, and salary pressure among designers.'
 order: 60
+metrics:
+  - value: '52.5'
+    unit: '%'
+    label: of designers negotiate their compensation
+    color: workhorse
+    evidenceId: evidence:2024-negotiation
+    sampleSize: 1797
+    publishMode: published
+  - value: '79.5'
+    unit: '%'
+    label: of those who negotiate achieve some increase
+    color: workhorse
+    evidenceId: evidence:2024-negotiation
+    sampleSize: 938
+    publishMode: published
 charts:
   - id: 'negotiation-landscape'
     title: Negotiation for current total compensation
@@ -143,9 +158,6 @@ charts:
         - label: Always successful
           values: ['91', '8.8%']
 keyFindings:
-  - '52.5% of designers actively negotiate compensation'
-  - 'Senior leaders 2.1x more likely to negotiate than junior designers'
-  - 'Successful negotiations typically result in 5-10% increases'
   - 'Salary history disclosure remains a persistent challenge'
 commentary: |-
   When it comes to understanding job offers and pay conversations, the data reveals a negotiation gap.

@@ -3,6 +3,21 @@ report: '2024'
 title: 'Career progression'
 summary: 'Advancement rates, salary increases, and professional development.'
 order: 70
+metrics:
+  - value: '70.3'
+    unit: '%'
+    label: reported career advancement in the past year
+    color: workhorse
+    evidenceId: evidence:2024-career-progression
+    sampleSize: 1778
+    publishMode: published
+  - value: '46.2'
+    unit: '%'
+    label: of designers who advanced saw no pay increase
+    color: workhorse
+    evidenceId: evidence:2024-no-pay-increase
+    sampleSize: 1234
+    publishMode: published
 charts:
   - id: 'career-growth'
     title: Career progress compared to last year
@@ -80,9 +95,6 @@ charts:
         - label: Mid-range (4–5)
           values: ['847', '48.5%']
 keyFindings:
-  - '70.3% of designers reported career advancement in the past year'
-  - 'Soft skills like increased project influence (64.3%) lead growth'
-  - '46.2% saw no pay increase despite progress'
   - 'Mixed satisfaction with progression: 42.1% highly satisfied'
 commentary: |-
   Looking at how designers are growing their careers, the picture is mixed.

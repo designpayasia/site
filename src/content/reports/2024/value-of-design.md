@@ -3,6 +3,21 @@ report: '2024'
 title: 'Value of design'
 summary: 'Perceptions of design'
 order: 80
+metrics:
+  - value: '73.7'
+    unit: '%'
+    label: of Indonesian designers feel their role is valued
+    color: workhorse
+    evidenceId: evidence:2024-value-of-design
+    sampleSize: 1388
+    publishMode: published
+  - value: '59.7'
+    unit: '%'
+    label: of Indonesian designers say their org prioritises user needs
+    color: workhorse
+    evidenceId: evidence:2024-value-of-design
+    sampleSize: 1385
+    publishMode: published
 charts:
   - id: 'role-value-perception'
     title: I feel that my role is valued in my organisation
@@ -452,9 +467,6 @@ charts:
             - label: Lower advocacy effort (ratings 1–4)
               values: ['10', '23.3%']
 keyFindings:
-  - "73.7% of Indonesian designers feel their role is valued in their organisation, the highest share across the five markets; Singapore is lowest at 53.3%"
-  - 'Agreement that an organisation prioritises user needs ranges from 42.9% in Singapore to 59.7% in Indonesia'
-  - 'Extra effort spent on design advocacy with cross-functional teams runs from 63.3% in Vietnam to 76.9% in Malaysia'
   - 'Feeling valued outpaces feeling fairly paid in four of the five markets; Thailand is the exception, where fair-pay sentiment (65.1%) runs ahead of feeling valued (58.1%)'
 commentary: |-
   On the topic of showing the value of design to regional businesses, the gap between contribution and recognition holds up, though it narrows and widens differently market by market.
