@@ -1,0 +1,116 @@
+---
+import MetricShelf from './MetricShelf.astro';
+import { getVisibleMetrics } from '../lib/evidence';
+import type { ReportSectionView } from '../lib/report-content';
+
+interface Props {
+  section: ReportSectionView;
+  reportPath: string;
+}
+
+const { section, reportPath } = Astro.props as Props;
+
+const visibleMetrics = section.metrics ? getVisibleMetrics(section.metrics) : [];
+const keyFindings = section.keyFindings?.filter(Boolean) ?? [];
+---
+
+<article class="report-section-row" id={section.id} data-spy>
+  <h4 class="report-section-row__title t-h2">{section.title}</h4>
+
+  {section.hubCommentary && (
+    <div class="report-section-row__intro">
+      <div class="report-section-row__commentary-block">
+        <p class="report-section-row__commentary">{section.hubCommentary}</p>
+      </div>
+    </div>
+  )}
+
+  <div class="report-section-row__content">
+    {visibleMetrics.length === 0 && keyFindings.length === 0 && (
+      <p class="report-section__summary prose">{section.summary}</p>
+    )}
+
+    {visibleMetrics.length > 0 && (
+      <>
+        <p class="report-section__summary prose">{section.summary}</p>
+        <MetricShelf metrics={visibleMetrics} />
+      </>
+    )}
+
+    {keyFindings.length > 0 && (
+      <ul class="report-section__findings prose">
+        {keyFindings.map((finding) => <li>{finding}</li>)}
+      </ul>
+    )}
+
+    <a href={`${reportPath}/${section.id}`} class="report-section__link">
+      Read section
+    </a>
+  </div>
+</article>
+
+<style>
+  .report-section-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    padding-block: var(--space-10);
+  }
+
+  .report-section-row__intro,
+  .report-section-row__content {
+    display: grid;
+    gap: var(--space-5);
+    align-content: start;
+  }
+
+  .report-section-row + .report-section-row {
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .report-section-row__title {
+    margin-bottom: var(--space-2);
+    color: var(--color-workhorse);
+  }
+
+  .report-section__summary {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .report-section__findings {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .report-section-row__commentary-block {
+    padding-left: var(--space-6);
+    border-left: 3px solid var(--color-signal-text);
+  }
+
+  .report-section-row__commentary {
+    margin: 0;
+    max-width: var(--zone-prose);
+    color: var(--color-ink-subtle);
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-editorial);
+  }
+
+  .report-section-row__commentary:last-child {
+    margin-bottom: 0;
+  }
+
+  .report-section__link {
+    display: inline-flex;
+    margin-top: var(--space-4);
+    color: var(--color-action);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .report-section__link:hover {
+    text-decoration: underline;
+  }
+</style>
