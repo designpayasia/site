@@ -85,6 +85,7 @@ All visual design rules live in **DESIGN.md** (repo root). Read it before any st
 - Report `canonicalPath` regex: `^/reports/[a-z0-9-]+(/[a-z0-9-]+)?$` — allows hub or hub+section.
 - Section `id`: `^[a-z0-9-]+$`. Chart `id`: `^[a-z0-9-]+$`.
 - Team member `photo`: `^/team/\d{4}/.+\.jpg$`.
+- **YAML frontmatter gotcha**: a bare `: ` (colon-space) inside a multi-line unquoted plain scalar breaks js-yaml with "bad indentation of a mapping entry" or "implicit mapping pair" — it reads as a new key. Rephrase to avoid the colon, or quote the whole string.
 
 ### Evidence entry schema
 
@@ -133,6 +134,7 @@ Operational rules:
 - British English. Oxford comma. Sentence-case headings — never title case.
 - Run the humanizer skill on all prose before landing (Gate 3).
 - DPA voice: direct, cited. Trust = data voice unimpeachable. Authority = editorial voice brave.
+- Numeric ranges use an en dash (`25–30`, `2–8%`), never a hyphen (`25-30`).
 
 ### Succession principle
 
