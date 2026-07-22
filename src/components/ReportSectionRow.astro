@@ -33,7 +33,9 @@ const keyFindings = section.keyFindings?.filter(Boolean) ?? [];
     {visibleMetrics.length > 0 && (
       <>
         <p class="report-section__summary prose">{section.summary}</p>
-        <MetricShelf metrics={visibleMetrics} />
+        <div class="report-section-row__metrics">
+          <MetricShelf metrics={visibleMetrics} />
+        </div>
       </>
     )}
 
@@ -62,6 +64,10 @@ const keyFindings = section.keyFindings?.filter(Boolean) ?? [];
     display: grid;
     gap: var(--space-5);
     align-content: start;
+  }
+
+  .report-section-row__metrics {
+    padding-block: var(--space-4);
   }
 
   .report-section-row + .report-section-row {
