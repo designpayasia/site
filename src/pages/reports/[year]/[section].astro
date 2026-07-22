@@ -59,6 +59,21 @@ const evidenceMap = buildEvidenceMap(evidenceEntries);
 const reportPath = report.data.canonicalPath;
 const sectionCharts = section.charts;
 
+// Consolidated suppression note (site-owner decision): individual charts
+// render fully clean — no inline suppression text — and instead this page
+// collects every distinct, non-empty suppressionNote across the section's
+// charts (top-level, plus each variant/segment) into one deduplicated list,
+// rendered once near the bottom of the page, immediately before Commentary.
+const sectionSuppressionNotes = [
+  ...new Set(
+    sectionCharts.flatMap((chart) => [
+      chart.suppressionNote,
+      ...(chart.variants ?? []).map((variant) => variant.suppressionNote),
+      ...(chart.segments ?? []).map((chartSegment) => chartSegment.suppressionNote),
+    ]).filter((note): note is string => Boolean(note)),
+  ),
+];
+
 for (const chart of sectionCharts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
 
@@ -145,7 +160,7 @@ const isAudienceGuidance = whatThisMeansNotes.length > 0 &&
 
 const hasAudienceGuidance = individualNotes.length > 0 || leaderNotes.length > 0;
 const hasEditorialBlock =
-  commentaryRaw.length > 0 || hasAudienceGuidance || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0;
+  commentaryRaw.length > 0 || hasAudienceGuidance || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0 || sectionSuppressionNotes.length > 0;
 
 /* ── Navigation ───────────────────────────────────────────────────── */
 
@@ -258,6 +273,20 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     {hasEditorialBlock && (
       <section class="section-editorial" aria-label="Commentary and guidance">
         <div class="section-editorial__inner">
+
+          {/* Consolidated suppression note — one per distinct string, once
+              per page, sitting just above Commentary. Replaces the removed
+              per-chart ChartBlock suppression footnote (see ChartBlock.astro). */}
+          {sectionSuppressionNotes.length > 0 && (
+            <div class="section-suppression-note">
+              {sectionSuppressionNotes.map((note) => (
+                <p>
+                  {note}{' '}
+                  <a href="/docs/data-safety">Read our data safety rules</a>
+                </p>
+              ))}
+            </div>
+          )}
 
           {/* Commentary: crimson-border lead + body bullets */}
           {commentaryRaw.length > 0 && (
@@ -651,6 +680,28 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     display: grid;
     gap: var(--space-10);
     padding-block: var(--space-16) var(--space-24);
+  }
+
+  /* Consolidated suppression note — one per page, footnote register, sits
+     above Commentary with its own top border for separation from the
+     charts above. Replaces the removed per-chart ChartBlock treatment
+     (moved here so it appears once per page, not once per chart). */
+  .section-suppression-note {
+    display: grid;
+    gap: var(--space-2);
+    max-width: var(--zone-prose);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .section-suppression-note p {
+    margin: 0;
+    font-size: var(--type-footnote);
+    color: var(--color-ink-muted);
+  }
+
+  .section-suppression-note a {
+    color: var(--color-action);
   }
 
   /* Commentary lead — editorial prose, no quote styling */

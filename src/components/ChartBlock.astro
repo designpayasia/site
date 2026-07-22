@@ -436,13 +436,6 @@ const variantViews = hasVariants
                   <p class="chart-block__evidence">
                     {view.evidenceLabel}: {view.evidenceIds.join(', ')}
                   </p>
-
-                  {view.suppressionNote && (
-                    <p class="chart-block__suppression">
-                      {view.suppressionNote}{' '}
-                      <a href="/docs/data-safety">Read our data safety rules</a>
-                    </p>
-                  )}
                 </div>
               </div>
 
@@ -686,13 +679,6 @@ const variantViews = hasVariants
                         Download PNG proof
                       </a>
                     )}
-
-                    {view.suppressionNote && (
-                      <p class="chart-block__suppression">
-                        {view.suppressionNote}{' '}
-                        <a href="/docs/data-safety">Read our data safety rules</a>
-                      </p>
-                    )}
                   </div>
                 </div>
 
@@ -923,13 +909,6 @@ const variantViews = hasVariants
               <a href={pngPath} class="chart-block__png-link">
                 Download PNG proof
               </a>
-            )}
-
-            {suppressionNote && (
-              <p class="chart-block__suppression">
-                {suppressionNote}{' '}
-                <a href="/docs/data-safety">Read our data safety rules</a>
-              </p>
             )}
           </div>
         </div>
@@ -1164,18 +1143,6 @@ const variantViews = hasVariants
     font-size: var(--ui-meta);
     line-height: var(--leading-ui);
     overflow-wrap: anywhere;
-  }
-
-  .chart-block__suppression {
-    margin-top: var(--space-3);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--color-border-subtle);
-    font-size: var(--type-footnote);
-    color: var(--color-ink-muted);
-  }
-
-  .chart-block__suppression a {
-    color: var(--color-action);
   }
 
   .chart-block__png-link,
