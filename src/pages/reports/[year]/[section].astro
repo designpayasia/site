@@ -280,11 +280,11 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
       <div class="section-suppression-note-standalone">
         <div class="section-suppression-note">
           {sectionSuppressionNotes.map((note) => (
-            <p>
-              {note}{' '}
-              <a href="/docs/data-safety">Read our data safety rules</a>
-            </p>
+            <p>{note}</p>
           ))}
+          <p>
+            <a href="/docs/data-safety">Read our data safety rules</a>
+          </p>
         </div>
       </div>
     )}
