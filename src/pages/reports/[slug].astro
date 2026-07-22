@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 import BigStat from '../../components/BigStat.astro';
 import ChapterRail from '../../components/ChapterRail.astro';
+import MetricShelf from '../../components/MetricShelf.astro';
 import TeamGrid from '../../components/TeamGrid.astro';
 import Base from '../../layouts/Base.astro';
 import {
@@ -47,6 +48,15 @@ const evidenceMap = buildEvidenceMap(evidenceEntries);
 const reportCharts = sections.flatMap((section) => section.charts);
 
 assertMetricsHaveEvidence(report.data.stats, evidenceMap, `report:${report.id}`);
+for (const section of sections) {
+  if (section.metrics) {
+    assertMetricsHaveEvidence(
+      section.metrics,
+      evidenceMap,
+      `report:${report.id}:section:${section.id}`,
+    );
+  }
+}
 for (const chart of reportCharts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
 
@@ -168,7 +178,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                   </div>
                 )}
                 <div class="report-section-row__content">
-                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
+                  {section.metrics && getVisibleMetrics(section.metrics).length > 0 ? (
+                    <MetricShelf metrics={getVisibleMetrics(section.metrics)} />
+                  ) : section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
                     <ul class="report-section__findings prose">
                       {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
                     </ul>

@@ -11,6 +11,28 @@ keyFindings:
     43.9%, a balance that shifts in later surveys.
   - 43% of respondents are 25–30 years old, the largest single age band, with
     31–35 second at 25.4% (N=323).
+metrics:
+  - value: "69.4"
+    unit: "%"
+    label: of respondents are in Singapore
+    color: workhorse
+    evidenceId: evidence:2023-survey-overview
+    sampleSize: 323
+    publishMode: published
+  - value: "54.5"
+    unit: "%"
+    label: of respondents are women
+    color: workhorse
+    evidenceId: evidence:2023-survey-overview
+    sampleSize: 323
+    publishMode: published
+  - value: "43"
+    unit: "%"
+    label: are aged 25–30, the largest single band
+    color: workhorse
+    evidenceId: evidence:2023-survey-overview
+    sampleSize: 323
+    publishMode: published
 charts:
   - id: chart-geographic-distribution
     title: Respondent distribution by country

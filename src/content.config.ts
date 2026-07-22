@@ -517,6 +517,9 @@ const reportSections = defineCollection({
     whatThisMeansIndividuals: z.string().min(1).optional(),
     whatThisMeansLeaders: z.string().min(1).optional(),
     keyFindings: z.array(z.string()).optional(),
+    // Hub-only alternative to keyFindings — renders as a MetricShelf instead
+    // of a bullet list when present. Prototype: demographics.md only.
+    metrics: z.array(metricSchema).optional(),
     references: z
       .array(
         z.object({
