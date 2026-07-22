@@ -9,7 +9,7 @@ metrics:
     label: of designers negotiate their compensation
     color: workhorse
     evidenceId: evidence:2024-negotiation
-    sampleSize: 1797
+    sampleSize: 1784
     publishMode: published
   - value: '79.5'
     unit: '%'
