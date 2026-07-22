@@ -125,11 +125,8 @@ charts:
       Director/VP (N=6); Singapore Director/VP (N=2) and Head of department /
       Senior leadership (N=5); Malaysia Manager (N=4), Director/VP (N=6), and
       Head of department / Senior leadership (N=2)."
-    summary: Compensation ranges widen sharply with seniority in all three
-      markets. Indonesia and Singapore show the widest spreads at Senior IC
-      and above; Malaysia's ranges stay comparatively tight up to Lead / Staff
-      / Principal IC, the highest level with a publishable cohort. Select a
-      country to see its per-level range.
+    summary: Compensation ranges widen sharply with seniority across all
+      three published markets. Select a country to see its per-level range.
     suppressionNote: >-
       Some cohorts here are too small to publish without identifying
       individuals, so we hold those figures back.
@@ -550,7 +547,7 @@ charts:
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
     caption: "Base salary as a percentage of total compensation across seniority levels, showing the shift toward variable pay at higher levels. Based on N=1,797 responses."
-    summary: "Base salary declines from 90.5% for junior ICs to 83.7% for heads of design, with the sharpest drop at manager level (84.3%). Stock grants rise to 4.3% at head level, and bonuses peak at 11.3% for senior leadership."
+    summary: "Base salary's share of total compensation declines from 90.5% at junior IC to 83.7% at head of design as variable pay grows with seniority."
     evidenceIds: ["evidence:2024-currency-compensation-structure"]
     columns:
     - 'Seniority Level'
@@ -598,7 +595,7 @@ charts:
   - id: 'other-benefits'
     title: Breakdown of other benefits
     caption: Distribution of non-salary benefits offered across Southeast Asian design roles (N=1,797).
-    summary: 'Health insurance leads at 52.0%, followed by paid time off (32.4%) and paid medical leave (28.4%). Professional development funds and dental insurance sit close together around 23%, and flexibility benefits (schedule and remote/co-working) run 20–22%. Equipment or home-office budget support is modest at 10.7%, and flexible spending accounts are rare at 3.6%.'
+    summary: 'Health insurance is the most common benefit, offered to 52.0% of designers.'
     evidenceIds: ['evidence:2024-currency-compensation-structure']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
@@ -734,6 +731,8 @@ Indonesia, Singapore, and Malaysia have per-level cohorts deep enough to break o
 
 ::chart{id="salary-sharing-preference"}
 
+Indonesia and Singapore's ranges widen sharply above Senior IC; Malaysia's stay comparatively tight through Lead / Staff / Principal IC, the highest level it can publish.
+
 ::chart{id="compensation-trends-by-level"}
 
 ::chart{id="compensation-trends-vn"}
@@ -741,6 +740,12 @@ Indonesia, Singapore, and Malaysia have per-level cohorts deep enough to break o
 ::chart{id="compensation-trends-th"}
 
 ::chart{id="compensation-mix"}
+
+Variable pay does not grow evenly with seniority:
+
+- Base salary's share dips sharpest at manager level (84.3%), before edging back up for Director/VP
+- Stock grants reach their highest share, 4.3%, at head of design
+- Bonuses peak earlier, at 11.3% for senior leadership
 
 ::chart{id="other-benefits"}
 
