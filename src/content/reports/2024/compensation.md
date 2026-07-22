@@ -707,7 +707,15 @@ references:
     url: 'https://www.aon.com/apac/in-the-press/asia-newsroom/2024/salaries-in-southeast-asia-expected-to-rise-in-2025'
 ---
 
-Median annual compensation varies dramatically across the five surveyed markets, reflecting differences in cost of living, market maturity, and demand for design talent. In local currency terms, the medians are: Indonesia at IDR 92.35 million, Singapore at SGD 79,200, Malaysia at MYR 97,200, Vietnam at VND 260 million, and Thailand at THB 652,000. Indonesia, Singapore, and Malaysia have per-level cohorts deep enough to break out a compensation range by career level; Vietnam and Thailand's cohorts thin out beyond Senior IC and remain published as distribution charts below.
+Median annual compensation varies dramatically across the five surveyed markets, reflecting differences in cost of living, market maturity, and demand for design talent. In local currency terms, the medians are:
+
+- Indonesia: IDR 92.35 million
+- Singapore: SGD 79,200
+- Malaysia: MYR 97,200
+- Vietnam: VND 260 million
+- Thailand: THB 652,000
+
+Indonesia, Singapore, and Malaysia have per-level cohorts deep enough to break out a compensation range by career level; Vietnam and Thailand's cohorts thin out beyond Senior IC and remain published as distribution charts below.
 
 ::chart{id="currency-distribution"}
 

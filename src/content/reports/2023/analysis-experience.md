@@ -231,7 +231,12 @@ keyFindings:
 
 ## Seniority
 
-The published seniority cohorts have different reported medians. Junior IC respondents recorded S$54,000, while People Manager respondents recorded S$139,100. Senior IC respondents recorded S$119,500, compared with S$103,200 for the smaller Lead / Staff / Principal IC cohort.
+The published seniority cohorts have different reported medians:
+
+- Junior IC: S$54,000
+- People Manager: S$139,100
+- Senior IC: S$119,500
+- Lead / Staff / Principal IC: S$103,200
 
 The full reported range widens at higher levels. Junior IC responses span S$12,000 to S$157,000, while Senior IC responses span S$44,200 to S$339,927, the highest reported figure among the published cohorts.
 
@@ -241,7 +246,14 @@ These are cross-sectional groups with different roles and respondent profiles, n
 
 ## Years of design experience
 
-Median total compensation rose steadily with years of design experience: S$62,700 at 0–3 years, S$96,000 at 4–6 years, S$131,650 at 7–9 years, and S$156,100 at 10 or more years. Across the whole sample, reported total compensation increased by an average of S$10,839 for every additional year of design experience. That figure is the annualised slope behind the medians below, not a promise of an automatic yearly rise for any individual respondent.
+Median total compensation rose steadily with years of design experience:
+
+- 0–3 years: S$62,700
+- 4–6 years: S$96,000
+- 7–9 years: S$131,650
+- 10 or more years: S$156,100
+
+Across the whole sample, reported total compensation increased by an average of S$10,839 for every additional year of design experience. That figure is the annualised slope behind the medians below, not a promise of an automatic yearly rise for any individual respondent.
 
 The reported range widens alongside the median. Respondents with 0–3 years of design experience span S$12,000 to S$230,636, while respondents with 10 or more years span S$52,000 to S$355,000, the widest published range in this section.
 

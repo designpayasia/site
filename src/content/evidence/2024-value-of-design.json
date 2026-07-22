@@ -1,0 +1,13 @@
+{
+  "id": "evidence:2024-value-of-design",
+  "title": "Regional design value: role value, user-centricity, advocacy effort, and compensation fairness",
+  "summary": "Across designers in Indonesia, Singapore, Malaysia, Vietnam, and Thailand: 53.3%-73.7% feel their role is valued in their organisation (ratings 5-7). 42.9%-59.7% say their organisation genuinely prioritises user needs. 49.1%-65.1% feel fairly compensated for their role and level. 63.3%-76.9% invest significant extra effort educating cross-functional teams about design. Philippines (n=7) and other markets below the 10-respondent disclosure threshold are excluded.",
+  "sourceName": "2024 DPA Report",
+  "sourceUrl": "https://designpay.asia/reports/2024",
+  "year": 2024,
+  "collectedAt": "2024 survey cycle (Oct-Nov 2024)",
+  "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],
+  "methodology": "Self-reported perception of design value, compensation fairness, user-centricity, and advocacy effort in an anonymous online survey, grouped by Country for the five markets that clear the minimum safe cohort of n>=10 valid responses (Indonesia, Singapore, Malaysia, Vietnam, Thailand); Philippines (n=7) and all smaller geographies are excluded. Each question is a 7-point Likert scale bucketed as agree (ratings 5-7) versus disagree or neutral (ratings 1-4); blank and non-numeric responses are excluded from both the bucket counts and the valid-response base. sampleSize is the smallest per-market valid-response count shared across the four questions (Indonesia 1,378; Singapore 168; Malaysia 91; Vietnam 49; Thailand 43), summed across the five markets.",
+  "sampleSize": 1729,
+  "sensitivity": "aggregate-only"
+}

@@ -260,7 +260,15 @@ keyFindings:
 
 ## Company type
 
-Large enterprise respondents recorded a median of S$114,500. Startup respondents recorded S$90,000, Government respondents S$84,000, Agency / Consulting respondents S$63,548, and Small-medium enterprise respondents S$58,300. Company types with fewer than 10 respondents are omitted. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
+Reported median total compensation by company type:
+
+- Large enterprise: S$114,500
+- Startup: S$90,000
+- Government: S$84,000
+- Agency / Consulting: S$63,548
+- Small-medium enterprise: S$58,300
+
+Company types with fewer than 10 respondents are omitted. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
 
 The figures describe the people who answered the survey. Respondent mix varies across company types, and the comparison is unadjusted.
 
@@ -286,7 +294,13 @@ Respondent mix may differ across company-size groups. Read these figures as surv
 
 ## Design team size
 
-Reported medians rise with design team size: S$50,150 for solo designers, S$78,000 for teams of 2 to 10 (n=115), S$108,002 for teams of 11 to 50, S$106,600 for teams of 51 to 200, and S$174,300 for teams of 200 or more.
+Reported medians rise with design team size:
+
+- Solo designers: S$50,150
+- Teams of 2 to 10 (n=115): S$78,000
+- Teams of 11 to 50: S$108,002
+- Teams of 51 to 200: S$106,600
+- Teams of 200 or more: S$174,300
 
 Respondent counts for team sizes other than 2 to 10 are not disclosed in the source data, so treat these bands as descriptive, not cohort-verified.
 
