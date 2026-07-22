@@ -528,7 +528,14 @@ charts:
 
 ## Job titles
 
-Designers reported a wide variety of titles, but nearly 90% included the word "design." Over half (50.7%) featured "UX" and 25.3% had "UI" in the title. The most common titles were Product Designer (33), UX Designer (25), UI/UX Designer (18), and Senior Product Designer (18). Around 40.8% of job titles indicated some level of seniority, suggesting that formal levelling is common but not universal across the region's design industry.
+Designers reported a wide variety of titles, but nearly 90% included the word "design." Over half (50.7%) featured "UX" and 25.3% had "UI" in the title. The most common titles were:
+
+- Product Designer: 33
+- UX Designer: 25
+- UI/UX Designer: 18
+- Senior Product Designer: 18
+
+Around 40.8% of job titles indicated some level of seniority, suggesting that formal levelling is common but not universal across the region's design industry.
 
 ::chart{id="chart-job-title-distribution"}
 
@@ -551,7 +558,14 @@ Management roles account for the remaining 13%:
 
 ## Primary field of work
 
-Product design overwhelmingly dominates at 67.5% of respondents (218). Research accounts for 7.4% (24), Design Leadership and Management for 6.8% (22), Graphic and Marketing Design for 4.6% (15), Content Design and Writing for 4.0% (13), and Design Operations for 2.5% (8).
+Respondents by primary field of work:
+
+- Product design: 67.5% (218)
+- Research: 7.4% (24)
+- Design Leadership and Management: 6.8% (22)
+- Graphic and Marketing Design: 4.6% (15)
+- Content Design and Writing: 4.0% (13)
+- Design Operations: 2.5% (8)
 
 ::chart{id="chart-field-of-work"}
 
@@ -567,7 +581,20 @@ The median total working experience, derived from responses, is 6 years, two yea
 
 ## Education
 
-The workforce is highly educated: 66.3% hold bachelor's degrees, 15.5% have master's degrees, and 13.6% have diplomas. Formal design education is the most common path (49.8%), followed by online certification (29.1%) and bootcamps (27.9%); in-person certified courses account for a further 11.1%. Notably, 22.3% have no formal design education at all, demonstrating that design credentials are not a prerequisite for employment in the field.
+The workforce is highly educated:
+
+- Bachelor's degrees: 66.3%
+- Master's degrees: 15.5%
+- Diplomas: 13.6%
+
+Design education pathways:
+
+- Formal design education: 49.8%
+- Online certification: 29.1%
+- Bootcamps: 27.9%
+- In-person certified courses: 11.1%
+
+Notably, 22.3% have no formal design education at all, demonstrating that design credentials are not a prerequisite for employment in the field.
 
 ::chart{id="chart-formal-education"}
 
