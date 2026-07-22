@@ -353,11 +353,15 @@ Sentiment around company support for career growth averaged 4.54 out of 7. Just 
 
 ## Learning and development
 
-Designers showed more appetite for exploring different disciplines and picking up new skills than for switching career tracks entirely. The pattern flips when you look at the full distribution: 51.2% leaned towards exploring a new area of work (ratings 5–7), but for switching tracks entirely, half (49.8%, ratings 1–3) leaned against it, and only 30.8% were open to the idea. Curiosity about new disciplines is common; abandoning a chosen track is not.
+Designers showed more appetite for exploring different disciplines and picking up new skills than for switching career tracks entirely: 51.2% leaned towards exploring a new area of work (ratings 5–7).
 
 ::chart{id="chart-switch-primary-work-area"}
 
+The pattern flips for switching tracks entirely. Half (49.8%, ratings 1–3) leaned against it, and only 30.8% were open to the idea.
+
 ::chart{id="chart-switch-ic-management-track"}
+
+Curiosity about new disciplines is common; abandoning a chosen track is not.
 
 ## Job search activity
 

@@ -164,7 +164,12 @@ A respondent may have formal design education and also report a bootcamp, online
 
 ## Who has no formal design education
 
-90.2% of the 41 Singapore respondents without formal design education hold tertiary education in another field, and 85% work as individual contributors. Read together, this looks like a cohort of career switchers, not unqualified entrants. The group skews younger, with 65.9% below the cohort's median age. Men in this cohort report an average of 8 years of design experience (n=18); women report an average of 3 years (n=23).
+Read together, this cohort of 41 Singapore respondents looks like career switchers, not unqualified entrants:
+
+- 90.2% hold tertiary education in another field
+- 85% work as individual contributors
+- 65.9% sit below the cohort's median age
+- Men report an average of 8 years of design experience (n=18); women report 3 years (n=23)
 
 Junior IC respondents in this cohort reported a median of S$63,800 (n=12); Senior respondents reported S$129,450 (n=10). Mid-level, Lead/Staff, People Manager, Director, and VP cohorts within this subset fall below the minimum safe disclosure threshold and are not shown individually.
 
