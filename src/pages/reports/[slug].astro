@@ -179,7 +179,10 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
                 )}
                 <div class="report-section-row__content">
                   {section.metrics && getVisibleMetrics(section.metrics).length > 0 ? (
-                    <MetricShelf metrics={getVisibleMetrics(section.metrics)} />
+                    <>
+                      <p class="report-section__summary prose">{section.summary}</p>
+                      <MetricShelf metrics={getVisibleMetrics(section.metrics)} />
+                    </>
                   ) : section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
                     <ul class="report-section__findings prose">
                       {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
