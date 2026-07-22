@@ -177,7 +177,13 @@ Much of that 42% reflects who is in each cohort, not unequal pay for the same wo
 
 ## Pay gap by seniority level
 
-Comparing medians within each seniority level, restricted to levels where both genders published, sharpens the picture. At Junior IC, men earned 11.85% less than women. From Mid-level IC upward the direction reverses: women earned 11.32% less at Mid-level IC, 21.1% less at Senior IC, and 21.22% less at People Manager. Of the two levels with a gap above 20%, Senior IC has the larger combined cohort (n=52, against n=23 at People Manager), so its 21.1% gap is the more reliable reading of the two.
+Comparing medians within each seniority level, restricted to levels where both genders published, sharpens the picture. At Junior IC, men earned 11.85% less than women. From Mid-level IC upward the direction reverses:
+
+- Mid-level IC: women earned 11.32% less than men
+- Senior IC: women earned 21.1% less than men
+- People Manager: women earned 21.22% less than men
+
+Of the two levels with a gap above 20%, Senior IC has the larger combined cohort (n=52, against n=23 at People Manager), so its 21.1% gap is the more reliable reading of the two.
 
 Lead/Staff/Principal IC and Director levels aren't shown here. The Lead/Staff woman cohort (n=7) falls short of the publication threshold, and there's too little data at the Director level to say anything reliable about it. See our [data safety rules](/docs/data-safety) for how we handle small cohorts.
 

@@ -534,7 +534,18 @@ Designers reported a wide variety of titles, but nearly 90% included the word "d
 
 ## Career level distribution
 
-Individual contributors dominate at 87% of all respondents. Junior ICs form the largest single cohort at 101 respondents (31.3%), followed by Mid-level IC at 76 (23.5%), Senior IC at 72 (22.3%), and Lead / Staff / Principal IC at 32 (9.9%). Management roles account for the remaining 13%: People Manager at 27 (8.4%), Director at 11 (3.4%), and Vice President at 4 (1.2%).
+Individual contributors dominate at 87% of all respondents:
+
+- Junior IC: 101 respondents (31.3%)
+- Mid-level IC: 76 (23.5%)
+- Senior IC: 72 (22.3%)
+- Lead / Staff / Principal IC: 32 (9.9%)
+
+Management roles account for the remaining 13%:
+
+- People Manager: 27 (8.4%)
+- Director: 11 (3.4%)
+- Vice President: 4 (1.2%)
 
 ::chart{id="chart-career-level-distribution"}
 

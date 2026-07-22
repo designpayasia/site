@@ -390,19 +390,42 @@ charts:
 
 ## Currency and payment
 
-Designers across Southeast Asia are almost universally paid in local currency. Singapore Dollar accounts for 224 respondents, followed by Malaysian Ringgit (46), Indonesian Rupiah (27), Philippine Peso (7), Vietnamese Dong (6), and Thai Baht (3). Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
+Designers across Southeast Asia are almost universally paid in local currency:
+
+- Singapore Dollar: 224 respondents
+- Malaysian Ringgit: 46
+- Indonesian Rupiah: 27
+- Philippine Peso: 7
+- Vietnamese Dong: 6
+- Thai Baht: 3
+
+Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
 
 ::chart{id="chart-currency-drawn-in"}
 
 ## Median annual total compensation
 
-Singapore's median total compensation is S$84,000 (N=223), with strong representation across individual contributor and manager levels. Progression by level: Junior IC S$54,000, Mid-level IC S$75,800, Senior IC S$119,500, Lead / Staff IC S$103,200, People Manager S$139,100. Director and VP cohorts fall below the minimum safe disclosure threshold of 10 respondents and are not reported individually. See our [data safety rules](/docs/data-safety) for how we handle small cohorts. Pay varies widely within each level too: Senior IC alone ranges from S$44,200 to S$339,927, the widest spread in the dataset.
+Singapore's median total compensation is S$84,000 (N=223), with strong representation across individual contributor and manager levels. Progression by level:
+
+- Junior IC: S$54,000
+- Mid-level IC: S$75,800
+- Senior IC: S$119,500
+- Lead / Staff IC: S$103,200
+- People Manager: S$139,100
+
+Director and VP cohorts fall below the minimum safe disclosure threshold of 10 respondents and are not reported individually. See our [data safety rules](/docs/data-safety) for how we handle small cohorts. Pay varies widely within each level too: Senior IC alone ranges from S$44,200 to S$339,927, the widest spread in the dataset.
 
 ::chart{id="chart-compensation-by-level"}
 
 ## Malaysia
 
-Malaysia's median annual total compensation is RM83,000, based on 46 respondents. This carries medium confidence for Junior to Senior IC levels: Malaysia has the second-highest respondent count in the survey, but trails Singapore significantly, which limits how far the analysis can be pushed into senior and leadership levels. By career level: Junior IC RM55,000 (N=13), Mid-level IC RM82,000 (N=13), Senior IC RM94,325 (N=10). Lead / Staff / Principal IC (N=5), People Manager (N=3), and Director (N=2) fall below the minimum safe disclosure threshold and are not reported individually. See our [data safety rules](/docs/data-safety) for how we handle small cohorts. Ranges widen quickly past Junior IC: Mid-level IC alone spans RM54,000 – RM233,400.
+Malaysia's median annual total compensation is RM83,000, based on 46 respondents. This carries medium confidence for Junior to Senior IC levels: Malaysia has the second-highest respondent count in the survey, but trails Singapore significantly, which limits how far the analysis can be pushed into senior and leadership levels. By career level:
+
+- Junior IC: RM55,000 (N=13)
+- Mid-level IC: RM82,000 (N=13)
+- Senior IC: RM94,325 (N=10)
+
+Lead / Staff / Principal IC (N=5), People Manager (N=3), and Director (N=2) fall below the minimum safe disclosure threshold and are not reported individually. See our [data safety rules](/docs/data-safety) for how we handle small cohorts. Ranges widen quickly past Junior IC: Mid-level IC alone spans RM54,000 – RM233,400.
 
 ## Indonesia
 

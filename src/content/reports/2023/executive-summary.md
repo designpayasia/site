@@ -9,7 +9,13 @@ order: 10
 
 The 2023 Design Pay Asia survey, conducted between December 2022 and February 2023, captured 323 valid responses from designers working across Southeast Asia. This is the inaugural edition of what would become an annual benchmark for design compensation and careers in the region.
 
-The data reveals a young, diverse workforce concentrated primarily in Singapore (69.4%), with growing representation from Malaysia (14.2%) and Indonesia (8.9%). The gender distribution was nearly equal (a notable achievement for a tech-adjacent survey), with women at 54.5% and men at 43.9%.
+The data reveals a young, diverse workforce concentrated primarily in three markets:
+
+- Singapore: 69.4%
+- Malaysia: 14.2%
+- Indonesia: 8.9%
+
+The gender distribution was nearly equal (a notable achievement for a tech-adjacent survey), with women at 54.5% and men at 43.9%.
 
 Product design dominates as the primary field at 67.5% of roles, and individual contributors make up 87% of respondents. The workforce skews toward early-to-mid career, with nearly half having six or fewer years of design experience, and a significant proportion being career switchers with more total work experience than design-specific experience.
 
