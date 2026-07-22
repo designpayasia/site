@@ -74,9 +74,9 @@ charts:
   - id: chart-compensated-fairly-for-role
     type: bars
     title: Compensated fairly for role and level
-    caption: 1-7 Likert response distribution for the statement about role and level,
+    caption: 1–7 Likert response distribution for the statement about role and level,
       where 1 - Strongly disagree and 7 - Strongly agree, among 317 answered responses.
-    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+    summary: Distribution of responses on a 1–7 Likert scale for the statement about
       being compensated fairly for role and level, where 1 - Strongly disagree and
       7 - Strongly agree.
     evidenceIds:
@@ -85,7 +85,7 @@ charts:
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about being compensated
-        fairly for role and level. The mean response is 4.57 on a 1-7 Likert scale,
+        fairly for role and level. The mean response is 4.57 on a 1–7 Likert scale,
         where 1 - Strongly disagree and 7 - Strongly agree."
     fallbackTable:
       columns:
@@ -132,10 +132,10 @@ charts:
   - id: chart-market-rate-awareness
     type: bars
     title: Market rate awareness
-    caption: 1-7 Likert response distribution for the statement about market rate
+    caption: 1–7 Likert response distribution for the statement about market rate
       awareness, where 1 - Strongly disagree and 7 - Strongly agree, among 317
       answered responses.
-    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+    summary: Distribution of responses on a 1–7 Likert scale for the statement about
       market rate awareness, where 1 - Strongly disagree and 7 - Strongly agree.
     evidenceIds:
       - evidence:2023-sentiments
@@ -143,7 +143,7 @@ charts:
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about market rate awareness.
-        The mean response is 4.71 on a 1-7 Likert scale, where 1 - Strongly disagree
+        The mean response is 4.71 on a 1–7 Likert scale, where 1 - Strongly disagree
         and 7 - Strongly agree."
     fallbackTable:
       columns:
@@ -190,10 +190,10 @@ charts:
   - id: chart-staying-informed-on-market-rate
     type: bars
     title: Staying informed on market rate
-    caption: 1-7 Likert response distribution for the statement about staying informed
+    caption: 1–7 Likert response distribution for the statement about staying informed
       on market rate, where 1 - Strongly disagree and 7 - Strongly agree, among 316
       answered responses.
-    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+    summary: Distribution of responses on a 1–7 Likert scale for the statement about
       staying informed on market rate, where 1 - Strongly disagree and 7 = Strongly
       agree.
     evidenceIds:
@@ -202,7 +202,7 @@ charts:
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about staying informed
-        on market rate. The mean response is 3.86 on a 1-7 Likert scale, where 1 =
+        on market rate. The mean response is 3.86 on a 1–7 Likert scale, where 1 =
         Strongly disagree and 7 - Strongly agree."
     fallbackTable:
       columns:
@@ -249,10 +249,10 @@ charts:
   - id: chart-negotiation-confidence
     type: bars
     title: Negotiation confidence
-    caption: 1-7 Likert response distribution for the statement about negotiation
+    caption: 1–7 Likert response distribution for the statement about negotiation
       confidence, where 1 - Strongly disagree and 7 - Strongly agree, among 317
       answered responses.
-    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+    summary: Distribution of responses on a 1–7 Likert scale for the statement about
       negotiation confidence, where 1 - Strongly disagree and 7 - Strongly agree.
     evidenceIds:
       - evidence:2023-sentiments
@@ -260,7 +260,7 @@ charts:
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about negotiation confidence.
-        The mean response is 4.51 on a 1-7 Likert scale, where 1 - Strongly disagree
+        The mean response is 4.51 on a 1–7 Likert scale, where 1 - Strongly disagree
         and 7 - Strongly agree."
     fallbackTable:
       columns:
@@ -307,9 +307,9 @@ charts:
   - id: chart-compensated-fairly-for-effort
     type: bars
     title: Compensated fairly for effort
-    caption: 1-7 Likert response distribution for the statement about effort at work,
+    caption: 1–7 Likert response distribution for the statement about effort at work,
       where 1 - Strongly disagree and 7 - Strongly agree, among 316 answered responses.
-    summary: Distribution of responses on a 1-7 Likert scale for the statement about
+    summary: Distribution of responses on a 1–7 Likert scale for the statement about
       being compensated fairly for effort at work, where 1 - Strongly disagree and
       7 - Strongly agree.
     evidenceIds:
@@ -318,7 +318,7 @@ charts:
     sourceUrl: https://designpay.asia/reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about being compensated
-        fairly for effort at work. The mean response is 4.58 on a 1-7 Likert scale,
+        fairly for effort at work. The mean response is 4.58 on a 1–7 Likert scale,
         where 1 - Strongly disagree and 7 - Strongly agree."
     fallbackTable:
       columns:
@@ -385,37 +385,37 @@ metrics:
 
 ::chart{id="chart-negotiate-current-compensation"}
 
-Men negotiate pay more often than women: 61% of men reported negotiating their last salary, compared to 51% of women, a 10-percentage-point gap. Set against the fairness perceptions below, that gap in who asks likely feeds the gap in who feels fairly paid.
+Men negotiate pay more often than women: 61% of men reported negotiating their last salary, compared to 51% of women, a 10-percentage-point gap. Whether that gap in who asks contributes to the fairness gap below is a question this survey cannot answer directly: the fairness ratings that follow are not broken down by gender.
 
 ::chart{id="chart-negotiation-by-gender"}
 
 ## Compensation perceptions
 
-Pay fairness for role and level averages 4.57 out of 7. More respondents lean towards agreement than disagreement: 57.1% rate their pay as fair for their role and level (ratings 5-7), against 24.6% who disagree (ratings 1-3), with the remainder sitting neutral.
+Pay fairness for role and level averages 4.57 out of 7. More respondents lean towards agreement than disagreement: 57.1% rate their pay as fair for their role and level (ratings 5–7), against 24.6% who disagree (ratings 1–3), with the remainder sitting neutral.
 
 ::chart{id="chart-compensated-fairly-for-role"}
 
 ## Market rate awareness
 
-Designers' awareness of market rate sits slightly higher, averaging 4.71 out of 7, with 62.5% agreeing they know roughly where their pay sits relative to the market (ratings 5-7). That is a firmer consensus than for fairness itself.
+Designers' awareness of market rate sits slightly higher, averaging 4.71 out of 7, with 62.5% agreeing they know roughly where their pay sits relative to the market (ratings 5–7). That is a firmer consensus than for fairness itself.
 
 ::chart{id="chart-market-rate-awareness"}
 
 ## Staying informed on market rate
 
-But access to resources for staying informed on market rate drops to just 3.86 out of 7, the lowest sentiment score in this section. More respondents disagree (39.9%, ratings 1-3) than agree (36%, ratings 5-7) that they have good resources here. Designers broadly sense where they stand on pay; fewer have the tools to keep that sense current.
+But access to resources for staying informed on market rate drops to 3.86 out of 7, the lowest sentiment score in this section. More respondents disagree (39.9%, ratings 1–3) than agree (36%, ratings 5–7) that they have good resources here. Designers broadly sense where they stand on pay; fewer have the tools to keep that sense current.
 
 ::chart{id="chart-staying-informed-on-market-rate"}
 
 ## Negotiation confidence
 
-Negotiation confidence averages 4.51 out of 7, with 52% agreeing they feel confident negotiating (ratings 5-7) against 29% who disagree (ratings 1-3). More people actually negotiate (57.1%, see above) than say they feel confident doing so, which suggests plenty go ahead despite the discomfort.
+Negotiation confidence averages 4.51 out of 7, with 52% agreeing they feel confident negotiating (ratings 5–7) against 29% who disagree (ratings 1–3). More people actually negotiate (57.1%, see above) than say they feel confident doing so, which suggests plenty go ahead despite the discomfort.
 
 ::chart{id="chart-negotiation-confidence"}
 
 ## Compensated fairly for effort
 
-Compensated fairly for effort averages 4.58 out of 7, close to the 4.57 average for role and level. 55.1% agree they are paid fairly for their effort (ratings 5-7), against 25.6% who disagree (ratings 1-3), a similar split to the fairness-for-role question, suggesting the two perceptions move together.
+Compensated fairly for effort averages 4.58 out of 7, close to the 4.57 average for role and level. 55.1% agree they are paid fairly for their effort (ratings 5–7), against 25.6% who disagree (ratings 1–3), a similar split to the fairness-for-role question, suggesting the two perceptions move together.
 
 ::chart{id="chart-compensated-fairly-for-effort"}
 

@@ -134,7 +134,7 @@ metrics:
 
 ## Work arrangement comfort
 
-Despite career uncertainties, designers are overwhelmingly comfortable with their current working arrangement, averaging 5.57 out of 7, the highest sentiment score across all categories. 31.6% gave the maximum rating of 7. Hybrid and remote models, once adopted, have become a valued and stable part of the design work experience.
+Designers rate their current working arrangement 5.57 out of 7 on average, the highest sentiment score across all categories, and 31.6% gave the maximum rating. Hybrid and remote models, once adopted, have settled into a stable, well-liked part of the design work experience.
 
 ::chart{id="comfortable-with-work-arrangement"}
 
@@ -142,6 +142,6 @@ Despite career uncertainties, designers are overwhelmingly comfortable with thei
 
 ::chart{id="extra-hours-worked"}
 
-67.2% of designers work extra hours beyond the standard work week. Across all respondents, 26.9% put in 1-2 extra hours a week, 20.1% put in 3-5, and 16.4% work more than 5. This section's data does not break the picture down by seniority, but the published report's company-level analysis found that directors and VPs work the most prolonged hours of any seniority band on average.
+67.2% of designers work extra hours beyond the standard work week, more than double the share reporting none. This section's data doesn't break the picture down by seniority, but the published report's company-level analysis found that directors and VPs work the longest hours of any seniority band, on average.
 
 *Sentiment findings reflect aggregate responses across 10 markets; 69.4% of respondents are Singapore-based.*

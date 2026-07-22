@@ -1,7 +1,7 @@
 {
   "id": "evidence:2023-sg-compensation-industry",
   "title": "2023 Singapore reported median total compensation by industry",
-  "summary": "Aggregate results from Design Pay Asia 2022-23 survey data, filtered exactly to Country = Singapore and Currency you draw your salary in = SGD (n=223). Published industry medians (n≥10) are Banking & Capital Markets n=43 at S$85,000; Consumer Products n=43 at S$99,000; Government & Public Services n=18 at S$72,075; Health Care n=10 at S$71,000; Investment Management n=11 at S$91,545; Retail, Wholesale & Distribution n=11 at S$125,600; and Transportation, Hospitality & Services n=20 at S$90,000. Life Sciences reported the highest raw median at S$176,900, but on only 4 respondents, too sparse to publish as a standalone finding. Industries below n=10 and unspecified industry responses are suppressed. These are respondent medians, not population estimates.",
+  "summary": "Aggregate results from Design Pay Asia 2022-23 survey data, filtered exactly to Country = Singapore and Currency you draw your salary in = SGD (n=223). Published industry medians (n≥10) are Banking & Capital Markets n=43 at S$85,000; Consumer Products n=43 at S$99,000; Government & Public Services n=18 at S$72,075; Health Care n=10 at S$71,000; Investment Management n=11 at S$91,545; Retail, Wholesale & Distribution n=11 at S$125,600; and Transportation, Hospitality & Services n=20 at S$90,000. Life Sciences (n=4) is suppressed, along with all other industries below n=10 and unspecified industry responses. These are respondent medians, not population estimates.",
   "sourceName": "Design Pay Asia 2022-23 survey data",
   "sourceUrl": "https://designpay.asia/reports/2023",
   "year": 2023,

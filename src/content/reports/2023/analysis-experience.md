@@ -238,14 +238,7 @@ metrics:
 
 ## Seniority
 
-The published seniority cohorts have different reported medians:
-
-- Junior IC: S$54,000
-- People Manager: S$139,100
-- Senior IC: S$119,500
-- Lead / Staff / Principal IC: S$103,200
-
-The full reported range widens at higher levels. Junior IC responses span S$12,000 to S$157,000, while Senior IC responses span S$44,200 to S$339,927, the highest reported figure among the published cohorts.
+Median compensation rises from Junior through Senior IC, dips at Lead/Staff/Principal IC, then rises again for People Manager — the ranges overlap more than the medians alone suggest. Senior ICs report both the widest spread of any cohort here and the highest single figure in the section, stretching further than either Lead/Staff/Principal IC or People Manager pay.
 
 These are cross-sectional groups with different roles and respondent profiles, not an individual salary path. Director and Vice President responses are omitted because those cohorts fall below the publication threshold.
 
@@ -253,16 +246,9 @@ These are cross-sectional groups with different roles and respondent profiles, n
 
 ## Years of design experience
 
-Median total compensation rose steadily with years of design experience:
+Median total compensation rises steadily with years of design experience, gaining an average of S$10,839 for every additional year across the whole sample. That figure is the annualised slope behind the trend, not a promise of an automatic yearly rise for any individual respondent.
 
-- 0–3 years: S$62,700
-- 4–6 years: S$96,000
-- 7–9 years: S$131,650
-- 10 or more years: S$156,100
-
-Across the whole sample, reported total compensation increased by an average of S$10,839 for every additional year of design experience. That figure is the annualised slope behind the medians below, not a promise of an automatic yearly rise for any individual respondent.
-
-The reported range widens alongside the median. Respondents with 0–3 years of design experience span S$12,000 to S$230,636, while respondents with 10 or more years span S$52,000 to S$355,000, the widest published range in this section.
+The reported range widens alongside the median too. Respondents with 10 or more years of design experience report the widest spread of any band in this section, from S$52,000 to S$355,000.
 
 ::chart{id="sg-compensation-yoe-group"}
 
@@ -274,13 +260,13 @@ Respondents who reported international work experience had a median of S$130,000
 
 ## Current-compensation negotiation
 
-The three published negotiation-response groups recorded similar medians: S$84,500 for Yes, S$84,150 for No, and S$85,801 for Not applicable. Blank responses are omitted. This is an unadjusted comparison of survey groups.
+The three published negotiation-response groups land within roughly 2% of one another. On the whole sample, whether someone negotiated their current pay shows next to no relationship with what they ended up earning. Blank responses are omitted, and this is an unadjusted comparison of survey groups.
 
 ::chart{id="sg-compensation-negotiation"}
 
 ### By years of design experience
 
-That aggregate is nearly flat, but it masks a split by career stage. Below 7 years of design experience, respondents who negotiated reported lower medians than those who did not: S$56,275 versus S$65,100 at 0–3 years, and S$72,000 versus S$106,600 at 4–6 years. From 7 years onward the pattern reverses: S$137,500 versus S$112,800 at 7–9 years, and S$159,000 versus S$143,500 at 10 or more years, a premium of roughly 11–22% for those who negotiated.
+That aggregate is nearly flat, but it masks a split by career stage. Below 7 years of design experience, respondents who negotiated reported lower medians than those who did not. From 7 years onward, the pattern reverses, and negotiators report medians roughly 11–22% higher than non-negotiators in the two most senior bands.
 
 Read the early-career figures cautiously. This is a cross-sectional snapshot, not a study of individual outcomes, and selection effects cut both ways. Someone earning less may be more likely to negotiate in the first place, and a small gap at entry level is easily overstated. The impact of negotiating seems more pronounced for respondents with 7 or more years of design experience; it isn't a clean story below that.
 

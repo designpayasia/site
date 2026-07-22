@@ -387,13 +387,13 @@ charts:
 ---
 ## Company type
 
-Large enterprises (multinational corporations) are the top destination at 32.2%, followed closely by startups at 28.5%. Agency and consulting firms account for 20.4%, with SMEs making up the remainder. Government (3.4%), non-profits (0.9%), and academia (0.6%) represent smaller but stable employer categories.
+Large enterprises and startups are Singapore's two biggest draws for design talent, followed by agencies and consulting firms. Government, non-profit, and academic employers remain a small slice of the market by comparison. It is a workforce split mostly between the biggest and the newest companies, with fewer designers at small and mid-sized firms in between.
 
 ::chart{id="chart-company-type"}
 
 ## Industry distribution
 
-Banking and Capital Markets (20.1%) and Consumer Products (19.8%) stand out as the primary magnets for design talent, and the top-paying sectors in the region. Other significant industries include Transportation, Hospitality and Services, Government and Public Services, Investment Management, Retail and Wholesale Distribution, Health Care, and Insurance. Life Sciences pays the highest median salary but has sparse data points; Automotive and Healthcare offer the lowest pay.
+Design work in Singapore is spread across sectors rather than concentrated in one or two. Even its two largest industry cohorts (banking and capital markets, and consumer products) leave more than three in five respondents elsewhere. Pay by industry is a separate question, and only the industries with a large enough published cohort are compared on pay elsewhere in this report.
 
 ::chart{id="chart-industry-distribution"}
 
@@ -405,19 +405,17 @@ Company size is a little larger in Singapore than in the full sample.
 
 ::chart{id="design-team-size"}
 
-Designers are broadly spread across company sizes, with the exception of very small operations (1-10 employees). The most common design team size is 2-10 people (54.2%), followed by 11-50 people (27.6%). Solo designers (team of one) make up 7.4%, while large teams of 200-plus account for just 2.5%. Median pay tends to increase with company size, with a notable 25.5% jump between company sizes of 51-200 and 201-1,000 employees.
+Most respondents work in design teams of two to ten people. Solo designers and design orgs of 200 or more both sit at the rare end of the scale.
 
 ## Local vs international companies
 
 ::chart{id="at-company-hq"}
 
-The majority of designers (62.2%) work at their company's headquarters, suggesting most are employed by local or locally-headquartered companies. Working at a non-local company offers a 67.1% higher median pay; global companies pay up to 91.5% more for designers without formal design education.
+Most designers work at their company's headquarters, which suggests they are largely employed by local or locally headquartered companies. Working at a non-local company carries a pay premium too, with a median 67.1% higher than at local ones.
 
 ## Work arrangement
 
 ::chart{id="work-arrangement"}
 
-Hybrid work is the established norm at 71.8% (232 respondents). Fully remote accounts for 16.7% (54), and in-office is a minority at 11.5% (37). This distribution reflects the post-pandemic shift toward flexible working that had already become entrenched by early 2023.
-
-The compensation implications are striking: fully remote roles offer over 2.7x higher median pay than in-office roles and 1.8x higher than hybrid. This premium reflects the access remote work provides to global and non-local employers with higher salary bands.
+Hybrid was already the default by early 2023, well into the post-pandemic shift toward flexible work. Remote work also carries a premium in the pay data: a fully remote median more than 2.7 times higher than in-office, and nearly double the hybrid median. Much of that gap traces back to who tends to hire remotely: the same global and non-local employers already shown above to pay a premium.
 

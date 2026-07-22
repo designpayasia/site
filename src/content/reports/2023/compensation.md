@@ -408,16 +408,7 @@ charts:
 
 ## Currency and payment
 
-Designers across Southeast Asia are almost universally paid in local currency:
-
-- Singapore Dollar: 224 respondents
-- Malaysian Ringgit: 46
-- Indonesian Rupiah: 27
-- Philippine Peso: 7
-- Vietnamese Dong: 6
-- Thai Baht: 3
-
-Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
+Designers across Southeast Asia are almost universally paid in local currency. Only a small handful receive USD or other foreign currencies, suggesting limited remote work for overseas employers at this stage.
 
 ::chart{id="chart-currency-drawn-in"}
 
@@ -453,12 +444,12 @@ Indonesia's median annual total compensation is Rp84,000,000, based on 27 respon
 
 ## Compensation mix
 
-Annual bonuses are a significant part of total compensation: 54.8% of respondents receive them. 30.3% receive other annual compensation, and 15.8% receive annual stock grants. Stock-based compensation is notably less common than in Western markets, reflecting the regional prevalence of local companies and enterprises over venture-funded startups.
+Bonuses are the main way pay reaches beyond base salary; other annual compensation and stock grants are less common. Stock grants in particular remain rare, likely because most respondents work at local companies and established enterprises rather than venture-funded startups.
 
 ::chart{id="chart-compensation-mix"}
 
 ## Standard benefits
 
-The four non-pay benefits that form the baseline package for designers across the region are paid medical leave (83.3%), paid time off and vacation (77.4%), health insurance (76.5%), and flexible working arrangements (68.7%). Additional common benefits include professional development funds (46.4%), flexible schedule (39.9%), dental insurance (39.3%), and onsite food and snacks (33.4%); a budget for equipment or home office setup is the least common at 21.1%.
+Four benefits form the baseline package for designers across the region: paid medical leave, paid time off, health insurance, and flexible working arrangements, each reaching more than two-thirds of respondents. Past that baseline, access thins out, from professional development funds down to a budget for equipment or a home-office setup, the least common benefit on the list.
 
 ::chart{id="chart-benefits-access"}
