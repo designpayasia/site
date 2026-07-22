@@ -53,7 +53,7 @@ charts:
   - id: sg-2024-experience-premium
     title: Singapore total compensation by years of design experience, 2024
     caption: Reported total compensation distribution (25th percentile, median, 75th percentile, and full range) by years of design experience among Singapore survey respondents paid in SGD, 2024. Adjacent experience bands below the n=10 publication threshold are merged. The 16+ band has only n=5 on its own, below that threshold, so it is combined with the adjacent 11–15 band (n=19), which clears the threshold comfortably.
-    summary: "Singapore total compensation rises steadily with years of design experience, from a S$60,000 median at 0–2 years to S$137,500 at 11-15-to-16+ years combined."
+    summary: "Singapore total compensation rises steadily with years of design experience, from a S$60,000 median at 0–2 years to S$137,500 at 11–15-to-16+ years combined."
     evidenceIds:
       - evidence:2024-sg-experience-premium
     sourceLabel: '2024 DPA Report'
