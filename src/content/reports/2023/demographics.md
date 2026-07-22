@@ -166,18 +166,18 @@ The inaugural 2023 survey reached designers across 10 countries. Respondents by 
 - Thailand: 3 (0.9%)
 - Six others: Taiwan, India, Romania, and Japan
 
-Singapore accounts for most responses. Eight designers came from the Philippines, too few to clear our ten-response reporting floor, so we don't publish median pay or rate figures for that market on its own.
+Singapore accounts for most responses. Eight designers came from the Philippines, too few to clear the ten-response reporting floor, so median pay and rate figures for that market alone aren't published.
 
 ::chart{id="chart-geographic-distribution"}
 
 ## Gender distribution
 
-The 2023 survey achieved a nearly equal gender split: 54.5% women (176) and 43.9% men (142), with small numbers of non-binary and prefer-not-to-state respondents. This balance was a deliberate outcome of distribution strategy and community partnerships, and proved critical for the gender pay gap analysis.
+Small numbers of respondents identified as non-binary or preferred not to state; the remainder split 54.5% women to 43.9% men. That balance was a deliberate outcome of distribution strategy and community partnerships, and it proved critical to the gender pay gap analysis that anchors this report.
 
 ::chart{id="chart-gender-distribution"}
 
 ## Age profile
 
-The workforce skews young. The 25-30 age bracket is the largest at 43%, forming the core of the design workforce. Age distribution across all groups: 18-24 (16.4%), 25-30 (43.0%), 31-35 (25.4%), 36-40 (9.9%), 41-45 (3.1%), 46-50 (1.5%). Across all groups under 35, women outnumbered men. Above 36, the pattern shifts, with men dominating each older bracket: a signal of structural retention challenges that later surveys would examine.
+The workforce skews young, with the 25–30 bracket alone accounting for 43% of respondents. Across all groups under 35, women outnumbered men. Above 36, the pattern shifts, with men dominating each older bracket: a signal of structural retention challenges that later surveys would examine.
 
 ::chart{id="chart-age-distribution"}

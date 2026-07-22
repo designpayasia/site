@@ -264,15 +264,7 @@ metrics:
 
 ## Company type
 
-Reported median total compensation by company type:
-
-- Large enterprise: S$114,500
-- Startup: S$90,000
-- Government: S$84,000
-- Agency / Consulting: S$63,548
-- Small-medium enterprise: S$58,300
-
-Company types with fewer than 10 respondents are omitted.
+Reported median total compensation nearly doubles across the range, from Small-medium enterprise respondents at S$58,300 to Large enterprise respondents at S$114,500. Company types with fewer than 10 respondents are omitted.
 
 The figures describe the people who answered the survey. Respondent mix varies across company types, and the comparison is unadjusted.
 
@@ -280,9 +272,7 @@ The figures describe the people who answered the survey. Respondent mix varies a
 
 ## Industry
 
-Among industries with at least 10 respondents, Retail, Wholesale & Distribution recorded the highest reported median at S$125,600, ahead of Investment Management at S$91,545 and Consumer Products at S$99,000. Banking & Capital Markets, the largest published industry cohort at 43 respondents, recorded S$85,000. Government & Public Services, Transportation, Hospitality & Services, and Health Care round out the published ranking.
-
-Life Sciences respondents reported the highest raw median of any industry, S$176,900. The data is sparse, just 4 respondents, so we don't treat it as a reliable industry finding.
+Among industries with at least 10 respondents, Retail, Wholesale & Distribution recorded the highest reported median, ahead of Investment Management and Consumer Products. Banking & Capital Markets is the largest published cohort at 43 respondents, and its median sits below the top of this range. Government & Public Services, Transportation, Hospitality & Services, and Health Care round out the published ranking.
 
 The figures describe the people who answered the survey. Respondent mix varies across industries, and the comparison is unadjusted.
 
@@ -290,7 +280,7 @@ The figures describe the people who answered the survey. Respondent mix varies a
 
 ## Company size
 
-The reported medians were S$44,900 at companies with 1–10 employees and S$112,500 at companies with 10,001 or more. The two adjacent groups from 201 to 10,000 employees recorded similar medians: S$100,700 and S$100,550. The steepest step sits between the 51–200 and 201–1,000 employee bands, a 25.5% jump in reported median pay, from S$80,200 to S$100,700.
+Reported medians range from S$44,900 at companies with 1–10 employees to S$112,500 at companies with 10,001 or more. The steepest step sits between the 51–200 and 201–1,000 employee bands, a 25.5% jump in reported median pay.
 
 Respondent mix may differ across company-size groups. Read these figures as survey descriptions rather than expected pay at a given company.
 
@@ -316,13 +306,13 @@ Respondents not physically based at their company's headquarters recorded a medi
 
 ## Work arrangement
 
-Remote respondents recorded a median of S$143,336, roughly 2.7 times the In-office median and 1.8 times the Hybrid median, as reported. The corresponding medians were S$81,900 for Hybrid respondents and S$52,000 for In-office respondents. Role, seniority, employer, and other characteristics may differ across these groups, so this is an unadjusted comparison.
+Remote respondents recorded a median of S$143,336, roughly 2.7 times the In-office median and 1.8 times the Hybrid median. Role, seniority, employer, and other characteristics may differ across these groups, so this is an unadjusted comparison.
 
 ::chart{id="sg-compensation-work-arrangement"}
 
 ## Working hours
 
-The published report's only seniority-linked claim here is that directors and VPs work the most prolonged hours on average of any seniority level; the report did not publish an hours-by-seniority breakdown we can independently verify, so this stays as the report's own hedged observation rather than a site-verified figure.
+The published report's only seniority-linked claim here is that directors and VPs work the longest hours on average of any seniority level; the report did not publish an hours-by-seniority breakdown we can independently verify, so this stays as the report's own hedged observation rather than a site-verified figure.
 
 Reported median total compensation does rise with self-reported extra hours worked per week, though the source report did not publish respondent counts for each band, so read these medians as descriptive rather than cohort-verified.
 

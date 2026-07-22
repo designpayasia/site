@@ -154,7 +154,7 @@ Singapore respondents with no formal design education reported a median total co
 
 ## Overlapping education pathways
 
-The matched comparison above uses two mutually exclusive cohorts. The five pathway medians below are a separate, broader analysis: a respondent can belong to more than one education-pathway category, so don't read these counts as an exclusive comparison.
+The matched comparison above uses two mutually exclusive cohorts. The five pathway medians below are a separate, broader analysis: a respondent can belong to more than one education-pathway category, so these five totals overlap rather than form an exclusive comparison.
 
 The five published pathway medians sit between S$85,500.50 and S$92,500. The source categories overlap. We retain the supplied categories and medians without turning them into exclusive alternatives or percentage shares.
 
@@ -172,7 +172,7 @@ Junior IC respondents in this cohort reported a median of S$63,800 (n=12); Senio
 
 ## Headquarters location, without formal design education
 
-Within the no-formal-design-education cohort, respondents not physically based at their company's headquarters reported a median of S$157,000, against S$82,150 for respondents at headquarters, 91.1% more. Global companies pay close to double for designers with similar experience but no formal design credential, though role, seniority, and employer type may differ across these groups.
+Within the no-formal-design-education cohort, respondents not physically based at their company's headquarters reported a median of S$157,000, against S$82,150 for respondents at headquarters, 91.1% more. This is a small subgroup (n=13), and role, seniority, and employer type may differ across these groups, so it is directional rather than a claim about how global companies pay in general.
 
 ::chart{id="sg-education-no-formal-hq"}
 

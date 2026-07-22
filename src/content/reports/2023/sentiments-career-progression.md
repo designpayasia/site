@@ -335,25 +335,25 @@ charts:
 
 ## Career levelling progress
 
-Over half of respondents (53.9%) reported making formal progress in job levelling in the past year. Just under a third (29.7%) had not made progress, and 16.4% indicated the question was not applicable.
+Over half of respondents reported making formal progress on job levelling this year. A substantial minority saw no such progress, and a smaller group were not in a position to answer.
 
 ::chart{id="chart-job-levelling-progress-vs-last-year"}
 
-Most respondents received pay increases compared to the previous year. 25.5% increased their pay by more than 20%, likely driven by job changes, while 19.9% received no increase at all, effectively a pay cut once inflation is accounted for.
+Pay movement over the same period was bimodal rather than evenly spread. A quarter of respondents saw an increase of more than 20%, likely driven by job changes, while nearly as many saw no increase at all, effectively a pay cut once inflation is accounted for.
 
 ::chart{id="chart-pay-increase-distribution"}
 
-Read together, the two charts show that career progress and pay growth do not always move in step. 53.9% made formal levelling progress, yet only 25.5% saw a pay rise above 20%, and almost one in five (19.9%) saw no increase at all. Levelling up and a bigger pay cheque overlap for some, but plenty of designers who progressed on paper still saw only modest pay movement.
+Read together, the two charts show that career progress and pay growth do not always move in step. Levelling up and a bigger pay cheque overlap for some, but plenty of designers who progressed on paper still saw only modest pay movement.
 
 ## Company support for growth
 
 ::chart{id="career-progression-support"}
 
-Sentiment around company support for career growth averaged 4.54 out of 7. Just over half (52.1%, ratings 5-7) rated their company supportive, while roughly a quarter (23.5%, ratings 1-3) felt actively unsupported, and the rest sat neutral. That split points to career development investment being inconsistent rather than a company-wide standard.
+Sentiment around company support for career growth averaged 4.54 out of 7. Just over half (52.1%, ratings 5–7) rated their company supportive, while roughly a quarter (23.5%, ratings 1–3) felt actively unsupported, and the rest sat neutral. That split points to career development investment being inconsistent rather than a company-wide standard.
 
 ## Learning and development
 
-Designers showed moderate interest in exploring different disciplines and picking up new skills, averaging 4.34 out of 7. There was less appetite for switching career tracks entirely, with an average of 3.46 out of 7. The pattern flips between the two questions: 51.2% leaned towards exploring a new area of work (ratings 5-7), but for switching tracks entirely, half (49.8%, ratings 1-3) leaned against it and only 30.8% were open to the idea. Curiosity about new disciplines is common; abandoning a chosen track is not.
+Designers showed more appetite for exploring different disciplines and picking up new skills than for switching career tracks entirely. The pattern flips when you look at the full distribution: 51.2% leaned towards exploring a new area of work (ratings 5–7), but for switching tracks entirely, half (49.8%, ratings 1–3) leaned against it, and only 30.8% were open to the idea. Curiosity about new disciplines is common; abandoning a chosen track is not.
 
 ::chart{id="chart-switch-primary-work-area"}
 
@@ -361,7 +361,7 @@ Designers showed moderate interest in exploring different disciplines and pickin
 
 ## Job search activity
 
-Treating a neutral-or-better response as at least open to a move, 65.5% of respondents (ratings 4 and above) were open to switching jobs or changing companies in the coming year, averaging 4.34 out of 7 on job-seeking intent. Narrowed to clear agreement (ratings 5-7), that share is 49.2%. 21.7% strongly agreed (rating 7) that they were actively looking, the single largest response band on the chart.
+Treating a neutral-or-better response as at least open to a move, 65.5% of respondents (ratings 4 and above) were open to switching jobs or changing companies in the coming year. Narrowed to clear agreement (ratings 5–7), that share drops to 49.2%. The single largest response band on the chart is the top one: 21.7% strongly agreed that they were actively looking.
 
 ::chart{id="chart-switch-jobs-companies"}
 

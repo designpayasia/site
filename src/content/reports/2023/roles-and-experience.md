@@ -556,14 +556,14 @@ Around 40.8% of job titles indicated some level of seniority, suggesting that fo
 
 ## Career level distribution
 
-Individual contributors dominate at 87% of all respondents:
+Individual contributors form the overwhelming majority of respondents. By level:
 
 - Junior IC: 101 respondents (31.3%)
 - Mid-level IC: 76 (23.5%)
 - Senior IC: 72 (22.3%)
 - Lead / Staff / Principal IC: 32 (9.9%)
 
-Management roles account for the remaining 13%:
+Management levels make up the rest:
 
 - People Manager: 27 (8.4%)
 - Director: 11 (3.4%)
@@ -586,11 +586,11 @@ Respondents by primary field of work:
 
 ## Experience
 
-Nearly half of respondents (47.1%) have three or fewer years of design experience, the single largest bracket in the survey. The published report frames the same skew in self-assessed terms: 48.4% describe their design experience as little to some, and 22.9% specifically put it at one year.
+The self-assessed picture matches the topline numbers: 48.4% of respondents describe their design experience as little to some, and 22.9% put it at exactly one year.
 
 ::chart{id="chart-yoe-design"}
 
-The median total working experience, derived from responses, is 6 years, two years higher than the median design experience of 4 years (N=323). Many designers are career switchers who bring broader professional experience into their design roles than their design tenure alone would suggest; the two-year gap between the medians is consistent with that pattern.
+That two-year gap between the medians is the throughline for career switchers: design tenure alone undersells the professional experience they bring into a role.
 
 ::chart{id="chart-yoe-vs-total-experience"}
 
@@ -609,7 +609,7 @@ Design education pathways:
 - Bootcamps: 27.9%
 - In-person certified courses: 11.1%
 
-Notably, 22.3% have no formal design education at all, demonstrating that design credentials are not a prerequisite for employment in the field.
+22.3% have no formal design education at all, suggesting design credentials are not a strict prerequisite for entering the field.
 
 ::chart{id="chart-formal-education"}
 
