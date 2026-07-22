@@ -7,7 +7,7 @@ charts:
   - id: sg-2024-gender-pay-gap-by-level
     title: Singapore median pay by gender and seniority level, 2024
     caption: Reported median total compensation by gender at each Singapore seniority level where both gender cohorts meet the n=10 publication threshold, 2024. Lead/Staff/Principal IC, Manager, Director/VP, and Head of department levels are omitted because at least one gender cohort in each falls below n=10. These are gaps between survey medians, not population estimates or matched-role comparisons.
-    summary: "Among Singapore seniority levels with both gender cohorts published in 2024: Junior IC, Man S$58,200 (n=10) versus Woman S$60,000 (n=30), women 3.1% higher; Mid-level IC, Man S$59,800 (n=16) versus Woman S$75,650 (n=38), women 26.5% higher; Senior IC, Man S$102,300 (n=16) versus Woman S$103,400 (n=29), women 1.1% higher. At every published level, women's reported median sits at or above men's, the opposite direction from the pooled 17.7% aggregate gap (Man S$92,400 versus Woman S$76,000, n=171). That is because the aggregate reflects seniority mix rather than per-level pay: see the composition note above this chart. Lead/Staff/Principal IC, Manager, Director/VP, and Head of department levels are omitted because at least one gender cohort in each falls below the n=10 publication threshold."
+    summary: "At every Singapore seniority level with a published gender comparison, women's median compensation sits at or above men's, the reverse of the pooled 17.7% aggregate gap."
     suppressionNote: >-
       Some cohorts here are too small to publish without identifying
       individuals, so we hold those figures back.
@@ -53,7 +53,7 @@ charts:
   - id: sg-2024-experience-premium
     title: Singapore total compensation by years of design experience, 2024
     caption: Reported total compensation distribution (25th percentile, median, 75th percentile, and full range) by years of design experience among Singapore survey respondents paid in SGD, 2024. Adjacent experience bands below the n=10 publication threshold are merged. The 16+ band has only n=5 on its own, below that threshold, so it is combined with the adjacent 11–15 band (n=19), which clears the threshold comfortably.
-    summary: "Among Singapore survey respondents paid in SGD in 2024: 0–2 years (n=34), median S$60,000, 25th to 75th percentile S$49,700 to S$75,585; 3–5 years (n=64), median S$72,000, S$57,600 to S$94,100; 6–10 years (n=49), median S$105,600, S$74,100 to S$150,000; 11–15 to 16+ years combined (n=24), median S$137,500, S$94,800 to S$173,550. Total compensation rises steadily with experience across every published band."
+    summary: "Singapore total compensation rises steadily with years of design experience, from a S$60,000 median at 0–2 years to S$137,500 at 11-15-to-16+ years combined."
     evidenceIds:
       - evidence:2024-sg-experience-premium
     sourceLabel: '2024 DPA Report'
@@ -109,7 +109,7 @@ charts:
   - id: sg-2024-company-type-pay
     title: Singapore median pay by company type, 2024
     caption: Reported median total compensation by company type among Singapore survey respondents paid in SGD, 2024, for company types meeting the n=10 publication threshold. Non-profit, academia, bank, and F&B respondents are folded into a merged "Other" bucket that itself falls below n=10 (n=5) and is therefore omitted entirely, not shown as a bar.
-    summary: "Among Singapore survey respondents paid in SGD in 2024, published company-type medians ranged from S$59,900 at small/medium enterprises (n=30) to S$126,000 at government employers (n=13). Large enterprise/MNC (n=57) reported S$99,560, start-up (n=37) reported S$78,800, and agency/consulting (n=29) reported S$61,600. A merged 'Other' bucket combining non-profit, academia, bank, and F&B respondents falls below the n=10 threshold itself (n=5) and is omitted."
+    summary: "Published Singapore company-type medians range from S$59,900 at small/medium enterprises to S$126,000 at government employers."
     suppressionNote: >-
       The merged "Other" bucket (non-profit, academia, bank, and F&B
       respondents, n=5 combined) is too small to publish even after
