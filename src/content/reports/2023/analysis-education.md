@@ -126,19 +126,24 @@ charts:
       - label: Not at headquarters
         value: 100
 keyFindings:
-  - The pathway categories overlap. A respondent may appear in more than one
-    group, so the counts should not be added or treated as percentages.
-  - Reported pathway medians ranged from S$85,500.50 to S$92,500 among the
-    Singapore respondents represented in the supplied aggregate CSV.
-  - In a matched-cohort comparison, respondents with no formal design
-    education reported 15.4% higher median pay than respondents with formal
-    design education, despite slightly less design experience.
   - 90.2% of the no-formal-design-education cohort hold tertiary education in
-    another field, and 85% work as individual contributors. This reads as a
-    cohort of career switchers, not unqualified entrants.
-  - Within the no-formal-design-education cohort, respondents not at their
-    company's headquarters reported 91.1% more than respondents at
-    headquarters.
+    another field, and 85% work as individual contributors, consistent with
+    career switchers rather than unqualified entrants.
+metrics:
+  - value: "81,900"
+    unit: SGD
+    label: median comp, no formal design education (matched cohort)
+    color: signal
+    evidenceId: evidence:2023-sg-education-matched-cohort
+    sampleSize: 41
+    publishMode: published
+  - value: "71,000"
+    unit: SGD
+    label: median comp, formal design education (matched cohort)
+    color: workhorse
+    evidenceId: evidence:2023-sg-education-matched-cohort
+    sampleSize: 90
+    publishMode: published
 ---
 
 ## Design education and pay: a matched comparison

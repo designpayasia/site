@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 import BigStat from '../../components/BigStat.astro';
 import ChapterRail from '../../components/ChapterRail.astro';
+import ReportSectionRow from '../../components/ReportSectionRow.astro';
 import TeamGrid from '../../components/TeamGrid.astro';
 import Base from '../../layouts/Base.astro';
 import {
@@ -47,6 +48,15 @@ const evidenceMap = buildEvidenceMap(evidenceEntries);
 const reportCharts = sections.flatMap((section) => section.charts);
 
 assertMetricsHaveEvidence(report.data.stats, evidenceMap, `report:${report.id}`);
+for (const section of sections) {
+  if (section.metrics) {
+    assertMetricsHaveEvidence(
+      section.metrics,
+      evidenceMap,
+      `report:${report.id}:section:${section.id}`,
+    );
+  }
+}
 for (const chart of reportCharts) {
   assertEvidenceIdsExist(chart.evidenceIds, evidenceMap, `report:${report.id}:chart:${chart.id}`);
 
@@ -158,28 +168,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <div class="report-section-bucket">
             <h3 class="report-section-bucket__heading label-mono">The landscape</h3>
             {landscapeSections.map((section) => (
-              <article class="report-section-row" id={section.id} data-spy>
-                <h4 class="report-section-row__title t-h2">{section.title}</h4>
-                {section.hubCommentary && (
-                  <div class="report-section-row__intro">
-                    <div class="report-section-row__commentary-block">
-                      <p class="report-section-row__commentary">{section.hubCommentary}</p>
-                    </div>
-                  </div>
-                )}
-                <div class="report-section-row__content">
-                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                    <ul class="report-section__findings prose">
-                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                    </ul>
-                  ) : (
-                    <p class="report-section__summary prose">{section.summary}</p>
-                  )}
-                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                    Read section
-                  </a>
-                </div>
-              </article>
+              <ReportSectionRow section={section} reportPath={report.data.canonicalPath} />
             ))}
           </div>
         )}
@@ -188,28 +177,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <div class="report-section-bucket">
             <h3 class="report-section-bucket__heading label-mono">Sentiment and perceptions</h3>
             {sentimentSections.map((section) => (
-              <article class="report-section-row" id={section.id} data-spy>
-                <h4 class="report-section-row__title t-h2">{section.title}</h4>
-                {section.hubCommentary && (
-                  <div class="report-section-row__intro">
-                    <div class="report-section-row__commentary-block">
-                      <p class="report-section-row__commentary">{section.hubCommentary}</p>
-                    </div>
-                  </div>
-                )}
-                <div class="report-section-row__content">
-                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                    <ul class="report-section__findings prose">
-                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                    </ul>
-                  ) : (
-                    <p class="report-section__summary prose">{section.summary}</p>
-                  )}
-                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                    Read section
-                  </a>
-                </div>
-              </article>
+              <ReportSectionRow section={section} reportPath={report.data.canonicalPath} />
             ))}
           </div>
         )}
@@ -218,28 +186,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
           <div class="report-section-bucket">
             <h3 class="report-section-bucket__heading label-mono">{ANALYSIS_LABEL}</h3>
             {analysisSections.map((section) => (
-              <article class="report-section-row" id={section.id} data-spy>
-                <h4 class="report-section-row__title t-h2">{section.title}</h4>
-                {section.hubCommentary && (
-                  <div class="report-section-row__intro">
-                    <div class="report-section-row__commentary-block">
-                      <p class="report-section-row__commentary">{section.hubCommentary}</p>
-                    </div>
-                  </div>
-                )}
-                <div class="report-section-row__content">
-                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                    <ul class="report-section__findings prose">
-                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                    </ul>
-                  ) : (
-                    <p class="report-section__summary prose">{section.summary}</p>
-                  )}
-                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                    Read section
-                  </a>
-                </div>
-              </article>
+              <ReportSectionRow section={section} reportPath={report.data.canonicalPath} />
             ))}
           </div>
         )}
@@ -247,28 +194,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         {otherSections.length > 0 && (
           <div class="report-section-bucket">
             {otherSections.map((section) => (
-              <article class="report-section-row" id={section.id} data-spy>
-                <h4 class="report-section-row__title t-h2">{section.title}</h4>
-                {section.hubCommentary && (
-                  <div class="report-section-row__intro">
-                    <div class="report-section-row__commentary-block">
-                      <p class="report-section-row__commentary">{section.hubCommentary}</p>
-                    </div>
-                  </div>
-                )}
-                <div class="report-section-row__content">
-                  {section.keyFindings && section.keyFindings.filter(Boolean).length > 0 ? (
-                    <ul class="report-section__findings prose">
-                      {section.keyFindings.filter(Boolean).map((finding) => <li>{finding}</li>)}
-                    </ul>
-                  ) : (
-                    <p class="report-section__summary prose">{section.summary}</p>
-                  )}
-                  <a href={`${report.data.canonicalPath}/${section.id}`} class="report-section__link">
-                    Read section
-                  </a>
-                </div>
-              </article>
+              <ReportSectionRow section={section} reportPath={report.data.canonicalPath} />
             ))}
           </div>
         )}
@@ -493,73 +419,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .report-section-bucket__heading {
     margin-bottom: var(--space-6);
     color: var(--color-ink-muted);
-  }
-
-  /* Section rows are single-column stacks. */
-  .report-section-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-    padding-block: var(--space-10);
-  }
-
-  .report-section-row__intro,
-  .report-section-row__content {
-    display: grid;
-    gap: var(--space-5);
-    align-content: start;
-  }
-
-  .report-section-row + .report-section-row {
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-
-
-  .report-section-row__title {
-    margin-bottom: var(--space-2);
-    color: var(--color-workhorse);
-  }
-
-  .report-section__summary {
-    margin: 0;
-    color: var(--color-ink-muted);
-  }
-
-  .report-section__findings {
-    margin: 0;
-    padding-left: var(--space-5);
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .report-section-row__commentary-block {
-    padding-left: var(--space-6);
-    border-left: 3px solid var(--color-signal-text);
-  }
-
-  .report-section-row__commentary {
-    margin: 0;
-    max-width: var(--zone-prose);
-    color: var(--color-ink-subtle);
-    font-size: var(--font-size-lg);
-    line-height: var(--leading-editorial);
-  }
-
-  .report-section-row__commentary:last-child {
-    margin-bottom: 0;
-  }
-
-  .report-section__link {
-    display: inline-flex;
-    margin-top: var(--space-4);
-    color: var(--color-action);
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .report-section__link:hover {
-    text-decoration: underline;
   }
 
   .report-invitation {

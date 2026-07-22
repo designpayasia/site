@@ -113,14 +113,23 @@ charts:
             - label: 5+
               values: ["42", "18.8"]
 keyFindings:
-  - Work arrangement comfort scores highest of all sentiment categories at 5.57
-    out of 7.
-  - 31.6% gave the maximum comfort rating of 7 for their current working
-    arrangement.
-  - 67.2% of designers work extra hours. 16.4% work more than 5 extra hours per
-    week.
   - Hybrid (71.8%) is the established norm. Remote accounts for 16.7%, in-office
     11.5%.
+metrics:
+  - value: "5.57"
+    unit: "/7"
+    label: work-arrangement comfort (mean, highest of all sentiment categories)
+    color: signal
+    evidenceId: evidence:2023-sentiments
+    sampleSize: 323
+    publishMode: published
+  - value: "67.2"
+    unit: "%"
+    label: work extra hours beyond regular hours
+    color: workhorse
+    evidenceId: evidence:2023-company-landscape
+    sampleSize: 311
+    publishMode: published
 ---
 
 ## Work arrangement comfort

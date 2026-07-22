@@ -2,8 +2,8 @@
 title: 2023 Design Pay Asia Report
 summary: The inaugural 2023 Design Pay Asia survey captured 323 responses from
   designers across Southeast Asia. This report covers demographics,
-  compensation, company profiles, career progression, and a landmark analysis
-  revealing a 42% gender pay gap in Singapore's design industry.
+  compensation, company profiles, career progression, and the first
+  documented 42% gender pay gap in Singapore's design industry.
 year: 2023
 publishedAt: 2023-06-01
 markets:
@@ -31,28 +31,28 @@ stats:
     evidenceId: evidence:2023-gender-pay-gap
     sampleSize: 323
     publishMode: published
-  - value: S$84,000
+  - value: "84,000"
     unit: SGD
     label: Median total compensation for designers in Singapore
     color: workhorse
     evidenceId: evidence:2023-compensation
     sampleSize: 323
     publishMode: published
-  - value: RM83,000
+  - value: "83,000"
     unit: MYR
     label: Median total compensation for designers in Malaysia
     color: workhorse
     evidenceId: evidence:2023-compensation-malaysia
     sampleSize: 46
     publishMode: published
-  - value: Rp84,000,000
+  - value: "84,000,000"
     unit: IDR
     label: Median total compensation for designers in Indonesia
     color: workhorse
     evidenceId: evidence:2023-compensation-indonesia
     sampleSize: 27
     publishMode: published
-  - value: S$10,839
+  - value: "10,839"
     unit: SGD/YOE
     label: Average annual salary growth per year of design experience
     color: signal
@@ -83,20 +83,20 @@ team:
     country: Singapore
     linkedin: https://www.linkedin.com/in/thisiskylel/
     photo: /team/2023/kyle-lai.jpg
-acknowledgement: This first ever report was driven by the community both inside
-  and out. It exists because 323 designers chose to share what they earn, which
-  gave us a first look into the design community across Southeast Asia. We are
-  incredibly grateful for all your contributions. Thank you.
+acknowledgement: This first-ever report was driven by the community, inside
+  and out. It exists because 323 designers chose to share what they earn,
+  giving us a first look at the design community across Southeast Asia.
+  We're grateful for every contribution. Thank you.
 support:
   heading: Support this community initiative
-  body: "Help grow our understanding of design pay in Southeast Asia: share this
-    report with your networks, contribute to our open pay database, or take part
-    in future research."
+  body: "Design pay in Southeast Asia stays opaque until more people share
+    data. Share this report, contribute to our open pay database, or take
+    part in future research."
   ctaLabel: Contribute anonymously today
   ctaUrl: https://tally.so/r/3EDeGX
 methodologyStrip:
   intro: The 2023 survey ran anonymously via Tally.so from December 2022 to
-    February 2023. We collected data on compensation, career progression, and
+    February 2023, collecting data on compensation, career progression, and
     workplace sentiment from design professionals across Southeast Asia.
   process:
     - Reached designers through community channels, partnerships with
@@ -107,8 +107,8 @@ methodologyStrip:
     - Detailed analysis sections use Singapore respondents (N=223), where sample
       size supports breakdowns by role and experience; smaller markets are included where data
       is sufficient
-  biasIntro: "This was the first DPA survey, and the data has real constraints
-    worth knowing:"
+  biasIntro: "This was the first DPA survey. Several constraints affect how
+    these figures should be read:"
   biasPoints:
     - "Geographic skew: Singapore makes up 69.4% of responses. Malaysia (N=46)
       and Indonesia (N=29) have small samples, so country-level data for those
@@ -121,7 +121,8 @@ methodologyStrip:
     - "Self-reported data: All figures are self-reported. Compensation numbers
       in particular may be rounded or affected by recall"
     - "Small-cohort markets: Country-level data for markets with fewer than 30
-      respondents is indicative, not statistically conclusive"
+      respondents is directional and should not be treated as statistically
+      conclusive"
   caveat: Without a prior year to compare against, this report establishes the
     baseline rather than tracking trends. Year-on-year comparisons from 2024
     onwards should account for shifts in methodology and who responded.

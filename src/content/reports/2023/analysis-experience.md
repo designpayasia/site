@@ -217,16 +217,23 @@ charts:
       - label: 10+ years, did not negotiate
         value: 90.3
 keyFindings:
-  - People Manager respondents recorded the highest reported median total
-    compensation among the published seniority cohorts, at S$139,100.
-  - Median total compensation rose steadily with years of design experience,
-    from S$62,700 at 0–3 years to S$156,100 at 10 or more years.
-  - Respondents with international work experience recorded S$130,000, compared
-    with S$70,100 among respondents without it.
-  - Negotiation-response medians were S$84,500 for Yes, S$84,150 for No, and
-    S$85,801 for Not applicable, but that aggregate hides a split by
-    experience. A negotiation premium shows up from 7 years of design
-    experience onward, not before.
+  - A negotiation premium shows up from 7 years of design experience onward,
+    not before.
+metrics:
+  - value: "62,700"
+    unit: SGD
+    label: median total compensation, 0–3 years' experience
+    color: workhorse
+    evidenceId: evidence:2023-experience-salary
+    sampleSize: 98
+    publishMode: published
+  - value: "156,100"
+    unit: SGD
+    label: median total compensation, 10+ years' experience
+    color: signal
+    evidenceId: evidence:2023-experience-salary
+    sampleSize: 32
+    publishMode: published
 ---
 
 ## Seniority

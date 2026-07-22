@@ -4,6 +4,17 @@ title: Company landscape
 summary: Large enterprises and startups are the top employers, hybrid work is
   the new norm, and remote roles command a significant compensation premium.
 order: 50
+keyFindings:
+  - Singapore designers work primarily in large enterprises (32.2%), startups
+    (28.5%), and agencies or consulting firms (20.4%) (N=223).
+metrics:
+  - value: "62.2"
+    unit: "%"
+    label: work at their company's headquarters
+    color: workhorse
+    evidenceId: evidence:2023-company-landscape
+    sampleSize: 323
+    publishMode: published
 charts:
   - id: chart-company-type
     type: bar

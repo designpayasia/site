@@ -4,6 +4,24 @@ title: Compensation
 summary: Local currency dominates, median compensation varies across markets,
   and annual bonuses remain a significant part of total pay packages.
 order: 40
+keyFindings:
+  - Medical leave, paid time off, and health insurance are the most widely
+    held benefits; equipment or home-office budget access sits at 21.1%.
+metrics:
+  - value: "69.3"
+    unit: "%"
+    label: of respondents are paid in SGD
+    color: workhorse
+    evidenceId: evidence:2023-compensation
+    sampleSize: 323
+    publishMode: published
+  - value: "54.8"
+    unit: "%"
+    label: receive bonuses beyond base salary
+    color: workhorse
+    evidenceId: evidence:2023-compensation
+    sampleSize: 323
+    publishMode: published
 charts:
   - id: chart-currency-drawn-in
     type: bars

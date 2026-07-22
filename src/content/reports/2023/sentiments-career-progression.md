@@ -5,12 +5,22 @@ summary: Most designers have made career progress, but employer support is
   mixed. Over half are open to new opportunities.
 order: 80
 keyFindings:
-  - 53.9% made formal career levelling progress in the past year. 29.7% did not.
-  - Company support for career growth averaged 4.54 out of 7. About half feel
-    their company actively supports growth.
-  - Interest in exploring new disciplines averages 4.34 out of 7. Appetite for
-    switching tracks entirely is lower at 3.46 out of 7.
   - Over 50% are open to switching jobs or companies. 21.7% are actively looking.
+metrics:
+  - value: "53.9"
+    unit: "%"
+    label: made formal career levelling progress this year
+    color: workhorse
+    evidenceId: evidence:2023-roles-experience
+    sampleSize: 323
+    publishMode: published
+  - value: "4.54"
+    unit: "/7"
+    label: company support for career growth (mean)
+    color: workhorse
+    evidenceId: evidence:2023-sentiments
+    sampleSize: 323
+    publishMode: published
 charts:
   - id: chart-job-levelling-progress-vs-last-year
     type: bar

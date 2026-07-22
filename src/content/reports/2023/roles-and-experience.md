@@ -5,6 +5,21 @@ summary: Product design dominates, individual contributors are the norm, and
   many designers are career switchers with more total work experience than
   design-specific experience.
 order: 30
+metrics:
+  - value: "6"
+    unit: yrs
+    label: median total working experience
+    color: workhorse
+    evidenceId: evidence:2023-roles-experience
+    sampleSize: 323
+    publishMode: published
+  - value: "4"
+    unit: yrs
+    label: median design-specific experience
+    color: signal
+    evidenceId: evidence:2023-roles-experience
+    sampleSize: 323
+    publishMode: published
 charts:
   - id: chart-job-title-distribution
     type: bar

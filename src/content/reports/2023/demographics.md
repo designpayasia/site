@@ -4,6 +4,21 @@ title: Demographics
 summary: A young, diverse workforce concentrated in Singapore, with near-equal
   gender representation and a strong urban skew.
 order: 20
+metrics:
+  - value: "69.4"
+    unit: "%"
+    label: of respondents are in Singapore
+    color: workhorse
+    evidenceId: evidence:2023-survey-overview
+    sampleSize: 323
+    publishMode: published
+  - value: "54.5"
+    unit: "%"
+    label: of respondents are women
+    color: workhorse
+    evidenceId: evidence:2023-survey-overview
+    sampleSize: 323
+    publishMode: published
 charts:
   - id: chart-geographic-distribution
     title: Respondent distribution by country

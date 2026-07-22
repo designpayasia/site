@@ -362,12 +362,21 @@ charts:
       - label: "7 - Strongly agree"
         value: 9.5
         tone: workhorse
-keyFindings:
-  - 57.1% of respondents negotiated their current compensation. 38.8% did not.
-  - "Pay fairness for role and level averages 4.57 out of 7. Market rate
-    awareness: 4.71 out of 7."
-  - Access to resources for staying informed on pay drops to 3.86 out of 7, the
-    lowest sentiment score.
+metrics:
+  - value: "57.1"
+    unit: "%"
+    label: negotiated their current compensation
+    color: workhorse
+    evidenceId: evidence:2023-compensation
+    sampleSize: 317
+    publishMode: published
+  - value: "3.86"
+    unit: "/7"
+    label: access to resources for staying informed (mean, lowest score)
+    color: signal
+    evidenceId: evidence:2023-sentiments
+    sampleSize: 316
+    publishMode: published
 ---
 
 ## Negotiation behaviour
