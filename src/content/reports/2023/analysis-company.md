@@ -242,20 +242,24 @@ charts:
       - label: "5+ hours"
         value: 100
 keyFindings:
-  - Large enterprise respondents recorded S$114,500, the highest reported median
-    among the published company-type cohorts.
-  - Among industries with at least 10 respondents, Retail, Wholesale &
-    Distribution recorded the highest reported median at S$125,600.
-  - Reported medians ranged from S$44,900 at companies with 1–10 employees to
-    S$112,500 at companies with 10,001 or more employees.
-  - Non-local companies offered 67.1% more than companies physically
-    headquartered in Singapore (S$120,280 vs S$72,000).
   - Remote respondents recorded S$143,336, Hybrid respondents S$81,900, and
     In-office respondents S$52,000; the report puts Remote pay at roughly
     2.7 times the In-office median and 1.8 times the Hybrid median.
-  - Reported median total compensation rises with self-reported weekly extra
-    hours, from S$78,650 at 0 hours to S$110,632.50 at 5 or more hours; the
-    source report did not publish respondent counts for each band.
+metrics:
+  - value: "72,000"
+    unit: SGD
+    label: median comp, at company headquarters
+    color: workhorse
+    evidenceId: evidence:2023-sg-compensation-hq
+    sampleSize: 139
+    publishMode: published
+  - value: "120,280"
+    unit: SGD
+    label: median comp, not at company headquarters
+    color: signal
+    evidenceId: evidence:2023-sg-compensation-hq
+    sampleSize: 66
+    publishMode: published
 ---
 
 ## Company type

@@ -6,20 +6,6 @@ summary: Product design dominates, individual contributors are the norm, and
   design-specific experience.
 order: 30
 metrics:
-  - value: "67.5"
-    unit: "%"
-    label: work primarily in product design
-    color: workhorse
-    evidenceId: evidence:2023-roles-experience
-    sampleSize: 323
-    publishMode: published
-  - value: "87"
-    unit: "%"
-    label: are individual contributors, not managers
-    color: workhorse
-    evidenceId: evidence:2023-roles-experience
-    sampleSize: 323
-    publishMode: published
   - value: "6"
     unit: yrs
     label: median total working experience

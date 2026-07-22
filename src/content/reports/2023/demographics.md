@@ -19,13 +19,6 @@ metrics:
     evidenceId: evidence:2023-survey-overview
     sampleSize: 323
     publishMode: published
-  - value: "43"
-    unit: "%"
-    label: are aged 25–30, the largest single band
-    color: workhorse
-    evidenceId: evidence:2023-survey-overview
-    sampleSize: 323
-    publishMode: published
 charts:
   - id: chart-geographic-distribution
     title: Respondent distribution by country

@@ -152,13 +152,9 @@ charts:
           a: 24.4
           b: 25.2
 keyFindings:
-  - Other gender cohorts are omitted because they fall below the minimum safe
-    cohort size of 10.
   - Per-level gaps range from 11% to 21% against women at Mid-level IC, Senior
     IC, and People Manager. The gap reverses at Junior IC, where men earned
     11.85% less.
-  - Men negotiated current compensation more often than women (61% versus
-    51%) and reported more formal levelling progress (62% versus 52%).
 metrics:
   - value: "123,000"
     unit: SGD

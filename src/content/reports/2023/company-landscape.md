@@ -7,9 +7,6 @@ order: 50
 keyFindings:
   - Singapore designers work primarily in large enterprises (32.2%), startups
     (28.5%), and agencies or consulting firms (20.4%) (N=223).
-  - Banking / Capital Markets and Consumer Products are the two largest
-    industry groups, each accounting for roughly one in five respondents
-    (N=224, Singapore).
 metrics:
   - value: "62.2"
     unit: "%"

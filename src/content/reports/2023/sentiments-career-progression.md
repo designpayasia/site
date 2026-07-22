@@ -5,8 +5,6 @@ summary: Most designers have made career progress, but employer support is
   mixed. Over half are open to new opportunities.
 order: 80
 keyFindings:
-  - Interest in exploring new disciplines averages 4.34 out of 7. Appetite for
-    switching tracks entirely is lower at 3.46 out of 7.
   - Over 50% are open to switching jobs or companies. 21.7% are actively looking.
 metrics:
   - value: "53.9"

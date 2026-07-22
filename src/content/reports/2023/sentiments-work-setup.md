@@ -123,13 +123,6 @@ metrics:
     evidenceId: evidence:2023-sentiments
     sampleSize: 323
     publishMode: published
-  - value: "31.6"
-    unit: "%"
-    label: gave the maximum comfort rating of 7
-    color: workhorse
-    evidenceId: evidence:2023-sentiments
-    sampleSize: 323
-    publishMode: published
   - value: "67.2"
     unit: "%"
     label: work extra hours beyond regular hours

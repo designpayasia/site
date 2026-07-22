@@ -370,20 +370,6 @@ metrics:
     evidenceId: evidence:2023-compensation
     sampleSize: 317
     publishMode: published
-  - value: "4.57"
-    unit: "/7"
-    label: pay fairness for role and level (mean)
-    color: workhorse
-    evidenceId: evidence:2023-sentiments
-    sampleSize: 317
-    publishMode: published
-  - value: "4.71"
-    unit: "/7"
-    label: market rate awareness (mean)
-    color: workhorse
-    evidenceId: evidence:2023-sentiments
-    sampleSize: 317
-    publishMode: published
   - value: "3.86"
     unit: "/7"
     label: access to resources for staying informed (mean, lowest score)
