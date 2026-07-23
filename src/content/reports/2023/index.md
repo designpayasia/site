@@ -124,8 +124,8 @@ methodologyStrip:
       respondents is directional and should not be treated as statistically
       conclusive"
   caveat: Without a prior year to compare against, this report establishes the
-    baseline rather than tracking trends. Year-on-year comparisons from 2024
-    onwards should account for shifts in methodology and who responded.
+    baseline rather than tracking trends. Year-on-year comparisons in future
+    editions should account for shifts in methodology and who responded.
 slug: "2023"
 ---
 
