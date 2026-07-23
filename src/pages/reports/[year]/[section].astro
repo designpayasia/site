@@ -153,6 +153,13 @@ if (commentaryLead) {
 
 const [leadQuestion, ...supportingQuestions] = section.questions;
 
+// The closing section's admission names whichever market dominated that
+// year's sample; it is not the same market or share every year.
+const closingSampleAdmission: Record<string, string> = {
+  '2023': 'Singapore makes up close to 69% of who we heard from.',
+  '2024': 'Indonesia makes up close to 79% of who we heard from.',
+};
+
 // Suppress "What this could mean for you" when it is just audience guidance
 // repeated from the columns above (starts with "If you're a…").
 const isAudienceGuidance = whatThisMeansNotes.length > 0 &&
@@ -444,7 +451,12 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
             <DarkBeat
               eyebrow="Questions worth exploring"
               title={leadQuestion}
-              statement={section.id === 'closing' ? 'That question sits underneath every chart in this report. It is about money, but only partly. It is about whether the work is seen.\n\nAnd one admission before we go. Indonesia makes up close to 79% of who we heard from. A single market shapes much of what you have just read. Treat the regional picture as a sketch, not a census. We would rather tell you that than let you mistake it for the whole.' : undefined}
+              statement={section.id === 'closing' ? [
+                'That question sits underneath every chart in this report. It is about money, but only partly. It is about whether the work is seen.',
+                closingSampleAdmission[report.id]
+                  ? `And one admission before we go. ${closingSampleAdmission[report.id]} A single market shapes much of what you have just read. Treat the regional picture as a sketch, not a census. We would rather tell you that than let you mistake it for the whole.`
+                  : undefined,
+              ].filter(Boolean).join('\n\n') : undefined}
               statementDraft={false}
             />
             {supportingQuestions.length > 0 && (
