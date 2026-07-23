@@ -34,7 +34,7 @@ charts:
   - id: sg-compensation-education-pathways
     title: Median total compensation by education pathway
     caption: Reported median total compensation in SGD among Singapore survey respondents in each design-education pathway. These survey medians are not population estimates. Categories overlap, so they are not exclusive alternatives and do not sum to 100%.
-    summary: Reported median total compensation among Singapore survey respondents was S$90,510 for Formal design education, S$91,545 for Online certification, S$87,910.50 for Bootcamp, S$92,500 for In-person certified courses, and S$85,500.50 for No formal design education. Categories overlap, and these are survey medians rather than population estimates.
+    summary: Among Singapore survey respondents, reported median total compensation across overlapping design-education pathways sits in a narrow band, from S$85,500.50 to S$92,500. Categories overlap, and these are survey medians rather than population estimates.
     evidenceIds:
       - evidence:2023-sg-compensation-education-pathways
     sourceLabel: Design Pay Asia 2022-23 education-pathway data

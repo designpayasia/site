@@ -151,15 +151,10 @@ charts:
         tone: workhorse
     variants:
       - label: Singapore
-        summary: "Singapore compensation spans a wide range at every level.
-          Senior IC (N=52) runs from S$44,200 to S$339,927, median S$119,500,
-          the widest spread in the dataset. Junior IC (N=63): S$12,000 –
-          S$157,000, median S$54,000. Mid-level IC (N=56): S$34,800 –
-          S$210,000, median S$75,800. Lead / Staff / Principal IC (N=19):
-          S$38,400 – S$201,342, median S$103,200. People Manager (N=23):
-          S$37,396 – S$235,000, median S$139,100. Director (N=8) and VP
-          (N=2) fall below the 10-respondent disclosure threshold and are not
-          shown."
+        summary: "Singapore compensation spans a wide range at every career
+          level, with the widest spread at Senior IC, from S$44,200 to
+          S$339,927. Director (N=8) and VP (N=2) fall below the
+          10-respondent disclosure threshold and are not shown."
         suppressionNote: >-
           Some cohorts here are too small to publish without identifying
           individuals, so we hold those figures back.

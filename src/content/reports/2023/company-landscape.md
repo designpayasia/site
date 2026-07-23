@@ -20,9 +20,7 @@ charts:
     type: bar
     title: Company type
     caption: Respondents by organisation type (N=223, Singapore)
-    summary: Singapore designers work primarily in large enterprises (32.2%),
-      startups (28.5%), and agencies or consulting firms (20.4%). SMEs account
-      for around 14%.
+    summary: Singapore designers work primarily in large enterprises (32.2%), ahead of startups and agencies or consulting firms.
     evidenceIds:
       - evidence:2023-company-landscape
     sourceLabel: Design Pay Asia 2023 Survey

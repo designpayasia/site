@@ -40,7 +40,7 @@ charts:
   - id: sg-gender-pay-gap-by-level
     title: Median pay by level and gender
     caption: Reported median total compensation by gender at each Singapore survey seniority level where both gender cohorts meet the n=10 publication threshold. Grouped bars show each gender's median side by side at each level. Lead/Staff/Principal IC and Director levels are omitted because at least one gender cohort in each falls below n=10.
-    summary: "Among Singapore survey seniority levels with both gender cohorts published: Junior IC, Man S$47,600 (n=10) versus Woman S$54,000 (n=53); Mid-level IC, Man S$83,900 (n=20) versus Woman S$74,400 (n=35); Senior IC, Man S$133,150 (n=20) versus Woman S$105,050 (n=32); People Manager, Man S$151,380 (n=13) versus Woman S$119,250 (n=10). The direction reverses above Junior IC: men earn less at Junior IC, then women earn less from Mid-level IC upward. The gap is most pronounced among Senior ICs and People Managers, and the Senior IC cohort (n=52 combined, against n=23 at People Manager) gives the most reliable read at 21.1%. These are gaps between survey medians, not population estimates or matched-role comparisons."
+    summary: "Among Singapore survey seniority levels where both gender cohorts published, the gap reverses above Junior IC: men earn less at Junior IC, then women earn less from Mid-level IC upward, most pronounced at Senior IC and People Manager. These are gaps between survey medians, not population estimates or matched-role comparisons."
     suppressionNote: >-
       Some cohorts here are too small to publish without identifying
       individuals, so we hold those figures back.
@@ -91,7 +91,7 @@ charts:
   - id: sg-gender-pay-rise-distribution
     title: Pay-rise distribution by gender
     caption: Share of each gender cohort among Singapore survey respondents reporting a pay rise in each bracket over the past year. Men (n=83) and Women (n=138) are each read as a share of their own cohort, not a share of all respondents.
-    summary: "Reported pay-rise shares for Singapore survey respondents, Men (n=83) versus Women (n=138): no increase, 19.5% versus 20.6%; 0.1–5%, 19.5% versus 18.3%; 6–10%, 15.9% versus 16.0%; 11–15%, 12.2% versus 9.9%; 16–20%, 8.5% versus 9.9%; more than 20%, 24.4% versus 25.2%. The two distributions track closely bracket for bracket, including at the no-increase and top brackets."
+    summary: "Reported pay-rise shares for Singapore survey respondents (Men n=83, Women n=138) track closely by gender across all six brackets, including the no-increase and top brackets."
     evidenceIds:
       - evidence:2023-gender-pay-gap
       - evidence:2023-sg-compensation-gender

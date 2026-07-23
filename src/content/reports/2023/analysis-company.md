@@ -108,7 +108,7 @@ charts:
   - id: sg-compensation-company-size
     title: Median total compensation by company size
     caption: Reported median total compensation in SGD among Singapore survey respondents in each company-size subgroup. These survey medians are not population estimates.
-    summary: Reported median total compensation among Singapore survey respondents was S$44,900 at companies with 1–10 employees, S$54,000 at 11–50, S$80,200 at 51–200, S$100,700 at 201–1,000, S$100,550 at 1,001–10,000, and S$112,500 at 10,001 or more. These are survey medians, not population estimates.
+    summary: Reported median total compensation among Singapore survey respondents rises steadily with company size, from S$44,900 at the smallest firms to S$112,500 at the largest. These are survey medians, not population estimates.
     evidenceIds:
       - evidence:2023-sg-compensation-company-size
     sourceLabel: Design Pay Asia 2022-23 survey data
@@ -211,7 +211,7 @@ charts:
   - id: sg-compensation-extra-hours
     title: Median total compensation by weekly extra hours
     caption: "Reported median total compensation in SGD among Singapore survey respondents, grouped by self-reported extra hours worked per week beyond contracted hours. The source report did not publish respondent counts for each band; these are survey medians for the Singapore SGD cohort (n=223), not population estimates."
-    summary: "Among Singapore survey respondents, reported median total compensation was S$78,650 for those working no extra hours, S$78,425 for 1–2 extra hours, S$83,200 for 3–5 extra hours, and S$110,632.50 for 5 or more extra hours per week. Respondent counts for each band were not published in the source report; these are survey medians, not population estimates."
+    summary: "Among Singapore survey respondents, reported median total compensation was highest for those working 5 or more extra hours a week, at S$110,632.50. Respondent counts for each band were not published in the source report; these are survey medians, not population estimates."
     evidenceIds:
       - evidence:2023-sg-compensation-extra-hours
     sourceLabel: Design Pay Asia 2022-23 survey data
