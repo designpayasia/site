@@ -173,7 +173,7 @@ charts:
   - id: sg-compensation-negotiation-by-yoe
     title: Median total compensation by negotiation and years of design experience
     caption: Reported median total compensation in SGD among Singapore survey respondents who negotiated their current compensation versus those who did not, grouped by years of design experience (YOE). These survey medians are not population estimates. Per-cell sample sizes for this breakdown are not separately published; only the YOE-band totals shown in the years-of-experience chart above are reported.
-    summary: Among Singapore survey respondents grouped by years of design experience, those who negotiated reported lower medians than those who did not below 7 years of experience, but higher medians from 7 years onward.
+    summary: Among Singapore survey respondents grouped by years of design experience, negotiators reported lower medians than non-negotiators before 7 years of experience, and higher medians from 7 years onward.
     evidenceIds:
       - evidence:2023-experience-salary
     sourceLabel: Design Pay Asia 2022-23 survey data
