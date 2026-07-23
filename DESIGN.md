@@ -353,7 +353,7 @@ component file remains the API contract; the gallery and its production links es
 | Covers and archive | `CoverIndexSpread`, `CoverSplitEditorial`, `CoverFullBleed`, `CoverCardInverse` | Use the index spread for a report-listing cover, the split editorial when a question needs evidence beside it, full bleed for a ceremonial flagship moment, and the inverse card for a report archive or related-report rail. |
 | Metrics | `FindingsStrip`, `MetricShelf`, `BigStat`, `StatTakeover` | Use the fixed three-metric strip to open a findings section, the 2 to 6 cell shelf inline, a bare `BigStat` for one figure, and `StatTakeover` for a single annotated hero finding. |
 | Charts | `ChartBlock`, `ChartSmallMultiples`, `ChartRange`, `ChartDotPlot` | Start with `ChartBlock` for a flat bar, Plot, or PNG-backed chart. Use a specialised chart only when the relationship needs panels, a distribution range, or a shared-axis dot comparison. |
-| Registers | `Invitation`, `RegisterCards`, `PullQuote`, `PullQuoteBeat` | Reserve invitations for one standalone question, register cards for a fixed-register grid, pull quotes for an inline quote, and pull-quote beats for a full-width editorial interruption. |
+| Registers | `Invitation`, `Provocations`, `RegisterCards`, `PullQuote`, `PullQuoteBeat` | Reserve invitations for one standalone question, provocations for a stat-anchored tension set at a report closing, register cards for a fixed-register grid, pull quotes for an inline quote, and pull-quote beats for a full-width editorial interruption. |
 | Navigation | `StickyMeta`, `TocScrollspy`, `FilterCompare`, `ConversationSpine`, `ChapterRail` | Separate section metadata, page anchors, progressive filter comparison, editorial progress, and page-scoped report navigation. Do not make a new sticky or scroll-aware pattern without checking these first. |
 | Report support | `ConversationBlock`, `TeamGrid` | Use the established conversation framing and volunteer grid rather than recreating them in a page. |
 
@@ -416,6 +416,19 @@ verification in its first production context.
   (signal fill) + h2 question (display serif, max 20ch) + optional draft label (mono pill).
 - One per report section at most — the question is the sole content, never buried in prose.
 - Pattern: `<Invitation question="What does your pay say about how the industry values what you do?" />`
+
+**`Provocations.astro`** ✓ implemented
+- Report-closing tension pattern: a stat (data voice) paired with a provocation question
+  (§8 invitation register). One data shape, four variants selected by content — do not mix
+  variants on one page:
+  - `grid` — 2 to 6 co-equal cells, light. Default. First cell spans on desktop. (2024 closing.)
+  - `hero` — one dominant stat plus a numbered rail. 1 per page. Use when one finding leads. (2023 closing.)
+  - `split` — 2 to 3 diptych cards, inverse stat panel beside a light question. Docs-only specimen.
+  - `inverse` — one dark band, few cells. 1 per page. Docs-only specimen; never stack with a `DarkBeat`.
+- Data: section frontmatter `provocations[]` = `{ header, stat, statDetail?, question }` plus
+  `provocationVariant`. The stat's leading number is auto-split from its unit; `statDetail` is a
+  caption the `grid`, `split`, `inverse`, and `hero`-lead cards show but the `hero` rail omits.
+- Pattern: `<Provocations items={section.provocations} variant="hero" label="Three tensions" />`
 
 **`GuidePage.astro`** ✓ implemented
 - Public contributor runbook layout. Props: `eyebrow` (mono label), `title` (h1, max 16ch),

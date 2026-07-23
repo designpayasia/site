@@ -4,6 +4,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import ChartBlock from '../../../components/ChartBlock.astro';
 import PullQuoteBeat from '../../../components/PullQuoteBeat.astro';
 import DarkBeat from '../../../components/DarkBeat.astro';
+import Provocations from '../../../components/Provocations.astro';
 import ChapterRail from '../../../components/ChapterRail.astro';
 import ConversationSpine from '../../../components/ConversationSpine.astro';
 import Base from '../../../layouts/Base.astro';
@@ -153,6 +154,15 @@ if (commentaryLead) {
 
 const [leadQuestion, ...supportingQuestions] = section.questions;
 
+// Closing provocations render as a "<count> tensions" labelled block.
+const tensionWords: Record<number, string> = {
+  1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six',
+};
+const provocationCount = section.provocations?.length ?? 0;
+const provocationLabel = provocationCount > 0
+  ? `${tensionWords[provocationCount] ?? provocationCount} tensions`
+  : undefined;
+
 // The closing section's admission names whichever market dominated that
 // year's sample; it is not the same market or share every year.
 const closingSampleAdmission: Record<string, string> = {
@@ -167,7 +177,7 @@ const isAudienceGuidance = whatThisMeansNotes.length > 0 &&
 
 const hasAudienceGuidance = individualNotes.length > 0 || leaderNotes.length > 0;
 const hasEditorialBlock =
-  commentaryRaw.length > 0 || hasAudienceGuidance || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0;
+  commentaryRaw.length > 0 || hasAudienceGuidance || provocationCount > 0 || whatThisMeansNotes.length > 0 || section.questions.length > 0 || section.references.length > 0;
 
 /* ── Navigation ───────────────────────────────────────────────────── */
 
@@ -346,39 +356,13 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
               </div>
             </div>
           )}
-          {/* Closing section: tension cards instead of audience grid */}
-          {section.id === 'closing' && individualNotes.length > 0 && (
-            <div class="section-editorial__tensions">
-              <p class="section-editorial__tensions-label label-mono">Five tensions</p>
-              <div class="section-editorial__tensions-grid">
-                {individualNotes.map((card, idx) => {
-                  const parts = card.split('||');
-                  const header = parts[0] || '';
-                  const stat = parts[1] || '';
-                  const question = parts[2] || '';
-                  const numMatch = stat.match(/(\d+(?:\.\d+)?)\s*(%|×|x)?/);
-                  const statValue = numMatch ? numMatch[1] : '';
-                  const statUnit = numMatch ? (numMatch[2] || '') : '';
-                  const statDetail = stat.trim();
-                  return (
-                    <article class="tension-card">
-                      <p class="tension-card__index label-mono">{String(idx + 1).padStart(2, '0')}</p>
-                      <div class="tension-card__stat-block">
-                        <p class="tension-card__stat-value">
-                          {statValue}
-                          {statUnit && <span class="tension-card__stat-unit">{statUnit}</span>}
-                        </p>
-                        <p class="tension-card__stat-detail">{statDetail}</p>
-                      </div>
-                      <div class="tension-card__content">
-                        <h3 class="tension-card__header">{header}</h3>
-                        <p class="tension-card__question">{question}</p>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </div>
+          {/* Closing section: provocation/tension cards instead of audience grid */}
+          {section.id === 'closing' && section.provocations && section.provocations.length > 0 && (
+            <Provocations
+              items={section.provocations}
+              variant={section.provocationVariant}
+              label={provocationLabel}
+            />
           )}
 
           {/* References — collapsible, inside editorial inner, before DarkBeat */}
@@ -986,87 +970,6 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   .section-page--closing :global(.dark-beat__copy--caveat) {
     font-size: var(--type-body);
     color: color-mix(in srgb, var(--color-inverse-text) 72%, transparent);
-  }
-
-  /* Tension cards — B treatment (stat as hero) */
-  .section-editorial__tensions-label {
-    margin-block: 0 var(--space-8);
-    color: var(--color-signal-text);
-  }
-
-  .section-editorial__tensions-grid {
-    display: grid;
-    gap: var(--space-10);
-  }
-
-  @media (min-width: 768px) {
-    .section-editorial__tensions-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .tension-card:first-child { grid-column: span 2; }
-  }
-
-  .tension-card {
-    container-type: inline-size;
-    display: grid;
-    gap: var(--space-6);
-    padding: var(--space-8);
-    padding-left: var(--space-6);
-    border-left: 2px solid var(--color-signal-text);
-  }
-
-  .tension-card__index {
-    color: var(--color-ink-muted);
-  }
-
-  .tension-card__stat-block {
-    display: grid;
-    gap: var(--space-2);
-  }
-
-  .tension-card__stat-value {
-    font-family: var(--font-data);
-    font-size: clamp(2.75rem, 20cqi, 5.5rem);
-    line-height: var(--leading-stat);
-    letter-spacing: -0.03em;
-    font-variant-numeric: lining-nums;
-    color: var(--color-workhorse);
-  }
-
-  .tension-card__stat-unit {
-    font-size: 0.42em;
-    letter-spacing: var(--tracking-mono);
-  }
-
-  .tension-card__content {
-    display: grid;
-    gap: var(--space-1);
-  }
-
-  .tension-card__stat-detail {
-    font-family: var(--font-data);
-    font-size: var(--type-caption);
-    color: var(--color-ink-muted);
-    line-height: var(--leading-caption);
-  }
-
-  .tension-card__header {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: clamp(1.75rem, 7cqi, var(--font-size-pullquote));
-    font-weight: var(--weight-regular);
-    line-height: 1.15;
-    color: var(--color-workhorse);
-  }
-
-  .tension-card__question {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: var(--font-size-lg);
-    font-style: italic;
-    font-weight: var(--weight-regular);
-    line-height: 1.4;
-    color: var(--color-signal-text);
   }
 
 </style>

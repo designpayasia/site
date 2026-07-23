@@ -516,6 +516,22 @@ const reportSections = defineCollection({
     whatThisMeans: z.string().min(1).optional(),
     whatThisMeansIndividuals: z.string().min(1).optional(),
     whatThisMeansLeaders: z.string().min(1).optional(),
+    // Closing-section tension cards: a stat paired with a provocation question.
+    // Rendered by Provocations.astro. Distinct from the singular `provocation`
+    // spine one-liner above. `variant` density rules (grid 2–6, split 2–3,
+    // inverse 1, hero 1) live in DESIGN.md and are documented, not enforced here.
+    provocations: z
+      .array(
+        z.object({
+          header: z.string().min(1),
+          stat: z.string().min(1),
+          statDetail: z.string().min(1).optional(),
+          question: z.string().min(1),
+        }),
+      )
+      .min(1)
+      .optional(),
+    provocationVariant: z.enum(['grid', 'split', 'inverse', 'hero']).default('grid'),
     keyFindings: z.array(z.string()).optional(),
     // Hub-only alternative to keyFindings — renders as a MetricShelf instead
     // of a bullet list when present. Prototype: demographics.md only.
