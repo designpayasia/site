@@ -1,0 +1,345 @@
+---
+// Provocations — a stat paired with a provocation question, the closing-section
+// tension pattern (§8 personal-invitation register anchored by data voice).
+// Extracted from the inlined 2024 "five tensions" block. Four variants share
+// one data shape; density rules live in DESIGN.md (Registers family):
+//   grid    — 2–6 co-equal cells, light. Default. First cell spans on desktop.
+//   split   — 2–3 diptych cards, inverse stat panel beside light question.
+//   inverse — one dark band, few cells. 1 per page (ceremonial dark moment).
+//   hero    — one dominant stat + a numbered rail. 1 per page (real hierarchy).
+interface ProvocationItem {
+  header: string;
+  stat: string;
+  statDetail?: string;
+  question: string;
+}
+
+interface Props {
+  items: ProvocationItem[];
+  variant?: 'grid' | 'split' | 'inverse' | 'hero';
+  label?: string;
+}
+
+const { items, variant = 'grid', label } = Astro.props;
+
+// Split a stat only when it is cleanly a number plus a short unit (%, ×, x), so
+// the unit can be set smaller. Comparison or phrase stats ("61% vs 51%", "2 in
+// 3") match nothing and render whole at full size — never a giant number with a
+// stray word glued on.
+function splitStat(stat: string): { value: string; unit: string } {
+  const match = stat.match(/^\s*([\d.,]+)\s*(%|×|x)?\s*$/);
+  if (!match) return { value: stat.trim(), unit: '' };
+  return { value: match[1], unit: match[2] ?? '' };
+}
+
+const pad = (n: number) => String(n).padStart(2, '0');
+const [hero, ...rail] = items;
+---
+
+<div class:list={['provocations', `provocations--${variant}`]}>
+  {label && <p class="provocations__label label-mono">{label}</p>}
+
+  {variant === 'hero' ? (
+    <div class="provocations__hero-wrap">
+      {hero && (() => {
+        const { value, unit } = splitStat(hero.stat);
+        return (
+          <article class="provocation-card provocation-card--hero">
+            <div class="provocation-card__stat-block">
+              <p class="provocation-card__stat-value">
+                {value}{unit && <span class="provocation-card__stat-unit">{unit}</span>}
+              </p>
+              {hero.statDetail && <p class="provocation-card__stat-detail">{hero.statDetail}</p>}
+            </div>
+            <div class="provocation-card__content">
+              <h3 class="provocation-card__header">{hero.header}</h3>
+              <p class="provocation-card__question">{hero.question}</p>
+            </div>
+          </article>
+        );
+      })()}
+
+      {rail.length > 0 && (
+        <ol class="provocations__rail">
+          {rail.map((item, i) => (
+            <li class="provocation-row">
+              <span class="provocation-row__index label-mono">{pad(i + 2)}</span>
+              <span class="provocation-row__stat">{item.stat}</span>
+              <span class="provocation-row__body">
+                <span class="provocation-row__header">{item.header}</span>
+                <span class="provocation-row__question">{item.question}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  ) : (
+    <div class="provocations__grid">
+      {items.map((item, i) => {
+        const { value, unit } = splitStat(item.stat);
+        return (
+          <article class="provocation-card">
+            {variant === 'grid' && (
+              <p class="provocation-card__index label-mono">{pad(i + 1)}</p>
+            )}
+            <div class="provocation-card__stat-block">
+              <p class="provocation-card__stat-value">
+                {value}{unit && <span class="provocation-card__stat-unit">{unit}</span>}
+              </p>
+              {item.statDetail && <p class="provocation-card__stat-detail">{item.statDetail}</p>}
+            </div>
+            <div class="provocation-card__content">
+              <h3 class="provocation-card__header">{item.header}</h3>
+              <p class="provocation-card__question">{item.question}</p>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  )}
+</div>
+
+<style>
+  /* ── Shared ─────────────────────────────────────────────────────────── */
+  .provocations {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .provocations__label {
+    margin: 0;
+    color: var(--color-signal-text);
+  }
+
+  .provocations__grid {
+    display: grid;
+    gap: var(--space-10);
+  }
+
+  .provocation-card {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-8);
+    padding-left: var(--space-6);
+    border-left: 2px solid var(--color-signal-text);
+  }
+
+  .provocation-card__index {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .provocation-card__stat-block {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .provocation-card__stat-value {
+    margin: 0;
+    font-family: var(--font-data);
+    font-size: clamp(2.75rem, 20cqi, 5.5rem);
+    line-height: var(--leading-stat);
+    letter-spacing: -0.03em;
+    font-variant-numeric: lining-nums;
+    color: var(--color-workhorse);
+  }
+
+  .provocation-card__stat-unit {
+    font-size: 0.42em;
+    letter-spacing: var(--tracking-mono);
+  }
+
+  .provocation-card__stat-detail {
+    margin: 0;
+    font-family: var(--font-data);
+    font-size: var(--type-caption);
+    color: var(--color-ink-muted);
+    line-height: var(--leading-caption);
+  }
+
+  .provocation-card__content {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .provocation-card__header {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 7cqi, var(--font-size-pullquote));
+    font-weight: var(--weight-regular);
+    line-height: 1.15;
+    color: var(--color-workhorse);
+  }
+
+  .provocation-card__question {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--font-size-lg);
+    font-style: italic;
+    font-weight: var(--weight-regular);
+    line-height: 1.4;
+    color: var(--color-signal-text);
+  }
+
+  /* ── Grid — co-equal cells, first spans on desktop ──────────────────── */
+  @media (min-width: 768px) {
+    .provocations--grid .provocations__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .provocations--grid .provocation-card:first-child {
+      grid-column: span 2;
+    }
+  }
+
+  /* ── Split — inverse stat panel beside a light question panel ───────── */
+  .provocations--split .provocations__grid {
+    gap: var(--space-8);
+  }
+
+  .provocations--split .provocation-card {
+    padding: 0;
+    gap: 0;
+    border-left: 0;
+  }
+
+  .provocations--split .provocation-card__stat-block {
+    padding: var(--space-8) var(--space-6);
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
+    align-content: center;
+  }
+
+  .provocations--split .provocation-card__stat-value {
+    font-size: clamp(2.25rem, 16cqi, 3.75rem);
+    color: var(--color-inverse-text);
+  }
+
+  .provocations--split .provocation-card__stat-detail {
+    color: color-mix(in srgb, var(--color-inverse-text) 72%, transparent);
+  }
+
+  .provocations--split .provocation-card__content {
+    padding: var(--space-8) var(--space-6);
+    gap: var(--space-3);
+    background: var(--color-surface-muted);
+    align-content: center;
+  }
+
+  @media (min-width: 768px) {
+    .provocations--split .provocations__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .provocations--split .provocation-card {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    }
+  }
+
+  /* ── Inverse — one dark band, ceremonial. 1 per page ────────────────── */
+  .provocations--inverse .provocations__grid {
+    padding: var(--space-12) var(--space-8);
+    gap: var(--space-10);
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
+  }
+
+  .provocations--inverse .provocation-card {
+    border-left-color: var(--color-inverse-signal-text);
+  }
+
+  .provocations--inverse .provocation-card__stat-value,
+  .provocations--inverse .provocation-card__header {
+    color: var(--color-inverse-text);
+  }
+
+  .provocations--inverse .provocation-card__question {
+    color: var(--color-inverse-signal-text);
+  }
+
+  .provocations--inverse .provocation-card__stat-detail {
+    color: color-mix(in srgb, var(--color-inverse-text) 72%, transparent);
+  }
+
+  @media (min-width: 768px) {
+    .provocations--inverse .provocations__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* ── Hero — one dominant stat + a numbered rail. 1 per page ─────────── */
+  .provocations__hero-wrap {
+    display: grid;
+    gap: var(--space-10);
+  }
+
+  .provocation-card--hero {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--space-6);
+    padding-left: var(--space-8);
+    border-left: 2px solid var(--color-signal-text);
+  }
+
+  .provocation-card--hero .provocation-card__stat-value {
+    font-size: clamp(3.5rem, 26cqi, 7rem);
+  }
+
+  .provocation-card--hero .provocation-card__header {
+    font-size: clamp(2rem, 9cqi, var(--font-size-pullquote));
+  }
+
+  .provocations__rail {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-8) 0 0;
+    display: grid;
+    gap: var(--space-8);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .provocation-row {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .provocation-row__index {
+    color: var(--color-ink-muted);
+  }
+
+  .provocation-row__stat {
+    font-family: var(--font-data);
+    font-size: var(--font-size-lg);
+    letter-spacing: -0.02em;
+    font-variant-numeric: lining-nums;
+    color: var(--color-workhorse);
+    white-space: nowrap;
+  }
+
+  .provocation-row__body {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .provocation-row__header {
+    font-family: var(--font-display);
+    font-size: var(--font-size-lg);
+    line-height: 1.2;
+    color: var(--color-workhorse);
+  }
+
+  .provocation-row__question {
+    font-family: var(--font-display);
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--color-signal-text);
+  }
+
+  @media (min-width: 640px) {
+    .provocation-row {
+      grid-template-columns: 2.5ch minmax(4rem, max-content) 1fr;
+      column-gap: var(--space-6);
+      align-items: baseline;
+    }
+  }
+</style>

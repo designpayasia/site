@@ -14,6 +14,7 @@ import ChartSmallMultiples from '../../components/ChartSmallMultiples.astro';
 import ChartRange from '../../components/ChartRange.astro';
 import ChartDotPlot from '../../components/ChartDotPlot.astro';
 import Invitation from '../../components/Invitation.astro';
+import Provocations from '../../components/Provocations.astro';
 import RegisterCards from '../../components/RegisterCards.astro';
 import PullQuote from '../../components/PullQuote.astro';
 import PullQuoteBeat from '../../components/PullQuoteBeat.astro';
@@ -238,6 +239,27 @@ const navPatternGroups = [
   ]},
 ] as unknown as NavGroup[];
 
+const provocationSample = [
+  {
+    header: 'A generation without a ladder',
+    stat: '93.9%',
+    statDetail: '93.9% of designers are under 35; 5.9% hold a leadership role.',
+    question: 'Where is the seat you are meant to grow into?',
+  },
+  {
+    header: 'Valued, but the pay disagrees',
+    stat: '70.2%',
+    statDetail: '70.2% feel valued at work; fewer than 30% have any salary transparency.',
+    question: 'How do you know your worth when no one will say the number out loud?',
+  },
+  {
+    header: 'The negotiation gap',
+    stat: '2.1',
+    statDetail: 'Senior designers are 2.1 times more likely to negotiate successfully.',
+    question: 'What did no one teach you to ask for?',
+  },
+];
+
 const tocItems = [
   { id: 'cover-index-spread', label: 'Cover — index spread' },
   { id: 'cover-split-editorial', label: 'Cover — split editorial' },
@@ -253,6 +275,7 @@ const tocItems = [
   { id: 'chart-range', label: 'Chart — range' },
   { id: 'chart-dot-plot', label: 'Chart — dot plot' },
   { id: 'invitation', label: 'Invitation' },
+  { id: 'provocations', label: 'Provocations' },
   { id: 'register-cards', label: 'Register cards' },
   { id: 'pull-quote', label: 'Pull quote' },
   { id: 'pull-quote-beat', label: 'Pull-quote beat' },
@@ -312,6 +335,7 @@ const tocItems = [
               <tr><th scope="row">Chart range</th><td><code>src/components/ChartRange.astro</code></td><td>Docs-only specimen</td></tr>
               <tr><th scope="row">Chart dot plot</th><td><code>src/components/ChartDotPlot.astro</code></td><td>Docs-only specimen</td></tr>
               <tr><th scope="row">Invitation</th><td><code>src/components/Invitation.astro</code></td><td><a href="/about">Production: about</a></td></tr>
+              <tr><th scope="row">Provocations</th><td><code>src/components/Provocations.astro</code></td><td><a href="/reports/2023/closing">Production: report closing</a> (grid + hero in prod; split + inverse docs-only)</td></tr>
               <tr><th scope="row">Register cards</th><td><code>src/components/RegisterCards.astro</code></td><td>Docs-only specimen</td></tr>
               <tr><th scope="row">Pull quote</th><td><code>src/components/PullQuote.astro</code></td><td>Docs-only specimen</td></tr>
               <tr><th scope="row">Pull-quote beat</th><td><code>src/components/PullQuoteBeat.astro</code></td><td><a href="/reports/2024/compensation">Production: report section</a></td></tr>
@@ -649,6 +673,32 @@ const tocItems = [
             question="What would make you comfortable sharing your own number?"
             questionDraft={false}
           />
+        </div>
+      </section>
+
+      <section id="provocations" class="pattern-demo">
+        <p class="label-mono">Registers</p>
+        <h2>Provocations</h2>
+        <p class="pattern-demo__note">
+          Report-closing tension set — a stat (data voice) paired with a provocation question
+          (invitation register). One data shape, four variants selected by content; never mix
+          variants on one page. <code>grid</code> (2–6 co-equal cells, default, first spans) and
+          <code>hero</code> (one dominant stat plus a numbered rail, 1 per page) are in production on
+          the 2024 and 2023 closings. <code>split</code> (2–3 diptych cards) and <code>inverse</code>
+          (one dark band, 1 per page, never stacked with a <code>DarkBeat</code>) are docs-only
+          specimens. All four shown below.
+        </p>
+        <div class="pattern-demo__frame pattern-demo__frame--full-bleed">
+          <div class="pattern-demo__stack">
+            <p class="label-mono">variant="grid"</p>
+            <Provocations items={provocationSample} variant="grid" label="Three tensions" />
+            <p class="label-mono">variant="hero"</p>
+            <Provocations items={provocationSample} variant="hero" label="Three tensions" />
+            <p class="label-mono">variant="split"</p>
+            <Provocations items={provocationSample.slice(0, 2)} variant="split" label="Two tensions" />
+            <p class="label-mono">variant="inverse"</p>
+            <Provocations items={provocationSample.slice(0, 2)} variant="inverse" label="Two tensions" />
+          </div>
         </div>
       </section>
 
