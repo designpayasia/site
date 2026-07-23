@@ -3,14 +3,26 @@ report: "2023"
 title: The first count
 summary: >-
   DPA's first survey ran to 323 designers, most of them in Singapore. It set a
-  baseline and raised sharper questions than it could answer, and those
-  questions became the 2024 survey across six markets.
+  baseline and raised sharper questions than it could answer, and those are the
+  questions a wider regional count has to take up next.
 order: 130
 commentary: >-
   A first survey earns its keep by turning a vague unease about pay into
   questions precise enough to ask at scale. On that measure, 2023 did its job.
   It surfaced a gap it could not fully explain, and it stayed honest about how
   much of the region it had not yet reached.
+provocationVariant: hero
+provocations:
+  - header: "The gap seniority can't fully explain"
+    stat: "42%"
+    statDetail: "Women's raw median total compensation sat 42% below men's. Most of that is career stage; about a fifth still remains at senior level."
+    question: "Where does the gap that's left come from?"
+  - header: "Who negotiates"
+    stat: "61% vs 51%"
+    question: "How much of the gap is simply about who asks?"
+  - header: "Comfortable on paper"
+    stat: "2 in 3"
+    question: "What does that contentment cost in hours?"
 questions:
   - "What do you want the next survey to say that this first one couldn't?"
   - "Where does the gap come from once you hold seniority still, and what keeps women newer to the field?"
@@ -26,4 +38,4 @@ A quieter finding sat next to it. More men than women said they had negotiated t
 
 Away from the gap, the survey caught a field that was young and, on its own account, fairly content. Hybrid work had settled in as the norm, and comfort with working arrangements scored higher than any other sentiment measured. That contentment sat on top of long hours: two in three designers reported working beyond their contracted week.
 
-Those gaps and half-answers set the shape of the next survey. In 2024 it grew to 1,797 designers across six markets, built to test across the region what 323 people in one city could only begin to suggest.
+Those gaps and half-answers set the shape of what comes next: a wider survey, across more of the region, built to test what 323 people in one city could only begin to suggest.
