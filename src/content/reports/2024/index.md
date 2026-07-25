@@ -14,7 +14,7 @@ eyebrow: '2024 Report'
 heroCtaLabel: 'Read the full report'
 entryType: report
 hub:
-  claim: "Whether you asked was a coin toss."
+  claim: "Half the respondents asked for more; the rest took what was offered."
   highlight:
     value: '52.5'
     unit: '%'
