@@ -89,9 +89,8 @@ charts:
         value: 60.1
   - id: chart-career-level-distribution
     title: Career level distribution
-    caption: Individual contributors dominate at 87% of respondents. Junior ICs make
-      up the largest segment at 31.3%, with management roles collectively at
-      13%.
+    caption: Junior ICs are the largest single cohort here, and management stays
+      a narrow track rather than the ladder's default endpoint.
     summary: Distribution of respondents across career levels, from Junior IC to
       Vice President.
     evidenceIds:

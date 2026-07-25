@@ -704,7 +704,7 @@ questions:
   - 'How does basing new job offers on previous salary (plus 20%) affect the industry long term?'
   - 'What happens when managers must both lead and do design work themselves?'
   - 'How can companies pay fairly across different countries when teams work remotely?'
-  - 'When an annual freelance figure quietly assumes billing every month of the year, what does it actually take to match a salaried offer?'
+  - 'Once unbilled months are counted, can a freelance rate really match a salaried offer?'
 references:
   - label: 'Indonesia design manager salaries range from Rp 13.5M to Rp 16.5M monthly'
     url: 'https://id.jobstreet.com/career-advice/role/design-manager/salary'

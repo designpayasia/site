@@ -9,7 +9,7 @@ charts:
   - id: comfortable-with-work-arrangement
     title: Comfort with current working arrangement
     caption: Distribution of responses to the current working-arrangement comfort
-      statement (N=323) on a 1-7 Likert scale, where 1 - Strongly disagree and 7 =
+      statement (N=323) on a 1–7 Likert scale, where 1 - Strongly disagree and 7 =
       Strongly agree.
     summary: Responses on the 1-7 Likert scale cluster at 5-7, with 6 and 7 the most
       common ratings; 1 - Strongly disagree and 7 - Strongly agree.

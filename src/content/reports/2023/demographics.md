@@ -22,9 +22,8 @@ metrics:
 charts:
   - id: chart-geographic-distribution
     title: Respondent distribution by country
-    caption: Singapore dominates survey participation at 69.4%, followed by Malaysia
-      (14.2%) and Indonesia (8.9%). Nine additional countries are represented in
-      smaller numbers.
+    caption: Singapore supplies most of this sample. Read market-by-market
+      comparisons elsewhere in the report with that concentration in mind.
     summary: Geographic concentration of survey respondents, with Singapore as the
       primary market.
     evidenceIds:
@@ -69,9 +68,8 @@ charts:
         value: 1.9
   - id: chart-gender-distribution
     title: Gender distribution
-    caption: The 2023 survey achieved a nearly equal gender split, with women at
-      54.5% and men at 43.9%. This balance is notably different from later
-      surveys.
+    caption: A near-even split by gender is the deliberate balance behind this
+      report's gender pay-gap analysis.
     summary: Gender distribution of survey respondents showing near-equal
       representation.
     evidenceIds:

@@ -112,7 +112,7 @@ charts:
   - id: career-progression-support
     title: Career progression support
     caption: Distribution of responses to the career progression support statement
-      (N=323) on a 1-7 Likert scale, where 1 - Strongly disagree and 7 - Strongly agree.
+      (N=323) on a 1–7 Likert scale, where 1 - Strongly disagree and 7 - Strongly agree.
     summary: Responses on the 1-7 Likert scale lean positive, led by 5, 4, and 6;
       1 - Strongly disagree and 7 - Strongly agree.
     evidenceIds:
@@ -157,7 +157,7 @@ charts:
   - id: chart-switch-primary-work-area
     type: bar
     title: Switch primary area of work
-    caption: 1-7 Likert response distribution for switching primary area of work in
+    caption: 1–7 Likert response distribution for switching primary area of work in
       the coming year (N=312, mean 4.34), where 1 - Strongly disagree and 7 = Strongly
       agree.
     summary: "Bar chart showing responses about switching primary area of work in
@@ -216,7 +216,7 @@ charts:
   - id: chart-switch-ic-management-track
     type: bar
     title: Switch IC-management track
-    caption: 1-7 Likert response distribution for switching between IC and management
+    caption: 1–7 Likert response distribution for switching between IC and management
       track in the coming year (N=309, mean 3.46), where 1 - Strongly disagree and
       7 - Strongly agree.
     summary: "Bar chart showing responses about switching between IC and management
@@ -275,7 +275,7 @@ charts:
   - id: chart-switch-jobs-companies
     type: bar
     title: Switch jobs or companies
-    caption: 1-7 Likert response distribution for switching jobs or companies in the
+    caption: 1–7 Likert response distribution for switching jobs or companies in the
       coming year (N=313, mean 4.34), where 1 - Strongly disagree and 7 = Strongly
       agree.
     summary: "Bar chart showing responses about switching jobs or companies in the
