@@ -9,6 +9,7 @@ import ChapterRail from '../../../components/ChapterRail.astro';
 import ConversationSpine from '../../../components/ConversationSpine.astro';
 import Base from '../../../layouts/Base.astro';
 import { toChartRangeRows } from '../../../lib/chartRange';
+import unroutedSections from '../../../data/unrouted-sections.json';
 import { renderPlotSvg } from '../../../lib/plot';
 import {
   assertEvidenceIdsExist,
@@ -29,7 +30,7 @@ export async function getStaticPaths() {
     getCollection('reports', ({ data }) => data.status === 'published'),
     getCollection('reportSections'),
   ]);
-  const excludedSectionIds = new Set(['executive-summary', 'methodology']);
+  const excludedSectionIds = new Set(unroutedSections.ids);
 
   return reports.flatMap((report) =>
     getSectionsForReport(report, reportSections)
@@ -181,7 +182,7 @@ const hasEditorialBlock =
 
 /* ── Navigation ───────────────────────────────────────────────────── */
 
-const excludedSectionIds = new Set(['executive-summary', 'methodology']);
+const excludedSectionIds = new Set(unroutedSections.ids);
 const navigableSections = sections.filter((item) => !excludedSectionIds.has(item.id));
 const sectionIndex = navigableSections.findIndex((item) => item.id === section.id);
 const previousSection = sectionIndex > 0 ? navigableSections[sectionIndex - 1] : undefined;
