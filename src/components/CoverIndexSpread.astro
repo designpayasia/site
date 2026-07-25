@@ -26,6 +26,12 @@ interface Props {
   thesis?: string;
   /** Small mono meta chips, e.g. ["6 SEA markets", "n = 1,797"]. */
   meta?: string[];
+  /** Accessible name for the cover region. */
+  label?: string;
+  /** Vertical alignment of the claim against the thesis column. */
+  align?: 'start' | 'center';
+  /** Hairline rule closing the cover. Off for covers that run straight into the next section. */
+  divider?: boolean;
 }
 
 const {
@@ -36,6 +42,9 @@ const {
   emphasisMode = 'colour',
   thesis,
   meta = [],
+  label = 'Report cover',
+  align = 'start',
+  divider = true,
 } = Astro.props;
 
 const lines = titleLines && titleLines.length > 0 ? titleLines.slice(0, 2) : [title];
@@ -60,8 +69,8 @@ function splitLine(line: string, term?: string): Segment[] {
 }
 ---
 
-<section class="cover-index" aria-label="Report cover">
-  <div class="cover-index__top">
+<section class="cover-index" aria-label={label} data-divider={divider ? 'true' : 'false'}>
+  <div class="cover-index__top" data-align={align}>
     <div class="cover-index__title-block">
       {eyebrow && <p class="cover-index__eyebrow label-mono">{eyebrow}</p>}
       <h1 class="cover-index__title">
@@ -115,6 +124,16 @@ function splitLine(line: string, term?: string): Segment[] {
     grid-template-columns: 1.1fr 0.9fr;
     gap: var(--space-8);
     align-items: start;
+  }
+
+  .cover-index__top[data-align='center'] {
+    align-items: center;
+  }
+
+  .cover-index[data-divider='false'] .cover-index__shelf {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 0;
   }
 
   .cover-index__title-block {
