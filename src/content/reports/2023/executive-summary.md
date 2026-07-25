@@ -19,7 +19,7 @@ The gender distribution was nearly equal, with women at 54.5% and men at 43.9%.
 
 Product design dominates as the primary field at 67.5% of roles, and individual contributors make up 87% of respondents. The workforce skews toward early-to-mid career, with nearly half having six or fewer years of design experience, and a significant proportion being career switchers with more total work experience than design-specific experience.
 
-**The headline finding of this report is a 42% gender pay gap in Singapore.** Women earn substantially less than men across nearly all career levels, feel less fairly compensated, report lower negotiation confidence, and have slower career levelling progress. This finding drew the community's attention and shaped DPA's subsequent research.
+**Women earned 42% less than men in Singapore.** Women earn substantially less than men across nearly all career levels, feel less fairly compensated, report lower negotiation confidence, and have slower career levelling progress.
 
 Compensation in Singapore shows clear progression with seniority:
 
@@ -31,5 +31,5 @@ Compensation in Singapore shows clear progression with seniority:
 Hybrid work is the established norm at 71.8%, large enterprises and startups are the top employers, and banking/capital markets alongside consumer products are the best-paying industries.
 
 
-If you work in design in this region, this data is yours. What will you do with it?
+What will you do with it?
 

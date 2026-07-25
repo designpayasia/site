@@ -65,41 +65,41 @@ charts:
         - Median (S$)
         - Maximum (S$)
       rows:
-        - label: 0-2 years (n=34)
+        - label: 0–2 years (n=34)
           values: ["14,400", "60,000", "190,000"]
-        - label: 3-5 years (n=64)
+        - label: 3–5 years (n=64)
           values: ["6,000", "72,000", "131,600"]
-        - label: 6-10 years (n=49)
+        - label: 6–10 years (n=49)
           values: ["41,880", "105,600", "434,250"]
-        - label: 11-15 to 16+ years (n=24)
+        - label: 11–15 to 16+ years (n=24)
           values: ["61,200", "137,500", "542,000"]
     plot:
       type: range
       xLabel: Total compensation (S$)
       valuePrefix: "S$"
       rows:
-        - label: 0-2 years (n=34)
+        - label: 0–2 years (n=34)
           min: 14400
           q1: 49700
           median: 60000
           q3: 75585
           max: 190000
           tone: workhorse
-        - label: 3-5 years (n=64)
+        - label: 3–5 years (n=64)
           min: 6000
           q1: 57600
           median: 72000
           q3: 94100
           max: 131600
           tone: workhorse
-        - label: 6-10 years (n=49)
+        - label: 6–10 years (n=49)
           min: 41880
           q1: 74100
           median: 105600
           q3: 150000
           max: 434250
           tone: workhorse
-        - label: 11-15 to 16+ years (n=24)
+        - label: 11–15 to 16+ years (n=24)
           min: 61200
           q1: 94800
           median: 137500
@@ -156,14 +156,15 @@ charts:
         displayValue: S$126,000
 keyFindings:
   - The aggregate 17.7% Singapore gender pay gap (Man S$92,400 versus Woman
-    S$76,000, n=171) is a seniority-mix effect, not a per-level pay gap.
+    S$76,000, n=171) reflects the seniority mix of respondents, rather than
+    a per-level pay gap.
   - At Junior IC, Mid-level IC, and Senior IC, the only levels where both
     genders publish, women's median sits at or above men's.
   - 60.2% of women in the Singapore sample sit at Junior or Mid-level IC,
     against 44.8% of men; 27.6% of men sit at Lead and above, against
     14.2% of women.
   - Total compensation rises steadily with experience, from a S$60,000
-    median at 0-2 years (n=34) to S$137,500 at 11-15-to-16+ years combined
+    median at 0–2 years (n=34) to S$137,500 at 11–15-to-16+ years combined
     (n=24).
   - Published company-type medians range from S$59,900 at small/medium
     enterprises (n=30) to S$126,000 at government employers (n=13). A
@@ -172,11 +173,11 @@ keyFindings:
 whatThisMeansIndividuals: |-
   If you're a woman working in an IC track in Singapore, this year's data doesn't show you being paid less than men at your level.
   At Junior IC, Mid-level IC, and Senior IC, women's reported medians in this survey sit at or above men's.
-  The gap in this dataset shows up in who reaches Lead and above, not in what each level pays once you're there.
+  The gap in this dataset lives in who reaches Lead and above. Each level's pay looks even once you're there.
 whatThisMeansLeaders: |-
-  The 17.7% aggregate gap is a signal to audit your promotion pipeline, not your pay bands.
+  The 17.7% aggregate gap points to your promotion pipeline as the place to look, ahead of your pay bands.
   Women in this survey are around 1.3 times as likely as men to sit in Junior or Mid-level IC roles, and about half as likely to sit at Lead and above.
-  If your own gender pay gap looks like Singapore's 2024 figure, check whether it is a levelling problem before you touch compensation ranges.
+  If your own gender pay gap looks like Singapore's 2024 figure, is it a levelling problem before it is a pay problem?
 questions:
   - "Will the seniority mix narrow as more women in the survey progress
     from Mid-level IC into Lead and Manager roles, or will attrition keep

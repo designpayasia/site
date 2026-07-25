@@ -88,7 +88,7 @@ charts:
   - id: 'market-opportunities'
     title: There are enough opportunities for career advancement in the current job market
     caption: Designer perceptions of available career advancement opportunities.
-    summary: 'Only 46.3% of designers see sufficient advancement opportunities in the current market, despite high role alignment.'
+    summary: '46.3% of designers see sufficient advancement opportunities in the current market, despite high role alignment.'
     evidenceIds: ['evidence:2024-job-market']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
@@ -105,9 +105,9 @@ keyFindings:
 commentary: |-
   Looking at the job market for designers across Southeast Asia, there is a notable gap between perception and reality.
   
-  A 51.9 percent gap exists between how designers feel about job security and the actual employment picture, perhaps driven by several overlapping factors: anxiety around AI, career-switchers entering the market, and broader economic uncertainty.
+  A 51.9 percent gap exists between how designers feel about job security and the actual employment picture, perhaps driven by anxiety about what AI means for design roles.
   
-  Most designers (77.3 percent) feel their roles fit well with their skills, suggesting the industry is maturing in how it matches talent to work. However, career advancement opportunities are perceived as limited in the current climate, which could affect long-term retention and motivation.
+  Designers broadly feel their roles fit their skills, suggesting the industry is maturing in how it matches talent to work. However, career advancement opportunities are perceived as limited in the current climate, which could affect long-term retention and motivation.
   Southeast Asia's unique situation of people working across borders adds complexity to the job market.
   The job market shows signs of improvement, but companies are still careful about hiring.
 hubCommentary: |-
@@ -122,7 +122,7 @@ whatThisMeansLeaders: |-
   Consider if you are investing in design because it is valuable or just following trends.
 questions:
   - 'How will AI continue to change what designers do day-to-day?'
-  - 'Will the design market in Southeast Asia follow similar patterns to the US tech recovery?'
+  - 'Will the design market in Southeast Asia recover on the same timeline as the wider regional tech sector?'
   - 'How can the industry better balance new graduates and existing talents with market demand?'
   - 'What new design specialties might emerge as technology and business needs evolve?'
   - 'How might cross-border work opportunities change in Southeast Asia?'
@@ -137,7 +137,7 @@ references:
     url: 'https://www.nngroup.com/articles/prepare-for-ai/'
 ---
 
-Nearly a quarter of respondents, 22.9%, report being directly affected by layoffs in the past year, either through personal job loss or the loss of design colleagues.
+Layoffs touched a real minority of designers this year, yet job security concern runs far more widely than the layoff numbers alone would suggest.
 
 ::chart{id="layoff-impact"}
 

@@ -250,7 +250,7 @@ charts:
   - id: 'overseas-experience'
     title: Overseas working experience
     caption: Share of designers with international versus domestic career experience.
-    summary: '85.81% of designers have exclusively domestic careers; only 14.19% have international work experience.'
+    summary: '85.81% of designers have exclusively domestic careers; 14.19% have international work experience.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
@@ -263,13 +263,13 @@ charts:
         - label: International experience
           values: ['255', '14.19%']
 keyFindings:
-  - 'Primarily local roles, with limited international exposure (14.19%)'
+  - 'Primarily local roles, with international exposure at 14.19%'
 commentary: |-
   In understanding where design teams stand today, we find that for every design manager there are 16 individual designers. This might suggest we need more design leaders.
   
-  Digital design roles (like UX and UI) are nearly three times more common than traditional design roles, though traditional industries are adapting more slowly.
+  Digital design roles (like UX and UI) are nearly three times more common than traditional design roles in this sample.
   
-  Most designers (77.5 percent) have university degrees, especially important in places like Indonesia where companies often require them. People who switched to design from other fields bring valuable different perspectives.
+  University degrees are common among designers in the region, particularly in Indonesia, where they are often a hiring expectation. People who switched to design from other fields bring different perspectives.
 hubCommentary: |-
   With so many digital design roles and mid-level designers, it seems the industry is growing up. But there aren't as many senior leadership positions or chances to work internationally, which could make it harder for designers to advance their careers and gain global experience.
 whatThisMeansIndividuals: |-
@@ -281,7 +281,7 @@ whatThisMeansLeaders: |-
   Check if you are helping individual designers become managers and the potential value it could bring.
   Compare how you develop design leaders versus other departments like tech.
 questions:
-  - 'Why are not we seeing more design leaders in our region?'
+  - "Why aren't we seeing more design leaders in our region?"
   - 'How important are university degrees in different companies and countries?'
   - 'How will budget cuts affect developing future design leaders and career pathways?'
 references:
@@ -297,7 +297,7 @@ references:
     url: 'https://uxdesign.cc/designer-engagement-report-c44a701d2ef5'
 ---
 
-Full-time employment dominates the respondent pool at 79.3%, with the remainder made up of freelancers, contractors, and those in part-time or transitional roles. Product design and UX design together account for 41.7% of all design functions represented.
+Full-time employment remains the default shape of a design career in the region, though a meaningful minority build one through freelance or contract work instead. Product and UX design sit at the centre of what "designer" means here, and the roles clustered around them show how far the label now stretches.
 
 ::chart{id="job-titles-wordcloud"}
 
@@ -325,6 +325,6 @@ Full-time employment dominates the respondent pool at 79.3%, with the remainder 
 
 ::chart{id="overseas-experience"}
 
-Mid-level individual contributors form the largest career cohort at 42.6%, followed by junior designers at 21.0% and senior practitioners at 21.0%. Leadership roles, including heads of design and directors, represent 5.9% of respondents. Singapore shows a higher concentration of senior and leadership roles, 11.5% senior-plus, consistent with its larger share of established employers.
+Mid-level individual contributors form the largest career cohort in the region, and Singapore shows a markedly higher concentration of senior and leadership roles than the rest of the sample. Whether that reflects a market of more established employers or something else in how Singapore respondents were reached, the survey cannot say.
 
-Educational background in design is strong: 65.3% of respondents hold a formal design-related qualification, whether a degree, diploma, or certificate. This high proportion of formally trained designers speaks to the growing maturity of design education infrastructure across the region, though it also raises questions about accessibility for career-switchers and self-taught practitioners.
+Formal design education is common across the region, though how designers get there varies enough to raise real questions about accessibility for career-switchers and the self-taught.

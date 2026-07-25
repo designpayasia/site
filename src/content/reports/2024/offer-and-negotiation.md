@@ -62,10 +62,10 @@ charts:
     - 'Outcome'
     - 'Share'
     bars:
-    - label: '5-10% increase'
+    - label: '5–10% increase'
       value: 25.6
       tone: workhorse
-    - label: '11-20% increase'
+    - label: '11–20% increase'
       value: 20.0
       tone: workhorse
     - label: '>20% increase'
@@ -83,9 +83,9 @@ charts:
       - 'Respondents (n)'
       - 'Share'
       rows:
-      - label: '5-10% increase'
+      - label: '5–10% increase'
         values: ['239', '25.6%']
-      - label: '11-20% increase'
+      - label: '11–20% increase'
         values: ['183', '20.0%']
       - label: '>20% increase'
         values: ['185', '19.8%']
@@ -96,7 +96,7 @@ charts:
   - id: 'negotiation-confidence'
     title: I feel confident in my compensation negotiation skills
     caption: Distribution of negotiation confidence levels (1–7 scale) across all designers. Based on N=1,775 responses.
-    summary: '65.9% of designers rate their negotiation confidence at 4 or above, but high confidence (6–7) is reported by only 22.2%.'
+    summary: '65.9% of designers rate their negotiation confidence at 4 or above, but high confidence (6–7) is reported by 22.2%.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
@@ -143,7 +143,7 @@ charts:
   - id: 'salary-decline-outcomes'
     title: Instances of declining to provide past salary information
     caption: Outcomes for designers who attempted to decline salary disclosure.
-    summary: 'Among the 44.4% who tried to decline salary disclosure, only 8.8% consistently succeeded — 55.6% were never able to decline.'
+    summary: 'Among the 44.4% who tried to decline salary disclosure, 8.8% consistently succeeded — 55.6% were never able to decline.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
     sourceUrl: 'https://designpay.asia/reports/2024'
@@ -160,9 +160,9 @@ charts:
 keyFindings:
   - 'Salary history disclosure remains a persistent challenge'
 commentary: |-
-  When it comes to understanding job offers and pay conversations, the data reveals a negotiation gap.
+  Job offers and pay conversations show a negotiation gap.
   
-  While 79.5 percent of designers who negotiate succeed in getting a better offer, only 52.5 percent try to negotiate. This suggests barriers that go beyond confidence alone.
+  While 79.5 percent of designers who negotiate succeed in getting a better offer, 52.5 percent try to negotiate. This suggests barriers that go beyond confidence alone.
   
   Many companies still default to 'previous salary plus 20 percent' instead of using clear, published pay ranges, especially outside Singapore. Salary history disclosure remains a persistent challenge for designers across the region.
   Cultural factors (like avoiding conflict) and personal situations (like visa status) might affect whether people feel they can negotiate.
@@ -207,7 +207,7 @@ Just over half of designers, 52.5%, actively negotiate their compensation when r
 
 ::chart{id="past-salary-disclosure"}
 
-::pullquote{quote="Whatever the guidance says, most employers still ask what you earned last."}
+::pullquote{quote="Whatever the guidance says, most employers still ask what candidates earned last."}
 
 ::chart{id="salary-disclosure-pressure"}
 

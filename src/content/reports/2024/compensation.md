@@ -679,23 +679,22 @@ charts:
         value: 1.8
         tone: workhorse
 keyFindings:
-  - 'Notable compensation jumps between IC and management tracks'
+  - 'Manager roles in Vietnam pay close to double Senior IC (VND 780M vs 420M, n=47)'
 commentary: |-
-  When it comes to pay and benefits, design salaries vary widely across the region.
+  Design pay and benefits look different market to market across Southeast Asia.
 
   In Indonesia, salary ranges are the broadest, often shaped by how much individual companies value design and by the common practice of basing offers on previous pay.
 
-  Managers typically earn more than individual contributors, unlike Western companies that often have dedicated senior IC tracks. There are consistent outliers across markets, particularly in mid-to-senior IC roles, suggesting some companies are willing to pay a premium to attract top talent.
-  Office return policies are affecting what benefits companies offer.
+  Managers typically earn more than individual contributors. There are consistent outliers across markets, particularly in mid-to-senior IC roles, suggesting some companies are willing to pay a premium to attract top talent.
   While remote work is growing, most people (97%) are still paid in their local currency.
 hubCommentary: |-
-  Pay structures look different across Southeast Asia, so companies need to understand what's typical in each market to create fair and competitive compensation packages. Some designers are earning significantly more than others in similar roles, which could mean that companies willing to pay more might attract top talent.
+  Pay structures differ from market to market in Southeast Asia. What counts as competitive pay in Jakarta is not the same as what counts as competitive pay in Singapore.
 whatThisMeansIndividuals: |-
-  Understand how your company rewards deep design expertise versus management skills.
+  Whether a company rewards deep design expertise the same as it rewards management skills is worth checking, not assuming.
   Consider how you plan your career path based on impact as compared to just going up the career ladder.
   If you contract or freelance, read your annualised pay against these salaried medians with the gaps in mind. The annual figure assumes a full year of billable work, and benefits, unpaid time, and tax are yours to cover.
 whatThisMeansLeaders: |-
-  Think about creating career paths for designers who want to stay hands-on rather than manage.
+  Career paths for designers who want to stay hands-on rather than manage remain rare, even where the pay gap to management is steep.
   Be ready to show how your design team adds value to justify good pay.
   Check if your design team structure and pay matches how important design is to your business.
   Review if your pay ranges help you keep good designers.
@@ -705,7 +704,7 @@ questions:
   - 'How does basing new job offers on previous salary (plus 20%) affect the industry long term?'
   - 'What happens when managers must both lead and do design work themselves?'
   - 'How can companies pay fairly across different countries when teams work remotely?'
-  - 'When your annual figure quietly assumes you bill every month of the year, what does it actually take to match a salaried offer?'
+  - 'When an annual freelance figure quietly assumes billing every month of the year, what does it actually take to match a salaried offer?'
 references:
   - label: 'Indonesia design manager salaries range from Rp 13.5M to Rp 16.5M monthly'
     url: 'https://id.jobstreet.com/career-advice/role/design-manager/salary'
@@ -715,7 +714,7 @@ references:
     url: 'https://www.aon.com/apac/in-the-press/asia-newsroom/2024/salaries-in-southeast-asia-expected-to-rise-in-2025'
 ---
 
-Median annual compensation varies dramatically across the five surveyed markets, reflecting differences in cost of living, market maturity, and demand for design talent. In local currency terms, the medians are:
+Median annual compensation varies across the five surveyed markets, reflecting differences in cost of living, market maturity, and demand for design talent. In local currency terms, the medians are:
 
 - Indonesia: IDR 92.35 million
 - Singapore: SGD 79,200
@@ -727,7 +726,7 @@ Indonesia, Singapore, and Malaysia have per-level cohorts deep enough to break o
 
 ::chart{id="currency-distribution"}
 
-::pullquote{quote="In much of the region, your next salary is still anchored to your last one."}
+::pullquote{quote="In much of the region, a designer's next salary is still anchored to their last one."}
 
 ::chart{id="salary-sharing-preference"}
 
@@ -743,7 +742,7 @@ Indonesia and Singapore's ranges widen sharply above Senior IC; Malaysia's stay 
 
 Variable pay does not grow evenly with seniority:
 
-- Base salary's share dips sharpest at manager level (84.3%), before edging back up for Director/VP
+- Base salary's share dips sharpest at manager level, before edging back up for Director/VP
 - Stock grants reach their highest share, 4.3%, at head of design
 - Bonuses peak earlier, at 11.3% for senior leadership
 

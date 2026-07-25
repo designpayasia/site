@@ -469,15 +469,9 @@ charts:
 keyFindings:
   - 'Feeling valued outpaces feeling fairly paid in four of the five markets; Thailand is the exception, where fair-pay sentiment (65.1%) runs ahead of feeling valued (58.1%)'
 commentary: |-
-  On the topic of showing the value of design to regional businesses, the gap between contribution and recognition holds up, though it narrows and widens differently market by market.
+  On the topic of showing the value of design to regional businesses, the gap between contribution and recognition holds up, though it narrows and widens differently market by market. Thailand is the outlier: the only market where designers feel more fairly paid than valued.
 
-  Indonesia: 73.7% feel valued, 50.8% feel fairly paid
-  Singapore: 53.3% feel valued, 49.1% feel fairly paid
-  Malaysia: 56.0% feel valued, 52.7% feel fairly paid
-  Vietnam: 66.0% feel valued, 55.1% feel fairly paid
-  Thailand: 58.1% feel valued, 65.1% feel fairly paid, the only market where fair-pay sentiment runs ahead of feeling valued
-
-  Designers across the region spend energy justifying design's worth to cross-functional teams. Between 63.3% (Vietnam) and 76.9% (Malaysia) invest significant extra effort in it, time that could otherwise go towards deeper, more strategic work.
+  Designers across the region spend energy justifying design's worth to cross-functional teams, time that could otherwise go towards deeper, more strategic work.
 
   What counts as "good design" still differs from business to business. Mature companies tend to focus on getting the work done well rather than following a fixed framework, and they judge design's success in varied ways: return on investment, strategic value, customer satisfaction, and brand impact.
 hubCommentary: |-
@@ -486,7 +480,7 @@ whatThisMeansIndividuals: |-
   Find ways to balance showing the value of design with your main work — picking your battles.
   Look for business numbers that show how your work makes a difference, considering investing in soft skills and peripheral knowledge.
 whatThisMeansLeaders: |-
-  How can you help others see design as strategic, not just visual, craft, or delivery-based work only?
+  How can you help others see the strategic dimension of design, beyond visual craft or delivery?
   Think about ways to show the value of design without putting too much pressure on individual designers.
   Check if chasing design maturity actually helps your business goals.
   Consider what success looks like for design in your specific business.
@@ -504,7 +498,7 @@ references:
     url: 'https://arounda.agency/blog/design-roi-how-to-measure-business-value-of-ux-design'
 ---
 
-Designers across Indonesia, Singapore, Malaysia, Vietnam, and Thailand see design's value differently depending on where they sit. In Indonesia, the region's largest sample, 73.7% feel their role is valued by their employer, a share that falls to 53.3% in Singapore; fair-compensation perceptions run narrower everywhere, from 49.1% in Singapore to 65.1% in Thailand.
+Designers across Indonesia, Singapore, Malaysia, Vietnam, and Thailand see design's value differently depending on where they sit, and feeling valued does not track evenly with feeling fairly paid across the five markets.
 
 ::chart{id="role-value-perception"}
 
@@ -516,4 +510,4 @@ Designers across Indonesia, Singapore, Malaysia, Vietnam, and Thailand see desig
 
 ::chart{id="design-advocacy-effort"}
 
-On user-centricity, agreement ranges from 42.9% in Singapore to 59.7% in Indonesia. Even at the high end, two in five designers don't think user needs shape how their organisation actually decides things. That gap is the tension between what user-centred design claims and what the organisation actually rewards.
+Even at the high end, two in five designers don't think user needs shape how their organisation actually decides things. That gap is the tension between what user-centred design claims and what the organisation actually rewards.

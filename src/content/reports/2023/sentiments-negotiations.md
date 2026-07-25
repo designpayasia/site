@@ -381,7 +381,7 @@ metrics:
 
 ## Negotiation behaviour
 
-57.1% of respondents negotiated their current compensation, 38.8% did not, and the remaining 4.1% said the question did not apply to them.
+57.1% of respondents negotiated their current compensation, 38.8% did not, and 4.1% said the question did not apply.
 
 ::chart{id="chart-negotiate-current-compensation"}
 

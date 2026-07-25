@@ -172,12 +172,12 @@ Singapore accounts for most responses. Eight designers came from the Philippines
 
 ## Gender distribution
 
-Small numbers of respondents identified as non-binary or preferred not to state; the remainder split 54.5% women to 43.9% men. That balance was a deliberate outcome of distribution strategy and community partnerships, and it proved critical to the gender pay gap analysis that anchors this report.
+Small numbers of respondents identified as non-binary or preferred not to state; the remainder split 54.5% women to 43.9% men. That balance was a deliberate outcome of distribution strategy and community partnerships, and it supported the gender pay gap analysis that anchors this report.
 
 ::chart{id="chart-gender-distribution"}
 
 ## Age profile
 
-The workforce skews young, with the 25–30 bracket alone accounting for 43% of respondents. Across all groups under 35, women outnumbered men. Above 36, the pattern shifts, with men dominating each older bracket: a signal of structural retention challenges that later surveys would examine.
+The workforce skews young, with the 25–30 bracket alone accounting for 43% of respondents. Across all groups under 35, women outnumbered men. Above 36, the pattern shifts, with men dominating each older bracket.
 
 ::chart{id="chart-age-distribution"}

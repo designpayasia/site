@@ -217,25 +217,21 @@ charts:
         - label: 36–50
           values: ['108', '31.5%']
 keyFindings:
-  - 'Notable gender distribution showing more balance in early career stages'
+  - 'Female representation is highest at 41.7% in the 18–24 age group, falling to 31.5% by 36–50'
 commentary: |-
   Most designers work in major tech cities, but we might be missing voices from places like the Philippines and Thailand, perhaps due to language barriers and survey reach.
 hubCommentary: |-
-  The data shows that the design industry is growing in Southeast Asia, but some countries and smaller cities might not be fully represented. With such a young group of designers, companies have a great opportunity to shape the future of design, but they also need to think about how to best support and grow their talent.
+  Respondents cluster in major tech cities; smaller cities and countries such as the Philippines are underrepresented. The workforce is young, which raises real questions about how companies support and grow talent over time.
 whatThisMeans: |-
   Gender balance varies by country, with Indonesia's large response numbers affecting the overall picture.
-  80% of designers are under 35 years old, which is typical for tech but younger than traditional banking.
+  80% of designers are under 35, a young workforce even relative to the rest of tech.
   Most designers live in cities, but this might change as companies look to reduce costs.
-  Singapore remains important as a talent centre despite higher costs, thanks to its strong business environment and education system.
-  Indonesia stands out with 79% of responses, showing both its large market size and active design community. There are signs that a portion of Indonesian designers work remotely for international companies.
+  Singapore remains an important talent centre despite higher costs relative to its regional neighbours.
+  Indonesia's response volume reflects both its large market size and an active design community. Some portion of that group appears to work remotely for international companies.
 whatThisMeansIndividuals: |-
-  Consider what advantages or challenges you might face in your career based on where you are.
-  Think about how your location might affect your job opportunities and pay.
+  Location does more than set a cost of living. It shapes the career opportunities and pay a designer can expect too.
 whatThisMeansLeaders: |-
-  Consider how you could benefit from hiring people in different locations, especially with remote work becoming common.
-  Look at how your team's mix of people compares to the wider market.
-  Review if your hiring approach makes the most of talent from different locations and remote workers.
-  Plan for managing and developing a younger workforce.
+  Remote work has widened the map for where hiring can happen. Team composition that mirrors the wider market signals a hiring approach making full use of that broader talent pool, including remote candidates. A workforce this young also raises the stakes for how leaders manage and develop talent over time.
 questions:
   - 'How can we better capture design industry data from underrepresented Southeast Asian markets, particularly addressing language and accessibility barriers?'
   - 'What impact will the rise of distributed teams and remote work have on traditional design hubs like Singapore and Jakarta?'
