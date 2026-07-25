@@ -447,11 +447,14 @@ verification in its first production context.
   caption the `grid`, `split`, `inverse`, and `hero`-lead cards show but the `hero` rail omits.
 - Pattern: `<Provocations items={section.provocations} variant="hero" label="Three tensions" />`
 
-**`GuidePage.astro`** ✓ implemented
-- Public contributor runbook layout. Props: `eyebrow` (mono label), `title` (h1, max 16ch),
-  `summary` (prose), `steps[]` (ordered list), `links[]` (optional outlined doc-links).
+**`docs/[slug].astro`** ✓ implemented
+- Renders every page in the `docs` content collection. Replaced `GuidePage.astro`, whose fixed
+  eyebrow / title / steps / links shape could only express a checklist, which is why the docs it
+  produced never grew past 70 words each.
+- Markdown body styling lives in the route's scoped `:global()` block: h2 section breaks,
+  blockquote callouts for documented gaps, bordered tables, scrollable code blocks.
 - Doc-link border-radius: 8px (not pill — these are document navigation, not CTAs).
-- Used for `/docs/*` public runbook pages.
+- Prose stays in `src/content/docs/*.md`. A contributor writing a doc never opens an `.astro` file.
 
 **`StubPage.astro`** ✓ implemented
 - Placeholder layout for pages not yet built. Props: `eyebrow`, `title`, `summary`,
