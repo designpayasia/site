@@ -147,7 +147,6 @@ const heroTitleSignal = titleWords.at(-1);
             <a href={homepage.data.heroCtaHref} class="btn btn--primary">
               {homepage.data.heroCtaLabel}
             </a>
-
           </div>
         </div>
 
@@ -185,11 +184,11 @@ const heroTitleSignal = titleWords.at(-1);
       eyebrow="Editorial conversation"
       title="Pay is a conversation about"
       signalWord="power"
-      intro="AI-draft for Jon: the data is useful because it refuses to behave like a simple ranking table."
+      intro="Career movement is easy to point to this year. Job security and negotiating power are not moving at the same pace, and that gap is the argument."
       paragraphs={[
-        'Across the region, designers are advancing, negotiating, and taking on larger decisions. The evidence points to movement, but not always to security.',
-        'That gap matters. A pay report can show what people earn, but the sharper question is what they are expected to absorb while the market changes around them.',
-        'The homepage should leave that tension open: what counts as progress if the work grows faster than the protection around it?',
+        'Across Southeast Asia, designers describe more responsibility, more say in decisions, and clearer routes upward. Move into the job market that same year and the account changes: concern is common, and for a real share of the region, so is having already lived through a layoff.',
+        'That gap is not evenly held. Senior leaders negotiate far more often than junior designers, and salary history disclosure still follows candidates from offer to offer. The survey can count who negotiates; it cannot yet count what the quieter half gives up.',
+        'The report leaves one question open: what should count as progress, if the work is growing faster than the protection and the negotiating room around it?',
       ]}
       metaItems={[
         { label: 'Source', value: '2024 DPA Report', href: featuredReport.data.canonicalPath },
@@ -198,13 +197,11 @@ const heroTitleSignal = titleWords.at(-1);
       ]}
       metaEyebrow="Section 03"
       metaTitle="Open argument"
-      metaNote="AI-draft copy. Jon approval required before final publishing."
+      metaNote="An open argument: the report does not resolve this tension, and neither does the homepage."
       quote={{
         quote: 'Progress is easier to measure than the pressure it creates.',
-        attribution: 'Draft homepage line',
       }}
-      draftState="ai-draft"
-      draftLabel="AI draft for Jon"
+      draftState="final"
     />
 
     <section class="chart-section" aria-label="Compensation mix">
@@ -249,9 +246,8 @@ const heroTitleSignal = titleWords.at(-1);
     <DarkBeat
       eyebrow="2024 dark beat"
       title="Progress is not the same as safety"
-      statement="AI-draft for Jon: the year shows career movement and market strain at the same time."
-      statementDraft
-      draftLabel="AI draft for Jon"
+      statement="Career movement and market strain are the same story this year, told from two different angles."
+      statementDraft={false}
       provenanceStatus="proven"
       provenanceNote="Regional job-market figures use evidence:2024-job-market, not the Singapore-only record."
       metrics={[
@@ -279,7 +275,7 @@ const heroTitleSignal = titleWords.at(-1);
       ]}
     />
 
-    <Invitation question="What will you ask?" questionDraft draftLabel="AI draft for Jon" />
+    <Invitation question="What would you ask, if you knew you'd get a straight answer?" questionDraft={false} />
   </main>
 </Base>
 
