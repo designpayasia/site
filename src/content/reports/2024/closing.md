@@ -20,7 +20,7 @@ provocations:
   - header: Confident in the work, uncertain about the future
     stat: 77.3%
     statDetail: 77.3% say their skills match the job. 74.8% feel uncertain about what comes next.
-    question: Good at the work today, unsure about next year. Does that sound like you?
+    question: If you're good at the work today, why does next year feel so uncertain?
   - header: Proving design's worth is not your job
     stat: 69.2%
     statDetail: 69.2% have had to argue for the value of design itself.
@@ -32,4 +32,4 @@ questions:
   - 'Where do you sit in this data, and does it match how you feel about the value of your work?'
 ---
 
-This report counts 1,797 designers across Indonesia, Singapore, Malaysia, Vietnam, and Thailand. The numbers say one thing plainly. Design in Southeast Asia has grown up. The careers built on it have not kept pace. So we close on five tensions, not five answers.
+This report counts 1,797 designers across Indonesia, Singapore, Malaysia, Vietnam, and Thailand. The numbers say one thing plainly. Design in Southeast Asia has grown up. The careers built on it have not kept pace. So we close on five tensions worth carrying into next year.
