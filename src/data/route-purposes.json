@@ -1,0 +1,12 @@
+{
+  "/": "Homepage, backed by structured site data",
+  "/about": "Who runs DPA and why",
+  "/contribute": "How to send data, corrections, and help",
+  "/docs": "Docs index",
+  "/docs/[slug]": "Data handling rules and the report playbook",
+  "/docs/patterns": "Component catalogue for contributors, not a reader surface",
+  "/ops": "Continuity spine, ownership matrix, and route inventory",
+  "/reports": "Report index",
+  "/reports/[slug]": "Report landing pages, one per survey year",
+  "/reports/[year]/[section]": "Report sections; methodology and summary render on the landing page instead"
+}

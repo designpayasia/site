@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import { buildRouteInventory } from '../lib/routes.mjs';
+import routePurposes from '../data/route-purposes.json';
 
 const ownershipRows = [
   {
@@ -28,22 +30,12 @@ const ownershipRows = [
   },
 ];
 
-const routeRows = [
-  { route: '/', purpose: 'Homepage backed by structured site data', state: 'Live' },
-  { route: '/reports', purpose: 'Report index', state: 'Live' },
-  { route: '/reports/2024', purpose: 'Current structured report', state: 'Live' },
-  { route: '/reports/2023', purpose: 'Restored 2023 structured report', state: 'Live' },
-  { route: '/about', purpose: 'Positioning and purpose stub', state: 'Stub' },
-  { route: '/contribute', purpose: 'Contribution workflow stub', state: 'Stub' },
-  { route: '/docs', purpose: 'Public runbooks', state: 'Live' },
-  { route: '/docs/data-safety', purpose: 'Data safety rules and suppression thresholds', state: 'Live' },
-  { route: '/ops', purpose: 'Continuity spine', state: 'Live' },
-];
+const routeRows = buildRouteInventory(routePurposes);
 ---
 
 <Base
   title="Ops - Design Pay Asia"
-  description="Public continuity notes, ownership matrix, and publication contract for Design Pay Asia."
+  description="Public continuity notes, architecture map, ownership matrix, and publication contract for Design Pay Asia."
 >
   <section class="ops-hero">
     <div class="ops-hero__inner">
@@ -52,6 +44,8 @@ const routeRows = [
       <p class="prose">
         This page names the public contract: structured content, evidence-backed claims,
         Node 22 runtime, and manual approval for publish decisions that affect trust.
+        If you are picking this project up cold, start here, then read the
+        <a href="/docs">docs</a>.
       </p>
     </div>
   </section>
@@ -75,6 +69,26 @@ const routeRows = [
           <li>CI runs on Node 22 and checks build, routes, and content diagnostics.</li>
           <li>GitHub history is the public rollback path for content and route contracts.</li>
           <li>Private handoff packets stay outside this repo.</li>
+        </ul>
+      </article>
+
+      <article class="ops-card">
+        <h2>Architecture</h2>
+        <ul>
+          <li>Static Astro build. Routes live under `src/pages` and stay year-namespaced for published reports.</li>
+          <li>Collections are defined in `src/content.config.ts` and loaded from `src/content/site`, `src/content/reports`, `src/content/evidence`, and `src/content/docs`.</li>
+          <li>Redirect rules live in `src/data/redirects.json` and generate `public/_redirects` through `scripts/redirects.mjs`.</li>
+          <li>CI proves redirects, token usage, ops freshness, link integrity, content checks, and the full static build.</li>
+        </ul>
+      </article>
+
+      <article class="ops-card">
+        <h2>Succession</h2>
+        <ul>
+          <li>This page and the docs are the whole public handover. There is no private supplement that explains the build.</li>
+          <li>Use Node 22 and run the documented checks before changing routes or published figures.</li>
+          <li>Evidence and data-safety rules are trust floors. Where provenance is weak, defer rather than publish.</li>
+          <li>Account ownership, 2FA, and recovery packets stay outside this public repository.</li>
         </ul>
       </article>
     </div>
@@ -111,21 +125,25 @@ const routeRows = [
   <section class="ops-ownership">
     <div class="ops-ownership__inner">
       <h2>Route inventory</h2>
+      <p class="prose ops-note">
+        Generated at build time from `src/pages` and the content collections, so it cannot
+        fall behind what ships. Purposes are held in `src/data/route-purposes.json`.
+      </p>
       <div class="ops-table-wrap">
         <table class="ops-table">
           <thead>
             <tr>
               <th>Route</th>
               <th>Purpose</th>
-              <th>State</th>
+              <th>Pages</th>
             </tr>
           </thead>
           <tbody>
             {routeRows.map((row) => (
               <tr>
-                <td>{row.route}</td>
+                <td>{row.pattern}</td>
                 <td>{row.purpose}</td>
-                <td>{row.state}</td>
+                <td>{row.count}</td>
               </tr>
             ))}
           </tbody>
@@ -136,20 +154,12 @@ const routeRows = [
 </Base>
 
 <style>
-  .ops-hero,
-  .ops-grid,
-  .ops-ownership {
-    padding-inline: var(--space-8);
-  }
-
   .ops-hero {
+    padding-inline: var(--space-8);
     padding-block: var(--space-24) var(--space-12);
-    border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  .ops-hero__inner,
-  .ops-grid__inner,
-  .ops-ownership__inner {
+  .ops-hero__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
   }
@@ -160,10 +170,13 @@ const routeRows = [
   }
 
   .ops-grid {
+    padding-inline: var(--space-8);
     padding-block: var(--space-12);
   }
 
   .ops-grid__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-8);
@@ -177,24 +190,45 @@ const routeRows = [
   }
 
   .ops-card ul {
+    margin-top: var(--space-4);
     padding-left: 1.25rem;
     color: var(--color-ink-muted);
   }
 
+  .ops-card li + li {
+    margin-top: var(--space-2);
+  }
+
   .ops-ownership {
+    padding-inline: var(--space-8);
     padding-block: var(--space-12) var(--space-24);
+  }
+
+  .ops-ownership__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
+  .ops-note {
+    margin-top: var(--space-4);
+    color: var(--color-ink-muted);
+  }
+
+  .ops-table-wrap {
+    overflow-x: auto;
+    margin-top: var(--space-8);
   }
 
   .ops-table {
     width: 100%;
     border-collapse: collapse;
+    text-align: left;
   }
 
   .ops-table th,
   .ops-table td {
     padding: var(--space-4);
     border-bottom: 1px solid var(--color-border-subtle);
-    text-align: left;
     vertical-align: top;
   }
 
