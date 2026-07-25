@@ -33,5 +33,30 @@
     "from": "/reports/2023/career-progression",
     "to": "/reports/2023/sentiments-career-progression",
     "status": 301
+  },
+  {
+    "from": "/docs/edit-report",
+    "to": "/docs/run-a-cycle",
+    "status": 301
+  },
+  {
+    "from": "/docs/publish",
+    "to": "/docs/run-a-cycle",
+    "status": 301
+  },
+  {
+    "from": "/docs/annual-cycle",
+    "to": "/docs/run-a-cycle",
+    "status": 301
+  },
+  {
+    "from": "/docs/architecture",
+    "to": "/ops",
+    "status": 301
+  },
+  {
+    "from": "/docs/succession",
+    "to": "/ops",
+    "status": 301
   }
 ]
