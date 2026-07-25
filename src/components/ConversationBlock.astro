@@ -26,6 +26,10 @@ interface Props {
   metaNote?: string;
   quote?: Quote;
   id?: string;
+  /** Which side the meta panel sits on at desktop widths. Defaults to the leading edge. */
+  metaPosition?: 'start' | 'end';
+  /** Drop the hairline rule above the block, for pages where the section above already closes itself. */
+  flushTop?: boolean;
   draftState?: 'ai-draft' | 'review' | 'final';
   draftLabel?: string;
 }
@@ -42,6 +46,8 @@ const {
   metaNote,
   quote,
   id,
+  metaPosition = 'start',
+  flushTop = false,
   draftState = 'ai-draft',
   draftLabel = 'AI draft',
 } = Astro.props;
@@ -50,10 +56,11 @@ const {
 <section
   class="conversation-block"
   id={id}
+  data-flush-top={flushTop ? 'true' : 'false'}
   data-editorial-state={draftState}
   data-ai-draft={draftState === 'ai-draft' ? 'true' : 'false'}
 >
-  <div class="conversation-block__grid">
+  <div class="conversation-block__grid" data-meta-position={metaPosition}>
     <div class="conversation-block__meta">
       <StickyMeta
         eyebrow={metaEyebrow}
@@ -99,6 +106,20 @@ const {
   .conversation-block {
     padding-block: var(--space-16);
     border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .conversation-block[data-flush-top='true'] {
+    border-top: 0;
+  }
+
+  /* Meta on the trailing edge: stack the prose first on narrow screens too. */
+  .conversation-block__grid[data-meta-position='end'] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .conversation-block__grid[data-meta-position='end'] .conversation-block__body {
+    order: -1;
   }
 
   .conversation-block__grid {
@@ -157,6 +178,20 @@ const {
 
     .conversation-block__body {
       grid-column: 4 / -1;
+    }
+
+    .conversation-block__grid[data-meta-position='end'] {
+      display: grid;
+    }
+
+    .conversation-block__grid[data-meta-position='end'] .conversation-block__meta {
+      grid-column: 10 / -1;
+      order: 0;
+    }
+
+    .conversation-block__grid[data-meta-position='end'] .conversation-block__body {
+      grid-column: 1 / 10;
+      grid-row: 1;
     }
   }
 </style>
