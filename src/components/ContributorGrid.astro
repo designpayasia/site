@@ -1,0 +1,173 @@
+---
+import { getCountryFlag } from '../lib/countryFlag';
+import type { Contributor } from '../lib/contributors';
+
+interface Props {
+  intro?: string;
+  contributors: Contributor[];
+  label?: string;
+}
+
+const { intro, contributors, label } = Astro.props;
+
+function getInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? '')
+    .join('');
+}
+---
+
+{label && <p class="contributor-grid__label label-mono">{label}</p>}
+{intro && <p class="contributor-grid__intro prose">{intro}</p>}
+
+<ul class="contributor-grid" role="list">
+  {contributors.map((contributor) => (
+    <li class="contributor-card">
+      <a
+        href={contributor.linkedin}
+        class="contributor-card__link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${contributor.name} on LinkedIn`}
+      >
+        {contributor.photo ? (
+          <img
+            class="contributor-card__photo"
+            src={contributor.photo}
+            alt={contributor.name}
+            width="120"
+            height="120"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <span class="contributor-card__initials" aria-hidden="true">
+            {getInitials(contributor.name)}
+          </span>
+        )}
+        <span class="contributor-card__name">{contributor.name}</span>
+        <span class="contributor-card__country" aria-label={`Country: ${contributor.country}`}>
+          {getCountryFlag(contributor.country) || contributor.country}
+        </span>
+        <span class="contributor-card__years label-mono">{contributor.years.join(' · ')}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .contributor-grid__label {
+    margin-bottom: var(--space-3);
+  }
+
+  .contributor-grid__intro {
+    margin-bottom: var(--space-8);
+  }
+
+  .contributor-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-5);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .contributor-card {
+    display: contents;
+  }
+
+  .contributor-card__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 44px;
+    text-decoration: none;
+    color: var(--contributor-link-color, var(--color-ink));
+    padding: var(--space-4);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .contributor-card__link:hover,
+  .contributor-card__link:focus-visible {
+    border-color: var(--contributor-hover-border, var(--color-border-subtle));
+    background-color: var(--contributor-hover-bg, var(--color-surface));
+    outline: none;
+  }
+
+  .contributor-card__link:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+  }
+
+  .contributor-card__photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    background-color: var(--contributor-photo-bg, var(--color-surface));
+  }
+
+  .contributor-card__initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--color-surface-muted);
+    color: var(--color-ink-subtle);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+
+  .contributor-card__name {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-align: center;
+    line-height: var(--leading-caption);
+    color: var(--contributor-name-color, var(--color-ink));
+  }
+
+  .contributor-card__country {
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  .contributor-card__years {
+    color: var(--contributor-years-color, var(--color-ink-muted));
+  }
+
+  /* Collapse the single desktop row in stages on narrower viewports. */
+  @media (max-width: 1023px) {
+    .contributor-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    .contributor-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .contributor-card__photo,
+    .contributor-card__initials {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .contributor-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
