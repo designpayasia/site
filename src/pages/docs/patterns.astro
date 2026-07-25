@@ -5,6 +5,7 @@ import CoverSplitEditorial from '../../components/CoverSplitEditorial.astro';
 import DarkBeat from '../../components/DarkBeat.astro';
 import CoverFullBleed from '../../components/CoverFullBleed.astro';
 import CoverCardInverse from '../../components/CoverCardInverse.astro';
+import EntryCard from '../../components/EntryCard.astro';
 import FindingsStrip from '../../components/FindingsStrip.astro';
 import MetricShelf from '../../components/MetricShelf.astro';
 import BigStat from '../../components/BigStat.astro';
@@ -95,6 +96,23 @@ const inverseCoverCards = [
     year: 2025,
     title: 'Six markets, one baseline.',
     stat: { value: '1,842', label: 'Respondents' },
+  },
+];
+
+const entryCards = [
+  {
+    href: '/reports/2024',
+    year: 2024,
+    claim: 'Whether you asked was a coin toss.',
+    highlight: { value: '52.5', unit: '%', label: 'negotiated their compensation' },
+    meta: ['1,797 responses', '5 markets'],
+  },
+  {
+    href: '/reports/2023',
+    year: 2023,
+    claim: 'Where you’d worked showed up in the pay.',
+    highlight: { value: '85', unit: '%', label: 'higher median pay with international experience' },
+    meta: ['323 responses', '5 markets'],
   },
 ];
 
@@ -266,6 +284,7 @@ const tocItems = [
   { id: 'dark-beat', label: 'Dark beat' },
   { id: 'cover-full-bleed', label: 'Cover — full bleed' },
   { id: 'cover-card-inverse', label: 'Cover card — inverse' },
+  { id: 'entry-card', label: 'Entry card' },
   { id: 'findings-strip', label: 'Findings strip' },
   { id: 'metric-shelf', label: 'Metric shelf' },
   { id: 'big-stat', label: 'Big stat' },
@@ -325,7 +344,8 @@ const tocItems = [
               <tr><th scope="row">Cover split editorial</th><td><code>src/components/CoverSplitEditorial.astro</code></td><td>Docs-only specimen</td></tr>
               <tr><th scope="row">Dark beat</th><td><code>src/components/DarkBeat.astro</code></td><td><a href="/">Production: homepage</a></td></tr>
               <tr><th scope="row">Cover full bleed</th><td><code>src/components/CoverFullBleed.astro</code></td><td>Docs-only specimen</td></tr>
-              <tr><th scope="row">Cover card inverse</th><td><code>src/components/CoverCardInverse.astro</code></td><td><a href="/reports">Production: reports index</a></td></tr>
+              <tr><th scope="row">Cover card inverse</th><td><code>src/components/CoverCardInverse.astro</code></td><td>Docs-only specimen</td></tr>
+              <tr><th scope="row">Entry card</th><td><code>src/components/EntryCard.astro</code></td><td><a href="/reports">Production: reports index</a></td></tr>
               <tr><th scope="row">Findings strip</th><td><code>src/components/FindingsStrip.astro</code></td><td><a href="/">Production: homepage</a></td></tr>
               <tr><th scope="row">Metric shelf</th><td><code>src/components/MetricShelf.astro</code></td><td><a href="/reports">Production: reports index</a></td></tr>
               <tr><th scope="row">Big stat</th><td><code>src/components/BigStat.astro</code></td><td><a href="/">Production: homepage</a></td></tr>
@@ -446,12 +466,37 @@ const tocItems = [
         <h2>Cover card inverse</h2>
         <p class="pattern-demo__note">
           Compact inverse card for a report archive grid or a related-reports rail. The whole card is
-          one link; <code>stat</code> is optional. Shown here as a three-card archive grid.
+          one link; <code>stat</code> is optional. Docs-only specimen — <code>EntryCard</code> below
+          replaced it on <code>/reports</code>. Shown here as a three-card archive grid.
         </p>
         <div class="pattern-demo__frame pattern-demo__frame--transparent">
           <div class="pattern-demo__card-grid">
             {inverseCoverCards.map((card) => (
               <CoverCardInverse href={card.href} year={card.year} title={card.title} stat={card.stat} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="entry-card" class="pattern-demo">
+        <p class="label-mono">Cover — pattern 01 successor (report index)</p>
+        <h2>Entry card</h2>
+        <p class="pattern-demo__note">
+          Live on <code>/reports</code>. The whole card is the link, so it carries no call to action,
+          and its highlight stat stays workhorse-toned because a grid puts several cards in one view.
+          Shown here as a two-column grid, mirroring the report index.
+        </p>
+        <div class="pattern-demo__frame pattern-demo__frame--transparent">
+          <div class="pattern-demo__card-grid">
+            {entryCards.map((card) => (
+              <EntryCard
+                href={card.href}
+                year={card.year}
+                kind="report"
+                claim={card.claim}
+                highlight={card.highlight}
+                meta={card.meta}
+              />
             ))}
           </div>
         </div>

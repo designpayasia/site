@@ -478,6 +478,35 @@ const reports = defineCollection({
     eyebrow: z.string().default('Report'),
     heroCtaLabel: z.string().default('Read report'),
     stats: z.array(metricSchema).min(1),
+    // Entry kind for the /reports index. Reports are the only kind published
+    // today. `dataset` reserves the slot for a survey year whose data is
+    // released with no report written for it — the data platform treats the
+    // two as separate entities, so the hub must not assume one report per year.
+    entryType: z.enum(['report', 'dataset']).default('report'),
+    // Hub presentation carried by the report itself, so /reports renders from
+    // the collection with no per-report copy map on the page. A new cycle
+    // lists correctly the moment its content file lands.
+    hub: z
+      .object({
+        // Editorial claim heading the card. One argument, and never a
+        // restatement of the highlight stat sitting directly beneath it.
+        claim: z.string().min(1),
+        // The single finding this cycle leads with on the hub.
+        highlight: metricSchema,
+        // This cycle's response count. `sampleSize` is required below: the hub
+        // sums it across entries for the cross-cycle shelf, so a missing value
+        // would under-count silently instead of failing the build.
+        responses: metricSchema,
+      })
+      .superRefine((hub, ctx) => {
+        if (hub.responses.sampleSize === undefined) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'hub.responses.sampleSize is required — /reports sums it across cycles.',
+            path: ['responses', 'sampleSize'],
+          });
+        }
+      }),
     team: z.array(teamMemberSchema).optional(),
     acknowledgement: z.string().optional(),
     communityPartners: z.array(z.string().min(1)).optional(),

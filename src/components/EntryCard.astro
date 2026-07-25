@@ -1,0 +1,185 @@
+---
+// EntryCard — the /reports index entry.
+//
+// One card per thing a reader can enter: a published report today, and a
+// released survey dataset later (`kind`). Every entry gets identical
+// treatment regardless of year or kind, so a new cycle drops into the grid
+// with no layout branch.
+//
+// Differs from CoverCardInverse, which it replaced on /reports:
+// - Leads with an editorial claim rather than the report's own title.
+// - Carries a highlight stat plus a meta row (responses, markets), where
+//   CoverCardInverse carries a single stat and no meta.
+// - No call to action. The whole card is the link, so a "read the report"
+//   label would be a second target for the same destination.
+//
+// Inverse surface, following the DarkBeat convention (explicit data-theme
+// and --color-inverse-* tokens rather than the [data-theme=dark] cascade).
+// The highlight stat stays workhorse-toned: a grid of these puts several
+// cards in one view, and one crimson stat per card would spend the signal
+// budget several times over (DESIGN.md §1a).
+
+interface Highlight {
+  value: string;
+  unit?: string;
+  label: string;
+}
+
+interface Props {
+  href: string;
+  year: string | number;
+  /** Editorial claim heading the card. One argument, never a restatement of `highlight`. */
+  claim: string;
+  /** Entry kind. `dataset` is labelled so a year with data and no report reads as itself. */
+  kind?: 'report' | 'dataset';
+  highlight?: Highlight;
+  /** Short factual chips, e.g. ['323 responses', '5 markets']. */
+  meta?: string[];
+}
+
+const { href, year, claim, kind = 'report', highlight, meta = [] } = Astro.props;
+
+const kindLabel = kind === 'dataset' ? 'Dataset' : 'Report';
+---
+
+<!-- No aria-label: the card's own content (year, kind, claim, highlight, meta)
+     is the accessible name, and labelling the link would drop the stat and
+     meta chips for anyone reading by keyboard or screen reader. -->
+<a class="entry-card" data-theme="dark" href={href}>
+  <span class="entry-card__head">
+    <span class="entry-card__year label-mono">{year}</span>
+    <span class="entry-card__kind label-mono">{kindLabel}</span>
+  </span>
+
+  <h2 class="entry-card__claim">{claim}</h2>
+
+  {
+    highlight && (
+      <span class="entry-card__highlight">
+        <span class="entry-card__highlight-value">
+          {highlight.value}
+          {highlight.unit && <span class="entry-card__highlight-unit">{highlight.unit}</span>}
+        </span>
+        <span class="entry-card__highlight-label">{highlight.label}</span>
+      </span>
+    )
+  }
+
+  {
+    meta.length > 0 && (
+      <span class="entry-card__meta">
+        {meta.map((item) => (
+          <span class="entry-card__meta-item label-mono">{item}</span>
+        ))}
+      </span>
+    )
+  }
+</a>
+
+<style>
+  .entry-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    /* Well past the 44px touch minimum: an entry is the page's main event,
+       and a card sized to its copy alone reads as a list row. */
+    min-height: clamp(15rem, 22vw, 20rem);
+    padding: var(--space-8);
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-text);
+    border: 1px solid transparent;
+    border-radius: var(--radius-blob-motif);
+    text-decoration: none;
+    transition:
+      transform var(--transition-hover),
+      border-color var(--transition-hover);
+  }
+
+  .entry-card:hover {
+    transform: translateY(-0.25rem);
+    border-color: var(--color-border-strong);
+  }
+
+  .entry-card:focus-visible {
+    outline: 3px solid var(--color-signal-fill);
+    outline-offset: 3px;
+  }
+
+  .entry-card__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .entry-card__year {
+    color: var(--color-inverse-signal-text);
+  }
+
+  .entry-card__kind {
+    color: color-mix(in srgb, var(--color-inverse-text) 55%, transparent);
+  }
+
+  .entry-card__claim {
+    margin: 0;
+    font-family: var(--type-h2-face);
+    font-size: clamp(1.625rem, 4vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: var(--type-h2-tracking);
+    color: var(--color-inverse-text);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  /* Highlight sits at the foot of the card so a grid of entries aligns on
+     its stat row even when claims run to different depths. */
+  .entry-card__highlight {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: auto;
+    padding-top: var(--space-5);
+    border-top: 1px solid color-mix(in srgb, var(--color-inverse-text) 20%, transparent);
+  }
+
+  .entry-card__highlight-value {
+    font-family: var(--font-data);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: var(--weight-medium);
+    line-height: 1;
+    letter-spacing: var(--type-stat-tracking);
+    font-variant-numeric: lining-nums tabular-nums;
+    color: var(--color-inverse-text);
+  }
+
+  .entry-card__highlight-unit {
+    font-size: var(--type-stat-unit-size);
+    line-height: 1;
+  }
+
+  .entry-card__highlight-label {
+    max-width: 30ch;
+    font-size: var(--type-caption);
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--color-inverse-text) 80%, transparent);
+  }
+
+  .entry-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    color: color-mix(in srgb, var(--color-inverse-text) 70%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .entry-card {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .entry-card {
+      padding: var(--space-6);
+    }
+  }
+</style>

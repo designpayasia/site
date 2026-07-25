@@ -1,0 +1,12 @@
+{
+  "id": "evidence:dpa-survey-cycles",
+  "title": "Design Pay Asia survey cycles",
+  "summary": "The base for cross-cycle counts on the reports index: how many responses every published Design Pay Asia cycle collected, and which Southeast Asian markets those cycles covered between them. The totals themselves are computed from the reports at build time and are deliberately not restated here, so this entry cannot fall out of step with the page that cites it. Counts only, and no compensation figure is derived here.",
+  "sourceName": "Design Pay Asia",
+  "sourceUrl": "https://designpay.asia/reports",
+  "year": 2024,
+  "collectedAt": "2023-06 onward, one cycle at a time",
+  "geography": ["Singapore", "Malaysia", "Indonesia", "Philippines", "Vietnam", "Thailand"],
+  "methodology": "Sums the published response count of each Design Pay Asia survey cycle and takes the union of the markets those cycles covered. Both are computed at build time from the report content files, so a new cycle changes the figures without an edit here; `geography` below lists the markets covered so far and is the one field to extend when a cycle adds a market. The cycles differ in markets, partner network, and scale, so this entry supports counts alone and no year-on-year comparison. It is the single evidence source the /reports shelf cites, so it can be repointed at the survey dataset layer when that lands without touching the page.",
+  "sensitivity": "aggregate-only"
+}

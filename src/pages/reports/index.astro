@@ -3,63 +3,59 @@ import { getCollection } from 'astro:content';
 
 import Base from '../../layouts/Base.astro';
 import CoverIndexSpread from '../../components/CoverIndexSpread.astro';
-import CoverCardInverse from '../../components/CoverCardInverse.astro';
+import EntryCard from '../../components/EntryCard.astro';
 import MetricShelf from '../../components/MetricShelf.astro';
 
-const reports = (await getCollection('reports', ({ data }) => data.status === 'published')).sort(
+const entries = (await getCollection('reports', ({ data }) => data.status === 'published')).sort(
   (left, right) => right.data.publishedAt.getTime() - left.data.publishedAt.getTime(),
 );
 
-// Cross-report headline stats for the masthead shelf, sourced from existing
-// evidence entries (src/content/evidence/2023-survey-overview.json,
-// 2023-gender-pay-gap.json, 2024-total-respondents.json,
-// 2024-geographic-distribution.json). At most one cell carries
-// color: 'signal' — MetricShelf's signal budget (DESIGN.md §1a).
-const heroMetrics = [
+// Cross-cycle figures, derived from the entries rather than typed here, so a
+// new cycle updates this page by landing its content file. All three cells
+// cite one evidence entry (src/content/evidence/dpa-survey-cycles.json) —
+// the single place to repoint when cycle data moves to a dataset layer. No
+// cell is flagged 'signal': the shelf reports scale, not a finding.
+// `?? 0` never fires: hub.responses.sampleSize is required by the schema's
+// own refinement. It stands so a later schema relaxation surfaces as a wrong
+// total rather than a type error here.
+const totalResponses = entries.reduce(
+  (sum, entry) => sum + (entry.data.hub.responses.sampleSize ?? 0),
+  0,
+);
+const marketsCovered = new Set(entries.flatMap((entry) => entry.data.markets));
+const years = entries.map((entry) => entry.data.year).sort((left, right) => left - right);
+const yearRange =
+  years.length > 1 ? `${years[0]}–${years[years.length - 1]}` : String(years[0] ?? '');
+
+const CYCLES_EVIDENCE_ID = 'evidence:dpa-survey-cycles';
+
+// Every cell states the same base, because every figure here is counted off
+// the same responses. MetricShelf prints the raw evidence ID when a cell has
+// no sample, so the caption is carried explicitly rather than left to fall back.
+const shelfMetrics = [
   {
-    value: '1,797',
-    label: 'Responses, 2024 cycle',
-    evidenceId: 'evidence:2024-total-respondents',
-    sampleSize: 1797,
+    value: totalResponses.toLocaleString('en-GB'),
+    label: 'Responses across every cycle',
+    evidenceId: CYCLES_EVIDENCE_ID,
+    sampleSize: totalResponses,
   },
   {
-    value: '5',
-    label: 'Markets covered, 2024 cycle',
-    evidenceId: 'evidence:2024-geographic-distribution',
-    sampleSize: 1797,
+    value: String(marketsCovered.size),
+    label: 'Markets covered',
+    evidenceId: CYCLES_EVIDENCE_ID,
+    sampleSize: totalResponses,
   },
   {
-    value: '323',
-    label: 'Responses, 2023 cycle',
-    evidenceId: 'evidence:2023-survey-overview',
-    sampleSize: 323,
-  },
-  {
-    value: '42',
-    unit: '%',
-    label: 'Singapore gender pay gap, 2023',
-    evidenceId: 'evidence:2023-gender-pay-gap',
-    sampleSize: 323,
-    color: 'signal' as const,
+    value: String(entries.length),
+    label: 'Survey cycles',
+    evidenceId: CYCLES_EVIDENCE_ID,
+    sampleSize: totalResponses,
   },
 ];
 
-// Curated card copy per report: a short claim line plus one headline stat,
-// keyed by canonicalPath. Every figure here traces back to that report's own
-// evidence-linked stats (report.data.stats) or content-collection fields
-// (markets.length) — nothing invented. A report with no entry here falls
-// back to its own title and first published stat below, so a future report
-// still lists correctly without needing this map updated first.
-const cardCopy: Record<string, { claim: string; stat: { value: string; unit?: string; label: string } }> = {
-  '/reports/2024': {
-    claim: 'Five markets, one open method.',
-    stat: { value: '1,797', label: 'responses across five Southeast Asian markets' },
-  },
-  '/reports/2023': {
-    claim: 'The first count of design pay in the region.',
-    stat: { value: '42', unit: '%', label: 'Singapore gender pay gap, from 323 responses' },
-  },
-};
+// The page's one outbound data link. When the survey data gets its own home,
+// this is the only line to repoint — cards and shelf carry no data links.
+const dataHref = '/docs/data-safety';
 ---
 
 <Base
@@ -73,36 +69,41 @@ const cardCopy: Record<string, { claim: string; stat: { value: string; unit?: st
         titleLines={['What Southeast Asian', 'designers get paid']}
         emphasis="get paid"
         thesis="Open reports on design pay across Southeast Asia. Every figure links to its source, and cohorts under ten stay unpublished."
-        meta={['2 survey cycles', '2023–2024']}
+        meta={yearRange ? [yearRange] : []}
       >
-        <MetricShelf slot="metrics" metrics={heroMetrics} />
+        {entries.length > 0 && <MetricShelf slot="metrics" metrics={shelfMetrics} />}
       </CoverIndexSpread>
     </div>
   </section>
 
   <section class="reports-list">
     <div class="reports-list__inner">
-      <p class="label-mono reports-list__eyebrow">All reports</p>
+      <p class="label-mono reports-list__eyebrow">Every cycle</p>
       <div class="reports-list__grid">
-        {reports.map((report) => {
-          const copy = cardCopy[report.data.canonicalPath];
-          const fallbackStat = report.data.stats[0];
-          const stat =
-            copy?.stat ??
-            (fallbackStat
-              ? { value: String(fallbackStat.value), unit: fallbackStat.unit, label: fallbackStat.label }
-              : undefined);
-
-          return (
-            <CoverCardInverse
-              href={report.data.canonicalPath}
-              year={report.data.year}
-              title={copy?.claim ?? report.data.title}
-              stat={stat}
+        {
+          entries.map((entry) => (
+            <EntryCard
+              href={entry.data.canonicalPath}
+              year={entry.data.year}
+              kind={entry.data.entryType}
+              claim={entry.data.hub.claim}
+              highlight={{
+                value: entry.data.hub.highlight.value,
+                unit: entry.data.hub.highlight.unit,
+                label: entry.data.hub.highlight.label,
+              }}
+              meta={[
+                `${entry.data.hub.responses.value} ${entry.data.hub.responses.label}`,
+                `${entry.data.markets.length} ${entry.data.markets.length === 1 ? 'market' : 'markets'}`,
+              ]}
             />
-          );
-        })}
+          ))
+        }
       </div>
+      <p class="reports-list__data">
+        Each cycle publishes the figures behind it.
+        <a href={dataHref}>How the data is collected, checked, and suppressed</a>
+      </p>
     </div>
   </section>
 </Base>
@@ -134,10 +135,25 @@ const cardCopy: Record<string, { claim: string; stat: { value: string; unit?: st
     color: var(--color-ink-muted);
   }
 
+  /* Equal cards, newest first: one column on mobile, two from tablet up.
+     Every entry keeps the same treatment whatever its year or kind, so a
+     third cycle wraps onto the next row with nothing to change here. */
   .reports-list__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: 1fr;
     gap: var(--space-6);
+  }
+
+  .reports-list__data {
+    margin: var(--space-8) 0 0;
+    max-width: var(--zone-prose);
+    color: var(--color-ink-muted);
+  }
+
+  @media (min-width: 768px) {
+    .reports-list__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 767px) {
