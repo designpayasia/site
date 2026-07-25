@@ -1,64 +1,81 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
-const guides = [
+const entries = await getCollection('docs');
+
+const groups = [
   {
-    href: '/docs/edit-report',
-    title: 'Edit a report',
-    summary: 'Add or revise content entries, evidence records, and chart contracts.',
+    id: 'trust',
+    heading: 'How we handle the data',
+    intro: 'What gets published, what gets held back, and how you may reuse it.',
   },
   {
-    href: '/docs/publish',
-    title: 'Publish release',
-    summary: 'Run checks and push the static site contract safely.',
+    id: 'playbook',
+    heading: 'Running DPA',
+    intro: 'What it takes to produce a report, written for whoever runs the next one.',
   },
-  {
-    href: '/docs/annual-cycle',
-    title: 'Run annual cycle',
-    summary: 'Repeat the yearly survey and report workflow without rebuilding architecture.',
-  },
-  {
-    href: '/docs/architecture',
-    title: 'Architecture',
-    summary: 'One-page map of routes, collections, redirects, and audits.',
-  },
-  {
-    href: '/docs/data-safety',
-    title: 'Data safety rules',
-    summary: 'Small-cohort suppression, disclosure rules, and the correction process.',
-  },
-  {
-    href: '/docs/succession',
-    title: 'Succession handoff',
-    summary: 'Public continuity notes for a capable stranger or future maintainer.',
-  },
-];
+] as const;
+
+const grouped = groups.map((group) => ({
+  ...group,
+  docs: entries
+    .filter((entry) => entry.data.group === group.id)
+    .sort((a, b) => a.data.order - b.data.order),
+}));
 ---
 
 <Base
   title="Docs - Design Pay Asia"
-  description="Public runbooks for editing, publishing, and sustaining the Design Pay Asia site."
+  description="How Design Pay Asia handles its data, and what it takes to run a report cycle."
 >
   <section class="docs-index">
     <div class="docs-index__inner">
       <p class="label-mono">Docs</p>
-      <h1>Public runbooks for the site contract.</h1>
+      <h1>How this is made, in public.</h1>
       <p class="prose">
-        These guides keep the rebuild legible: edit reports, publish safely, run the annual
-        cycle, and understand the architecture without private context.
+        DPA is meant to outlast whoever is running it. These pages are the working notes
+        that make that possible: the rules governing what gets published, and the steps that
+        produce a report. Where something is not written down yet, it says so.
       </p>
 
-      <div class="docs-index__grid">
-        {guides.map((guide) => (
-          <article class="docs-card">
-            <h2>
-              <a href={guide.href} class="docs-card__link">
-                {guide.title}
-              </a>
-            </h2>
-            <p class="prose">{guide.summary}</p>
-          </article>
-        ))}
+      {
+        grouped.map((group) => (
+          <div class="docs-group">
+            <h2>{group.heading}</h2>
+            <p class="prose docs-group__intro">{group.intro}</p>
+
+            <ul class="docs-group__list">
+              {group.docs.map((doc) => (
+                <li class="docs-item">
+                  {doc.data.status === 'published' ? (
+                    <h3>
+                      <a href={`/docs/${doc.id}`} class="docs-item__link">
+                        {doc.data.title}
+                      </a>
+                    </h3>
+                  ) : (
+                    <h3 class="docs-item__title--planned">
+                      {doc.data.title}
+                      <span class="label-mono docs-item__flag">Not written yet</span>
+                    </h3>
+                  )}
+                  <p class="prose">{doc.data.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+
+      <div class="docs-group">
+        <h2>Elsewhere</h2>
+        <p class="prose">
+          The <a href="/ops">ops spine</a> holds the publication contract, ownership matrix,
+          and route inventory. Report methodology is published per year with each report,
+          since survey design changes between cycles. Everything else lives in the
+          <a href="https://github.com/designpayasia/site">public repository</a>.
+        </p>
       </div>
     </div>
   </section>
@@ -77,34 +94,61 @@ const guides = [
 
   .docs-index__inner h1 {
     margin-block: var(--space-6);
-    max-width: 14ch;
+    max-width: 16ch;
   }
 
-  .docs-index__grid {
+  .docs-group {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .docs-group__intro {
+    margin-top: var(--space-2);
+    color: var(--color-ink-muted);
+  }
+
+  .docs-group__list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-8);
-    margin-top: var(--space-10);
+    margin-top: var(--space-8);
+    padding: 0;
+    list-style: none;
   }
 
-  .docs-card {
-    padding: var(--space-10);
+  .docs-item {
+    padding: var(--space-8);
     border: 1px solid var(--color-border-subtle);
     border-radius: 8px;
     background: var(--color-surface);
   }
 
-  .docs-card__link {
+  .docs-item h3 {
+    margin-bottom: var(--space-3);
+  }
+
+  .docs-item__link {
     color: var(--color-ink);
     text-decoration: none;
   }
 
-  .docs-card__link:hover {
+  .docs-item__link:hover {
     color: var(--color-action);
   }
 
+  .docs-item__title--planned {
+    color: var(--color-ink-muted);
+  }
+
+  .docs-item__flag {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--color-ink-muted);
+  }
+
   @media (max-width: 900px) {
-    .docs-index__grid {
+    .docs-group__list {
       grid-template-columns: 1fr;
     }
   }

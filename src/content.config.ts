@@ -457,6 +457,29 @@ const site = defineCollection({
   }),
 });
 
+const docs = defineCollection({
+  loader: glob({ base: './src/content/docs', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    group: z.enum(['trust', 'playbook']),
+    order: z.number().int().min(1),
+    // 'planned' entries appear on the docs index as an honest gap and get no
+    // route. To turn a gap into a doc, write the body and flip this to
+    // 'published' — no Astro required.
+    status: z.enum(['published', 'planned']).default('published'),
+    updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    related: z
+      .array(
+        z.object({
+          label: z.string().min(1),
+          href: z.string().min(1),
+        }),
+      )
+      .default([]),
+  }),
+});
+
 const teamMemberSchema = z.object({
   name: z.string().min(1),
   country: z.string().min(1),
@@ -599,4 +622,4 @@ const reportSections = defineCollection({
   }),
 });
 
-export const collections = { evidence, site, reports, reportSections, contributors };
+export const collections = { evidence, site, reports, reportSections, contributors, docs };
