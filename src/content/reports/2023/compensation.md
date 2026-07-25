@@ -423,7 +423,7 @@ Lead / Staff / Principal IC (N=5), People Manager (N=3), and Director (N=2) fall
 
 ## Indonesia
 
-Indonesia's overall median is based on 27 respondents, and only the Junior IC cohort (N=15) clears the minimum safe disclosure threshold of 10 respondents. The published report gives medium confidence for Junior IC salary trends only, noting that more data points are needed before other levels can be reported with confidence.
+Indonesia's overall median is based on the 27 of its 29 respondents who draw their salary in rupiah, and only the Junior IC cohort (N=15) clears the minimum safe disclosure threshold of 10 respondents. The published report gives medium confidence for Junior IC salary trends only, noting that more data points are needed before other levels can be reported with confidence.
 
 ::chart{id="chart-compensation-indonesia"}
 
