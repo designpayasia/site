@@ -101,7 +101,7 @@ commentary: |-
   
   While designers are getting more responsibility, pay is not keeping up. There is a 16.5 percent gap between those who saw career advancement and those who received a corresponding pay increase.
   
-  Many designers (64.3 percent) report having more influence over projects, but the industry needs better ways to recognise and reward that expanded scope. Less than half of designers (42.1 percent) are satisfied with their career progression.
+  More designers report having more influence over projects than are satisfied with their career progression. Scope is expanding faster than the industry's ways of recognising and rewarding it.
   Established career paths might not work for newer roles like Research or Content Operations.
 hubCommentary: |-
   Many designers feel they're making progress in their careers, especially when it comes to taking on more responsibility and having a bigger impact on projects. However, their pay isn't always keeping up with their growth, and not everyone is happy with their career progression. This suggests that companies might need to do a better job of recognising and rewarding their designers' contributions to keep them satisfied and motivated.

@@ -357,7 +357,7 @@ Designers showed more appetite for exploring different disciplines and picking u
 
 ::chart{id="chart-switch-primary-work-area"}
 
-The pattern flips for switching tracks entirely. Half (49.8%, ratings 1–3) leaned against it, and only 30.8% were open to the idea.
+The pattern flips for switching tracks entirely. Half (49.8%, ratings 1–3) leaned against it, and 30.8% were open to the idea.
 
 ::chart{id="chart-switch-ic-management-track"}
 

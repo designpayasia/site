@@ -6,6 +6,20 @@ summary: The inaugural 2023 Design Pay Asia survey captured 323 responses from
   documented 42% gender pay gap in Singapore's design industry.
 year: 2023
 publishedAt: 2023-06-01
+entryType: report
+hub:
+  claim: "Where you'd worked showed up in the pay."
+  highlight:
+    value: "85"
+    unit: "%"
+    label: higher median pay with international experience
+    evidenceId: evidence:2023-experience-salary
+    sampleSize: 323
+  responses:
+    value: "323"
+    label: responses
+    evidenceId: evidence:2023-survey-overview
+    sampleSize: 323
 markets:
   - Singapore
   - Malaysia

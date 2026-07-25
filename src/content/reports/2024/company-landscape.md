@@ -82,7 +82,7 @@ charts:
           values: ['86', '4.4%']
   - id: 'hq-vs-regional'
     title: Located at company headquarters
-    caption: Distribution of designers by office location — headquarters versus satellite or regional offices.
+    caption: 'Distribution of designers by office location: headquarters versus satellite or regional offices.'
     summary: '60.1% of designers are based at company headquarters, while 29.6% work from satellite or regional offices.'
     evidenceIds: ['evidence:2024-company-profile']
     sourceLabel: '2024 DPA Report'
@@ -149,26 +149,26 @@ keyFindings:
 commentary: |-
   How design teams are structured in companies suggests a landscape of lean, distributed teams.
   
-  Most design teams (81.9 percent) are small, with fewer than 10 people. This might reflect both deliberate lean structures and the impact of budget cuts.
+  Most design teams are small, with fewer than 10 people. That may reflect deliberate lean structures as much as budget cuts.
   
   Most designers (60.9 percent) prefer working remotely or in a hybrid arrangement, even as some companies push for a return to the office. The data shows startups and tech companies leading the field, with agencies close behind.
   Digital companies make up most of our data (63.1%), but we're seeing new ways of working, like part-time design leaders and design agencies offering subscription services.
-  Many companies (29.6%) work across different countries, showing both growth and a way to manage costs through remote hiring.
+  29.6% of companies operate across more than one country, both to grow and to manage costs through remote hiring.
 hubCommentary: |-
   Startups, tech companies, and agencies are key players in the design industry, and many designers work in small teams or even on their own. While most still work in offices, we're starting to see a mix of in-office and remote work, suggesting that companies are trying to be flexible and adapt to what works best for their teams.
 whatThisMeansIndividuals: |-
   How do you balance being a generalist while keeping your specialist skills sharp?
   Could you benefit from new work models, like being a part-time design leader for multiple companies?
 whatThisMeansLeaders: |-
-  Check if doing more with less is sustainable — what might suffer?
+  Is doing more with less actually sustainable?
   How can you keep your team working well together when some are at home and others in the office?
   Are you measuring how smaller teams affect design quality and business results?
-  What really drives your decisions about office work — is it what employees want, costs, or office space?
+  What really drives your decisions about office work (employee preference, cost, or office space)?
 questions:
-  - 'Will design teams grow larger like they have in Western countries?'
+  - 'Will design teams in Southeast Asia grow larger as the industry matures, or stay lean by design?'
   - 'How will part-time leadership and subscription services change traditional jobs?'
   - 'What happens when designers become generalists instead of specialists?'
-  - 'Who should make sure hybrid work actually works — design teams or someone else?'
+  - 'Who should make sure hybrid work actually works, design teams or someone else?'
 references:
   - label: 'Southeast Asian remote-capable employees: 53% expect hybrid, 24% fully remote'
     url: 'https://www.gallup.com/workplace/390632/future-hybrid-work-key-questions-answered-data.aspx'
@@ -198,4 +198,4 @@ Enterprise organisations employ 32.8% of Singapore-based designers, against 20.8
 
 In Singapore, hybrid is the default. Elsewhere in the region, onsite work still leads by a wide margin, even as employers experiment with flexibility as a hiring lever.
 
-Financial services is where Singapore diverges most sharply from the rest of the region: 26.9% of its designers work in banking, insurance, or financial services, against 14.8% regionally — nearly double, and consistent with the city's role as a financial hub.
+Financial services is where Singapore diverges most sharply from the rest of the region: 26.9% of its designers work in banking, insurance, or financial services, against 14.8% regionally, nearly double, and consistent with the city's role as a financial hub.

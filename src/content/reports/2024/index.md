@@ -12,10 +12,24 @@ status: published
 canonicalPath: '/reports/2024'
 eyebrow: '2024 Report'
 heroCtaLabel: 'Read the full report'
+entryType: report
+hub:
+  claim: "Whether you asked was a coin toss."
+  highlight:
+    value: '52.5'
+    unit: '%'
+    label: negotiated their compensation
+    evidenceId: 'evidence:2024-negotiation'
+    sampleSize: 1775
+  responses:
+    value: '1,797'
+    label: responses
+    evidenceId: 'evidence:2024-total-respondents'
+    sampleSize: 1797
 summary: |
-  Last year, we launched our first report to start conversations about pay transparency in Southeast Asia's design industry. This year we went further — deeper into the region, broader in scope, and grounded in responses from 1,797 designers across five markets.
+  Last year, we launched our first report to start conversations about pay transparency in Southeast Asia's design industry. This year the report covers more ground, with responses from 1,797 designers across five markets.
 
-  What began in Singapore has grown into something truly regional. We expanded our reach into Indonesia, Malaysia, Vietnam, and Thailand to understand how designers across different economies are navigating compensation, job security, specialisation, and career growth. Whether you're early in your career, leading a design team, or shaping what design education looks like in this region, this report is built for you.
+  What began in Singapore has grown into something truly regional. We expanded our reach into Indonesia, Malaysia, Vietnam, and Thailand to understand how designers across different economies are navigating compensation, job security, specialisation, and career growth. It speaks to designers building their careers, and to the leaders and educators shaping what the profession looks like next in the region.
 team:
   - name: 'Jonathan Yap'
     country: 'Singapore'
@@ -57,7 +71,7 @@ communityPartners:
   - 'UXTH'
 support:
   heading: 'Support this community initiative'
-  body: "Help grow our impact: share this report with your networks and tag us at #DesignPayAsia, share your story on social media, contribute to our open pay database, or take part in future research to strengthen our understanding of the regional design industry."
+  body: "Share this report, tag us at #DesignPayAsia, or contribute your data to the open pay database for next year's research."
   ctaLabel: 'Contribute anonymously today'
   ctaUrl: 'https://tally.so/r/3EDeGX'
 stats:
@@ -112,6 +126,6 @@ methodologyStrip:
     - 'Digital access: Survey reached those with reliable internet access and comfort with online participation'
     - 'Language: Survey conducted in English, which may limit participation in some markets'
   caveat: >-
-    While these insights offer valuable perspectives on the Southeast Asian design industry, we encourage readers to consider them as informative indicators rather than definitive benchmarks for the entire region.
+    These findings reflect the designers who took part in the survey, not the entire region. Treat them as directional, not a definitive benchmark.
 slug: '2024'
 ---

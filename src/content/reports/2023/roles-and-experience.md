@@ -192,7 +192,7 @@ charts:
     caption: Respondents by years of design experience (N=323, all markets). Almost
       half have three or fewer years of design experience.
     summary: "The 2023 cohort is experience-young: 47.1% have 0–3 years of design
-      experience. Only 15.5% have 10 or more years."
+      experience. 15.5% have 10 or more years."
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
@@ -543,44 +543,19 @@ charts:
 
 ## Job titles
 
-Designers reported a wide variety of titles, but nearly 90% included the word "design." Over half (50.7%) featured "UX" and 25.3% had "UI" in the title. The most common titles were:
-
-- Product Designer: 33
-- UX Designer: 25
-- UI/UX Designer: 18
-- Senior Product Designer: 18
-
-Around 40.8% of job titles indicated some level of seniority, suggesting that formal levelling is common but not universal across the region's design industry.
+Designers reported a wide variety of titles, but nearly 90% included the word "design." Over half (50.7%) featured "UX" and 25.3% had "UI" in the title. Around 40.8% of job titles indicated some level of seniority, suggesting that formal levelling is common but not universal across the region's design industry.
 
 ::chart{id="chart-job-title-distribution"}
 
 ## Career level distribution
 
-Individual contributors form the overwhelming majority of respondents. By level:
-
-- Junior IC: 101 respondents (31.3%)
-- Mid-level IC: 76 (23.5%)
-- Senior IC: 72 (22.3%)
-- Lead / Staff / Principal IC: 32 (9.9%)
-
-Management levels make up the rest:
-
-- People Manager: 27 (8.4%)
-- Director: 11 (3.4%)
-- Vice President: 4 (1.2%)
+Individual contributors make up 87% of respondents, with the remaining 13% holding people-management titles from manager through vice president.
 
 ::chart{id="chart-career-level-distribution"}
 
 ## Primary field of work
 
-Respondents by primary field of work:
-
-- Product design: 67.5% (218)
-- Research: 7.4% (24)
-- Design Leadership and Management: 6.8% (22)
-- Graphic and Marketing Design: 4.6% (15)
-- Content Design and Writing: 4.0% (13)
-- Design Operations: 2.5% (8)
+Product design dominates the field-of-work split; every other category, from research to design operations, sits in single digits.
 
 ::chart{id="chart-field-of-work"}
 
@@ -596,18 +571,7 @@ That two-year gap between the medians is the throughline for career switchers: d
 
 ## Education
 
-The workforce is highly educated:
-
-- Bachelor's degrees: 66.3%
-- Master's degrees: 15.5%
-- Diplomas: 13.6%
-
-Design education pathways:
-
-- Formal design education: 49.8%
-- Online certification: 29.1%
-- Bootcamps: 27.9%
-- In-person certified courses: 11.1%
+Bachelor's degrees are the norm; master's and diploma holders form a smaller but sizeable minority.
 
 22.3% have no formal design education at all, suggesting design credentials are not a strict prerequisite for entering the field.
 
