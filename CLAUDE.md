@@ -31,24 +31,29 @@ pnpm run preview                  # local preview of built site
 src/
   components/           # Astro components only (.astro — no React/Vue/Svelte)
   content/
+    docs/               # public documentation (*.md, one per /docs/<slug>)
     evidence/           # named evidence entries (*.json, one per evidenceId)
     reports/            # 2023.md, 2024.md
     site/               # site-level content (*.json)
   content.config.ts     # Zod schemas — single source of truth for all collections
   data/
     redirects.json      # canonical redirect map
+    route-purposes.json # route pattern → purpose, rendered in the /ops inventory
   lib/
     evidence.ts         # evidence helpers (buildEvidenceMap, collectEvidence, MIN_SAFE_COHORT)
+    routes.mjs          # route discovery from src/pages + collections (used by /ops and audit:ops)
   layouts/              # Astro layout components
   pages/
     index.astro                    # homepage
     about.astro                    # about page
     contribute.astro               # contribute page
-    ops.astro                      # continuity spine
+    ops.astro                      # continuity spine + architecture + succession
     reports/index.astro            # report hub
     reports/[slug].astro           # report landing page
     reports/[year]/[section].astro # report section detail page
-    docs/*.astro                   # public runbooks (edit-report, publish, etc.)
+    docs/index.astro               # docs index, generated from the docs collection
+    docs/[slug].astro              # docs renderer
+    docs/patterns.astro            # component catalogue (not in the docs collection)
   styles/
     tokens/
       _primitives.css   # raw values only — never reference directly in components
@@ -87,6 +92,15 @@ All visual design rules live in **DESIGN.md** (repo root). Read it before any st
 - Team member `photo`: `^/team/\d{4}/.+\.jpg$`.
 - **YAML frontmatter gotcha**: a bare `: ` (colon-space) inside a multi-line unquoted plain scalar breaks js-yaml with "bad indentation of a mapping entry" or "implicit mapping pair" — it reads as a new key. Rephrase to avoid the colon, or quote the whole string.
 
+### Docs collection schema
+
+Each markdown file in `src/content/docs/` requires: `title`, `summary`, `group` (`trust` | `playbook`), `order` (int ≥ 1), `updated` (`YYYY-MM-DD` string), optional `status` (`published` | `planned`, default `published`) and `related` (array of `{ label, href }`).
+
+- `group` drives which section of the `/docs` index the doc appears in. Adding a third group means adding it to the `groups` array in `src/pages/docs/index.astro`.
+- `status: 'planned'` renders the entry on the index as a visible gap and generates **no route**. This is how a missing doc stays honest instead of shipping as a 70-word stub. To fill it: write the body, flip `status` to `published`.
+- `updated` is a quoted string, not a bare date — YAML would otherwise coerce it to a `Date` and the Zod regex would fail.
+- Prose belongs in the markdown. Do not create per-doc `.astro` pages; `/docs/patterns` is the sole exception, because it renders live component demos.
+
 ### Evidence entry schema
 
 Each evidence JSON file in `src/content/evidence/` requires: `id`, `title`, `summary`, `sourceName`, `sourceUrl`, `year`, `collectedAt`, `geography` (array, min 1), `methodology`, optional `sampleSize`, `sensitivity` (public|small-cohort|aggregate-only, default public).
@@ -106,8 +120,10 @@ Each evidence JSON file in `src/content/evidence/` requires: `id`, `title`, `sum
 - Report routes: `/reports/[slug]` (hub page) and `/reports/[year]/[section]` (section detail).
 - Report detail pages live under `src/pages/reports/[year]/[section].astro`. The `[section]` param is a slug from the report's `sections[].id`.
 - All static pages have their own `.astro` file under `src/pages/`.
-- Docs: `/docs/*` — public runbooks for contributors.
-- Ops: `/ops` — continuity spine, ownership matrix, route inventory.
+- Docs: `/docs/*` — rendered from the `docs` content collection, not from per-page `.astro` files. Adding a doc means adding one `.md` file to `src/content/docs/`; no Astro required. `/docs/patterns` is the one exception and stays a hand-built `.astro` page because it hosts live component demos.
+- Ops: `/ops` — continuity spine, architecture, succession, ownership matrix, route inventory.
+- The `/ops` route inventory is generated at build time by `src/lib/routes.mjs`. Never hand-edit it. A new route needs a purpose entry in `src/data/route-purposes.json`, and `pnpm run audit:ops` fails until it has one. A new *dynamic* route also needs an expander in `routes.mjs`, or the build throws.
+- Report sections listed in `UNROUTED_SECTIONS` (`index`, `executive-summary`, `methodology`) exist as content but get no route — they render inside the report landing page. That list is duplicated in `src/pages/reports/[year]/[section].astro`; keep the two in sync.
 
 ### Redirects
 

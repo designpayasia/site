@@ -89,8 +89,12 @@ Each published metric must link to a named `evidenceId`. Cohorts smaller than 10
 ## Public surfaces
 
 - `/reports` for current and archive report routes
-- `/docs` for public runbooks
-- `/ops` for continuity spine, ownership matrix, and route inventory
+- `/docs` for how the data is handled and how a report cycle is run
+- `/ops` for continuity spine, architecture, succession, ownership matrix, and route inventory
+
+Docs are markdown. To add or edit one, write a `.md` file in `src/content/docs/` — no Astro
+knowledge needed. Pages marked `status: planned` show on the docs index as an open gap rather
+than shipping as a stub.
 
 ## Versioning
 
