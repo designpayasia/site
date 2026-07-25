@@ -14,7 +14,7 @@ charts:
     evidenceIds:
       - evidence:2024-sg-gender-pay-gap
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     fallbackTable:
       columns:
         - Seniority level
@@ -57,7 +57,7 @@ charts:
     evidenceIds:
       - evidence:2024-sg-experience-premium
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     fallbackTable:
       columns:
         - Years of design experience (n)
@@ -117,7 +117,7 @@ charts:
     evidenceIds:
       - evidence:2024-sg-company-pay
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     fallbackTable:
       columns:
         - Company type (n)
@@ -189,9 +189,9 @@ questions:
     comparison instead of raw medians?"
 references:
   - label: 2023 Singapore gender pay gap analysis
-    url: 'https://designpay.asia/reports/2023/analysis-gender'
+    url: '/reports/2023/analysis-gender'
   - label: 2024 compensation
-    url: 'https://designpay.asia/reports/2024/compensation'
+    url: '/reports/2024/compensation'
 ---
 
 This section looks in detail at Singapore's 2024 survey data: how the gender pay gap breaks down by seniority level, how total compensation scales with years of experience, and how it varies by company type. The starting point is the headline figure reported in [Compensation](/reports/2024/compensation): among Singapore respondents paid in SGD, women's median total compensation was 17.7% lower than men's (Man S$92,400 versus Woman S$76,000, n=171: 58 men, 113 women).

@@ -31,7 +31,7 @@ charts:
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing current job titles among respondents. Product
         Designer is the largest named title, while Other contains most of the remaining
@@ -96,7 +96,7 @@ charts:
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: 2023 DPA Report
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Career Level
@@ -144,7 +144,7 @@ charts:
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: Bar chart showing design discipline breakdown. Product design 67.5%,
         Research 7.4%, Design Leadership 6.8%, Graphic/Marketing 4.6%, Content
@@ -195,7 +195,7 @@ charts:
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing years of design experience. 0–3 years: 47.1%, 4–6
         years: 23.2%, 7–9 years: 14.2%, 10+ years: 15.5%."
@@ -247,7 +247,7 @@ charts:
     evidenceIds:
       - evidence:2023-yoe-scatter-aggregate
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     plot:
       type: scatter
       xLabel: Total years of experience
@@ -415,7 +415,7 @@ charts:
     evidenceIds:
       - evidence:2023-education-analysis
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: Bar chart showing highest formal education level. Bachelor's degree
         66.3%, Master's degree 15.5%, Diploma 13.6%, High school/secondary 2.8%,
@@ -458,7 +458,7 @@ charts:
     evidenceIds:
       - evidence:2023-survey-overview
     sourceLabel: 2023 DPA Report
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: Formal design education
         value: 49.8
@@ -497,7 +497,7 @@ charts:
     evidenceIds:
       - evidence:2023-education-analysis
     sourceLabel: 2023 DPA Report
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: Yes
         value: 81.4
@@ -521,7 +521,7 @@ charts:
     evidenceIds:
       - evidence:2023-survey-overview
     sourceLabel: 2023 DPA Report
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: Yes
         value: 28.5

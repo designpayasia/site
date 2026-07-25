@@ -17,7 +17,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-gender
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     pngPath: /charts/2023/analysis-gender/sg-compensation-gender.png
     fallbackTable:
       columns:
@@ -47,7 +47,7 @@ charts:
     evidenceIds:
       - evidence:2023-gender-pay-gap
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Seniority level
@@ -96,7 +96,7 @@ charts:
       - evidence:2023-gender-pay-gap
       - evidence:2023-sg-compensation-gender
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Pay-rise bracket, gender (n)

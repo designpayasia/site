@@ -16,7 +16,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-seniority
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Subgroup among Singapore survey respondents
@@ -68,7 +68,7 @@ charts:
     evidenceIds:
       - evidence:2023-experience-salary
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Years of design experience
@@ -117,7 +117,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-international-experience
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     pngPath: /charts/2023/analysis-experience/sg-compensation-international-experience.png
     fallbackTable:
       columns:
@@ -144,7 +144,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-negotiation
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     pngPath: /charts/2023/analysis-experience/sg-compensation-negotiation.png
     fallbackTable:
       columns:
@@ -177,7 +177,7 @@ charts:
     evidenceIds:
       - evidence:2023-experience-salary
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Years of design experience, negotiation response

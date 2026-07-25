@@ -22,7 +22,7 @@ charts:
   - id: 'geo-distribution'
     title: 'Geographic distribution of respondents'
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     caption: "Geographic distribution of survey respondents across five Southeast Asian markets."
     summary: "Indonesia dominates at 79%, followed by Singapore (9.7%), Malaysia (5.1%), Vietnam (2.9%), and Thailand (2.4%)."
     evidenceIds: ["evidence:2024-geographic-distribution"]
@@ -67,7 +67,7 @@ charts:
     summary: 'Jakarta accounts for 48.4% of respondents (870 of 1,797), the largest single city in the sample.'
     evidenceIds: ['evidence:2024-geographic-distribution']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     bars:
       - label: Jakarta
         value: 48.4
@@ -120,7 +120,7 @@ charts:
   - id: 'gender-distribution'
     title: 'Gender distribution by market'
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     caption: "Gender distribution comparing regional aggregate to Singapore."
     summary: "Singapore shows 65.5% female vs 39.8% regional, with males at 34.5% vs 59.3% regional."
     evidenceIds: ["evidence:2024-demographics-age-gender", "evidence:2024-sg-demographics"]
@@ -160,7 +160,7 @@ charts:
     summary: '80.2% of respondents are under 30. The 25–30 bracket alone is 57.0% of the sample.'
     evidenceIds: ['evidence:2024-demographics-age-gender']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     bars:
       - label: 18–24
         value: 23.2
@@ -191,7 +191,7 @@ charts:
     summary: 'Women are 41.7% of the 18–24 cohort, and their share falls with each older band to 31.5% at 36–50.'
     evidenceIds: ['evidence:2024-demographics-age-gender']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     bars:
       - label: 18–24
         value: 41.7

@@ -3,7 +3,7 @@
   "title": "Design vs total years of experience, binned pairs, 2023",
   "summary": "Binned (design years of experience, total years of experience) response-count pairs across the full 2023 cohort, showing how design tenure relates to total working tenure at the level of individual respondent pairings rather than a single median comparison.",
   "sourceName": "2023 DPA Report",
-  "sourceUrl": "https://designpay.asia/reports/2023",
+  "sourceUrl": "/reports/2023",
   "year": 2023,
   "collectedAt": "2023 survey cycle (Dec 2022–Feb 2023)",
   "geography": ["Singapore", "Malaysia", "Indonesia"],

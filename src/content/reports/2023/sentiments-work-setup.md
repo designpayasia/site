@@ -16,7 +16,7 @@ charts:
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: "1 - Strongly disagree"
         value: 1.5
@@ -59,7 +59,7 @@ charts:
     evidenceIds:
       - evidence:2023-company-landscape
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: "0"
         value: 32.8

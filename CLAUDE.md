@@ -123,7 +123,9 @@ Each evidence JSON file in `src/content/evidence/` requires: `id`, `title`, `sum
 - Docs: `/docs/*` — rendered from the `docs` content collection, not from per-page `.astro` files. Adding a doc means adding one `.md` file to `src/content/docs/`; no Astro required. `/docs/patterns` is the one exception and stays a hand-built `.astro` page because it hosts live component demos.
 - Ops: `/ops` — continuity spine, architecture, succession, ownership matrix, route inventory.
 - The `/ops` route inventory is generated at build time by `src/lib/routes.mjs`. Never hand-edit it. A new route needs a purpose entry in `src/data/route-purposes.json`, and `pnpm run audit:ops` fails until it has one. A new *dynamic* route also needs an expander in `routes.mjs`, or the build throws.
-- Report sections listed in `UNROUTED_SECTIONS` (`index`, `executive-summary`, `methodology`) exist as content but get no route — they render inside the report landing page. That list is duplicated in `src/pages/reports/[year]/[section].astro`; keep the two in sync.
+- Report sections listed in `src/data/unrouted-sections.json` exist as content but get no route — they render inside the report landing page. That file is the single source: `src/pages/reports/[year]/[section].astro` filters `getStaticPaths` by it, and `src/lib/routes.mjs` skips those ids when building the `/ops` inventory. Do not re-inline the list.
+- Report methodology is authored **only** as `methodologyStrip` in the report's `index.md` frontmatter, and the schema requires it. Do not add a `methodology.md` section file — there is no longer a render path for one, so its content would be invisible.
+- Internal links are root-relative. The live domain appears in exactly three places: `site` in `astro.config.mjs`, the resolver base in `src/lib/evidence.ts`, and the citation example in `src/content/docs/using-our-data.md`. `sourceUrl` and `references[].url` accept either an external URL or a `/`-prefixed path (`sourceUrlSchema`).
 
 ### Redirects
 

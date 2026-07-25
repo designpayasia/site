@@ -3,7 +3,7 @@
   "title": "2023 Singapore reported median total compensation by gender",
   "summary": "Aggregate results from Design Pay Asia 2022-23 survey data, filtered exactly to Country = Singapore and Currency you draw your salary in = SGD (n=223). Published medians are Man n=83 at S$123,000 and Woman n=138 at S$71,300. Other gender cohorts are suppressed because each is below n=10. These are respondent medians, not population estimates.",
   "sourceName": "Design Pay Asia 2022-23 survey data",
-  "sourceUrl": "https://designpay.asia/reports/2023",
+  "sourceUrl": "/reports/2023",
   "year": 2023,
   "collectedAt": "2023 survey cycle (Dec 2022-Feb 2023)",
   "geography": ["Singapore"],

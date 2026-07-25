@@ -25,7 +25,7 @@ charts:
     summary: '22.9% of designers were affected by layoffs, while 77.1% remained unimpacted.'
     evidenceIds: ['evidence:2024-job-market']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/job-market/01-layoff-impact.png
     fallbackTable:
       columns: [Outcome, Respondents (n), Proportion]
@@ -40,7 +40,7 @@ charts:
     summary: 'Personal job loss (11.1%) and reduced job security (8.2%) were the most common effects among the 22.9% affected.'
     evidenceIds: ['evidence:2024-job-market']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/job-market/02-layoff-effects.png
     fallbackTable:
       columns: [Impact type, Respondents (n), Proportion]
@@ -61,7 +61,7 @@ charts:
     summary: '74.8% of designers rate their job security concern at 5 or higher, despite the majority being personally unaffected by layoffs.'
     evidenceIds: ['evidence:2024-job-market']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/job-market/03-job-security.png
     fallbackTable:
       columns: [Concern level, Respondents (n), Proportion]
@@ -76,7 +76,7 @@ charts:
     summary: '77.3% of designers report strong alignment between their job scope and their primary field of expertise.'
     evidenceIds: ['evidence:2024-job-market']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/job-market/04-role-alignment.png
     fallbackTable:
       columns: [Response, Respondents (n), Proportion]
@@ -91,7 +91,7 @@ charts:
     summary: '46.3% of designers see sufficient advancement opportunities in the current market, despite high role alignment.'
     evidenceIds: ['evidence:2024-job-market']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/job-market/05-market-opportunities.png
     fallbackTable:
       columns: [Response, Respondents (n), Proportion]
