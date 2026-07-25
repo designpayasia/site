@@ -44,7 +44,17 @@ const {
   divider = true,
 } = Astro.props;
 
-const lines = titleLines && titleLines.length > 0 ? titleLines.slice(0, 2) : [title];
+// The cover is typeset for two lines at display size; a third would collide with
+// the thesis column. Fail loudly rather than silently dropping the copy, which is
+// invisible in review because nothing errors and the page still renders.
+if (titleLines && titleLines.length > 2) {
+  throw new Error(
+    `CoverIndexSpread: titleLines takes at most 2 lines, got ${titleLines.length} ` +
+      `(${JSON.stringify(titleLines)}). Shorten the title or split it differently.`,
+  );
+}
+
+const lines = titleLines && titleLines.length > 0 ? titleLines : [title];
 
 type Segment = { text: string; isEmphasis: boolean };
 
