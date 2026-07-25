@@ -1,72 +1,158 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import ContributorGrid from '../components/ContributorGrid.astro';
 import ConversationBlock from '../components/ConversationBlock.astro';
-import Invitation from '../components/Invitation.astro';
+import CoverIndexSpread from '../components/CoverIndexSpread.astro';
+import { collectContributors, collectSupporters } from '../lib/contributors';
+
+const reports = await getCollection('reports');
+const publishedReports = reports.filter((report) => report.data.status === 'published');
+const rosterEntries = await getCollection('contributors');
+const roster = {
+  extras: rosterEntries.flatMap((entry) => entry.data.extras ?? []),
+  supporters: rosterEntries.flatMap((entry) => entry.data.supporters ?? []),
+  exclude: rosterEntries.flatMap((entry) => entry.data.exclude ?? []),
+};
+
+const contributors = collectContributors(publishedReports, roster);
+const supporters = collectSupporters(publishedReports, roster);
 ---
 
 <Base
   title="About - Design Pay Asia"
   description="Design Pay Asia is a community project collecting and publishing design pay data for Southeast Asia."
 >
-  <section class="about-page">
-    <div class="about-page__inner">
-      <p class="label-mono">About</p>
-      <h1 class="t-h2">Community-run pay transparency for design in Southeast Asia.</h1>
-      <p class="prose">
-        Design Pay Asia collects and publishes design pay data so the region can talk about money with facts.
-      </p>
-    </div>
+  <section class="about-cover">
+    <CoverIndexSpread
+      eyebrow="About"
+      label="About Design Pay Asia"
+      titleLines={['What design work is worth,', 'out in the open.']}
+      emphasis="out in the open"
+      emphasisMode="colour"
+      align="center"
+      divider={false}
+      thesis="Pay is where it shows up first. A community survey of what designers in Southeast Asia are paid, what they are offered, and what they settle for. Open, cited, and free to read."
+    />
   </section>
 
   <ConversationBlock
     id="about"
-    eyebrow="About"
+    eyebrow="The project"
     title="Design Pay Asia"
     paragraphs={[
-      'Design Pay Asia is a community project. We collect and publish design pay data for Southeast Asia so designers can talk about money with facts, not guesswork.',
-      'Across much of the region, discussing salary openly is still taboo, shaped by gender, business culture, education, immigration, and family background. That silence keeps pay unequal.',
-      'The more we share, the fairer the industry gets. The reports are open, cited, and built with the community, for the community.',
-      'The data is open, cited, and built to be passed on, not owned by any one person.',
+      'Designers across the region already compare pay in private messages, in closed group chats, over drinks after work. Design Pay Asia puts the same numbers in public, with the methodology attached.',
+      'Talking about salary is still taboo across much of Southeast Asia, shaped by gender, business culture, education, immigration status, and family background. Silence always has a beneficiary, and it is whoever already knows what the job pays.',
+      'The reports are built by volunteers and given away. There is no paywall, and no sponsor with a say over what gets published.',
     ]}
-    quote={{ quote: 'Democratise pay data and empower people to start an honest conversation about pay, to shape a fairer, more transparent design industry.' }}
-    metaEyebrow="The project"
-    metaTitle="Community-run"
+    metaPosition="end"
+    flushTop={true}
+    metaEyebrow="Go to"
     metaItems={[
-      { label: 'Reports', value: '2023, 2024' },
+      { label: 'Reports', value: '2023, 2024', href: '/reports' },
+      { label: 'Methodology', value: 'How we count', href: '/reports/2024' },
+      { label: 'Data safety', value: 'What we withhold', href: '/docs/data-safety' },
       { label: 'Contribute', value: 'Share your pay', href: 'https://tally.so/r/3EDeGX' },
       { label: 'LinkedIn', value: '@design-pay-asia', href: 'https://www.linkedin.com/company/design-pay-asia/' },
       { label: 'Instagram', value: '@designpayasia', href: 'https://www.instagram.com/designpayasia/' },
     ]}
-    metaNote="Created by the community, for the community."
     draftState="final"
   />
 
-  <Invitation
-    question="What would change if pay were something we could all see?"
-    questionDraft={false}
-  />
+  <section class="contributors">
+    <div class="contributors__inner">
+      <p class="label-mono">Credits</p>
+      <h2 class="t-h2">The people behind it</h2>
+      <p class="prose">Every report was made by volunteers who fitted the work around full-time jobs. Some came back for a second year.</p>
+      <div class="contributors__grid">
+        <ContributorGrid contributors={contributors} />
+      </div>
+    </div>
+  </section>
+
+  <section class="supporters">
+    <div class="supporters__inner">
+      <p class="label-mono">Community supporters</p>
+      <h2 class="t-h2">Where the work travelled</h2>
+      <p class="prose">Nobody was paid to help. These communities passed the research to their own members because those members were already asking the same question, and a survey only reaches the people someone chooses to hand it to.</p>
+      <ul class="supporter-chips" role="list">
+        {supporters.map((supporter) => <li class="supporter-chip">{supporter}</li>)}
+      </ul>
+    </div>
+  </section>
+
 </Base>
 
 <style>
-  .about-page {
-    padding-block: var(--space-24);
+  .about-cover {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-block: var(--space-24) var(--space-16);
+    padding-inline: var(--space-8);
   }
 
-  .about-page__inner {
+  .contributors {
+    padding-block: var(--space-24);
+    background: var(--color-surface-muted);
+    border-block: 1px solid var(--color-border-subtle);
+  }
+
+  .contributors__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
     padding-inline: var(--space-8);
   }
 
-  .about-page__inner h1 {
-    margin-block: var(--space-6);
-    max-width: 14ch;
+  .contributors__inner h2 {
+    margin-block: var(--space-4) var(--space-3);
+  }
+
+  .contributors__grid {
+    margin-block-start: var(--space-12);
+  }
+
+  .supporters {
+    padding-block: var(--space-16);
+  }
+
+  .supporters__inner {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+  }
+
+  .supporters__inner h2 {
+    margin-block: var(--space-4) var(--space-3);
+  }
+
+  .supporter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-block-start: var(--space-8);
+    padding: 0;
+    list-style: none;
+  }
+
+  .supporter-chip {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-ink) 6%, transparent);
+    font-size: var(--type-caption);
+    color: var(--color-ink);
+    white-space: nowrap;
   }
 
   @media (max-width: 767px) {
-    .about-page {
+    .about-cover {
       padding-inline: var(--space-4);
-      padding-block: var(--space-16);
+      padding-block: var(--space-16) var(--space-12);
+    }
+
+    .contributors,
+    .supporters {
+      padding-inline: var(--space-4);
     }
   }
 </style>
