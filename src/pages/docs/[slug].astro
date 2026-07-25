@@ -140,6 +140,16 @@ const updatedLabel = new Date(`${updated}T00:00:00Z`).toLocaleDateString('en-GB'
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
+  /* Markdown emits a bare <table> with nowhere to hang an overflow wrapper, so
+     the table scrolls itself on narrow screens. Without this a wide table pushes
+     the whole page sideways on a phone. */
+  @media (max-width: 600px) {
+    .doc__body :global(table) {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+
   .doc__footer {
     margin-top: var(--space-16);
     padding-top: var(--space-8);
