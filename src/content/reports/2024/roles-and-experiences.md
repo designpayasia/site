@@ -25,7 +25,7 @@ charts:
     summary: 'Designer remains the core identity; Product/UX roles dominate alongside Creative and Leadership titles (Lead, Manager, Director).'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/01-job-titles.png
     fallbackTable:
       columns: [Role cluster, Notes]
@@ -42,7 +42,7 @@ charts:
     summary: '79.3% of designers are in full-time employment; contractors and freelancers combine for 18.76%.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/02-employment-type.png
     fallbackTable:
       columns: [Employment type, Respondents (n), Proportion]
@@ -58,7 +58,7 @@ charts:
   - id: 'career-levels'
     title: 'Career level distribution'
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     caption: "Career level distribution comparing regional and Singapore profiles."
     summary: "Mid-level ICs at 42.6% regional vs 32.2% Singapore. Leadership at 5.9% regional vs 11.5% Singapore."
     evidenceIds: ["evidence:2024-roles-experience", "evidence:2024-sg-roles"]
@@ -103,7 +103,7 @@ charts:
     summary: 'Digital design accounts for 61.83% (led by Product/UX at 41.74%), while traditional design makes up 22.65% and emerging specialities 8.67%.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/04-primary-field-of-work.png
     fallbackTable:
       columns: [Specialisation, Proportion]
@@ -124,7 +124,7 @@ charts:
     summary: 'Peak concentration is at 3 years (20.31%), with more than 60% having 1–5 years of design experience; senior designers (10+ years) account for 7.95%.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/05-design-experience-distribution.png
     fallbackTable:
       columns: [Experience band, Proportion]
@@ -143,7 +143,7 @@ charts:
     summary: 'Early-career respondents (2–5 years total) are the largest group at 37.37%, but 17.20% have 20+ years of total work experience.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/06-total-working-experience.png
     fallbackTable:
       columns: [Experience band, Proportion]
@@ -164,7 +164,7 @@ charts:
     summary: '68% of respondents have total experience within 2 years of their design experience, indicating design as their primary career; notable outliers have 20+ total years but fewer than 10 in design.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/07-experience-correlation.png
     fallbackTable:
       columns: [Pattern, Value]
@@ -179,7 +179,7 @@ charts:
     summary: '77.46% hold a bachelor''s degree; master''s degrees account for 5.23% and diplomas for 8.40%.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/08-highest-formal-education.png
     fallbackTable:
       columns: [Education level, Respondents (n), Proportion]
@@ -198,7 +198,7 @@ charts:
     summary: '65.33% of designers have some design-related education, while 34.67% have no formal design training.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/09-design-related-education.png
     fallbackTable:
       columns: [Education status, Respondents (n), Proportion]
@@ -213,7 +213,7 @@ charts:
     summary: 'Formal academic education leads at 65.57%, but self-taught/informal courses reach 34.01% and online certifications 32.99%, reflecting a highly mixed learning ecosystem.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/10-design-related-education-types.png
     fallbackTable:
       columns: [Education type, Respondents (n), Proportion]
@@ -234,7 +234,7 @@ charts:
     summary: 'Self-taught with online certification (17.21%) and formal education with self-taught (17.12%) are the most common learning combinations.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/11-high-complementary-use-of-multiple-learning-types.png
     fallbackTable:
       columns: [Combination, Respondents (n), Co-occurrence]
@@ -253,7 +253,7 @@ charts:
     summary: '85.81% of designers have exclusively domestic careers; 14.19% have international work experience.'
     evidenceIds: ['evidence:2024-roles-experience']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/roles-and-experiences/12-overseas-working-experience.png
     fallbackTable:
       columns: [Career scope, Respondents (n), Proportion]

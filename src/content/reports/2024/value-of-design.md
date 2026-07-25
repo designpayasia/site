@@ -26,7 +26,7 @@ charts:
     suppressionNote: 'Philippines (n=7) and other markets below the 10-respondent disclosure threshold are not shown.'
     evidenceIds: ['evidence:2024-value-of-design']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     columns:
     - 'Response'
     - 'Share'
@@ -137,7 +137,7 @@ charts:
     suppressionNote: 'Philippines (n=7) and other markets below the 10-respondent disclosure threshold are not shown.'
     evidenceIds: ['evidence:2024-value-of-design']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     columns:
     - 'Response'
     - 'Share'
@@ -244,7 +244,7 @@ charts:
   - id: 'fair-compensation'
     title: 'Fair compensation perceptions'
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     caption: "Designers' perception of fair compensation for their role and level, across Indonesia, Singapore, Malaysia, Vietnam, and Thailand. Default view is Indonesia, the region's largest sample; select a market to see its own figures."
     summary: "50.8% of Indonesian respondents feel fairly compensated (ratings 5–7), while 49.2% do not, out of 1,379 valid responses, the region's largest sample. Agreement across the other four markets ranges from 49.1% in Singapore to 65.1% in Thailand."
     suppressionNote: 'Philippines (n=7) and other markets below the 10-respondent disclosure threshold are not shown.'
@@ -362,7 +362,7 @@ charts:
     suppressionNote: 'Philippines (n=7) and other markets below the 10-respondent disclosure threshold are not shown.'
     evidenceIds: ['evidence:2024-value-of-design']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     columns:
     - 'Response'
     - 'Share'

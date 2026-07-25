@@ -3,7 +3,7 @@
   "title": "2024 market coverage",
   "summary": "The 2024 regional report covers five Southeast Asian markets with reportable respondent cohorts: Indonesia, Singapore, Malaysia, Vietnam, and Thailand. Markets reached in 2023 but not represented in the 2024 cleaned dataset, including the Philippines, are not covered.",
   "sourceName": "Design Pay Asia 2024 survey",
-  "sourceUrl": "https://designpay.asia/reports/2024",
+  "sourceUrl": "/reports/2024",
   "year": 2024,
   "collectedAt": "2024 survey cycle",
   "geography": ["Indonesia", "Singapore", "Malaysia", "Vietnam", "Thailand"],

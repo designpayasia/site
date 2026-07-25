@@ -25,7 +25,7 @@ charts:
     summary: 'Startups lead at 30.3%, followed by agencies/consulting (22.7%) and large enterprise (20.8%), with the commercial sector at 89.8% combined.'
     evidenceIds: ['evidence:2024-company-profile']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/company-landscape/01-company-types.png
     fallbackTable:
       columns: [Company type, Respondents (n), Proportion]
@@ -46,7 +46,7 @@ charts:
     summary: 'Technology & Telecommunications leads at 32.8%, with financial services at 14.8% combined and an 18.1% ''other'' category suggesting emerging sectors.'
     evidenceIds: ['evidence:2024-company-profile']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/company-landscape/02-industry-sectors.png
     fallbackTable:
       columns: [Industry, Proportion]
@@ -67,7 +67,7 @@ charts:
     summary: '81.9% of design teams have fewer than 10 people; small teams (2–10) are most common at 59.3%, regardless of company size.'
     evidenceIds: ['evidence:2024-company-profile']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/company-landscape/03-design-team-structures.png
     fallbackTable:
       columns: [Team size, Respondents (n), Proportion]
@@ -86,7 +86,7 @@ charts:
     summary: '60.1% of designers are based at company headquarters, while 29.6% work from satellite or regional offices.'
     evidenceIds: ['evidence:2024-company-profile']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/company-landscape/04-headquarters-vs-regional-structure.png
     fallbackTable:
       columns: [Location type, Respondents (n), Proportion]
@@ -100,7 +100,7 @@ charts:
   - id: 'work-model'
     title: 'Work model distribution'
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     caption: "Work model comparison showing Singapore vs regional preferences."
     summary: "Singapore strongly favours hybrid at 70.1% vs 36.0% regional. Remote is 14.4% SG vs 24.9% regional."
     evidenceIds: ["evidence:2024-company-profile", "evidence:2024-sg-company"]

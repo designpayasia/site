@@ -24,7 +24,7 @@ charts:
     evidenceIds:
       - evidence:2023-company-landscape
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: Bar chart showing organisation type distribution. Large enterprises
         32.2%, startups 28.5%, agency/consulting 20.4%, SMEs ~14%, government
@@ -82,7 +82,7 @@ charts:
     evidenceIds:
       - evidence:2023-company-landscape
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: Bar chart showing industry sector distribution for Singapore
         respondents. Banking/Capital Markets 19.6%, Consumer Products 19.2%,
@@ -141,7 +141,7 @@ charts:
     evidenceIds:
       - evidence:2023-company-landscape
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: 1-10
         value: 5.3
@@ -217,7 +217,7 @@ charts:
     evidenceIds:
       - evidence:2023-company-landscape
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: Team of 1
         value: 7.4
@@ -285,7 +285,7 @@ charts:
     evidenceIds:
       - evidence:2023-company-landscape
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: Yes
         value: 62.2
@@ -337,7 +337,7 @@ charts:
     evidenceIds:
       - evidence:2023-company-landscape
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: Hybrid
         value: 71.8

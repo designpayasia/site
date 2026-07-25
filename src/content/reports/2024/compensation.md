@@ -25,7 +25,7 @@ charts:
     summary: '76.18% of pay is reported in Indonesian Rupiah, followed by SGD (10.02%) and MYR (5.23%); the remaining ten currencies each account for under 3%.'
     evidenceIds: ['evidence:2024-currency-compensation-structure']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/compensation/01-currency-distribution.png
     fallbackTable:
       columns: [Currency, Share of total payments]
@@ -101,7 +101,7 @@ charts:
     summary: '94.55% of designers report pay on a monthly basis, reflecting the standard Southeast Asian compensation practice.'
     evidenceIds: ['evidence:2024-currency-compensation-structure']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/compensation/02-base-salary-sharing-preference.png
     fallbackTable:
       columns: [Reporting format, Respondents (n), Proportion]
@@ -134,7 +134,7 @@ charts:
       - evidence:2024-median-compensation
       - evidence:2024-sg-compensation
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     fallbackTable:
       columns:
         - Career level
@@ -411,7 +411,7 @@ charts:
     evidenceIds:
       - evidence:2024-employment-type-compensation
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     fallbackTable:
       columns: [Employment type, Median annual-equivalent comp]
       rows:
@@ -506,7 +506,7 @@ charts:
     summary: 'Manager roles in Vietnam command a near-double premium over Senior IC (VND 780M vs 420M), based on 47 respondents.'
     evidenceIds: ['evidence:2024-median-compensation']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/compensation/06-compensation-trends-in-vietnam.png
     fallbackTable:
       columns: [Level, Median (VND)]
@@ -527,7 +527,7 @@ charts:
     summary: 'Thai IC roles are tightly concentrated (95.46% of respondents), with clear steps from Junior IC (360K THB) to Senior IC (732K THB), based on 44 respondents.'
     evidenceIds: ['evidence:2024-median-compensation']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/compensation/07-compensation-trends-in-thailand.png
     fallbackTable:
       columns: [Level, Median (THB)]
@@ -545,7 +545,7 @@ charts:
   - id: 'compensation-mix'
     title: 'Base salary share by seniority level'
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     caption: "Base salary as a percentage of total compensation across seniority levels, showing the shift toward variable pay at higher levels. Based on N=1,797 responses."
     summary: "Base salary's share of total compensation declines from 90.5% at junior IC to 83.7% at head of design as variable pay grows with seniority."
     evidenceIds: ["evidence:2024-currency-compensation-structure"]
@@ -598,7 +598,7 @@ charts:
     summary: 'Health insurance is the most common benefit, offered to 52.0% of designers.'
     evidenceIds: ['evidence:2024-currency-compensation-structure']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/compensation/09-other-benefits-breakdown.png
     fallbackTable:
       columns: [Benefit, Respondents (n), Proportion]

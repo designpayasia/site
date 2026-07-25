@@ -3,7 +3,7 @@
   "title": "2024 DPA survey sample",
   "summary": "Aggregate respondent count used for the 2024 regional report.",
   "sourceName": "Design Pay Asia 2024 survey",
-  "sourceUrl": "https://designpay.asia/reports/2024",
+  "sourceUrl": "/reports/2024",
   "year": 2024,
   "collectedAt": "2024 survey cycle",
   "geography": ["Southeast Asia"],

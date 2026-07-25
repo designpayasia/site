@@ -25,7 +25,7 @@ charts:
     summary: '52.5% of designers negotiate their compensation, and among those who do, 79.5% achieve some increase.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/01-negotiation-landscape.png
     fallbackTable:
       columns: [Category, Respondents (n), Proportion]
@@ -40,7 +40,7 @@ charts:
     summary: 'Senior leadership negotiates at 82.6%, more than double junior designers (39.1%), with mid-level at 53.6%.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/02-career-stage-impact.png
     fallbackTable:
       columns: [Level, Negotiation rate]
@@ -54,7 +54,7 @@ charts:
   - id: 'negotiation-outcomes'
     title: 'Negotiation outcomes'
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     caption: "Distribution of negotiation outcomes."
     summary: "79.5% achieve some increase. Most common: 5–10% (25.6%). Above 20%: 19.8%. No increase: 20.5%."
     evidenceIds: ["evidence:2024-negotiation"]
@@ -99,7 +99,7 @@ charts:
     summary: '65.9% of designers rate their negotiation confidence at 4 or above, but high confidence (6–7) is reported by 22.2%.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/04-negotiation-confidence.png
     fallbackTable:
       columns: [Confidence level, Proportion]
@@ -116,7 +116,7 @@ charts:
     summary: '58.1% of employers still require past salary disclosure before an offer, a practice that persists despite growing pushback.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/05-past-salary-information.png
     fallbackTable:
       columns: [Employer requirement, Respondents (n), Proportion]
@@ -131,7 +131,7 @@ charts:
     summary: '70.3% of designers report moderate to high pressure (ratings 4–7) to disclose their salary history in order to progress.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/06-successfully-declining-remains-challenging.png
     fallbackTable:
       columns: [Pressure level, Respondents (n), Proportion]
@@ -146,7 +146,7 @@ charts:
     summary: 'Among the 44.4% who tried to decline salary disclosure, 8.8% consistently succeeded — 55.6% were never able to decline.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/offer-and-negotiation/07-alt.png
     fallbackTable:
       columns: [Outcome, Respondents (n), Proportion]

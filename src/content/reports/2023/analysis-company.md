@@ -16,7 +16,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-company-type
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     pngPath: /charts/2023/analysis-company/sg-compensation-company-type.png
     fallbackTable:
       columns:
@@ -64,7 +64,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-industry
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Subgroup among Singapore survey respondents (n)
@@ -112,7 +112,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-company-size
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     pngPath: /charts/2023/analysis-company/sg-compensation-company-size.png
     fallbackTable:
       columns:
@@ -163,7 +163,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-hq
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Subgroup among Singapore survey respondents (n)
@@ -186,7 +186,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-work-arrangement
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Subgroup among Singapore survey respondents (n)
@@ -215,7 +215,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-extra-hours
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Self-reported extra hours per week (Singapore SGD cohort, n=223)

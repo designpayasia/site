@@ -14,7 +14,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-education-matched-cohort
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Matched cohort among Singapore survey respondents (n)
@@ -38,7 +38,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-compensation-education-pathways
     sourceLabel: Design Pay Asia 2022-23 education-pathway data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     pngPath: /charts/2023/analysis-education/sg-compensation-education-pathways.png
     fallbackTable:
       columns:
@@ -86,7 +86,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-education-no-formal-levels
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Career level, no formal design education cohort (n)
@@ -109,7 +109,7 @@ charts:
     evidenceIds:
       - evidence:2023-sg-education-no-formal-hq
     sourceLabel: Design Pay Asia 2022-23 survey data
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Headquarters location, no formal design education cohort (n)

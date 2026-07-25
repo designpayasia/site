@@ -29,7 +29,7 @@ charts:
     evidenceIds:
       - evidence:2023-survey-overview
     sourceLabel: 2023 DPA Report
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Country
@@ -75,7 +75,7 @@ charts:
     evidenceIds:
       - evidence:2023-survey-overview
     sourceLabel: 2023 DPA Report
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     fallbackTable:
       columns:
         - Gender
@@ -109,7 +109,7 @@ charts:
     evidenceIds:
       - evidence:2023-survey-overview
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: Bar chart showing age group distribution. 25–30 is the largest group at
         43%, followed by 31–35 at 25.4%, 18–24 at 16.4%, 36–40 at 9.9%, 41–45 at

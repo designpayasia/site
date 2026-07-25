@@ -15,7 +15,7 @@ charts:
     evidenceIds:
       - evidence:2023-compensation
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing whether respondents negotiated their current total
         compensation. Yes accounts for 57.1% of 317 answered responses."
@@ -51,7 +51,7 @@ charts:
     evidenceIds:
       - evidence:2023-gender-pay-gap
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: Bar chart comparing pay negotiation rates by gender. 61% of men
         negotiated their last salary compared to 51% of women.
@@ -82,7 +82,7 @@ charts:
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about being compensated
         fairly for role and level. The mean response is 4.57 on a 1–7 Likert scale,
@@ -140,7 +140,7 @@ charts:
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about market rate awareness.
         The mean response is 4.71 on a 1–7 Likert scale, where 1 - Strongly disagree
@@ -199,7 +199,7 @@ charts:
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about staying informed
         on market rate. The mean response is 3.86 on a 1–7 Likert scale, where 1 =
@@ -257,7 +257,7 @@ charts:
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about negotiation confidence.
         The mean response is 4.51 on a 1–7 Likert scale, where 1 - Strongly disagree
@@ -315,7 +315,7 @@ charts:
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing responses to the statement about being compensated
         fairly for effort at work. The mean response is 4.58 on a 1–7 Likert scale,

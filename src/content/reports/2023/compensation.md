@@ -31,7 +31,7 @@ charts:
     evidenceIds:
       - evidence:2023-compensation
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing the share of respondents paid in each currency.
         SGD accounts for 69.3% of 323 responses."
@@ -115,7 +115,7 @@ charts:
       - evidence:2023-compensation
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing median total compensation by career level,
         with a country filter for Singapore and Malaysia."
@@ -276,7 +276,7 @@ charts:
     evidenceIds:
       - evidence:2023-compensation-indonesia
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing median total compensation in Indonesia for
         cohort-safe levels only. Junior IC (N=15): Rp62,000,000. All respondents
@@ -308,7 +308,7 @@ charts:
     evidenceIds:
       - evidence:2023-compensation
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: Bar chart showing compensation mix beyond base salary. Bonuses 54.8%,
         other annual compensation 30.3%, annual stock grants 15.8%.
@@ -342,7 +342,7 @@ charts:
     evidenceIds:
       - evidence:2023-compensation
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: Bar chart showing benefits access. Paid medical leave 83.3%, PTO 77.4%,
         health insurance 76.5%, flexible working arrangement 68.7%, professional

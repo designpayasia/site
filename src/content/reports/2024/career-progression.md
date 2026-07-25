@@ -25,7 +25,7 @@ charts:
     summary: 'Seven in ten designers (70.3%) reported career advancement in the past year.'
     evidenceIds: ['evidence:2024-career-progression']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/career-progression/01-career-growth.png
     fallbackTable:
       columns: [Outcome, Respondents (n), Proportion]
@@ -40,7 +40,7 @@ charts:
     summary: 'Increased project impact (64.3%) was the most common form of advancement, outpacing formal promotions (25.3%).'
     evidenceIds: ['evidence:2024-career-progression']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/career-progression/02-types-of-career-growth.png
     fallbackTable:
       columns: [Type, Respondents (n), Percentage]
@@ -55,7 +55,7 @@ charts:
     summary: '46.2% of designers received no pay increase despite reporting career advancement.'
     evidenceIds: ['evidence:2024-career-progression', 'evidence:2024-no-pay-increase']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/career-progression/03-pay-increase-for-career-growth.png
     fallbackTable:
       columns: [Outcome, Respondents (n), Proportion]
@@ -70,7 +70,7 @@ charts:
     summary: 'Of those receiving increases, 83.8% saw gains above 5%, and 24.3% secured over 20%.'
     evidenceIds: ['evidence:2024-career-progression', 'evidence:2024-singapore-salary-increase']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/career-progression/04-breakdown-of-compensation-increase.png
     fallbackTable:
       columns: [Increase band, Respondents (n), Proportion]
@@ -85,7 +85,7 @@ charts:
     summary: '42.1% reported high satisfaction (ratings 5–7), while 48.5% rated satisfaction in the mid range (4–5).'
     evidenceIds: ['evidence:2024-career-progression']
     sourceLabel: '2024 DPA Report'
-    sourceUrl: 'https://designpay.asia/reports/2024'
+    sourceUrl: '/reports/2024'
     pngPath: /charts/2024/career-progression/05-career-satisfaction.png
     fallbackTable:
       columns: [Rating range, Respondents (n), Proportion]

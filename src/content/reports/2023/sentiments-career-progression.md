@@ -32,7 +32,7 @@ charts:
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing whether respondents made formal progress on job
         levelling compared with last year. Just over half answered Yes."
@@ -69,7 +69,7 @@ charts:
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     accessibility:
       summary: "Bar chart showing pay increase distribution. No increase: 19.9%,
         0.1–5%: 19.0%, 6–10%: 15.7%, 11–15%: 10.6%, 16–20%: 9.3%, more than 20%:
@@ -118,7 +118,7 @@ charts:
     evidenceIds:
       - evidence:2023-sentiments
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     bars:
       - label: "1 - Strongly disagree"
         value: 3.4
@@ -166,7 +166,7 @@ charts:
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     averageLabel: "Mean: 4.34 / 7"
     accessibility:
       summary: "Bar chart showing responses about switching primary area of work in
@@ -225,7 +225,7 @@ charts:
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     averageLabel: "Mean: 3.46 / 7"
     accessibility:
       summary: "Bar chart showing responses about switching between IC and management
@@ -284,7 +284,7 @@ charts:
     evidenceIds:
       - evidence:2023-roles-experience
     sourceLabel: Design Pay Asia 2023 Survey
-    sourceUrl: https://designpay.asia/reports/2023
+    sourceUrl: /reports/2023
     averageLabel: "Mean: 4.34 / 7"
     accessibility:
       summary: "Bar chart showing responses about switching jobs or companies in the
