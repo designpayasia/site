@@ -13,18 +13,18 @@ import Invitation from '../components/Invitation.astro';
       <p class="label-mono">Contribute</p>
       <h1 class="t-h2">Add your pay to the evidence.</h1>
       <p class="prose">
-        The more designers share, the fairer the picture gets.
+        The more designers share, the fairer the picture gets. Five minutes, anonymous, and every answer goes straight into the next report.
       </p>
     </div>
   </section>
 
   <ConversationBlock
-    id="contribute"
+    id="why-share"
     eyebrow="Why share"
     title="Pay talk makes pay fair"
     paragraphs={[
-      "We can't fix inequality we can't see. Talking about pay openly is how it gets fairer.",
-      'Curious how you compare? Share your salary anonymously. Your input sharpens the picture for every designer in the region.',
+      "Design salaries in Southeast Asia are still a private conversation: no published bands, no ranges to check an offer against, no way to know if a number is fair. Every anonymous submission narrows that gap for the next designer who has to guess.",
+      "The form asks for your role, your market, and what you're paid. No name, no email, no company required.",
     ]}
     metaEyebrow="The form"
     metaTitle="Anonymous"
@@ -33,12 +33,32 @@ import Invitation from '../components/Invitation.astro';
       { label: 'Privacy', value: 'No names, no emails' },
       { label: 'Feeds', value: 'The next report' },
     ]}
-    metaNote="Responses go straight into the next report."
+    metaNote="Any written answers are read for themes only, never quoted directly."
+    draftState="final"
+  />
+
+  <ConversationBlock
+    id="where-it-goes"
+    eyebrow="After you submit"
+    title="Where your number goes"
+    paragraphs={[
+      "Every submission feeds the next report cycle. It gets cleaned and checked against the market, then published only once a group clears a minimum size. Cohorts under 10 responses are never reported as an individual figure. They're suppressed instead, or published only as a marked small sample, with a note explaining why.",
+      "Once a figure is published, it stays where you found it: report routes don't move between years, and every number carries the evidence record it came from, so anyone citing it can check the source.",
+    ]}
+    metaPosition="end"
+    metaEyebrow="Go deeper"
+    metaTitle="Where it goes"
+    metaItems={[
+      { label: 'Safety rules', value: 'How small cohorts stay protected', href: '/docs/data-safety' },
+      { label: 'The cycle', value: 'Survey to publication', href: '/docs/run-a-cycle' },
+      { label: 'Citing a number', value: 'Licence and attribution', href: '/docs/using-our-data' },
+    ]}
+    metaNote="Corrections take priority over new report work."
     draftState="final"
   />
 
   <Invitation
-    question="Ready to put your number in?"
+    question="Ready to add your number?"
     questionDraft={false}
     ctaLabel="Share your pay"
     ctaHref="https://tally.so/r/3EDeGX"
