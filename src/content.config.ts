@@ -464,6 +464,28 @@ const teamMemberSchema = z.object({
   photo: z.string().regex(/^\/team\/\d{4}\/.+\.jpg$/),
 });
 
+/**
+ * Cross-year contributors who never appeared in a report's `team[]` roster —
+ * e.g. reviewers, translators, or advisors credited outside the surveyed cohort.
+ */
+const contributorExtraSchema = z.object({
+  name: z.string().min(1),
+  country: z.string().min(1),
+  linkedin: z.url(),
+  photo: z.string().regex(/^\/team\/\d{4}\/.+\.jpg$/).optional(),
+  years: z.array(z.number().int().min(2020).max(2100)).optional(),
+  contribution: z.string().optional(),
+});
+
+const contributors = defineCollection({
+  loader: glob({ base: './src/content/contributors', pattern: '*.json' }),
+  schema: z.object({
+    extras: z.array(contributorExtraSchema).default([]),
+    supporters: z.array(z.string().min(1)).default([]),
+    exclude: z.array(z.url()).default([]),
+  }),
+});
+
 const reports = defineCollection({
   loader: glob({ base: './src/content/reports', pattern: '*/index.md' }),
   schema: z.object({
@@ -577,4 +599,4 @@ const reportSections = defineCollection({
   }),
 });
 
-export const collections = { evidence, site, reports, reportSections };
+export const collections = { evidence, site, reports, reportSections, contributors };
