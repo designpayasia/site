@@ -231,7 +231,7 @@ whatThisMeans: |-
 whatThisMeansIndividuals: |-
   Location does more than set a cost of living. It shapes the career opportunities and pay a designer can expect too.
 whatThisMeansLeaders: |-
-  Remote work has widened the map for where hiring can happen. Team composition that mirrors the wider market signals a hiring approach making full use of that broader talent pool, including remote candidates. A workforce this young also raises the stakes for how leaders manage and develop talent over time.
+  Remote work has widened the hiring map; teams that mirror the wider market are the ones using it. A workforce this young also raises the stakes for how leaders grow talent.
 questions:
   - 'How can we better capture design industry data from underrepresented Southeast Asian markets, particularly addressing language and accessibility barriers?'
   - 'What impact will the rise of distributed teams and remote work have on traditional design hubs like Singapore and Jakarta?'

@@ -480,7 +480,7 @@ whatThisMeansIndividuals: |-
   Find ways to balance showing the value of design with your main work — picking your battles.
   Look for business numbers that show how your work makes a difference, considering investing in soft skills and peripheral knowledge.
 whatThisMeansLeaders: |-
-  How can you help others see the strategic dimension of design, beyond visual craft or delivery?
+  How do you get the rest of the business to see design as strategy?
   Think about ways to show the value of design without putting too much pressure on individual designers.
   Check if chasing design maturity actually helps your business goals.
   Consider what success looks like for design in your specific business.

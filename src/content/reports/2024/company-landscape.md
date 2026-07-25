@@ -163,12 +163,12 @@ whatThisMeansLeaders: |-
   Is doing more with less actually sustainable?
   How can you keep your team working well together when some are at home and others in the office?
   Are you measuring how smaller teams affect design quality and business results?
-  What really drives your decisions about office work (employee preference, cost, or office space)?
+  What really drives your decisions about office work — employee preference, cost, or office space?
 questions:
   - 'Will design teams in Southeast Asia grow larger as the industry matures, or stay lean by design?'
   - 'How will part-time leadership and subscription services change traditional jobs?'
   - 'What happens when designers become generalists instead of specialists?'
-  - 'Who should make sure hybrid work actually works, design teams or someone else?'
+  - 'Who should make sure hybrid work actually works — design teams or someone else?'
 references:
   - label: 'Southeast Asian remote-capable employees: 53% expect hybrid, 24% fully remote'
     url: 'https://www.gallup.com/workplace/390632/future-hybrid-work-key-questions-answered-data.aspx'
@@ -198,4 +198,4 @@ Enterprise organisations employ 32.8% of Singapore-based designers, against 20.8
 
 In Singapore, hybrid is the default. Elsewhere in the region, onsite work still leads by a wide margin, even as employers experiment with flexibility as a hiring lever.
 
-Financial services is where Singapore diverges most sharply from the rest of the region: 26.9% of its designers work in banking, insurance, or financial services, against 14.8% regionally, nearly double, and consistent with the city's role as a financial hub.
+Financial services is where Singapore diverges most sharply from the rest of the region: 26.9% of its designers work in banking, insurance, or financial services, against 14.8% regionally — nearly double, and consistent with the city's role as a financial hub.
