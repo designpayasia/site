@@ -12,7 +12,6 @@ import {
   buildEvidenceMap,
   getVisibleMetrics,
 } from '../../lib/evidence';
-import { renderRichTextHtml } from '../../lib/frontmatter-markdown';
 import { CLOSING_ID, EXCLUDED_IDS, getSectionGroups } from '../../lib/report-nav';
 import {
   getReportSlug,
@@ -72,8 +71,6 @@ for (const chart of reportCharts) {
 // Trust-core validation still runs (stats + charts validate against evidence
 // records); we only removed the visual evidence list, not the asserts.
 const stats = getVisibleMetrics(report.data.stats);
-const methodologySection = sections.find((section) => section.id === 'methodology');
-
 // Grouped, scannable section list — grouping truth lives in report-nav.ts.
 const navGroups = getSectionGroups(sections, reportSlug);
 
@@ -102,8 +99,6 @@ const findingsLede = hasSectionCommentary
 // Methodology — pull the data/bias limitation points (markdown bullets) from
 // the methodology section body for the slim strip; fall back to prose lines.
 const methodologyStrip = report.data.methodologyStrip;
-
-const methodologyBody = methodologySection?.body;
 
 const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(
   report.data.publishedAt,
@@ -212,32 +207,22 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
         </div>
       )}
 
-      {(methodologySection || methodologyStrip) && (
-        <aside class="report-methodology" aria-labelledby="report-methodology-title">
-          <h2 id="report-methodology-title" class="report-methodology__heading t-h2">Methodology</h2>
-          {methodologyStrip ? (
-            <>
-              <p class="report-methodology__intro prose">{methodologyStrip.intro}</p>
-              <p class="report-methodology__subheading label-mono">Our process</p>
-              <ul class="report-methodology__list prose">
-                {methodologyStrip.process.map((step) => <li>{step}</li>)}
-              </ul>
-              <div class="report-methodology__note">
-                <p class="report-methodology__note-heading label-mono">A note on data and bias</p>
-                <p class="report-methodology__note-intro prose">{methodologyStrip.biasIntro}</p>
-                <ul class="report-methodology__list prose">
-                  {methodologyStrip.biasPoints.map((point) => <li>{point}</li>)}
-                </ul>
-              </div>
-              <p class="report-methodology__caveat prose">{methodologyStrip.caveat}</p>
-            </>
-          ) : methodologyBody ? (
-            <div class="report-methodology__body" set:html={renderRichTextHtml(methodologyBody)} />
-          ) : (
-            <p class="report-methodology__summary prose">{methodologySection?.summary}</p>
-          )}
-        </aside>
-      )}
+      <aside class="report-methodology" aria-labelledby="report-methodology-title">
+        <h2 id="report-methodology-title" class="report-methodology__heading t-h2">Methodology</h2>
+        <p class="report-methodology__intro prose">{methodologyStrip.intro}</p>
+        <p class="report-methodology__subheading label-mono">Our process</p>
+        <ul class="report-methodology__list prose">
+          {methodologyStrip.process.map((step) => <li>{step}</li>)}
+        </ul>
+        <div class="report-methodology__note">
+          <p class="report-methodology__note-heading label-mono">A note on data and bias</p>
+          <p class="report-methodology__note-intro prose">{methodologyStrip.biasIntro}</p>
+          <ul class="report-methodology__list prose">
+            {methodologyStrip.biasPoints.map((point) => <li>{point}</li>)}
+          </ul>
+        </div>
+        <p class="report-methodology__caveat prose">{methodologyStrip.caveat}</p>
+      </aside>
     </div>
   </section>
 
