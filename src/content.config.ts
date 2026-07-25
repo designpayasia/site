@@ -2,6 +2,14 @@ import { glob } from 'astro/loaders';
 import { defineCollection, reference } from 'astro:content';
 import { z } from 'zod';
 
+/**
+ * A source is either an external URL or a path on this site. Internal sources
+ * are stored root-relative so the live domain lives in exactly one place
+ * (`site` in astro.config.mjs). `isSelfHostedSource` in src/lib/evidence.ts
+ * resolves relative values against that domain, so both forms behave alike.
+ */
+const sourceUrlSchema = z.union([z.url(), z.string().regex(/^\/\S*$/)]);
+
 const metricSchema = z
   .object({
     value: z.string().min(1),
@@ -218,7 +226,7 @@ const chartSchema = z.object({
   suppressionNote: z.string().min(1).optional(),
   evidenceIds: z.array(z.string().regex(/^evidence:[a-z0-9-]+$/)).min(1),
   sourceLabel: z.string().min(1),
-  sourceUrl: z.url(),
+  sourceUrl: sourceUrlSchema,
   pngPath: z.string().regex(/^\/.*\.png$/).optional(),
   averageLabel: z.string().min(1).optional(),
   fallbackTable: fallbackTableSchema,
@@ -283,7 +291,7 @@ const chartSchema = z.object({
         suppressionNote: z.string().min(1).optional(),
         evidenceIds: z.array(z.string().regex(/^evidence:[a-z0-9-]+$/)).min(1),
         sourceLabel: z.string().min(1).optional(),
-        sourceUrl: z.url().optional(),
+        sourceUrl: sourceUrlSchema.optional(),
         /**
          * Variants mirror the top-level chart's plot/bars treatment: a
          * variant renders either its bars track or its Plot SVG, never
@@ -428,7 +436,7 @@ const evidence = defineCollection({
     title: z.string().min(1),
     summary: z.string().min(1),
     sourceName: z.string().min(1),
-    sourceUrl: z.url(),
+    sourceUrl: sourceUrlSchema,
     year: z.number().int().min(2000).max(2100),
     collectedAt: z.string().min(1),
     geography: z.array(z.string().min(1)).min(1),
@@ -570,8 +578,7 @@ const reports = defineCollection({
         biasIntro: z.string().min(1),
         biasPoints: z.array(z.string().min(1)).min(1),
         caveat: z.string().min(1),
-      })
-      .optional(),
+      }),
   }),
 });
 
@@ -614,7 +621,7 @@ const reportSections = defineCollection({
       .array(
         z.object({
           label: z.string().min(1),
-          url: z.url().optional(),
+          url: sourceUrlSchema.optional(),
         }),
       )
       .default([]),

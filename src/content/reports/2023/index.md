@@ -132,6 +132,9 @@ methodologyStrip:
       centres or working in isolation"
     - "Language: The survey was in English only, which may have limited
       participation in Indonesia, Vietnam, and Thailand"
+    - "Digital access: The survey was online only, so it reached designers with
+      reliable internet access. Designers in remote areas or on lower incomes may
+      be under-represented"
     - "Self-reported data: All figures are self-reported. Compensation numbers
       in particular may be rounded or affected by recall"
     - "Small-cohort markets: Country-level data for markets with fewer than 30

@@ -125,7 +125,8 @@ methodologyStrip:
     - 'Geographic skew: Stronger representation from Indonesia (79.0%), which may not reflect the complete regional picture'
     - 'Digital access: Survey reached those with reliable internet access and comfort with online participation'
     - 'Language: Survey conducted in English, which may limit participation in some markets'
+    - 'Self-selection: Taking part was voluntary, so designers with stronger opinions or less typical pay may be over-represented'
   caveat: >-
-    These findings reflect the designers who took part in the survey, not the entire region. Treat them as directional, not a definitive benchmark.
+    These findings reflect the designers who took part in the survey, not the entire region. Treat them as directional, not a definitive benchmark. Where a market-specific breakdown disagrees with the regional aggregate, weight the market.
 slug: '2024'
 ---
