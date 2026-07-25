@@ -8,6 +8,8 @@ updated: '2026-07-25'
 related:
   - label: Using our data
     href: /docs/using-our-data
+  - label: How to contribute
+    href: /docs/contributing
   - label: Ops spine
     href: /ops
 ---

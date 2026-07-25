@@ -8,6 +8,8 @@ updated: '2026-07-25'
 related:
   - label: Data safety rules
     href: /docs/data-safety
+  - label: How to contribute
+    href: /docs/contributing
   - label: Reports
     href: /reports
 ---
@@ -43,7 +45,7 @@ The data is self-reported, voluntary, and collected through design community cha
 
 You can fairly describe what respondents in a given market and career level reported. You can compare segments within one year's data where both cohorts clear the size threshold. Quote the sample size alongside the figure and the reader can judge it for themselves.
 
-Three things the data will not carry. It cannot stand in for a market's whole design workforce, because respondents reached us through design community channels rather than a representative sample. It cannot support a year-on-year trend claim where the distribution or methodology changed between surveys. And it says nothing at all about a segment whose figures were suppressed: suppression records that the cohort was too small to publish safely, so treating it as a zero or as an unremarkable result reads something into the gap that is not there.
+Three things the data will not carry. It cannot stand in for a market's whole design workforce, because respondents reached us through design community channels rather than a representative sample. It cannot support a year-on-year trend claim where the distribution or methodology changed between surveys. And it says nothing about a segment whose figures were suppressed. Suppression means the cohort was too small to publish safely, not that the result was zero or unremarkable, so do not read either into the gap.
 
 Geographic skew is the constraint that catches most people. In 2023, Singapore accounted for 69.4% of responses, so aggregate regional statistics lean heavily Singaporean. Country breakdowns are given where the cohort allows it.
 

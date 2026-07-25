@@ -8,6 +8,8 @@ updated: '2026-07-25'
 related:
   - label: Data safety rules
     href: /docs/data-safety
+  - label: How to contribute
+    href: /docs/contributing
   - label: Ops spine
     href: /ops
 ---
