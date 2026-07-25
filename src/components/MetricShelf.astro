@@ -41,6 +41,8 @@ interface Metric {
   color?: StatTone;
   evidenceId: string;
   sampleSize?: number | string;
+  /** Overrides the derived `n=…` caption. Empty string prints no caption at all. */
+  caption?: string;
   delta?: Delta;
   countUp?: boolean;
 }
@@ -111,7 +113,12 @@ const cells = displayMetrics.map((metric, index) => {
     suffix,
     normalizedUnit,
     tone,
-    sampleCaption: sample ? `n=${sample}` : metric.evidenceId,
+    // `caption` overrides the derived `n=…` line, and an empty string drops it
+    // altogether — for a cell whose value already is the sample, where `n=` would
+    // print the same number twice. Provenance survives either way: `evidenceId`
+    // is emitted as data-evidence-id on the cell.
+    sampleCaption:
+      metric.caption !== undefined ? metric.caption : sample ? `n=${sample}` : metric.evidenceId,
     delta,
   };
 });
@@ -157,7 +164,7 @@ const cells = displayMetrics.map((metric, index) => {
             </span>
           )}
 
-          <p class="metric-shelf__meta">{cell.sampleCaption}</p>
+          {cell.sampleCaption && <p class="metric-shelf__meta">{cell.sampleCaption}</p>}
         </article>
       ))}
     </div>

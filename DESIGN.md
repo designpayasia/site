@@ -240,6 +240,23 @@ and meaningful for a community data project about SEA designers.
 
 Poppins is retired. It appears only in legacy embedded Looker dashboards.
 
+**The display face has no bold.** Instrument Serif ships one weight, 400. Asking for
+600 or 700 does not fall back gracefully: the browser synthesises the weight by
+smearing the outline, which renders as a doubled, blurred edge that is obvious at
+display sizes and worse on retina. Georgia, the fallback, has a real bold, so the
+same markup looks fine the moment the webfont fails to load, which is how this
+survives a casual review.
+
+The trap is the browser default, not a stylesheet: a bare `<h1>`–`<h6>` carries
+`font-weight: bold` from the user-agent sheet. Any heading element set in
+`--font-display` must therefore declare `font-weight: var(--weight-regular)`
+itself. Setting the face without setting the weight is the bug.
+
+- ✓ `font-weight: var(--weight-regular)` on every element that uses `--font-display`
+- ✓ Emphasis in editorial type comes from size, signal colour, or italic — never weight
+- ✗ Never `font-weight: bold`, `600`, or `700` on Instrument Serif
+- ✗ Never rely on a heading inheriting the right weight from a parent or a utility class
+
 **Four display moments — do not invent new ones.** If something needs a new size, use h2.
 
 | Moment | CSS token | Size | Line-height | Tracking | Face | Notes |
@@ -350,7 +367,7 @@ component file remains the API contract; the gallery and its production links es
 
 | Family | Components | Selection rule |
 |--------|------------|----------------|
-| Covers and archive | `CoverIndexSpread`, `CoverSplitEditorial`, `CoverFullBleed`, `CoverCardInverse`, `EntryCard` | Use the index spread for a report-listing cover, the split editorial when a question needs evidence beside it, full bleed for a ceremonial flagship moment, the inverse card (docs-only) for a related-report rail, and the entry card for the report index — claim, highlight stat, and meta chips, no call to action. |
+| Covers and archive | `CoverIndexSpread`, `CoverSplitEditorial`, `CoverFullBleed`, `CoverCardInverse`, `EntryCard` | Use the index spread for a report-listing cover, the split editorial when a question needs evidence beside it, full bleed for a ceremonial flagship moment, the inverse card (docs-only) for a related-report rail, and the entry card for the report index — plain headline, editorial claim as a deck beneath it, highlight stat, and meta chips, no call to action. |
 | Metrics | `FindingsStrip`, `MetricShelf`, `BigStat`, `StatTakeover` | Use the fixed three-metric strip to open a findings section, the 2 to 6 cell shelf inline, a bare `BigStat` for one figure, and `StatTakeover` for a single annotated hero finding. |
 | Charts | `ChartBlock`, `ChartSmallMultiples`, `ChartRange`, `ChartDotPlot` | Start with `ChartBlock` for a flat bar, Plot, or PNG-backed chart. Use a specialised chart only when the relationship needs panels, a distribution range, or a shared-axis dot comparison. |
 | Registers | `Invitation`, `Provocations`, `RegisterCards`, `PullQuote`, `PullQuoteBeat` | Reserve invitations for one standalone question, provocations for a stat-anchored tension set at a report closing, register cards for a fixed-register grid, pull quotes for an inline quote, and pull-quote beats for a full-width editorial interruption. |

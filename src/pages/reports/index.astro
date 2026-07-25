@@ -37,7 +37,9 @@ const shelfMetrics = [
     value: totalResponses.toLocaleString('en-GB'),
     label: 'Responses across every cycle',
     evidenceId: CYCLES_EVIDENCE_ID,
-    sampleSize: totalResponses,
+    // No caption: this cell's value already is the sample, so `n=` would print
+    // the same number twice. The other two cells are counted off it, so they say so.
+    caption: '',
   },
   {
     value: String(marketsCovered.size),
@@ -66,9 +68,9 @@ const dataHref = '/docs/data-safety';
     <div class="reports-cover__inner">
       <CoverIndexSpread
         eyebrow="Reports"
-        titleLines={['What Southeast Asian', 'designers get paid']}
-        emphasis="get paid"
-        thesis="Open reports on design pay across Southeast Asia. Every figure links to its source, and cohorts under ten stay unpublished."
+        titleLines={['Designers and the numbers,', 'by year']}
+        emphasis="by year"
+        thesis="The survey runs all year. A report is one edition of it, compiled around a theme. Every figure links to the evidence behind it, and cohorts under ten stay unpublished."
         meta={yearRange ? [yearRange] : []}
       >
         {entries.length > 0 && <MetricShelf slot="metrics" metrics={shelfMetrics} />}
@@ -116,7 +118,6 @@ const dataHref = '/docs/data-safety';
 
   .reports-cover {
     padding-block: var(--space-24) var(--space-16);
-    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .reports-cover__inner,
@@ -148,6 +149,15 @@ const dataHref = '/docs/data-safety';
     margin: var(--space-8) 0 0;
     max-width: var(--zone-prose);
     color: var(--color-ink-muted);
+  }
+
+  .reports-list__data a {
+    color: var(--color-action);
+    text-underline-offset: 0.2em;
+  }
+
+  .reports-list__data a:hover {
+    color: var(--color-ink);
   }
 
   @media (min-width: 768px) {
