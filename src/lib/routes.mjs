@@ -70,10 +70,13 @@ function pagePattern(file) {
 }
 
 // Section files that produce no section route. 'index' is the report landing
-// page itself; 'executive-summary' and 'methodology' render inside that landing
-// page and are excluded from getStaticPaths in
-// src/pages/reports/[year]/[section].astro. Keep those two in step with it.
-const UNROUTED_SECTIONS = new Set(['index', 'executive-summary', 'methodology']);
+// page itself; the rest come from src/data/unrouted-sections.json, which is the
+// same list src/pages/reports/[year]/[section].astro filters getStaticPaths by.
+// One source, so the inventory cannot disagree with what Astro builds.
+const UNROUTED_SECTIONS = new Set([
+  'index',
+  ...JSON.parse(readFileSync(join(SRC, 'data', 'unrouted-sections.json'), 'utf8')).ids,
+]);
 
 // Both report routes filter the collection on status === 'published', so an
 // unpublished report builds no pages. A directory without an index.md is not a
