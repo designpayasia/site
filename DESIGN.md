@@ -314,6 +314,26 @@ stats are intentional interruptions of the column grid.
 **Spacing scale** (Tailwind-style stops — no intermediate values):
 `4 8 12 16 24 32 40 48 64 96 128px` → tokens `--space-1` through `--space-32`.
 
+**Page shell — gutters go on the inner wrapper.** A page section is an outer
+element for vertical rhythm and background, and an inner wrapper that carries the
+width cap and the gutters:
+
+```css
+.section        { padding-block: var(--space-24); }        /* no inline padding */
+.section__inner { max-width: var(--site-max-width);
+                  margin-inline: auto;
+                  padding-inline: var(--space-8); }
+@media (max-width: 767px) {
+  .section      { padding-inline: var(--space-4); }
+}
+```
+
+Putting the gutter on the outer element instead looks equivalent and is not:
+`max-width` on the inner is resolved *after* the outer padding, so the content box
+stays a full `--site-max-width` and the text runs two gutters wider than the rest
+of the site. Nothing errors, the page looks fine alone, and it only reads as wrong
+beside another page. `/docs` and `/ops` shipped that way and had to be corrected.
+
 **Composition character (§7):**
 - Generous white space — editorial ground is largely neutral, colour is in signal roles
 - Stats and provocations interrupt the reading rhythm intentionally
@@ -509,8 +529,11 @@ Editorially, abbreviate pay values of six digits or more at hero stat moments (`
 ✓ Use `.prose` and `.prose-editorial` as the only line-length constraints  
 ✓ Full-bleed moments (charts, hero, blobs) intentionally break the column grid  
 
+✓ Put page gutters on the `__inner` wrapper, alongside the width cap — never on the outer section  
+
 ✗ Never use intermediate spacing values (5px, 10px, 30px, etc.)  
 ✗ Never add custom `max-width` in component CSS — use zone utilities  
+✗ Never set `padding-inline` on an outer section that wraps a `max-width` inner — the cap resolves after the padding and the content ends up wider than the rest of the site  
 
 ### Shapes
 

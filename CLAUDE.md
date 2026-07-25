@@ -111,6 +111,7 @@ Each evidence JSON file in `src/content/evidence/` requires: `id`, `title`, `sum
 - PascalCase filenames: `ChartBlock.astro`, `BigStat.astro`, `SiteHeader.astro`.
 - Minimum touch target: 44px (see `.btn` in `global.css`, applies to all interactive elements).
 - `.prose` constrains body text to `--zone-prose` (65ch). `.prose-editorial` to `--zone-editorial` (80ch).
+- Page shell: gutters go on the `__inner` wrapper next to `max-width`, never on the outer section — see DESIGN.md § Layout. Getting this backwards renders a page two gutters wider than the rest of the site and nothing fails.
 - Use `sticky` positioning only via `StickyMeta.astro` pattern — scroll-aware meta panels.
 - Blob shape derives from the locked D″ master SVG path (see `Blob.astro`). All blobs on the site share one source of truth.
 - The `.btn` class is the global button pattern: pill shape (border-radius: 999px), DM Mono, uppercase, 44px min-height. Variants: `.btn--primary` (crimson fill) and `.btn--secondary` (navy outline).
