@@ -1,10 +1,9 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
-// Resolved from the working directory, not from import.meta.url: this module is
-// imported by ops.astro and gets bundled into dist during the build, which moves
-// it away from src. Both the Astro build and the ops audit run from the repo
-// root, so cwd is the stable anchor.
+// Resolved from the working directory, not from import.meta.url: the ops audit
+// script (scripts/check-ops-freshness.mjs) runs this module directly via node
+// from the repo root, so cwd is the stable anchor.
 const SRC = join(process.cwd(), 'src');
 const PAGES = join(SRC, 'pages');
 const CONTENT = join(SRC, 'content');
@@ -29,7 +28,7 @@ function walk(dir) {
       throw new Error(
         `src/pages/${relative(PAGES, full)} is a routable file type that the route ` +
           `inventory does not understand. Teach walk() in src/lib/routes.mjs how to ` +
-          `handle it, or the /ops inventory will under-report.`,
+          `handle it, or the route inventory will under-report.`,
       );
     }
   }
@@ -149,15 +148,3 @@ export function listRoutes() {
     .sort();
 }
 
-/**
- * Pair each route pattern with its documented purpose. Patterns missing a
- * purpose come back marked, so the gap shows up on /ops instead of vanishing.
- */
-export function buildRouteInventory(purposes) {
-  return listRoutePatterns().map(({ pattern, routes }) => ({
-    pattern,
-    count: routes.length,
-    purpose: purposes[pattern] ?? 'Undocumented — add an entry to src/data/route-purposes.json',
-    documented: pattern in purposes,
-  }));
-}
