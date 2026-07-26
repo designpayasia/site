@@ -1,53 +1,17 @@
 {
   "heroTitle": "Southeast Asia's design pay conversation",
-  "heroSummary": "Because pay is never just a number. It is context, power, and where the industry is going. 1,797 designers surveyed across 5 markets in 2024.",
+  "heroSummary": "Because pay is never just a number. It is context, power, and where the industry is going.",
   "heroCtaLabel": "Read the 2024 report",
   "heroCtaHref": "/reports/2024",
   "featuredReportSlug": "2024",
   "stats": [
     {
-      "value": "1,797",
-      "unit": "+",
-      "label": "Designers surveyed across Southeast Asia in 2024",
+      "value": "2,910",
+      "unit": "",
+      "label": "pay responses shared across Southeast Asia",
       "color": "workhorse",
-      "evidenceId": "evidence:2024-total-respondents",
-      "sampleSize": 1797,
-      "publishMode": "published"
-    },
-    {
-      "value": "52.5",
-      "unit": "%",
-      "label": "of designers negotiate compensation offers",
-      "color": "signal",
-      "evidenceId": "evidence:2024-negotiation",
-      "sampleSize": 1797,
-      "publishMode": "published"
-    },
-    {
-      "value": "70.3",
-      "unit": "%",
-      "label": "report career advancement in the past year",
-      "color": "signal",
-      "evidenceId": "evidence:2024-career-progression",
-      "sampleSize": 1797,
-      "publishMode": "published"
-    },
-    {
-      "value": "63.1",
-      "unit": "%",
-      "label": "work in startups or tech companies",
-      "color": "workhorse",
-      "evidenceId": "evidence:2024-company-profile",
-      "sampleSize": 1797,
-      "publishMode": "published"
-    },
-    {
-      "value": "5",
-      "unit": "+",
-      "label": "Markets with published compensation data",
-      "color": "workhorse",
-      "evidenceId": "evidence:2024-geographic-distribution",
-      "sampleSize": 1797,
+      "evidenceId": "evidence:community-submissions-cumulative",
+      "sampleSize": 2910,
       "publishMode": "published"
     }
   ],
