@@ -7,9 +7,15 @@ const checkOnly = process.argv.includes('--check');
 
 const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
 
+// `from` is always an internal path. `to` is usually internal too, but a
+// redirect may point out of the site entirely (e.g. to the public repo), so
+// an absolute https URL is also valid there.
+const isInternalPath = (value) => value?.startsWith('/') && !value.startsWith('//');
+const isExternalUrl = (value) => /^https:\/\//.test(value ?? '');
+
 const seen = new Set();
 for (const entry of manifest) {
-  if (!entry.from?.startsWith('/') || !entry.to?.startsWith('/')) {
+  if (!isInternalPath(entry.from) || !(isInternalPath(entry.to) || isExternalUrl(entry.to))) {
     throw new Error(`Invalid redirect entry: ${JSON.stringify(entry)}`);
   }
 

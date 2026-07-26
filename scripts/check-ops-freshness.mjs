@@ -3,10 +3,10 @@ import { resolve } from 'node:path';
 
 import { listRoutePatterns } from '../src/lib/routes.mjs';
 
-const ops = await readFile(resolve('src/pages/ops.astro'), 'utf8');
+const readme = await readFile(resolve('README.md'), 'utf8');
 const purposes = JSON.parse(await readFile(resolve('src/data/route-purposes.json'), 'utf8'));
 
-// The route inventory on /ops is generated, so there is nothing to grep for.
+// The /ops page is retired; routes are checked against the purpose map directly.
 // What can still rot is the purpose map: a new route with no purpose, or a
 // purpose left behind by a deleted route.
 const patterns = listRoutePatterns().map(({ pattern }) => pattern);
@@ -24,21 +24,21 @@ for (const pattern of Object.keys(purposes)) {
   }
 }
 
-// These are the continuity commitments the ops page exists to state. They are
-// prose rather than data, so a text check is still the right tool.
+// These are the continuity commitments the README states now that the ops page is retired.
+// They are prose rather than data, so a text check is still the right tool.
 const requiredTerms = [
   'evidenceId',
   'redirect',
   'Node 22',
-  'Ownership matrix',
+  'ownership matrix',
   'Recovery floor',
   'Architecture',
   'Succession',
 ];
 
 for (const term of requiredTerms) {
-  if (!ops.includes(term)) {
-    problems.push(`ops page is missing required term: ${term}`);
+  if (!readme.includes(term)) {
+    problems.push(`README is missing required term: ${term}`);
   }
 }
 

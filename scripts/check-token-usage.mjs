@@ -15,7 +15,6 @@ const files = [
   'src/components/StickyMeta.astro',
   'src/components/StubPage.astro',
   'src/pages/index.astro',
-  'src/pages/ops.astro',
   'src/pages/reports/index.astro',
   'src/pages/reports/[slug].astro',
   'src/pages/docs/index.astro',

@@ -20,7 +20,6 @@ const routes = [
   '/reports/2023',
   '/about',
   '/contribute',
-  '/ops',
   '/docs',
   '/docs/annual-cycle',
   '/docs/architecture',

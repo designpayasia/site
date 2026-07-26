@@ -10,8 +10,8 @@ related:
     href: /docs/using-our-data
   - label: How to contribute
     href: /docs/contributing
-  - label: Ops spine
-    href: /ops
+  - label: Source repository
+    href: https://github.com/designpayasia/site
 ---
 
 DPA publishes self-reported survey data. These rules keep small cohorts from becoming individual disclosures. They are enforced in code where possible, and they are the trust floor for any future report or dataset work.

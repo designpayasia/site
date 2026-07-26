@@ -51,12 +51,12 @@
   },
   {
     "from": "/docs/architecture",
-    "to": "/ops",
+    "to": "https://github.com/designpayasia/site#readme",
     "status": 301
   },
   {
     "from": "/docs/succession",
-    "to": "/ops",
+    "to": "https://github.com/designpayasia/site#readme",
     "status": 301
   }
 ]

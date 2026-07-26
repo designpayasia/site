@@ -1,4 +1,4 @@
 {
-  "comment": "Section ids that exist as content but get no route of their own. They render inside the report landing page instead. Read by src/pages/reports/[year]/[section].astro (which skips them in getStaticPaths) and by src/lib/routes.mjs (which skips them when building the /ops route inventory). JSON rather than TS because the route inventory is also read by a plain-node audit script.",
+  "comment": "Section ids that exist as content but get no route of their own. They render inside the report landing page instead. Read by src/pages/reports/[year]/[section].astro (which skips them in getStaticPaths) and by src/lib/routes.mjs (which skips them when building the route inventory). JSON rather than TS because the route inventory is also read by a plain-node audit script.",
   "ids": ["executive-summary"]
 }
