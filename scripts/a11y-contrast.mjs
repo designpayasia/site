@@ -32,6 +32,8 @@ const P = {
   navy900:    '#0f1c2e',
 
   // Grey
+  grey300:    '#b8b4b0',
+  grey400:    '#928d89',
   grey500:    '#6d6865',
   grey600:    '#4d4a47',
   grey900:    '#1a1a1a',
@@ -92,6 +94,10 @@ const PAIRS = [
   // Instead check it at the large-text threshold — the pair is used for display-size
   // headings on the dark surface only, which does pass (3.25:1 > 3.0:1).
   ['inverse action (navy-500 on navy-900) large-text only', P.navy500, P.navy900, 'large'],
+
+  // Dark-mode ink text on navy-900 background
+  ['dark body text (grey-300 on navy-900)', P.grey300, P.navy900, 'normal'],
+  ['dark muted text (grey-400 on navy-900)', P.grey400, P.navy900, 'normal'],
 
   // Display / stat headings are large text — lower threshold
   ['hero/stat text (grey-900 on cream-50) large', P.grey900, P.cream50, 'large'],
