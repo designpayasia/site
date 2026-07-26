@@ -14,7 +14,7 @@ eyebrow: '2024 Report'
 heroCtaLabel: 'Read the full report'
 entryType: report
 hub:
-  claim: "Half the respondents asked for more; the rest took what was offered."
+  claim: "Negotiation is still doing the work that published pay bands should."
   highlight:
     value: '52.5'
     unit: '%'
