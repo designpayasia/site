@@ -3,19 +3,11 @@ import { getCollection } from 'astro:content';
 
 import BigStat from '../components/BigStat.astro';
 import Blob from '../components/Blob.astro';
-import ChartBlock from '../components/ChartBlock.astro';
-import ConversationBlock from '../components/ConversationBlock.astro';
-import DarkBeat from '../components/DarkBeat.astro';
-import FindingsStrip from '../components/FindingsStrip.astro';
+import EntryCard from '../components/EntryCard.astro';
 import Invitation from '../components/Invitation.astro';
+import PullQuote from '../components/PullQuote.astro';
 import Base from '../layouts/Base.astro';
-import {
-  assertEvidenceIdsExist,
-  assertMetricsHaveEvidence,
-  buildEvidenceMap,
-  getVisibleMetrics,
-} from '../lib/evidence';
-import { getSectionsForReport } from '../lib/report-content';
+import { assertMetricsHaveEvidence, buildEvidenceMap, getVisibleMetrics } from '../lib/evidence';
 
 const [homepage] = await getCollection('site');
 
@@ -23,18 +15,15 @@ if (!homepage) {
   throw new Error('Missing site/homepage data entry.');
 }
 
-const [reports, reportSections] = await Promise.all([
-  getCollection('reports'),
-  getCollection('reportSections'),
-]);
+const reports = await getCollection('reports');
 const publishedReports = reports
   .filter((report) => report.data.status === 'published')
   .sort((left, right) => right.data.publishedAt.getTime() - left.data.publishedAt.getTime());
+// The only year-bound zone on the page. Swapping to next cycle is a slug
+// change here; the section below reads everything else off the report entry.
 const featuredReport =
   publishedReports.find((report) => report.data.slug === homepage.data.featuredReportSlug) ??
   publishedReports[0];
-const featuredReportSections = featuredReport ? getSectionsForReport(featuredReport, reportSections) : [];
-const featuredReportCharts = featuredReportSections.flatMap((section) => section.charts);
 
 if (!featuredReport) {
   throw new Error('Missing published report entry for homepage.');
@@ -46,88 +35,27 @@ const evidenceMap = buildEvidenceMap(evidenceEntries);
 const stats = getVisibleMetrics(homepage.data.stats);
 assertMetricsHaveEvidence(stats, evidenceMap, 'site/homepage');
 
-const heroStat = stats.find((stat) => stat.evidenceId === 'evidence:2024-negotiation') ?? stats[0];
-const heroSampleSize = heroStat.sampleSize
-  ? Number(heroStat.sampleSize).toLocaleString('en-GB')
-  : undefined;
-const heroSource = heroSampleSize ? `n=${heroSampleSize} · 2024 DPA Report` : '2024 DPA Report';
+const heroStat =
+  stats.find((stat) => stat.evidenceId === 'evidence:community-submissions-cumulative') ?? stats[0];
+const heroEvidence = evidenceMap.get(heroStat.evidenceId);
 
-const findingsEvidenceIds = [
-  'evidence:2024-total-respondents',
-  'evidence:2024-career-progression',
-  'evidence:2024-company-profile',
-];
-const findingsStats = findingsEvidenceIds.map((evidenceId) => {
-  const metric = stats.find((stat) => stat.evidenceId === evidenceId);
-
-  if (!metric) {
-    throw new Error(`Missing homepage metric for ${evidenceId}.`);
-  }
-
-  return {
-    ...metric,
-    unit: evidenceId === 'evidence:2024-total-respondents' ? '' : metric.unit,
-    color: evidenceId === 'evidence:2024-career-progression' ? ('signal' as const) : ('workhorse' as const),
-  };
-});
-
-const featuredChart = featuredReportCharts.find(
-  (chart) => chart.id === 'compensation-mix',
-);
-
-if (!featuredChart) {
-  throw new Error('Missing compensation-mix chart in the featured report.');
+if (!heroEvidence) {
+  throw new Error(`Missing evidence entry for hero stat ${heroStat.evidenceId}.`);
 }
 
-assertEvidenceIdsExist(
-  featuredChart.evidenceIds,
-  evidenceMap,
-  `report:${featuredReport.id}:chart:${featuredChart.id}`,
-);
-
-for (const variant of featuredChart.variants ?? []) {
-  assertEvidenceIdsExist(
-    variant.evidenceIds,
-    evidenceMap,
-    `report:${featuredReport.id}:chart:${featuredChart.id}:variant:${variant.label}`,
-  );
-}
-
-const featuredChartFallbackColumns = featuredChart.fallbackTable.columns as [string, string];
-
-const careerProgressionStat = findingsStats.find(
-  (stat) => stat.evidenceId === 'evidence:2024-career-progression',
-);
-const regionalJobMarketEvidence = evidenceMap.get('evidence:2024-job-market');
-
-if (!careerProgressionStat || !regionalJobMarketEvidence) {
-  throw new Error('Missing dark-beat progress or regional job-market evidence.');
-}
-
-const extractEvidencePercent = (summary: string, pattern: RegExp, label: string) => {
-  const match = summary.match(pattern);
-
-  if (!match?.[1]) {
-    throw new Error(`Missing ${label} percentage in evidence:2024-job-market.`);
-  }
-
-  return match[1];
-};
-
-const jobSecurityConcern = extractEvidencePercent(
-  regionalJobMarketEvidence.data.summary,
-  /(\d+(?:\.\d+)?)% of designers express concern about job security/,
-  'job-security concern',
-);
-const layoffExposure = extractEvidencePercent(
-  regionalJobMarketEvidence.data.summary,
-  /(\d+(?:\.\d+)?)% report being directly affected by layoffs/,
-  'layoff exposure',
-);
+const heroSource = heroEvidence.data.sourceName;
 
 const titleWords = homepage.data.heroTitle.trim().split(/\s+/);
 const heroTitleHead = titleWords.slice(0, -1).join(' ');
 const heroTitleSignal = titleWords.at(-1);
+
+// Meta chips on the featured-report card are derived from the report entry
+// itself (hub.responses, markets), so a new cycle's card updates with no
+// copy edit here.
+const featuredReportMeta = [
+  `${featuredReport.data.hub.responses.value} ${featuredReport.data.hub.responses.label}`,
+  `${featuredReport.data.markets.length} markets`,
+];
 ---
 
 <Base
@@ -138,7 +66,7 @@ const heroTitleSignal = titleWords.at(-1);
     <section class="hero" aria-labelledby="homepage-title">
       <div class="hero__inner">
         <div class="hero__copy">
-          <p class="hero__eyebrow label-mono">2024 DPA report</p>
+          <p class="hero__eyebrow label-mono">Since 2020</p>
           <h1 id="homepage-title" class="hero__title t-hero">
             {heroTitleHead} <span class="signal-word">{heroTitleSignal}</span>
           </h1>
@@ -172,110 +100,56 @@ const heroTitleSignal = titleWords.at(-1);
       </div>
     </section>
 
-    <FindingsStrip
-      metrics={findingsStats}
-      eyebrow="2024 survey signals"
-      title="Three findings before the argument starts"
-      intro="The homepage keeps the numbers close to their evidence, so each signal can be checked against the report."
-    />
+    <section class="manifesto" aria-labelledby="manifesto-title">
+      <div class="manifesto__inner">
+        <p class="manifesto__eyebrow label-mono">Why this exists</p>
+        <h2 id="manifesto-title" class="manifesto__title t-h2">
+          Design pay in Southeast Asia has stayed private
+        </h2>
+        <div class="manifesto__body prose">
+          <p>
+            Employers know the market rate for a role. Designers usually don't, until an offer
+            forces the question.
+          </p>
+          <p>
+            Design Pay Asia asks designers to share what they actually earn, in the open, and
+            publishes it as evidence anyone can check. The surveys have run since 2020, and every
+            published report is built from designers who chose to answer honestly instead of
+            comparing notes only in private.
+          </p>
+          <p>
+            The reports are the evidence. What the industry does with them is the harder
+            question, and it's one only the industry itself can answer.
+          </p>
+        </div>
+        <div class="manifesto__quote prose-editorial">
+          <PullQuote
+            quote="DPA publishes the numbers and convenes the conversation."
+            draftState="final"
+          />
+        </div>
+      </div>
+    </section>
 
-    <ConversationBlock
-      id="conversation"
-      eyebrow="Editorial conversation"
-      title="Pay is a conversation about"
-      signalWord="power"
-      intro="Career movement is easy to point to this year. Job security and negotiating power are not moving at the same pace, and that gap is the argument."
-      paragraphs={[
-        'Across Southeast Asia, designers describe more responsibility, more say in decisions, and clearer routes upward. Move into the job market that same year and the account changes: concern is common, and for a real share of the region, so is having already lived through a layoff.',
-        'That gap is not evenly held. Senior leaders negotiate far more often than junior designers, and salary history disclosure still follows candidates from offer to offer. The survey can count who negotiates; it cannot yet count what the quieter half gives up.',
-        'The report leaves one question open: what should count as progress, if the work is growing faster than the protection and the negotiating room around it?',
-      ]}
-      metaItems={[
-        { label: 'Source', value: '2024 DPA Report', href: featuredReport.data.canonicalPath },
-        { label: 'Sample', value: '1,797 designers' },
-        { label: 'Markets', value: featuredReport.data.markets.join(', ') },
-      ]}
-      metaEyebrow="Section 03"
-      metaTitle="Open argument"
-      metaNote="An open argument: the report does not resolve this tension, and neither does the homepage."
-      quote={{
-        quote: 'Progress is easier to measure than the pressure it creates.',
-      }}
-      draftState="final"
-    />
-
-    <section class="chart-section" aria-label="Compensation mix">
-      <div class="chart-section__inner">
-        <ChartBlock
-          title={featuredChart.title}
-          caption={featuredChart.caption}
-          summary={featuredChart.summary}
-          evidenceIds={featuredChart.evidenceIds}
-          sourceLabel={featuredChart.sourceLabel}
-          sourceUrl={featuredChart.sourceUrl}
-          fallbackColumns={featuredChartFallbackColumns}
-          fallbackRows={featuredChart.fallbackTable.rows}
-          bars={featuredChart.bars}
-          pngPath={featuredChart.pngPath}
-          averageLabel={featuredChart.averageLabel}
-          segments={featuredChart.segments?.map((chartSegment) => ({
-            id: chartSegment.id,
-            label: chartSegment.label,
-            caption: chartSegment.caption,
-            summary: chartSegment.summary,
-            averageLabel: chartSegment.averageLabel,
-            bars: chartSegment.bars,
-            fallbackColumns: chartSegment.fallbackTable.columns as [string, string],
-            fallbackRows: chartSegment.fallbackTable.rows,
-          }))}
-          defaultSegmentLabel={featuredChart.defaultSegmentLabel}
-          variants={featuredChart.variants?.map((variant) => ({
-            label: variant.label,
-            summary: variant.summary,
-            evidenceIds: variant.evidenceIds,
-            sourceLabel: variant.sourceLabel,
-            sourceUrl: variant.sourceUrl,
-            bars: variant.bars,
-            fallbackColumns: variant.fallbackTable.columns as [string, string],
-            fallbackRows: variant.fallbackTable.rows,
-          }))}
+    <section class="featured-report" aria-label={`Featured report: ${featuredReport.data.title}`}>
+      <div class="featured-report__inner">
+        <p class="featured-report__eyebrow label-mono">Latest evidence</p>
+        <EntryCard
+          href={featuredReport.data.canonicalPath}
+          year={featuredReport.data.year}
+          kind={featuredReport.data.entryType}
+          claim={featuredReport.data.hub.claim}
+          highlight={{
+            value: featuredReport.data.hub.highlight.value,
+            unit: featuredReport.data.hub.highlight.unit,
+            label: featuredReport.data.hub.highlight.label,
+          }}
+          meta={featuredReportMeta}
         />
       </div>
     </section>
 
-    <DarkBeat
-      eyebrow="2024 dark beat"
-      title="Progress is not the same as safety"
-      statement="Career movement and market strain are the same story this year, told from two different angles."
-      statementDraft={false}
-      provenanceStatus="proven"
-      provenanceNote="Regional job-market figures use evidence:2024-job-market, not the Singapore-only record."
-      metrics={[
-        {
-          value: careerProgressionStat.value,
-          unit: careerProgressionStat.unit,
-          label: careerProgressionStat.label,
-          evidenceId: careerProgressionStat.evidenceId,
-          evidenceLabel: 'Regional progress',
-        },
-        {
-          value: jobSecurityConcern,
-          unit: '%',
-          label: 'express concern about job security',
-          evidenceId: regionalJobMarketEvidence.data.id,
-          evidenceLabel: 'Regional job-market readout',
-        },
-        {
-          value: layoffExposure,
-          unit: '%',
-          label: 'report being directly affected by layoffs',
-          evidenceId: regionalJobMarketEvidence.data.id,
-          evidenceLabel: 'Regional job-market readout',
-        },
-      ]}
-    />
-
-    <Invitation question="What would you ask, if you knew you'd get a straight answer?" questionDraft={false} />
+    <Invitation question="What would you ask, if you knew you'd get a straight answer?" questionDraft={false} ctaLabel="Share your pay" ctaHref="/contribute" />
   </main>
 </Base>
 
@@ -290,7 +164,8 @@ const heroTitleSignal = titleWords.at(-1);
   }
 
   .hero__inner,
-  .chart-section__inner {
+  .manifesto__inner,
+  .featured-report__inner {
     max-width: var(--site-max-width);
     margin-inline: auto;
     padding-inline: var(--space-8);
@@ -369,8 +244,38 @@ const heroTitleSignal = titleWords.at(-1);
     color: var(--color-ink-muted);
   }
 
-  .chart-section {
+  .manifesto,
+  .featured-report {
     padding: var(--space-24) 0;
+  }
+
+  .featured-report {
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .manifesto__eyebrow,
+  .featured-report__eyebrow {
+    margin: 0 0 var(--space-4);
+    color: var(--color-ink-muted);
+  }
+
+  .manifesto__title {
+    max-width: 16ch;
+  }
+
+  .manifesto__body {
+    display: grid;
+    gap: var(--space-6);
+    margin: var(--space-8) 0 0;
+    color: var(--color-ink-subtle);
+  }
+
+  .manifesto__body p {
+    margin: 0;
+  }
+
+  .manifesto__quote {
+    margin: var(--space-10) 0 0;
   }
 
   @media (max-width: 900px) {
@@ -396,7 +301,8 @@ const heroTitleSignal = titleWords.at(-1);
     }
 
     .hero__inner,
-    .chart-section__inner {
+    .manifesto__inner,
+    .featured-report__inner {
       padding-inline: var(--space-4);
     }
 
@@ -407,14 +313,19 @@ const heroTitleSignal = titleWords.at(-1);
     .hero__stat-content {
       padding: var(--space-5);
     }
+
+    .manifesto__title {
+      font-size: clamp(2.9rem, 14vw, var(--t-display-mobile));
+    }
   }
 
   .hero__copy {
     min-width: 0;
   }
 
-  .hero__title {
+  .hero__title,
+  .manifesto__title {
     overflow-wrap: break-word;
-    hyphens: auto;
+    hyphens: manual;
   }
 </style>
