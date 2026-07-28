@@ -7,11 +7,15 @@
    - data-theme="dark" on <html>, an explicit choice that wins over the OS
 
    V1 deliberately ignored `prefers-color-scheme` and treated dark as an
-   intentional act. That held while dark mode was unreachable — <html> carried
-   a bare `data-theme` attribute that matched no selector, so none of this file
-   rendered anywhere. Now that a reader can actually get here, defaulting to
-   their stated system preference is the less surprising behaviour, and the
-   toggle covers the case where they want the other one. DESIGN.md § Dark mode
+   intentional act. That held while the page-level toggle was unreachable:
+   `<html>` carried a bare, valueless `data-theme` attribute that matched no
+   selector, so the whole-page theme never rendered. The selector itself was
+   already live, though — a bare `[data-theme="dark"]` — and it already
+   matched every component that sets that literal attribute on itself to
+   open its own dark subtree on an otherwise light page. Now that a reader
+   can actually reach the page-level theme, defaulting to their stated
+   system preference is the less surprising behaviour, and the toggle
+   covers the case where they want the other one. DESIGN.md § Dark mode
    records the reversal.
 
    The values live in --dark-* once and are applied twice, because CSS has no
@@ -54,8 +58,14 @@
   /* An inverse beat interrupts the page. On a light page that means a navy
      block; on a dark page the same intent means a light one, so the inverse
      tokens resolve to the light theme's own values here. Left fixed, every
-     inverse component (DarkBeat, CoverFullBleed, CoverCardInverse, EntryCard,
-     StatTakeover) would render navy-900 on a navy-900 page. */
+     consumer of --color-inverse-* would stop reading as inverse on a dark
+     page: the beat components that open their own dark subtree (DarkBeat,
+     CoverFullBleed, CoverCardInverse, EntryCard, StatTakeover) would render
+     navy-900 on a navy-900 page; SiteFooter, the inverse variants of
+     Provocations and PullQuoteBeat, the report pages' inverse bands
+     (report-human, section-questions__more), and ChapterRail's
+     inverse-tinted shadow and current-page label would lose the contrast
+     that makes each of them read as inverse. */
   --dark-inverse-surface: var(--color-cream-50);
   --dark-inverse-text: var(--color-grey-900);
   --dark-inverse-signal-text: var(--color-crimson-600);
