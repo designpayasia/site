@@ -4,7 +4,7 @@ summary: How to add your pay data, what stays anonymous, and how to cite or reus
 group: playbook
 order: 2
 status: published
-updated: '2026-07-25'
+updated: '2026-07-28'
 related:
   - label: Data safety rules
     href: /docs/data-safety
@@ -20,7 +20,7 @@ There are two ways to contribute to DPA: add your own pay data to the next cycle
 
 The survey lives at [/contribute](/contribute), currently run through Tally.so. It takes about five minutes.
 
-It asks for no name and no email, and it does not require an account. Your answer joins the pool for the next report. It is never published as an individual figure, and the suppression rules below apply to your answer the same way they apply to everyone else's.
+It asks for no name and no email, and it does not require an account. Your answer joins the pool for the next report. Reports never publish it as an individual figure, and the suppression rules below apply to your answer the same way they apply to everyone else's. The cleaned, anonymised pool is itself public in the community submissions tracker, with an employer name appearing only where a contributor chose to disclose one.
 
 ## What never gets published
 
