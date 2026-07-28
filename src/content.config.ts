@@ -453,6 +453,13 @@ const site = defineCollection({
     heroSummary: z.string().min(1),
     heroCtaLabel: z.string().min(1),
     heroCtaHref: z.string().regex(/^\//),
+    // Optional second hero action, rendered as the secondary button. Both
+    // halves are required together — a label with no href, or the reverse,
+    // renders nothing rather than a dead control. The href takes an external
+    // URL as well as a root-relative path, because this slot points at the
+    // survey form, which is hosted off-site.
+    heroSecondaryCtaLabel: z.string().min(1).optional(),
+    heroSecondaryCtaHref: z.union([z.url(), z.string().regex(/^\//)]).optional(),
     featuredReportSlug: z.string().min(1),
     stats: z.array(metricSchema).min(1),
     // No consumer since the evergreen homepage rebuild — kept optional rather

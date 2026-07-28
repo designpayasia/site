@@ -19,14 +19,26 @@ const reports = await getCollection('reports');
 const publishedReports = reports
   .filter((report) => report.data.status === 'published')
   .sort((left, right) => right.data.publishedAt.getTime() - left.data.publishedAt.getTime());
-// The only year-bound zone on the page. Swapping to next cycle is a slug
-// change here; the section below reads everything else off the report entry.
-const featuredReport =
-  publishedReports.find((report) => report.data.slug === homepage.data.featuredReportSlug) ??
-  publishedReports[0];
 
-if (!featuredReport) {
+// The page shows every published cycle, newest first, except that
+// `featuredReportSlug` gets to lead the row. That slug is the only year-bound
+// value on the page; everything else in the section below is read off the
+// report entries, so a new cycle lands here by publishing its content file.
+const featuredReports = [...publishedReports].sort((left, right) => {
+  const featured = homepage.data.featuredReportSlug;
+  return Number(right.data.slug === featured) - Number(left.data.slug === featured);
+});
+
+if (featuredReports.length === 0) {
   throw new Error('Missing published report entry for homepage.');
+}
+
+// A slug that matches nothing would silently fall back to newest-first, which
+// looks correct and is not. Fail on the typo instead.
+if (!featuredReports.some((report) => report.data.slug === homepage.data.featuredReportSlug)) {
+  throw new Error(
+    `homepage featuredReportSlug "${homepage.data.featuredReportSlug}" matches no published report.`,
+  );
 }
 
 const evidenceEntries = await getCollection('evidence');
@@ -44,17 +56,19 @@ if (!heroEvidence) {
 }
 
 const heroSource = heroEvidence.data.sourceName;
+// The page's one outbound data link, read off the evidence entry rather than
+// typed here, so the tracker moves in one place.
+const poolHref = heroEvidence.data.sourceUrl;
 
 const titleWords = homepage.data.heroTitle.trim().split(/\s+/);
 const heroTitleHead = titleWords.slice(0, -1).join(' ');
 const heroTitleSignal = titleWords.at(-1);
 
-// Meta chips on the featured-report card are derived from the report entry
-// itself (hub.responses, markets), so a new cycle's card updates with no
-// copy edit here.
-const featuredReportMeta = [
-  `${featuredReport.data.hub.responses.value} ${featuredReport.data.hub.responses.label}`,
-  `${featuredReport.data.markets.length} markets`,
+// Meta chips are derived from each report entry itself (hub.responses,
+// markets), so a new cycle's card updates with no copy edit here.
+const reportMeta = (report: (typeof featuredReports)[number]) => [
+  `${report.data.hub.responses.value} ${report.data.hub.responses.label}`,
+  `${report.data.markets.length} ${report.data.markets.length === 1 ? 'market' : 'markets'}`,
 ];
 ---
 
@@ -75,6 +89,13 @@ const featuredReportMeta = [
             <a href={homepage.data.heroCtaHref} class="btn btn--primary">
               {homepage.data.heroCtaLabel}
             </a>
+            {
+              homepage.data.heroSecondaryCtaLabel && homepage.data.heroSecondaryCtaHref && (
+                <a href={homepage.data.heroSecondaryCtaHref} class="btn btn--secondary">
+                  {homepage.data.heroSecondaryCtaLabel}
+                </a>
+              )
+            }
           </div>
         </div>
 
@@ -141,25 +162,36 @@ const featuredReportMeta = [
       </div>
     </section>
 
-    <section class="featured-report" aria-label={`Featured report: ${featuredReport.data.title}`}>
+    <section class="featured-report" aria-label="The reports">
       <div class="featured-report__inner">
-        <p class="featured-report__eyebrow label-mono">Latest evidence</p>
-        <EntryCard
-          href={featuredReport.data.canonicalPath}
-          year={featuredReport.data.year}
-          kind={featuredReport.data.entryType}
-          claim={featuredReport.data.hub.claim}
-          highlight={{
-            value: featuredReport.data.hub.highlight.value,
-            unit: featuredReport.data.hub.highlight.unit,
-            label: featuredReport.data.hub.highlight.label,
-          }}
-          meta={featuredReportMeta}
-        />
+        <p class="featured-report__eyebrow label-mono">The reports</p>
+        <div class="featured-report__grid">
+          {
+            featuredReports.map((report) => (
+              <EntryCard
+                href={report.data.canonicalPath}
+                year={report.data.year}
+                kind={report.data.entryType}
+                claim={report.data.hub.claim}
+                highlight={{
+                  value: report.data.hub.highlight.value,
+                  unit: report.data.hub.highlight.unit,
+                  label: report.data.hub.highlight.label,
+                }}
+                meta={reportMeta(report)}
+              />
+            ))
+          }
+        </div>
+        <p class="featured-report__pool">
+          Every report here is compiled from the same pool of raw submissions. The pool is
+          anonymised, and it is public.
+          <a href={poolHref}>Open the submissions tracker</a>
+        </p>
       </div>
     </section>
 
-    <Invitation question="What would you ask, if you knew you'd get a straight answer?" questionDraft={false} ctaLabel="Share your pay" ctaHref="/contribute" />
+    <Invitation question="Would you share what you earn?" questionDraft={false} ctaLabel="Add your pay" ctaHref="https://tally.so/r/3EDeGX" />
   </main>
 </Base>
 
@@ -232,16 +264,21 @@ const featuredReportMeta = [
      no will-change (the motion is slow enough not to need a compositing hint). */
   @media (prefers-reduced-motion: no-preference) {
     .hero__stat {
-      animation: hero-stat-float 28s ease-in-out infinite alternate;
+      animation: hero-stat-float 6s ease-in-out infinite alternate;
     }
   }
 
+  /* Vertical only, 16px of travel over 6s, rising before it falls. Rate is
+     what makes the motion readable, not distance: the original 8px across and
+     16px down over 28s moved too slowly for anyone to notice it was
+     animating, and the diagonal drift made the blob look loose in its column
+     rather than buoyant. */
   @keyframes hero-stat-float {
     from {
-      transform: translate(calc(-1 * var(--space-1)), calc(-1 * var(--space-2)));
+      transform: translateY(var(--space-2));
     }
     to {
-      transform: translate(var(--space-1), var(--space-2));
+      transform: translateY(calc(-1 * var(--space-2)));
     }
   }
 
@@ -311,6 +348,36 @@ const featuredReportMeta = [
 
   .manifesto__quote {
     margin: var(--space-10) 0 0;
+  }
+
+  /* Same grid as /reports: one column on mobile, two from tablet up, every
+     entry treated identically. A third cycle wraps onto the next row with
+     nothing to change here. */
+  .featured-report__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .featured-report__pool {
+    margin: var(--space-8) 0 0;
+    max-width: var(--zone-prose);
+    color: var(--color-ink-muted);
+  }
+
+  .featured-report__pool a {
+    color: var(--color-action);
+    text-underline-offset: 0.2em;
+  }
+
+  .featured-report__pool a:hover {
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 768px) {
+    .featured-report__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 900px) {

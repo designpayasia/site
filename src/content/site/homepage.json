@@ -1,12 +1,14 @@
 {
   "heroTitle": "Southeast Asia's design pay conversation",
   "heroSummary": "Because pay is never just a number. It is context, power, and where the design industry is going.",
-  "heroCtaLabel": "Read the 2024 report",
-  "heroCtaHref": "/reports/2024",
+  "heroCtaLabel": "Read the reports",
+  "heroCtaHref": "/reports",
+  "heroSecondaryCtaLabel": "Add your pay",
+  "heroSecondaryCtaHref": "https://tally.so/r/3EDeGX",
   "featuredReportSlug": "2024",
   "stats": [
     {
-      "value": "2,910",
+      "value": "2,910+",
       "unit": "",
       "label": "pay responses shared across Southeast Asia",
       "color": "workhorse",
