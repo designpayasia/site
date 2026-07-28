@@ -233,21 +233,27 @@ An inverse beat interrupts the page: on a light page that means a navy
 block, on a dark page the same intent means a light one, so in dark mode
 the `--color-inverse-*` tokens resolve to the light theme's own values
 instead — hence the table above showing the inverse beat as
-cream-on-charcoal rather than navy-on-cream. Five components open their own
-dark subtree to do this — `DarkBeat.astro`, `CoverFullBleed`,
-`CoverCardInverse`, `EntryCard`, `StatTakeover` — each setting
-`data-theme="dark"` on itself while sitting on an otherwise light page.
-`--color-inverse-*` has more consumers than those five, though: `SiteFooter`,
-the inverse variants of `Provocations` and `PullQuoteBeat`, the report
-pages' inverse bands (the hub's team and community section, the section
-page's supporting-questions band), and `ChapterRail`'s inverse-tinted
-shadow and current-page label all read the same tokens without opening a
-subtree of their own. The overrides are scoped to `:root` only, never to a
-bare `[data-theme='dark']`, because the five subtree-opening components
-would otherwise match their own override too and paint themselves
-cream-on-cream, disappearing into their own background.
+cream-on-charcoal rather than navy-on-cream.
 
-Outside a consumer of `--color-inverse-*`, dark mode is driven entirely by `_dark.css`'s core semantic overrides.
+Eight places open their own dark subtree to do this, each setting
+`data-theme="dark"` on itself while sitting on an otherwise light page:
+`DarkBeat`, `CoverFullBleed`, `CoverCardInverse` and `EntryCard`
+unconditionally; `StatTakeover` and `PullQuoteBeat` when their `inverse` prop
+is set; and two page-level bands, the report hub's team and community section
+and the section page's supporting-questions band.
+
+Three more read `--color-inverse-*` without opening a subtree of their own:
+`SiteFooter`, the inverse and split variants of `Provocations`, and
+`ChapterRail`'s inverse-tinted shadow and current-page label. The footer is
+the one to think about — on a dark page it becomes a light band, which is the
+point, since a navy footer on a navy page stops reading as a band at all.
+
+The overrides are scoped to `:root` only, never to a bare
+`[data-theme='dark']`, because the subtree-opening components would otherwise
+match their own override too and paint themselves cream-on-cream,
+disappearing into their own background.
+
+Outside a consumer of `--color-inverse-*`, dark mode is driven entirely by `_dark.css`'s core semantic overrides. That list moves, so recount it with `grep -rn "var(--color-inverse-" src/` rather than trusting the paragraph above.
 
 **Data-viz palette** (build-time Plot SVGs, bars, and archived PNG proof):
 

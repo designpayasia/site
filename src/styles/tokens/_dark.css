@@ -79,9 +79,13 @@
 }
 
 /* The core palette applies to any element carrying data-theme="dark", not just
-   <html>: DarkBeat, CoverFullBleed, CoverCardInverse, EntryCard and
-   StatTakeover each set the attribute on themselves to open a dark subtree on
-   a light page, and they rely on the semantic tokens flipping inside it.
+   <html>. Eight places set that attribute on themselves to open a dark subtree
+   on a light page, and rely on the semantic tokens flipping inside it:
+   DarkBeat, CoverFullBleed, CoverCardInverse and EntryCard unconditionally;
+   StatTakeover and PullQuoteBeat when their `inverse` prop is set; and two
+   page-level bands, .report-human in reports/[slug].astro and
+   .section-questions__more in reports/[year]/[section].astro.
+
    The inverse tokens are handled separately below, because those must follow
    the PAGE, not the subtree. */
 
@@ -129,7 +133,14 @@
    to a bare [data-theme='dark']. An EntryCard on a LIGHT page sets that
    attribute on itself to open a dark subtree; if the inverse overrides matched
    there too, the card would paint its own background cream on a cream page and
-   disappear. */
+   disappear.
+
+   Eleven files read these tokens, so changing one changes a lot of the site.
+   Besides the eight self-scoping places listed above, SiteFooter, Provocations
+   and ChapterRail read them without opening a subtree of their own — which is
+   why the footer becomes a light band on a dark page rather than merging into
+   it. Recount with `grep -rn "var(--color-inverse-" src/` rather than trusting
+   this list; it has been wrong before. */
 
 /* dark-apply:page:start */
 @media (prefers-color-scheme: dark) {
