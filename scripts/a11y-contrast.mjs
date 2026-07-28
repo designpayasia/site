@@ -27,6 +27,7 @@ const P = {
   crimson600: '#991844',
 
   // Navy
+  navy200:    '#aec3d8',
   navy500:    '#4a6e99',
   navy700:    '#4a628f',
   navy800:    '#1f3a5f',
@@ -34,6 +35,7 @@ const P = {
 
   // Grey
   grey100:    '#eeeceb',
+  grey200:    '#d8d5d2',
   grey300:    '#b8b4b0',
   grey400:    '#928d89',
   grey500:    '#6d6865',
@@ -86,20 +88,24 @@ const PAIRS = [
   // Inverse signal-text (crimson-300 on navy-900) — dark-beat emphasis
   ['inverse signal-text (crimson-300 on navy-900)', P.crimson300, P.navy900, 'normal'],
 
-  // NOTE: navy-500 on navy-900 (dark-mode --color-action on --color-ambient) fails AA
-  // for normal text (3.25:1 < 4.5:1). In v1 this pair is never rendered because
-  // DarkBeat uses --color-inverse-text, not --color-action, and no other dark-surface
-  // context exists. Tracked as a known gap; re-enable with 'normal' type when dark
-  // pages with action links are added.
-  // ['inverse action link (navy-500 on navy-900)', P.navy500, P.navy900, 'normal'],
-  //
-  // Instead check it at the large-text threshold — the pair is used for display-size
-  // headings on the dark surface only, which does pass (3.25:1 > 3.0:1).
-  ['inverse action (navy-500 on navy-900) large-text only', P.navy500, P.navy900, 'large'],
+  // Dark-mode --color-action. This was excluded for the whole of v1 with a note
+  // saying navy-500 on navy-900 fails AA (3.25:1) but is never rendered. That
+  // was true only while dark mode was unreachable: <html> carried a bare
+  // data-theme attribute matching no selector. .btn--secondary and every prose
+  // link use this role, so the pair is enforced now and the token moved to
+  // navy-200. Checked against both dark surfaces, because links appear on the
+  // muted panel too (StickyMeta).
+  ['dark action link (navy-200 on navy-900)', P.navy200, P.navy900, 'normal'],
+  ['dark action link on muted (navy-200 on navy-800)', P.navy200, P.navy800, 'normal'],
 
-  // Dark-mode ink text on navy-900 background
-  ['dark body text (grey-300 on navy-900)', P.grey300, P.navy900, 'normal'],
-  ['dark muted text (grey-400 on navy-900)', P.grey400, P.navy900, 'normal'],
+  // Dark-mode ink text. Every step is checked against both dark surfaces:
+  // --color-surface-muted moved from navy-700 to navy-800, because navy-700
+  // (#4a628f) is anomalously light and no grey in the scale clears AA on it.
+  ['dark chart-neutral (grey-300 on navy-900)', P.grey300, P.navy900, 'normal'],
+  ['dark muted text (grey-300 on navy-900)', P.grey300, P.navy900, 'normal'],
+  ['dark muted text on muted surface (grey-300 on navy-800)', P.grey300, P.navy800, 'normal'],
+  ['dark subtle text (grey-200 on navy-900)', P.grey200, P.navy900, 'normal'],
+  ['dark subtle text on muted surface (grey-200 on navy-800)', P.grey200, P.navy800, 'normal'],
 
   // Display / stat headings are large text — lower threshold
   ['hero/stat text (grey-900 on cream-50) large', P.grey900, P.cream50, 'large'],
@@ -109,12 +115,16 @@ const PAIRS = [
 
   // Homepage hero blob: BigStat label + source line sit directly on the
   // full-opacity --color-stat-blob-fill, not on cream-50/navy-900. Both use
-  // ink-subtle rather than ink-muted — ink-muted fails outright in dark mode
-  // (grey-400 on navy-700 = 1.86:1) and only barely clears AA in light mode
-  // (4.67:1). Do not step the light-mode fill up to border-subtle (grey-200),
-  // which would drop this to 3.76:1 and fail.
+  // ink-subtle rather than ink-muted, because ink-muted only barely clears AA
+  // against the light-mode fill (4.67:1). Do not step the light-mode fill up to
+  // border-subtle (grey-200), which would drop this to 3.76:1 and fail.
+  //
+  // In dark mode the fill no longer diverges from --color-surface-muted: both
+  // are navy-800 now, so the dark pair below is the same check as
+  // 'dark subtle text on muted surface'. Kept as its own line because the hero
+  // is the one place a stat sits inside the fill rather than beside it.
   ['ink-subtle on stat blob fill (grey-600 on grey-100)', P.grey600, P.grey100, 'normal'],
-  ['ink-subtle on stat blob fill dark (grey-300 on navy-800)', P.grey300, P.navy800, 'normal'],
+  ['ink-subtle on stat blob fill dark (grey-200 on navy-800)', P.grey200, P.navy800, 'normal'],
 ];
 
 // ---------------------------------------------------------------------------

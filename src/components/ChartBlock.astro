@@ -597,12 +597,14 @@ const variantViews = hasVariants
                   )}
 
                   {view.pngPath && view.renderedBars.length === 0 ? (
-                    <img
-                      src={view.pngPath}
-                      alt={view.summary}
-                      class="chart-block__png-image"
-                      loading="lazy"
-                    />
+                    <div class="chart-block__png-plate">
+                      <img
+                        src={view.pngPath}
+                        alt={view.summary}
+                        class="chart-block__png-image"
+                        loading="lazy"
+                      />
+                    </div>
                   ) : (
                     <>
                       <div class="chart-block__axis" aria-hidden="true">
@@ -828,12 +830,14 @@ const variantViews = hasVariants
           ) : plotSvg ? (
             <div class="chart-block__plot" set:html={plotSvg} />
           ) : pngIsPrimaryVisual ? (
-            <img
-              src={pngPath}
-              alt={summary}
-              class="chart-block__png-image"
-              loading="lazy"
-            />
+            <div class="chart-block__png-plate">
+              <img
+                src={pngPath}
+                alt={summary}
+                class="chart-block__png-image"
+                loading="lazy"
+              />
+            </div>
           ) : (
             <>
               <div class="chart-block__axis" aria-hidden="true">
@@ -1307,6 +1311,25 @@ const variantViews = hasVariants
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  /* Archived PNGs (~33 charts across the 2023/2024 reports) carry a baked-in
+     white background from the original export. On a dark page that renders
+     as a bright rectangle punched through the layout, so mount it on a
+     plate instead — presented as a deliberate artefact, not a hole in the
+     page. Applied in both themes, not only dark: a plate that only appears
+     in dark mode would make the same chart read as two different
+     components depending on theme. --color-chart-plate-surface stays
+     cream-50 in both themes (see _semantic.css) — --color-surface and
+     --color-inverse-surface both flip with the theme and would go dark or
+     backwards here. Deliberately no filter on the image itself: dimming or
+     inverting would desaturate the chart's data and can push text baked
+     into the PNG below AA. */
+  .chart-block__png-plate {
+    padding: var(--space-5);
+    background: var(--color-chart-plate-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-blob-motif);
   }
 
   /* Observable Plot SVG (src/lib/plot.ts) — injected via set:html, so its

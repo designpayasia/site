@@ -130,9 +130,23 @@
   --color-ink-subtle: var(--color-grey-600);
 
   /* Separate alias for the hero blob fill (defaults to surface-muted in light
-     mode). Exists so _dark.css can diverge from the general surface-muted
-     value — dark mode's surface-muted is navy-700, which fails AA for the
-     ink-muted text rendered inside the blob; the blob needs its own darker
-     dark-mode fill instead. */
+     mode). Used to diverge from surface-muted in dark mode, when surface-muted
+     was navy-700 — anomalously light for a dark surface, and no grey in the
+     scale cleared AA against it. Surface-muted itself moved to navy-800 for
+     the same reason, so the two tokens now resolve to the same value in both
+     themes. The alias stays: the hero is the one place a stat sits inside the
+     fill rather than beside it, so it keeps its own hook for the next time
+     that placement needs to diverge again. */
   --color-stat-blob-fill: var(--color-surface-muted);
+
+  /* Mounting surface for archived chart PNGs (ChartBlock's png-plate — see
+     that component). Those images carry a baked-in white background from
+     the original export, so they need a surface that reads as "light
+     paper" in both themes, not one that follows the page. --color-surface
+     and --color-inverse-surface both get dark-mode overrides in _dark.css
+     — surface goes dark, and inverse-surface (which is dark in light mode)
+     flips to light in dark mode, i.e. the opposite of what's needed here.
+     This alias deliberately carries no entry in _dark.css, so it stays
+     cream-50 in both themes. */
+  --color-chart-plate-surface: var(--color-cream-50);
 }

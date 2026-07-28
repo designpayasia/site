@@ -102,13 +102,15 @@ const reportMeta = (report: (typeof featuredReports)[number]) => [
         <div class="hero__stat">
           {/*
             Full-strength fill (no opacity reduction) via --color-stat-blob-fill, a
-            surface-muted alias (see _semantic.css) that dark mode overrides to
-            navy-800 rather than the general surface-muted navy-700 — navy-700
-            fails AA against the ink text painted inside the blob (1.86:1). The
-            BigStat label and source line below use --color-ink-subtle rather
-            than --color-ink-muted for the same reason: ink-muted only clears AA
-            against surface-muted in light mode (4.67:1) and fails outright in
-            dark mode; ink-subtle clears both (7.47:1 light, 5.57:1 dark). See
+            surface-muted alias (see _semantic.css) kept as its own hook for the
+            hero specifically, since this is the one place a stat sits inside a
+            fill rather than beside it. It resolves to navy-800 in dark mode, same
+            as surface-muted generally now. The BigStat label and source line
+            below use --color-ink-subtle rather than --color-ink-muted: both clear
+            AA against the fill in both themes, but ink-subtle carries more
+            headroom (7.47:1 light, 7.86:1 dark) than ink-muted (4.67:1 light,
+            5.57:1 dark), and inside a filled shape rather than on the page
+            background, that headroom is worth spending. See
             scripts/a11y-contrast.mjs.
           */}
           <Blob
@@ -308,10 +310,10 @@ const reportMeta = (report: (typeof featuredReports)[number]) => [
     color: var(--color-ink-subtle);
   }
 
-  /* BigStat's own label defaults to --color-ink-muted, which fails AA against
-     --color-stat-blob-fill in dark mode (1.86:1) — see the Blob comment above.
-     Reach-in scoped to the hero blob only; BigStat.astro's global label colour
-     is untouched. */
+  /* BigStat's own label defaults to --color-ink-muted, which clears AA against
+     --color-stat-blob-fill in both themes but with less headroom than
+     ink-subtle — see the Blob comment above. Reach-in scoped to the hero blob
+     only; BigStat.astro's global label colour is untouched. */
   .hero__stat :global(.bigstat__label) {
     color: var(--color-ink-subtle);
   }
