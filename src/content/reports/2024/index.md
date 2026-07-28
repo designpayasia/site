@@ -27,7 +27,7 @@ hub:
     evidenceId: 'evidence:2024-total-respondents'
     sampleSize: 1797
 summary: |
-  Last year, we launched our first report to start conversations about pay transparency in Southeast Asia's design industry. This year the report covers more ground, with responses from 1,797 designers across five markets.
+  Design Pay Asia's second report covers more ground than the first, with responses from 1,797 designers across five markets.
 
   What began in Singapore has grown into something truly regional. We expanded our reach into Indonesia, Malaysia, Vietnam, and Thailand to understand how designers across different economies are navigating compensation, job security, specialisation, and career growth. It speaks to designers building their careers, and to the leaders and educators shaping what the profession looks like next in the region.
 team:
