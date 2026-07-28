@@ -202,7 +202,11 @@ const applyBlocks = new Map(); // group name -> list of normalised declaration s
 for (const match of darkCss.matchAll(
   /dark-apply:([a-z]+):start\s*\*\/([\s\S]*?)\/\*\s*dark-apply:\1:end/g,
 )) {
-  const declarations = [...match[2].matchAll(/(--[a-zA-Z0-9_-]+)\s*:\s*([^;]+);/g)]
+  // Comments blanked inside the block body, not across the file, because the
+  // markers delimiting these blocks are themselves comments. Without this, a
+  // commented out override left behind in one block reads as a live
+  // declaration and lets real drift pass as a match.
+  const declarations = [...blankComments(match[2]).matchAll(/(--[a-zA-Z0-9_-]+)\s*:\s*([^;]+);/g)]
     .map(([, token, value]) => `${token}:${value.trim()}`)
     .sort()
     .join('\n');

@@ -98,9 +98,14 @@ const title = `${year} ${kindLabel.toLowerCase()}`;
       border-color var(--transition-hover);
   }
 
+  /* Derived from the card's own text colour rather than --color-border-strong,
+     which is cream-500 whatever the page does. On a dark page the card flips to
+     a light surface, and cream-500 on cream-50 is 2.18:1 — under the 3:1 floor
+     for a UI boundary. Mixing the inverse text colour follows the flip: roughly
+     5:1 on the navy card, 3.5:1 on the light one. */
   .entry-card:hover {
     transform: translateY(-0.25rem);
-    border-color: var(--color-border-strong);
+    border-color: color-mix(in srgb, var(--color-inverse-text) 55%, transparent);
   }
 
   .entry-card:focus-visible {

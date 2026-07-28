@@ -22,10 +22,34 @@ const cloudflareToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
 ---
 
 <!doctype html>
-<html lang="en" data-theme>
+{/*
+  No data-theme attribute here. Its absence is what lets the reader's OS
+  preference govern (see _dark.css); the script below adds it only for a reader
+  who has explicitly chosen otherwise. A hardcoded value would override
+  everyone's system setting on every page.
+*/}
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/*
+      First thing in the head, before the stylesheets, and deliberately inline
+      and synchronous. A reader who chose a theme must get it applied before
+      first paint; a deferred or module script runs after, and they would watch
+      the page flash the other theme on every navigation. Nothing here touches
+      the DOM beyond the root attribute, so it cannot block on layout.
+    */}
+    <script is:inline>
+      try {
+        const stored = localStorage.getItem('dpa-theme');
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.dataset.theme = stored;
+        }
+      } catch {
+        // Storage blocked. The OS preference still applies.
+      }
+    </script>
     <meta name="generator" content={Astro.generator} />
 
     <!-- Canonical -->
