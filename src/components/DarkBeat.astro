@@ -49,7 +49,8 @@ const {
 // --type-stat-tracking (-0.03em, applied per character) subtracts from that,
 // giving a net 0.59em advance per character at this face/tracking pairing.
 const MONO_ADVANCE = 0.59;
-// Segment gap (flex `gap: 0.12em` between affix/core/suffix/unit spans) and
+// Segment gap (flex `--type-stat-unit-gap`, 0.12em, between
+// affix/core/suffix/unit spans) and
 // affix/unit scale (DESIGN.md: stat units set at 0.42em) mirror the CSS
 // rules below — keep these two in sync with the stylesheet if either rule
 // changes.
@@ -251,7 +252,7 @@ const statusLabel =
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 0.12em;
+    gap: var(--type-stat-unit-gap);
     min-width: 0;
     overflow: visible;
     font-family: var(--type-stat-face);

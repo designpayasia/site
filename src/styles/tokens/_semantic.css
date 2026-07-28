@@ -104,19 +104,15 @@
      Layout zones (§7)
      prose    = body text, max ~65–70 chars
      editorial = section headings, wider editorial copy
-     full     = charts, images, hero moments, blob architecture
      -------------------------------------------------------------------------- */
   --zone-prose:    var(--width-prose);
   --zone-editorial: var(--width-editorial);
-  --zone-full:     var(--width-full);
   --site-max-width: var(--width-site-max);
 
   /* --------------------------------------------------------------------------
      Motion (§9)
      -------------------------------------------------------------------------- */
   --transition-hover:    var(--duration-hover)  var(--easing-standard);
-  --transition-reveal:   var(--duration-medium) var(--easing-out);
-  --duration-count-up:   var(--duration-slow);
 
   /* --------------------------------------------------------------------------
      Border radius — blob chamfer motif (§3 D″ geometry)
