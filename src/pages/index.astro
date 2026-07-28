@@ -79,11 +79,21 @@ const featuredReportMeta = [
         </div>
 
         <div class="hero__stat">
+          {/*
+            Full-strength fill (no opacity reduction) via --color-stat-blob-fill, a
+            surface-muted alias (see _semantic.css) that dark mode overrides to
+            navy-800 rather than the general surface-muted navy-700 — navy-700
+            fails AA against the ink text painted inside the blob (1.86:1). The
+            BigStat label and source line below use --color-ink-subtle rather
+            than --color-ink-muted for the same reason: ink-muted only clears AA
+            against surface-muted in light mode (4.67:1) and fails outright in
+            dark mode; ink-subtle clears both (7.47:1 light, 5.57:1 dark). See
+            scripts/a11y-contrast.mjs.
+          */}
           <Blob
             as="clip"
             aspect={1}
-            opacity={0.55}
-            fill="var(--color-surface-muted)"
+            fill="var(--color-stat-blob-fill)"
             class="hero__stat-shape"
           />
           <div class="hero__stat-content">
@@ -218,6 +228,23 @@ const featuredReportMeta = [
     overflow: hidden;
   }
 
+  /* Gentle drift — shape and stat move together as one container. Transform-only,
+     no will-change (the motion is slow enough not to need a compositing hint). */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__stat {
+      animation: hero-stat-float 28s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes hero-stat-float {
+    from {
+      transform: translate(calc(-1 * var(--space-1)), calc(-1 * var(--space-2)));
+    }
+    to {
+      transform: translate(var(--space-1), var(--space-2));
+    }
+  }
+
   .hero__stat-shape {
     position: absolute;
     inset: 0;
@@ -241,7 +268,15 @@ const featuredReportMeta = [
 
   .hero__stat-source {
     margin: var(--space-4) 0 0;
-    color: var(--color-ink-muted);
+    color: var(--color-ink-subtle);
+  }
+
+  /* BigStat's own label defaults to --color-ink-muted, which fails AA against
+     --color-stat-blob-fill in dark mode (1.86:1) — see the Blob comment above.
+     Reach-in scoped to the hero blob only; BigStat.astro's global label colour
+     is untouched. */
+  .hero__stat :global(.bigstat__label) {
+    color: var(--color-ink-subtle);
   }
 
   .manifesto,
@@ -290,8 +325,34 @@ const featuredReportMeta = [
     }
 
     .hero__stat {
-      width: min(100%, 420px);
+      /* Tighter than the ~389px desktop shape (4/12 columns at 1280 site-max) so
+         the fixed-floor stat figure (see below) reads as a fill, not a mass. */
+      width: min(100%, 360px);
       margin: 0 auto;
+    }
+  }
+
+  /* BigStat's hero clamp prefers min(5cqi, 90cqi / (chars * 0.62)), which floors
+     at 4rem for short values at any container under ~1280px wide — 5cqi never
+     clears the floor in a ~300–350px blob, so the number renders the same
+     ~64px whether the shape is 360px (tablet) or ~389px (desktop, 4/12 columns
+     at the 1280 site-max). Override the same custom property BigStat itself
+     sets (not a flat font-size) so the character-count overflow guard
+     (90cqi / (chars * 0.62)) stays intact — a longer value still shrinks to
+     fit instead of clipping. 6rem is a plain literal, matching BigStat's own
+     clamp bounds (4rem/5rem/2.5rem/1.75rem are not tokenised either) — no existing
+     type token sits at this value, and it rarely governs anyway: the guard is
+     lower than 6rem for every realistic value/container in this range, so the
+     guard is what actually renders. No upper breakpoint bound — this runs from
+     tablet through desktop so the scale grows continuously instead of
+     collapsing back to the 4rem floor past 900px. */
+  @media (min-width: 768px) {
+    .hero__stat :global(.bigstat--hero) {
+      --_bigstat-size: clamp(
+        4rem,
+        min(6rem, calc(90cqi / (var(--_bigstat-chars, 6) * 0.62))),
+        var(--type-stat-size)
+      );
     }
   }
 

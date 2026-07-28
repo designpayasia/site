@@ -29,9 +29,11 @@ const P = {
   // Navy
   navy500:    '#4a6e99',
   navy700:    '#4a628f',
+  navy800:    '#1f3a5f',
   navy900:    '#0f1c2e',
 
   // Grey
+  grey100:    '#eeeceb',
   grey300:    '#b8b4b0',
   grey400:    '#928d89',
   grey500:    '#6d6865',
@@ -104,6 +106,15 @@ const PAIRS = [
 
   // Signal fill surface: white text on crimson-600 (e.g. badge)
   ['white on signal-fill (crimson-600)', P.white, P.crimson600, 'normal'],
+
+  // Homepage hero blob: BigStat label + source line sit directly on the
+  // full-opacity --color-stat-blob-fill, not on cream-50/navy-900. Both use
+  // ink-subtle rather than ink-muted — ink-muted fails outright in dark mode
+  // (grey-400 on navy-700 = 1.86:1) and only barely clears AA in light mode
+  // (4.67:1). Do not step the light-mode fill up to border-subtle (grey-200),
+  // which would drop this to 3.76:1 and fail.
+  ['ink-subtle on stat blob fill (grey-600 on grey-100)', P.grey600, P.grey100, 'normal'],
+  ['ink-subtle on stat blob fill dark (grey-300 on navy-800)', P.grey300, P.navy800, 'normal'],
 ];
 
 // ---------------------------------------------------------------------------

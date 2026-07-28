@@ -74,12 +74,14 @@
   --type-stat-unit-size:   var(--stat-unit-size);
   --type-stat-unit-gap:    var(--stat-unit-gap);
 
-  /* Pull-quote: 36px / 1.18 / italic / crimson — the only italic-only moment */
+  /* Pull-quote: 36px / 1.18 / italic / workhorse text with a crimson rule — the
+     only italic-only moment. The rule (border-left) carries the crimson, not the
+     body text — see PullQuote.astro. */
   --type-pullquote-size:    var(--font-size-pullquote);
   --type-pullquote-leading: var(--leading-pullquote);
   --type-pullquote-tracking: var(--tracking-normal);
   --type-pullquote-face:    var(--font-display);
-  --type-pullquote-color:   var(--color-signal-text);
+  --type-pullquote-color:   var(--color-workhorse);
 
   /* --------------------------------------------------------------------------
      Editorial scale — below display moments
@@ -130,4 +132,11 @@
   --color-border-strong: var(--color-grey-300);
   --color-surface-muted: var(--color-grey-100);
   --color-ink-subtle: var(--color-grey-600);
+
+  /* Separate alias for the hero blob fill (defaults to surface-muted in light
+     mode). Exists so _dark.css can diverge from the general surface-muted
+     value — dark mode's surface-muted is navy-700, which fails AA for the
+     ink-muted text rendered inside the blob; the blob needs its own darker
+     dark-mode fill instead. */
+  --color-stat-blob-fill: var(--color-surface-muted);
 }
