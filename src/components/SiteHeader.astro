@@ -35,10 +35,116 @@ const currentPath = Astro.url.pathname;
         </li>
       ))}
     </ul>
+
+    {/*
+      The label names the control, not the destination state. A label like
+      "Switch to dark theme" has to be kept in sync with the current theme, and
+      the theme is decided before this markup is parsed — by the reader's OS
+      unless they have chosen otherwise. A stable label is honest at first
+      paint; the icon carries which way the switch will go.
+
+      Rendered without a `hidden` fallback for no-JS readers: the OS preference
+      still applies without any script, so the only thing lost is the override.
+      A control that does nothing is worse than no control, so the script
+      unhides it — see the inline script below.
+    */}
+    <button type="button" class="theme-toggle" aria-label="Switch colour theme" hidden>
+      <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+      </svg>
+      <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="4.2" />
+        <path d="M12 1.8v3.2M12 19v3.2M4.8 4.8l2.3 2.3M16.9 16.9l2.3 2.3M1.8 12h3.2M19 12h3.2M4.8 19.2l2.3-2.3M16.9 7.1l2.3-2.3" />
+      </svg>
+    </button>
   </nav>
 </header>
 
+<script is:inline>
+  (() => {
+    const button = document.querySelector('.theme-toggle');
+    if (!button) return;
+
+    // Only shown once we know the click will do something.
+    button.hidden = false;
+
+    const root = document.documentElement;
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    button.addEventListener('click', () => {
+      // Read the rendered theme rather than a stored value: on first click
+      // there is nothing stored, and the honest starting point is whatever the
+      // reader is currently looking at.
+      const current = root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem('dpa-theme', next);
+      } catch {
+        // Private browsing, or storage disabled. The choice still applies to
+        // this page; it just will not survive navigation.
+      }
+    });
+
+    // A reader who has never chosen keeps following their OS, including when
+    // they change it mid-visit.
+    systemDark.addEventListener('change', () => {
+      try {
+        if (localStorage.getItem('dpa-theme')) return;
+      } catch {
+        return;
+      }
+      root.removeAttribute('data-theme');
+    });
+  })();
+</script>
+
 <style>
+  /* Sits with the nav links rather than apart from them: it is a control for
+     reading the site, not a setting. 44px to match .btn in global.css. */
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: none;
+    color: var(--color-ink-subtle);
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-border-subtle);
+    color: var(--color-workhorse);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 3px solid var(--color-signal-fill);
+    outline-offset: 3px;
+  }
+
+  .theme-toggle__icon {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+
+  /* Driven by tokens, not a media query, so the sitewide theme has one source
+     of truth — see _semantic.css and _dark.css. */
+  .theme-toggle__icon--sun {
+    display: var(--theme-icon-sun);
+  }
+
+  .theme-toggle__icon--moon {
+    display: var(--theme-icon-moon);
+  }
+
   .site-header {
     display: flex;
     align-items: center;

@@ -60,6 +60,12 @@
   --dark-inverse-text: var(--color-grey-900);
   --dark-inverse-signal-text: var(--color-crimson-600);
   --dark-inverse-signal-fill: var(--color-crimson-600);
+
+  /* Which icon the theme toggle shows. Kept as tokens rather than a media
+     query in SiteHeader so the switch has exactly one source of truth, and so
+     the parity check below covers it like every other page-level value. */
+  --dark-icon-sun: block;
+  --dark-icon-moon: none;
 }
 
 /* The core palette applies to any element carrying data-theme="dark", not just
@@ -115,22 +121,42 @@
    there too, the card would paint its own background cream on a cream page and
    disappear. */
 
-/* dark-apply:inverse:start */
+/* dark-apply:page:start */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --color-inverse-surface: var(--dark-inverse-surface);
     --color-inverse-text: var(--dark-inverse-text);
     --color-inverse-signal-text: var(--dark-inverse-signal-text);
     --color-inverse-signal-fill: var(--dark-inverse-signal-fill);
+    --theme-icon-sun: var(--dark-icon-sun);
+    --theme-icon-moon: var(--dark-icon-moon);
   }
 }
-/* dark-apply:inverse:end */
+/* dark-apply:page:end */
 
-/* dark-apply:inverse:start */
+/* dark-apply:page:start */
 :root[data-theme='dark'] {
   --color-inverse-surface: var(--dark-inverse-surface);
   --color-inverse-text: var(--dark-inverse-text);
   --color-inverse-signal-text: var(--dark-inverse-signal-text);
   --color-inverse-signal-fill: var(--dark-inverse-signal-fill);
+  --theme-icon-sun: var(--dark-icon-sun);
+  --theme-icon-moon: var(--dark-icon-moon);
 }
-/* dark-apply:inverse:end */
+/* dark-apply:page:end */
+
+/* Native UI — scrollbars, form controls, the canvas behind an overscroll —
+   is painted by the browser, not by these tokens. `color-scheme` is the only
+   way to tell it which way the page reads. Not a custom property, so it sits
+   outside the parity blocks above and is written out for each case. */
+:root {
+  color-scheme: light dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}

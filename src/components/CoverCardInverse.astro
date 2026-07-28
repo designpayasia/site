@@ -102,9 +102,12 @@ const statAdvance = statCore ? computeStatAdvance(statCore, statAffix, statSuffi
       border-color var(--transition-hover);
   }
 
+  /* See EntryCard: --color-border-strong is cream-500 whatever the page does,
+     which drops to 2.18:1 once the card flips to a light surface on a dark
+     page. Mixing the card's own text colour follows the flip. */
   .cover-card-inverse:hover {
     transform: translateY(-0.25rem);
-    border-color: var(--color-border-strong);
+    border-color: color-mix(in srgb, var(--color-inverse-text) 55%, transparent);
   }
 
   .cover-card-inverse:focus-visible {

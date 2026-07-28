@@ -29,6 +29,12 @@
   --color-inverse-signal-fill: var(--color-crimson-400);
   --color-action:      var(--color-navy-700);
 
+  /* Which icon the theme toggle shows: the one for the theme a click would
+     switch TO. Light page offers the moon. _dark.css flips both, so the header
+     needs no media query of its own. */
+  --theme-icon-sun: none;
+  --theme-icon-moon: block;
+
   /* Muted ink — reserved editorial support, not full signal or workhorse. */
   --color-ink-muted:   var(--color-grey-500);
 
