@@ -229,18 +229,25 @@ dark surface and no grey in the scale clears AA text against it.
 from grey-300 to grey-200, keeping both text steps clear of AA against the
 darker surface muted.
 
-An inverse beat interrupts the page: on a light page that means a navy block
-(`DarkBeat.astro`, and `CoverFullBleed`, `CoverCardInverse`, `EntryCard`,
-`StatTakeover` elsewhere), on a dark page the same intent means a light one,
-so in dark mode the `--color-inverse-*` tokens resolve to the light theme's
-own values instead — hence the table above showing the inverse beat as
-cream-on-charcoal rather than navy-on-cream. These overrides are scoped to
-`:root` only, never to a bare `[data-theme='dark']`, because several of
-those components open a dark subtree by setting `data-theme="dark"` on
-themselves while sitting on an otherwise light page; matching the bare
-attribute would paint them cream-on-cream and make them disappear.
+An inverse beat interrupts the page: on a light page that means a navy
+block, on a dark page the same intent means a light one, so in dark mode
+the `--color-inverse-*` tokens resolve to the light theme's own values
+instead — hence the table above showing the inverse beat as
+cream-on-charcoal rather than navy-on-cream. Five components open their own
+dark subtree to do this — `DarkBeat.astro`, `CoverFullBleed`,
+`CoverCardInverse`, `EntryCard`, `StatTakeover` — each setting
+`data-theme="dark"` on itself while sitting on an otherwise light page.
+`--color-inverse-*` has more consumers than those five, though: `SiteFooter`,
+the inverse variants of `Provocations` and `PullQuoteBeat`, the report
+pages' inverse bands (the hub's team and community section, the section
+page's supporting-questions band), and `ChapterRail`'s inverse-tinted
+shadow and current-page label all read the same tokens without opening a
+subtree of their own. The overrides are scoped to `:root` only, never to a
+bare `[data-theme='dark']`, because the five subtree-opening components
+would otherwise match their own override too and paint themselves
+cream-on-cream, disappearing into their own background.
 
-Outside an inverse-beat component, dark mode is driven entirely by `_dark.css` semantic overrides.
+Outside a consumer of `--color-inverse-*`, dark mode is driven entirely by `_dark.css`'s core semantic overrides.
 
 **Data-viz palette** (build-time Plot SVGs, bars, and archived PNG proof):
 

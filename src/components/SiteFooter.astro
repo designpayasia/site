@@ -74,7 +74,10 @@ const linkGroups = [
 
 <style>
   .site-footer {
-    /* R3: the footer uses the shared navy chrome via the inverse-surface role. */
+    /* R3: the footer takes the page's opposite via the inverse-surface role
+       — navy chrome on a light page, a light cream band on a dark one — so
+       it always reads as a distinct band. A navy footer on a navy page
+       would merge into the page and stop reading as a footer at all. */
     --color-dark: var(--color-inverse-surface);
     --color-dark-signal-fill: var(--color-inverse-signal-fill);
     --color-dark-signal-text: var(--color-inverse-signal-text);
