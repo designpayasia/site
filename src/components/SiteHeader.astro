@@ -185,6 +185,17 @@ const currentPath = Astro.url.pathname;
     line-height: 1;
   }
 
+  /* The theme toggle is a sibling of the link list, not an item in it: it goes
+     nowhere, so it does not belong in a list of destinations. That makes the
+     nav itself the flex row, otherwise the button lands on its own line under
+     the links. */
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-6);
+  }
+
   .site-header__nav-list {
     display: flex;
     align-items: center;
@@ -235,9 +246,13 @@ const currentPath = Astro.url.pathname;
       gap: var(--space-3);
     }
 
+    /* Full width on mobile, so the links keep the left edge and the toggle
+       takes the right rather than both bunching against one side. */
     .site-header__nav {
       width: 100%;
       min-width: 0;
+      justify-content: space-between;
+      gap: var(--space-3);
     }
 
     .site-header__nav-list {
