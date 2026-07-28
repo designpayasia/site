@@ -678,7 +678,9 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     width: 100vw;
     margin-inline: calc(50% - 50vw);
     background: var(--color-surface-muted);
-    padding-block: var(--space-14);
+    /* Vertical padding is carried by .section-editorial__inner
+       (padding-block: var(--space-16) var(--space-24)) — this rule used to
+       set padding-block with an undefined --space-14, which computed to 0. */
   }
 
   .section-editorial__inner {
@@ -784,7 +786,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   /* Shared list style for audience + what-this-means */
   .section-editorial__list {
     margin: 0;
-    padding-left: 1.25rem;
+    padding-left: var(--space-5);
     display: grid;
     gap: var(--space-3);
     list-style: disc;
@@ -823,7 +825,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .section-questions__more--standalone {
-    padding-block-start: var(--space-14);
+    padding-block-start: var(--space-16);
   }
 
   /* When DarkBeat carries the lead question, supporting list shares the
@@ -900,7 +902,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
   }
 
   .section-source-group ul {
-    padding-left: 1.25rem;
+    padding-left: var(--space-5);
   }
 
   .section-source-subhead {
@@ -915,7 +917,7 @@ const publishedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
     display: grid;
     gap: var(--space-4);
     margin-block: 0 var(--space-12);
-    padding-left: 1.25rem;
+    padding-left: var(--space-5);
   }
 
   .evidence-list__item h3 {

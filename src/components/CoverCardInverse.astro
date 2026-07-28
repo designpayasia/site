@@ -48,7 +48,8 @@ const statSuffix = stat?.unit ?? statValueMatch?.[3]?.trim();
 // rem floor can't tell a short value from a long one and either clips
 // digits or wastes space. DM Mono (tabular-nums) advance ~0.62em per
 // character; --type-stat-tracking (-0.03em/char) nets 0.59em. Affix/unit
-// spans render at 0.42em (DESIGN.md), and the flex `gap: 0.12em` between
+// spans render at 0.42em (DESIGN.md), and the flex `--type-stat-unit-gap`
+// (0.12em) between
 // segments below must stay in sync with this constant.
 const MONO_ADVANCE = 0.59;
 const AFFIX_SCALE = 0.42;
@@ -144,7 +145,7 @@ const statAdvance = statCore ? computeStatAdvance(statCore, statAffix, statSuffi
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 0.12em;
+    gap: var(--type-stat-unit-gap);
     min-width: 0;
     max-width: 100%;
     font-family: var(--font-data);
