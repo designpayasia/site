@@ -187,6 +187,42 @@ for (const token of semantics) {
   if (!referenced.has(token)) warnings.push(`${TOKENS_DIR}/_semantic.css  ${token} has no consumer`);
 }
 
+// --- the dark palette is applied twice -------------------------------------
+//
+// CSS cannot share one declaration block between a media query and an
+// attribute selector, so _dark.css applies the same palette in two places: the
+// reader's OS preference, and an explicit data-theme="dark". A token added to
+// one block and forgotten in the other would give the two entry points
+// different colours, which is the kind of drift nobody notices until a reader
+// with a system preference sees a page nobody has ever looked at.
+
+const darkCss = await readFile(resolve(ROOT, TOKENS_DIR, '_dark.css'), 'utf8');
+const applyBlocks = new Map(); // group name -> list of normalised declaration sets
+
+for (const match of darkCss.matchAll(
+  /dark-apply:([a-z]+):start\s*\*\/([\s\S]*?)\/\*\s*dark-apply:\1:end/g,
+)) {
+  const declarations = [...match[2].matchAll(/(--[a-zA-Z0-9_-]+)\s*:\s*([^;]+);/g)]
+    .map(([, token, value]) => `${token}:${value.trim()}`)
+    .sort()
+    .join('\n');
+  applyBlocks.set(match[1], [...(applyBlocks.get(match[1]) ?? []), declarations]);
+}
+
+if (applyBlocks.size === 0) {
+  errors.push(`${TOKENS_DIR}/_dark.css  no dark-apply blocks found — has the file been restructured?`);
+}
+
+for (const [group, blocks] of applyBlocks) {
+  if (blocks.length !== 2) {
+    errors.push(`${TOKENS_DIR}/_dark.css  dark-apply:${group} appears ${blocks.length} time(s), expected 2`);
+  } else if (blocks[0] !== blocks[1]) {
+    errors.push(
+      `${TOKENS_DIR}/_dark.css  dark-apply:${group} blocks have drifted — the OS-preference and data-theme paths would render differently`,
+    );
+  }
+}
+
 // --- report ----------------------------------------------------------------
 
 const scanned = `${consumers.length} file(s), ${defined.size} token(s)`;

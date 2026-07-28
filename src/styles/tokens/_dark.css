@@ -1,34 +1,136 @@
 /* ================ DPA — Dark mode semantic overrides =================
    Applied at the semantic tier only.
 
-   Toggle: data-theme="dark" on <html>.
-   V1 does not follow OS colour-scheme preference automatically. The homepage
-   has one intentional dark inversion, handled by inverse tokens in _semantic.css.
+   Two entry points, one palette:
+
+   - the reader's OS preference, unless they have explicitly chosen light
+   - data-theme="dark" on <html>, an explicit choice that wins over the OS
+
+   V1 deliberately ignored `prefers-color-scheme` and treated dark as an
+   intentional act. That held while dark mode was unreachable — <html> carried
+   a bare `data-theme` attribute that matched no selector, so none of this file
+   rendered anywhere. Now that a reader can actually get here, defaulting to
+   their stated system preference is the less surprising behaviour, and the
+   toggle covers the case where they want the other one. DESIGN.md § Dark mode
+   records the reversal.
+
+   The values live in --dark-* once and are applied twice, because CSS has no
+   way to share one declaration block between a media query and an attribute
+   selector. `pnpm run audit:tokens` fails if the two application blocks drift
+   apart, so the duplication cannot rot.
 
    Navy (#0f1c2e) is the dark surface — decided in §4.
    Crimson remains the signal role, split for dark-surface readability.
 */
 
-[data-theme="dark"] {
-  --color-signal-fill: var(--color-crimson-400);
-  --color-signal-text: var(--color-crimson-300);
-  --color-signal: var(--color-crimson-400);
-  --color-signal-wash: var(--color-navy-700); /* faint dark surface, not light pink */
+:root {
+  --dark-signal-fill: var(--color-crimson-400);
+  --dark-signal-text: var(--color-crimson-300);
+  --dark-signal: var(--color-crimson-400);
+  --dark-signal-wash: var(--color-navy-700); /* faint dark surface, not light pink */
 
-  --color-workhorse: var(--color-cream-50);
-  --color-ambient: var(--color-navy-900);
-  --color-action: var(--color-navy-500);
+  --dark-workhorse: var(--color-cream-50);
+  --dark-ambient: var(--color-navy-900);
+  /* navy-500 is 3.25:1 on the dark page and was never AA. It survived only
+     because nothing rendered in dark; .btn--secondary and every prose link use
+     this role. navy-200 clears AA on both dark surfaces (9.46:1 on ambient,
+     6.34:1 on surface-muted). */
+  --dark-action: var(--color-navy-200);
 
-  --color-ink-muted: var(--color-grey-400);
-  --color-ink-subtle: var(--color-grey-300);
-  --color-chart-neutral: var(--color-grey-300);
-  --color-surface: var(--color-navy-800);
-  --color-surface-muted: var(--color-navy-700);
-  --color-border-subtle: var(--color-navy-600);
-  --color-border-strong: var(--color-cream-500);
+  /* Muted text moves one step lighter than it was. navy-700 is anomalously
+     light for a dark surface (#4a628f): no grey in the scale clears AA against
+     it, which is why --color-stat-blob-fill existed as a one-off dodge. With
+     surface-muted moved to navy-800 the dodge is unnecessary, and the three
+     text steps (cream-50 > grey-200 > grey-300) all clear AA on both navy-800
+     and navy-900. */
+  --dark-ink-muted: var(--color-grey-300);
+  --dark-ink-subtle: var(--color-grey-200);
+  --dark-chart-neutral: var(--color-grey-300);
+  --dark-surface: var(--color-navy-800);
+  --dark-surface-muted: var(--color-navy-800);
+  --dark-border-subtle: var(--color-navy-600);
+  --dark-border-strong: var(--color-cream-500);
 
-  /* Hero blob fill only — darker than surface-muted (navy-700) so ink-muted
-     text painted directly inside the blob (BigStat label, source line) clears
-     WCAG AA. See _semantic.css for why this diverges from surface-muted. */
-  --color-stat-blob-fill: var(--color-navy-800);
+  /* An inverse beat interrupts the page. On a light page that means a navy
+     block; on a dark page the same intent means a light one, so the inverse
+     tokens resolve to the light theme's own values here. Left fixed, every
+     inverse component (DarkBeat, CoverFullBleed, CoverCardInverse, EntryCard,
+     StatTakeover) would render navy-900 on a navy-900 page. */
+  --dark-inverse-surface: var(--color-cream-50);
+  --dark-inverse-text: var(--color-grey-900);
+  --dark-inverse-signal-text: var(--color-crimson-600);
+  --dark-inverse-signal-fill: var(--color-crimson-600);
 }
+
+/* The core palette applies to any element carrying data-theme="dark", not just
+   <html>: DarkBeat, CoverFullBleed, CoverCardInverse, EntryCard and
+   StatTakeover each set the attribute on themselves to open a dark subtree on
+   a light page, and they rely on the semantic tokens flipping inside it.
+   The inverse tokens are handled separately below, because those must follow
+   the PAGE, not the subtree. */
+
+/* dark-apply:core:start */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-signal-fill: var(--dark-signal-fill);
+    --color-signal-text: var(--dark-signal-text);
+    --color-signal: var(--dark-signal);
+    --color-signal-wash: var(--dark-signal-wash);
+    --color-workhorse: var(--dark-workhorse);
+    --color-ambient: var(--dark-ambient);
+    --color-action: var(--dark-action);
+    --color-ink-muted: var(--dark-ink-muted);
+    --color-ink-subtle: var(--dark-ink-subtle);
+    --color-chart-neutral: var(--dark-chart-neutral);
+    --color-surface: var(--dark-surface);
+    --color-surface-muted: var(--dark-surface-muted);
+    --color-border-subtle: var(--dark-border-subtle);
+    --color-border-strong: var(--dark-border-strong);
+  }
+}
+/* dark-apply:core:end */
+
+/* dark-apply:core:start */
+[data-theme='dark'] {
+  --color-signal-fill: var(--dark-signal-fill);
+  --color-signal-text: var(--dark-signal-text);
+  --color-signal: var(--dark-signal);
+  --color-signal-wash: var(--dark-signal-wash);
+  --color-workhorse: var(--dark-workhorse);
+  --color-ambient: var(--dark-ambient);
+  --color-action: var(--dark-action);
+  --color-ink-muted: var(--dark-ink-muted);
+  --color-ink-subtle: var(--dark-ink-subtle);
+  --color-chart-neutral: var(--dark-chart-neutral);
+  --color-surface: var(--dark-surface);
+  --color-surface-muted: var(--dark-surface-muted);
+  --color-border-subtle: var(--dark-border-subtle);
+  --color-border-strong: var(--dark-border-strong);
+}
+/* dark-apply:core:end */
+
+/* The inverse tokens follow the page, so these are scoped to :root and never
+   to a bare [data-theme='dark']. An EntryCard on a LIGHT page sets that
+   attribute on itself to open a dark subtree; if the inverse overrides matched
+   there too, the card would paint its own background cream on a cream page and
+   disappear. */
+
+/* dark-apply:inverse:start */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-inverse-surface: var(--dark-inverse-surface);
+    --color-inverse-text: var(--dark-inverse-text);
+    --color-inverse-signal-text: var(--dark-inverse-signal-text);
+    --color-inverse-signal-fill: var(--dark-inverse-signal-fill);
+  }
+}
+/* dark-apply:inverse:end */
+
+/* dark-apply:inverse:start */
+:root[data-theme='dark'] {
+  --color-inverse-surface: var(--dark-inverse-surface);
+  --color-inverse-text: var(--dark-inverse-text);
+  --color-inverse-signal-text: var(--dark-inverse-signal-text);
+  --color-inverse-signal-fill: var(--dark-inverse-signal-fill);
+}
+/* dark-apply:inverse:end */

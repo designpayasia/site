@@ -199,19 +199,47 @@ neutral ground with crimson as signal accent (not atmosphere).
 Crimson is a signal, not an atmosphere. It should feel unmissable in its role — CTAs,
 the mark, data highlights. Never use it as a background wash or decorative fill.
 
-**Dark mode** — toggle `data-theme="dark"` on `<html>`. V1 does not follow
-`prefers-color-scheme` automatically; dark mode is intentional.
+**Dark mode** — the site follows the reader's OS preference by default
+(`prefers-color-scheme: dark`); an explicit `data-theme="dark"` or
+`data-theme="light"` on `<html>` overrides it. V1 shipped `data-theme` as a
+bare, valueless attribute matching no selector, so dark mode was
+unreachable and treating it as an always-intentional act cost nothing. Now
+that a reader can actually land there, defaulting to their stated system
+preference is the less surprising choice than forcing everyone into light
+until they find a toggle.
 
 | Dark role | CSS token | Hex |
 |-----------|-----------|-----|
 | Surface | `--color-ambient` (overridden) | `#0f1c2e` (navy-900) |
 | Text | `--color-workhorse` (overridden) | `#faf8f4` (cream-50) |
+| Action | `--color-action` (overridden) | `#aec3d8` (navy-200) |
+| Surface muted | `--color-surface-muted` (overridden) | `#1f3a5f` (navy-800) |
 | Signal fill (buttons, badges, chart highlights) | `--color-signal-fill` | `#e05878` (crimson-400) |
 | Signal text (links, inline emphasis) | `--color-signal-text` | `#d7a7b4` (crimson-300) |
-| Inverse beat | `--color-inverse-surface` | `#0f1c2e` |
-| Inverse text | `--color-inverse-text` | `#faf8f4` |
+| Inverse beat | `--color-inverse-surface` (overridden) | `#faf8f4` (cream-50) |
+| Inverse text | `--color-inverse-text` (overridden) | `#1a1a1a` (grey-900) |
 
-Intentional dark inversion beats use `DarkBeat.astro` on the homepage and in report sections.
+Two palette corrections came with the reversal. `--color-action` moved from
+navy-500 (`#4a6e99`, 3.25:1 — never AA) to navy-200 (`#aec3d8`, 9.46:1 on
+ambient, 6.34:1 on surface muted): it survived at 3.25:1 only because nothing
+rendered in dark mode. `--color-surface-muted` moved from navy-700
+(`#4a628f`) to navy-800 (`#1f3a5f`): navy-700 is anomalously light for a
+dark surface and no grey in the scale clears AA text against it.
+`--color-ink-muted` moved from grey-400 to grey-300, and `--color-ink-subtle`
+from grey-300 to grey-200, keeping both text steps clear of AA against the
+darker surface muted.
+
+An inverse beat interrupts the page: on a light page that means a navy block
+(`DarkBeat.astro`, and `CoverFullBleed`, `CoverCardInverse`, `EntryCard`,
+`StatTakeover` elsewhere), on a dark page the same intent means a light one,
+so in dark mode the `--color-inverse-*` tokens resolve to the light theme's
+own values instead — hence the table above showing the inverse beat as
+cream-on-charcoal rather than navy-on-cream. These overrides are scoped to
+`:root` only, never to a bare `[data-theme='dark']`, because several of
+those components open a dark subtree by setting `data-theme="dark"` on
+themselves while sitting on an otherwise light page; matching the bare
+attribute would paint them cream-on-cream and make them disappear.
+
 Outside an inverse-beat component, dark mode is driven entirely by `_dark.css` semantic overrides.
 
 **Data-viz palette** (build-time Plot SVGs, bars, and archived PNG proof):
