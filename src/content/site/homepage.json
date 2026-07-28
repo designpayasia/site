@@ -1,6 +1,6 @@
 {
   "heroTitle": "Southeast Asia's design pay conversation",
-  "heroSummary": "Because pay is never just a number. It is context, power, and where the industry is going.",
+  "heroSummary": "Because pay is never just a number. It is context, power, and where the design industry is going.",
   "heroCtaLabel": "Read the 2024 report",
   "heroCtaHref": "/reports/2024",
   "featuredReportSlug": "2024",
@@ -14,12 +14,5 @@
       "sampleSize": 2910,
       "publishMode": "published"
     }
-  ],
-  "intro": {
-    "eyebrow": "2024 survey cycle",
-    "title": "Data from 1,797 designers across five Southeast Asian markets",
-    "body": "The 2024 DPA survey captured compensation, career progression, negotiation behaviour, and job market sentiment from Indonesia, Singapore, Malaysia, Vietnam, and Thailand. Every published figure links to a named evidence record. This is first-draft data from the 2024 report source text; sample sizes will be confirmed against the ObservableHQ source sheet in a later pass.",
-    "ctaLabel": "Contribute data",
-    "ctaHref": "/contribute"
-  }
+  ]
 }

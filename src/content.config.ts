@@ -455,13 +455,17 @@ const site = defineCollection({
     heroCtaHref: z.string().regex(/^\//),
     featuredReportSlug: z.string().min(1),
     stats: z.array(metricSchema).min(1),
-    intro: z.object({
-      eyebrow: z.string().min(1),
-      title: z.string().min(1),
-      body: z.string().min(1),
-      ctaLabel: z.string().min(1),
-      ctaHref: z.string().regex(/^\//),
-    }),
+    // No consumer since the evergreen homepage rebuild — kept optional rather
+    // than removed outright in case a future intro block is reintroduced.
+    intro: z
+      .object({
+        eyebrow: z.string().min(1),
+        title: z.string().min(1),
+        body: z.string().min(1),
+        ctaLabel: z.string().min(1),
+        ctaHref: z.string().regex(/^\//),
+      })
+      .optional(),
   }),
 });
 

@@ -26,4 +26,9 @@
   --color-surface-muted: var(--color-navy-700);
   --color-border-subtle: var(--color-navy-600);
   --color-border-strong: var(--color-cream-500);
+
+  /* Hero blob fill only — darker than surface-muted (navy-700) so ink-muted
+     text painted directly inside the blob (BigStat label, source line) clears
+     WCAG AA. See _semantic.css for why this diverges from surface-muted. */
+  --color-stat-blob-fill: var(--color-navy-800);
 }
