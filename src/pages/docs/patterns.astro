@@ -309,6 +309,11 @@ const tocItems = [
   title="Pattern library - Design Pay Asia"
   description="Contributor reference gallery for DPA's report pattern components, rendered with sample data."
 >
+  <Fragment slot="head">
+    <!-- Contributor reference, not a reader surface (see route-purposes.json)
+         — kept out of search results and excluded from the sitemap. -->
+    <meta name="robots" content="noindex" />
+  </Fragment>
   <header class="pattern-library-intro">
     <div class="pattern-library-intro__inner">
       <p class="label-mono">Docs</p>
