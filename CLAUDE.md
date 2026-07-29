@@ -190,7 +190,9 @@ Before marking any task done:
 9. Visual verify in browser: golden path (homepage → report hub → section detail → docs) + edge cases
 10. Run humanizer on all new or edited prose
 
-## Delegation (per delegation-playbook.md)
+## Delegation
+
+The full playbook lives in the maintainer's notes, not in this repo. Everything needed to follow it is restated below — do not go looking for a `delegation-playbook.md` here.
 
 All non-trivial work follows the T1/T2/T3 delegation model. Route by task shape, not by brand.
 
