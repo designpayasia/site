@@ -37,6 +37,13 @@ const cloudflareToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Mobile browser chrome colour. A meta tag can't take a var(), so these
+         are literal hex mirrors of --color-ambient: light mirrors
+         --color-cream-50, dark mirrors --dark-ambient (--color-navy-900). If
+         those primitives ever drift, these two lines are the place to check. -->
+    <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1c2e" media="(prefers-color-scheme: dark)" />
+
     {/*
       First thing in the head, before the stylesheets, and deliberately inline
       and synchronous. A reader who chose a theme must get it applied before
