@@ -9,10 +9,13 @@
  * the shape on the page. Design spec §3 requires exactly this: the favicon sizes are
  * re-exported from the master path, never redrawn as simplified small-scale geometry.
  *
- * The icon mark is the blob with its own counter. The blob already reads as a D —
- * flat left edge, round right, chamfered top-left — so the aperture is a scaled copy
- * of the same path rather than a letterform borrowed from a typeface. That keeps the
- * mark self-similar and, more practically, means it needs no font to build.
+ * The icon mark is the blob, solid. It already reads as a D on its own — flat left
+ * edge, round right, chamfered top-left — and it needs no font to build, which is why
+ * the small sizes can come straight off the master path.
+ *
+ * An earlier version knocked a counter through the middle, a scaled copy of the same
+ * path, to make the D explicit. Dropped on the owner's call: solid holds the crimson
+ * better at small sizes, and the silhouette is the thing people recognise.
  *
  * The OG card uses the full wordmark logo because its letterforms are already
  * outlined paths. No font file is required anywhere in this script, which matters:
@@ -34,26 +37,16 @@ const CRIMSON = '#991844';
 const CREAM = '#faf8f4';
 
 /* A mark that bleeds to the canvas edge reads wrong in a browser tab, so the shape
-   is inset by 6% of the field. The counter is placed to leave the left stem and the
-   right wall even; at 16px an off-centre counter closes up on one side. */
+   is inset by 6% of the field. */
 const PAD = 24;
 const INSET = (BLOB_VIEWBOX - 2 * PAD) / BLOB_VIEWBOX;
-const COUNTER_SCALE = 0.45;
-const COUNTER_X = 110;
-const COUNTER_Y = 110;
 
-/* Outer shape and counter are subpaths of ONE path with fill-rule="evenodd". Two
-   sibling <path> elements would not knock through — evenodd only resolves within a
-   single path, so the counter would render as a filled shape sitting on top. */
-const markPath = [
-  blobPath({ scale: INSET, x: PAD, y: PAD }),
-  blobPath({ scale: COUNTER_SCALE * INSET, x: PAD + COUNTER_X * INSET, y: PAD + COUNTER_Y * INSET }),
-].join(' ');
+const markPath = blobPath({ scale: INSET, x: PAD, y: PAD });
 
 const markSvg = (background) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${BLOB_VIEWBOX} ${BLOB_VIEWBOX}">` +
   (background ? `<rect width="${BLOB_VIEWBOX}" height="${BLOB_VIEWBOX}" fill="${background}"/>` : '') +
-  `<path fill="${CRIMSON}" fill-rule="evenodd" d="${markPath}"/>` +
+  `<path fill="${CRIMSON}" d="${markPath}"/>` +
   `</svg>\n`;
 
 const rasterise = (size, background) =>
