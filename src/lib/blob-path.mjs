@@ -16,8 +16,8 @@ export const BLOB_VIEWBOX = 400;
  * Re-emit the master path under a uniform scale and translate, in the same
  * 400×400 field. Arc radii scale with it, so the chamfer stays proportional.
  *
- * Used to place a smaller copy of the blob inside a larger one, which is how the
- * icon mark gets its counter: the aperture of the D is the mark repeating itself.
+ * Used by the icon exporter to inset the shape inside its canvas, so the mark does
+ * not bleed to the edge of a browser tab.
  */
 export function blobPath({ scale = 1, x = 0, y = 0 } = {}) {
   const px = (v) => +(v * scale + x).toFixed(3);
