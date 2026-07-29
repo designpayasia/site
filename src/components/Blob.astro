@@ -1,4 +1,6 @@
 ---
+import { BLOB_PATH } from '../lib/blob-path.mjs';
+
 type BlobMode = 'clip' | 'fill';
 type BlobSize = number | string;
 
@@ -15,9 +17,6 @@ interface Props {
   style?: string;
   'aria-hidden'?: boolean | 'true' | 'false';
 }
-
-const BLOB_PATH =
-  'M0 400 V133.14 A80 80 0 0 1 23.43 76.57 L76.57 23.43 A80 80 0 0 1 133.14 0 H200 A200 200 0 0 1 200 400 Z';
 
 const {
   as = 'clip',
