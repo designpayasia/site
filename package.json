@@ -20,7 +20,8 @@
     "redirects:sync": "node ./scripts/redirects.mjs",
     "redirects:check": "node ./scripts/redirects.mjs --check",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "marks:generate": "node ./scripts/generate-marks.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "sharp": "^0.34.5"
   }
 }
