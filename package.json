@@ -23,6 +23,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@observablehq/plot": "^0.6.17",
     "astro": "^6.3.7",
     "linkedom": "^0.18.13"
