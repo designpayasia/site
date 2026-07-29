@@ -8,8 +8,10 @@ Site: `https://designpay.asia`. Repo: `designpayasia/site`.
 
 ## Commands
 
+Node 22 is required (`.nvmrc`, `package.json` engines). The shell's default Node can drift out of range — if so, run scripts as `CI=true mise exec node@22 -- pnpm run <script>` rather than trusting `nvm use`.
+
 ```bash
-nvm use && pnpm install           # first-time setup
+pnpm install                      # first-time setup
 pnpm dev                          # dev server (localhost:4321)
 pnpm build                        # site build (alias for build:site plus a11y:charts)
 pnpm build:site                   # site only
@@ -31,23 +33,23 @@ pnpm run preview                  # local preview of built site
 src/
   components/           # Astro components only (.astro — no React/Vue/Svelte)
   content/
+    contributors/       # roster.json — contributor list
     docs/               # public documentation (*.md, one per /docs/<slug>)
     evidence/           # named evidence entries (*.json, one per evidenceId)
-    reports/            # 2023.md, 2024.md
+    reports/            # <year>/index.md (report) + <year>/<section>.md (report sections)
     site/               # site-level content (*.json)
   content.config.ts     # Zod schemas — single source of truth for all collections
   data/
     redirects.json      # canonical redirect map
-    route-purposes.json # route pattern → purpose, rendered in the /ops inventory
+    route-purposes.json # route pattern → purpose, checked against routes.mjs by audit:ops
   lib/
     evidence.ts         # evidence helpers (buildEvidenceMap, collectEvidence, MIN_SAFE_COHORT)
-    routes.mjs          # route discovery from src/pages + collections (used by /ops and audit:ops)
+    routes.mjs          # route discovery from src/pages + collections — consumed only by audit:ops, not by the build
   layouts/              # Astro layout components
   pages/
     index.astro                    # homepage
     about.astro                    # about page
     contribute.astro               # contribute page
-    ops.astro                      # continuity spine + architecture + succession
     reports/index.astro            # report hub
     reports/[slug].astro           # report landing page
     reports/[year]/[section].astro # report section detail page
@@ -61,8 +63,8 @@ src/
       _dark.css         # data-theme="dark" overrides only
     global.css          # import order: primitives → semantic → dark → base
 public/
-  charts/2024/<section>/ # archived chart PNGs (68 total across 8 sections)
-  team/2024/              # team member headshots
+  charts/<year>/<section>/ # archived chart PNGs (2024: 52 across 8 sections; 2023 also present)
+  team/<year>/              # team member headshots (2023 and 2024)
 ```
 
 ## Non-obvious constraints
@@ -122,9 +124,9 @@ Each evidence JSON file in `src/content/evidence/` requires: `id`, `title`, `sum
 - Report detail pages live under `src/pages/reports/[year]/[section].astro`. The `[section]` param is a slug from the report's `sections[].id`.
 - All static pages have their own `.astro` file under `src/pages/`.
 - Docs: `/docs/*` — rendered from the `docs` content collection, not from per-page `.astro` files. Adding a doc means adding one `.md` file to `src/content/docs/`; no Astro required. `/docs/patterns` is the one exception and stays a hand-built `.astro` page because it hosts live component demos.
-- Ops: `/ops` — continuity spine, architecture, succession, ownership matrix, route inventory.
-- The `/ops` route inventory is generated at build time by `src/lib/routes.mjs`. Never hand-edit it. A new route needs a purpose entry in `src/data/route-purposes.json`, and `pnpm run audit:ops` fails until it has one. A new *dynamic* route also needs an expander in `routes.mjs`, or the build throws.
-- Report sections listed in `src/data/unrouted-sections.json` exist as content but get no route — they render inside the report landing page. That file is the single source: `src/pages/reports/[year]/[section].astro` filters `getStaticPaths` by it, and `src/lib/routes.mjs` skips those ids when building the `/ops` inventory. Do not re-inline the list.
+- `/ops` was retired; its content — continuity spine, architecture, succession, ownership matrix — now lives in the repo `README.md`.
+- `src/lib/routes.mjs` derives every route pattern from `src/pages` and the content collections. Nothing in the build reads it any more; only `pnpm run audit:ops` does, checking each pattern has a purpose entry in `src/data/route-purposes.json` (and vice versa) and that the README still covers the required continuity-spine terms. Never hand-edit `routes.mjs`. A new route needs a purpose entry in `route-purposes.json`, and `audit:ops` fails until it has one. A new *dynamic* route also needs an expander in `routes.mjs`, or `audit:ops` throws.
+- Report sections listed in `src/data/unrouted-sections.json` exist as content but get no route — they render inside the report landing page. That file is the single source: `src/pages/reports/[year]/[section].astro` filters `getStaticPaths` by it, and `src/lib/routes.mjs` skips those ids when listing route patterns. Do not re-inline the list.
 - Report methodology is authored **only** as `methodologyStrip` in the report's `index.md` frontmatter, and the schema requires it. Do not add a `methodology.md` section file — there is no longer a render path for one, so its content would be invisible.
 - Internal links are root-relative. The live domain appears in exactly three places: `site` in `astro.config.mjs`, the resolver base in `src/lib/evidence.ts`, and the citation example in `src/content/docs/using-our-data.md`. `sourceUrl` and `references[].url` accept either an external URL or a `/`-prefixed path (`sourceUrlSchema`).
 
@@ -185,7 +187,7 @@ Before marking any task done:
 6. Evidence/data changes → `pnpm run audit:pii`
 7. URL/route changes → `pnpm run redirects:check`
 8. Redirect changes → `pnpm run redirects:sync` then `pnpm run redirects:check`
-9. Visual verify in browser: golden path (homepage → report hub → section detail → ops) + edge cases
+9. Visual verify in browser: golden path (homepage → report hub → section detail → docs) + edge cases
 10. Run humanizer on all new or edited prose
 
 ## Delegation (per delegation-playbook.md)
@@ -219,14 +221,8 @@ Rules:
 - **Evidence data entry** (adding JSON to evidence/) → T1 extractor, T2 editorial review
 - **Audit runs** (PII, tokens, a11y, ops) → T1 — but fix findings at appropriate tier
 
-### Bridge access
+### Environment
 
-The repo lives on macOS at `/Users/jon/Documents/GitHub/designpayasia/site`. When operating from the Hermes container, use the SSH bridge:
+The repo lives at `/Volumes/Workspace/projects/designpayasia/site` and runs directly on the host — no container, no bridge.
 
-```bash
-ssh -i ~/.ssh/mac-bridge jon@192.168.1.176 "cd /Users/jon/Documents/GitHub/designpayasia/site && <command>"
-```
-
-For pnpm/node commands, prepend PATH: `zsh -l -c 'export PATH="/opt/homebrew/bin:$PATH" && <command>'`
-
-RTK is container-only — do not prefix macOS host commands with `rtk`.
+The shell's default Node drifts out of the required range (`>=22.12.0 <25`). Run scripts as `CI=true mise exec node@22 -- pnpm run <script>` rather than relying on `nvm use`.
