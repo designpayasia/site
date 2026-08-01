@@ -4,7 +4,7 @@ summary: Small-cohort suppression, disclosure rules, and how to ask for a correc
 group: trust
 order: 1
 status: published
-updated: '2026-07-25'
+updated: '2026-07-31'
 related:
   - label: Using our data
     href: /docs/using-our-data
@@ -45,11 +45,21 @@ A 0% or 100% figure inside a small cohort is still a disclosure. It confirms tha
 
 Treat it under the same `MIN_SAFE_COHORT` rule as any other statistic from that cohort. It is not exempt because the number looks empty.
 
+## What the open dataset contains
+
+One row per response: country, city, job title as written, employer name where the respondent chose to give one, seniority level, years of experience, education, work arrangement, company type and size, design team size, currency, and compensation figures.
+
+The survey has never collected names, email addresses, phone numbers, or any other contact detail. Employer name and job title are optional: a respondent decides whether to give them. DPA is community-built, and knowing where pay data comes from is part of what makes it useful to the next person comparing an offer.
+
+Free-text answers are not part of this dataset. See Free-text responses below.
+
+The suppression rule above governs figures rather than rows. Any statistic DPA publishes comes from a cohort of ten responses or more, and a thinner cohort is suppressed rather than rounded or merged into a larger one. The dataset itself is row-level, so anyone recalculating from it should apply the same floor.
+
 ## Free-text responses
 
-Open-text answers are never published verbatim. They carry writing style, specific employer or project detail, and other identifying context that a number does not.
+Two free-text fields are never published verbatim: "any other comments or feedback" and "other benefits". That is a different rule from the employer name and job title fields described above, which are short, optional, and published as given. Prose is different in kind: what a respondent puts into an open box unprompted often includes specific incidents, other people's names, or detail no structured field asks for.
 
-They are used only in aggregate or paraphrased theme form, with no attribution back to a respondent.
+They are used only in aggregate or as paraphrased themes. No verbatim comment is ever tied to a named company.
 
 ## The PII audit gate
 
