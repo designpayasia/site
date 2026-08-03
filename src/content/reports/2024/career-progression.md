@@ -82,7 +82,7 @@ charts:
   - id: 'career-satisfaction'
     title: I am satisfied with my current career progression
     caption: Career satisfaction rating distribution across all designers surveyed.
-    summary: '42.1% reported high satisfaction (ratings 5–7), while 48.5% rated satisfaction in the mid range (4–5).'
+    summary: 'Just under half rate their career progression in the middle of the scale (4–5), 48.2%. High satisfaction (6–7) reaches 19.2%, and 32.6% sit in the bottom three ratings.'
     evidenceIds: ['evidence:2024-career-progression']
     sourceLabel: '2024 DPA Report'
     sourceUrl: '/reports/2024'
@@ -90,12 +90,14 @@ charts:
     fallbackTable:
       columns: [Rating range, Respondents (n), Proportion]
       rows:
-        - label: Highly satisfied (5–7)
-          values: ['737', '42.1%']
-        - label: Mid-range (4–5)
-          values: ['847', '48.5%']
+        - label: High satisfaction (6–7)
+          values: ['338', '19.2%']
+        - label: Moderate (4–5)
+          values: ['847', '48.2%']
+        - label: Low satisfaction (1–3)
+          values: ['572', '32.6%']
 keyFindings:
-  - 'Mixed satisfaction with progression: 42.1% highly satisfied'
+  - 'Satisfaction clusters in the middle: 48.2% rate progression 4–5, against 19.2% high and 32.6% low'
 commentary: |-
   Looking at how designers are growing their careers, the picture is mixed.
   

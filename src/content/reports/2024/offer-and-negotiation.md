@@ -96,7 +96,7 @@ charts:
   - id: 'negotiation-confidence'
     title: I feel confident in my compensation negotiation skills
     caption: Distribution of negotiation confidence levels (1–7 scale) across all designers. Based on N=1,775 responses.
-    summary: '65.9% of designers rate their negotiation confidence at 4 or above, but high confidence (6–7) is reported by 22.2%.'
+    summary: '73.9% of designers rate their negotiation confidence at 4 or above, but high confidence (6–7) is reported by 22.2%.'
     evidenceIds: ['evidence:2024-negotiation']
     sourceLabel: '2024 DPA Report'
     sourceUrl: '/reports/2024'
@@ -107,9 +107,9 @@ charts:
         - label: High confidence (6–7)
           value: '22.2%'
         - label: Moderate confidence (4–5)
-          value: '43.7%'
+          value: '51.7%'
         - label: Low confidence (1–3)
-          value: '34.1%'
+          value: '26.1%'
   - id: 'past-salary-disclosure'
     title: Asked to provide salary information before offer
     caption: Share of employers requiring past salary disclosure before making an offer.
