@@ -20,7 +20,7 @@ hub:
     unit: '%'
     label: negotiated their compensation
     evidenceId: 'evidence:2024-negotiation'
-    sampleSize: 1775
+    sampleSize: 1784
   responses:
     value: '1,797'
     label: responses
@@ -101,7 +101,7 @@ stats:
   label: 'of designers negotiate compensation'
   color: signal
   evidenceId: 'evidence:2024-negotiation'
-  sampleSize: 1775
+  sampleSize: 1784
   publishMode: published
 - value: '70.3'
   unit: '%'
