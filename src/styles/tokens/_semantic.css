@@ -38,8 +38,20 @@
   /* Muted ink — reserved editorial support, not full signal or workhorse. */
   --color-ink-muted:   var(--color-grey-500);
 
-  /* Chart support series — supporting bars/dots only, never a background. */
-  --color-chart-neutral: var(--color-grey-350);
+  /* Chart support series — supporting bars/dots only, never a background.
+
+     grey-350 measured 2.80:1 against the cream-50 ambient, and this token
+     paints graphical objects that carry meaning: the support bars in
+     ChartBlock, the band and low-confidence dot in ChartRangeRows, the
+     neutral fills and legend dots in ChartSmallMultiples, and the neutral
+     dot in ChartDotPlot. WCAG 2.2 SC 1.4.11 wants 3:1 for those, so the
+     token steps to grey-400 at 3.10:1. The step is one rung and 8/255 per
+     channel, so the support series stays recessive: signal (crimson-600,
+     7.71:1) still reads 2.49x stronger than the neutral, and the neutral
+     stays lighter than ink-muted (grey-500, 5.19:1) so it never reads as
+     text. The dark-mode value is grey-300 in _dark.css, already 8.32:1 on
+     navy-900 and 5.57:1 on navy-800, so it needs no change. */
+  --color-chart-neutral: var(--color-grey-400);
 
   /* ink — general text colour for components (ConversationBlock, ChartBlock, StickyMeta, PullQuote) */
   --color-ink: var(--color-workhorse);

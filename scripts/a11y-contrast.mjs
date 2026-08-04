@@ -7,6 +7,11 @@
  *
  *   - Normal text (< 18pt / < 14pt bold):  contrast ratio ≥ 4.5
  *   - Large text  (≥ 18pt / ≥ 14pt bold):  contrast ratio ≥ 3.0
+ *   - Graphical objects (SC 1.4.11):       contrast ratio ≥ 3.0
+ *
+ * The third class covers tokens that paint chart marks rather than text. It
+ * was missing, and --color-chart-neutral shipped below 3:1 in light mode
+ * because nothing here was looking at it.
  *
  * The pairs are derived from the semantic roles in _semantic.css and the
  * known rendering surfaces in components. They are updated here whenever
@@ -81,6 +86,29 @@ const PAIRS = [
 
   // Ink-subtle: meta copy on cream
   ['ink-subtle meta (grey-600 on cream-50)', P.grey600, P.cream50, 'normal'],
+
+  // Light-mode --color-chart-neutral. There was no light pair here at all,
+  // only the dark one below, which is how grey-350 shipped at 2.80:1 against
+  // the ambient. The token paints graphical objects that carry meaning —
+  // support bars, the range band, legend and neutral dots — so it answers to
+  // SC 1.4.11 at 3:1, not to a text threshold. grey-400 clears it at 3.10:1.
+  //
+  // Two known gaps this pair deliberately does NOT assert, because both are
+  // properties of a consumer rather than of the token, and neither is closed
+  // by any value the token could take without the support series ceasing to
+  // read as support:
+  //
+  //   - ChartSmallMultiples paints its neutral fills inside a card whose
+  //     background is --color-surface-muted (grey-100), not the ambient. The
+  //     token measures 2.79:1 there. grey-500 would clear it at 4.67:1 but is
+  //     --color-ink-muted, so the support series would tie the axis text.
+  //   - ChartRangeRows draws its band at opacity 0.35, which composites to
+  //     roughly 1.4:1 whatever the token is. Contrast there is a function of
+  //     the opacity, not the colour.
+  //
+  // Both need a component-level fix (a lighter card, or an opacity that is
+  // not 0.35), so they are recorded here rather than asserted.
+  ['chart-neutral (grey-400 on cream-50)', P.grey400, P.cream50, 'graphic'],
 
   // Dark-beat inverse surface: cream text on navy-900
   ['inverse text (cream-50 on navy-900)', P.cream50, P.navy900, 'normal'],
@@ -158,7 +186,10 @@ function contrastRatio(hex1, hex2) {
 // Run checks
 // ---------------------------------------------------------------------------
 
-const THRESHOLD = { normal: 4.5, large: 3.0 };
+// 'graphic' is SC 1.4.11 non-text contrast, not a text threshold that happens
+// to share the number. It applies to the parts of a chart a reader has to make
+// out to read the chart at all — a bar, a band, a dot, a legend swatch.
+const THRESHOLD = { normal: 4.5, large: 3.0, graphic: 3.0 };
 
 const failures = [];
 const results = [];
