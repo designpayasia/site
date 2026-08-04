@@ -51,8 +51,13 @@
   --color-grey-100: #eeeceb;
   --color-grey-200: #d8d5d2;
   --color-grey-300: #b8b4b0;
-  --color-grey-350: #9a9591; /* chart support series */
+  --color-grey-350: #9a9591; /* was the chart support series; nothing points
+                                here now. It shipped at 2.80:1 on the ambient,
+                                under the 1.4.11 floor, and the role moved to
+                                grey-400. Left in place rather than deleted
+                                because it is a palette rung, not a role. */
   --color-grey-400: #928d89;
+  --color-grey-450: #87827e; /* chart support series on a muted card */
   --color-grey-500: #6d6865;
   --color-grey-600: #4d4a47;
   --color-grey-700: #332f2d;
