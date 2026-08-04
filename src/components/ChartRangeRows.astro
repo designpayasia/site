@@ -198,28 +198,42 @@ const renderedRows = normalizeRows(rows);
     inset: 0;
   }
 
-  /* New: faint min-max whisker, behind the band — same muted-ink language
-     as the band's own opacity treatment, thinner so it reads as structural
+  /* Min-max whisker, behind the band — thinner so it reads as structural
      context (the row's full range), not a second data mark competing with
-     the band or dot. */
+     the band or dot.
+
+     Same token as the band, and no opacity. It was border-strong at 0.35, which
+     composited to about 1.4:1; border-strong is grey-300 and reaches only 1.94:1
+     on its own, so removing the alpha would not have been enough on its own. The
+     whisker encodes the full range, which is information, so it answers to the
+     same 3:1 floor the band does. Sharing chart-neutral means the two cannot
+     drift apart: inside a small-multiples card the token is re-pointed for the
+     subtree and both marks follow it up to 3.23:1 without a second rule here.
+     Weight is what separates them, 1.5px against 5px, which is what the
+     paragraph above always claimed was doing the work. */
   .chart-range__whisker {
     position: absolute;
     top: 50%;
     height: 1.5px;
-    background: var(--color-border-strong);
-    opacity: 0.35;
+    background: var(--color-chart-neutral);
     transform: translateY(-50%);
   }
 
-  /* Band is always chart-neutral at reduced emphasis — per §1d only the dot
-     carries the tone-dependent colour, so the band never competes with it. */
+  /* Band is always chart-neutral — per §1d only the dot carries the
+     tone-dependent colour, so the band never competes with it.
+
+     No opacity. The band encodes the interquartile range, so 1.4.11 wants 3:1
+     from it, and compositing chart-neutral at 0.35 landed it near 1.4:1 whatever
+     the token underneath was worth. Reduced emphasis now comes from hue and
+     weight instead: a neutral bar 5px tall against a dot that carries the tone
+     colour. That was always what separated them; the alpha was only making the
+     band harder to see. */
   .chart-range__band {
     position: absolute;
     top: 50%;
     height: 5px;
     border-radius: 999px;
     background: var(--color-chart-neutral);
-    opacity: 0.35;
     transform: translateY(-50%);
   }
 

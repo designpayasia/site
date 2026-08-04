@@ -267,7 +267,11 @@ const cells = displayMetrics.map((metric, index) => {
     font-family: var(--font-data);
     font-size: var(--ui-meta);
     font-variant-numeric: tabular-nums;
-    color: var(--color-chart-neutral);
+    /* ink-muted, not chart-neutral: this is text at --ui-meta, so it answers to
+       the 4.5:1 text floor rather than the 3:1 one for chart marks. The chart
+       token is sized for marks and reaches 3.10:1, which is a pass for a bar and
+       a fail for eleven-pixel type. Its siblings above already use ink-muted. */
+    color: var(--color-ink-muted);
   }
 
   .metric-shelf__chip svg {

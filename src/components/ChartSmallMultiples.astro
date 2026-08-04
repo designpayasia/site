@@ -378,6 +378,14 @@ const blockId = makeBlockId(title, sourceLabel, reportPath, evidenceIds.join('-'
     gap: var(--space-3);
     min-width: 0;
     background: var(--color-surface-muted);
+    /* The card fills its own background, so every mark inside it is judged
+       against surface-muted rather than the ambient page. chart-neutral is sized
+       against the latter and drops to 2.79:1 here, under the 1.4.11 floor,
+       without anything in the chart itself changing. Re-point the token for this
+       subtree only. Nothing outside a card is affected, which is the point: on
+       the ambient background grey-400 already passes and is the lighter, better
+       choice against the signal colour. */
+    --color-chart-neutral: var(--color-chart-neutral-on-muted);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-blob-motif);
     padding: var(--space-4);

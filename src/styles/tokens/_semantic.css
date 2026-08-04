@@ -53,6 +53,18 @@
      navy-900 and 5.57:1 on navy-800, so it needs no change. */
   --color-chart-neutral: var(--color-grey-400);
 
+  /* The same support series where it is painted on a muted card rather than on
+     the ambient background. grey-400 is sized against cream-50 and only reaches
+     2.79:1 on surface-muted, so a card that fills its background drops the
+     series below the 1.4.11 floor without changing a single declaration in the
+     chart. grey-450 restores it at 3.23:1 and is still two rungs lighter than
+     ink-muted, so the axis text stays the darker of the two. Scope this to the
+     card, never site-wide: on the ambient background grey-400 already passes,
+     and darkening the series everywhere would flatten the gap to the signal
+     colour that the comment above exists to protect. Dark mode reuses grey-300,
+     which is 5.57:1 on navy-800 and needs no separate rung. */
+  --color-chart-neutral-on-muted: var(--color-grey-450);
+
   /* ink — general text colour for components (ConversationBlock, ChartBlock, StickyMeta, PullQuote) */
   --color-ink: var(--color-workhorse);
 

@@ -43,6 +43,7 @@ const P = {
   grey200:    '#d8d5d2',
   grey300:    '#b8b4b0',
   grey400:    '#928d89',
+  grey450:    '#87827e',
   grey500:    '#6d6865',
   grey600:    '#4d4a47',
   grey900:    '#1a1a1a',
@@ -92,23 +93,31 @@ const PAIRS = [
   // the ambient. The token paints graphical objects that carry meaning —
   // support bars, the range band, legend and neutral dots — so it answers to
   // SC 1.4.11 at 3:1, not to a text threshold. grey-400 clears it at 3.10:1.
-  //
-  // Two known gaps this pair deliberately does NOT assert, because both are
-  // properties of a consumer rather than of the token, and neither is closed
-  // by any value the token could take without the support series ceasing to
-  // read as support:
-  //
-  //   - ChartSmallMultiples paints its neutral fills inside a card whose
-  //     background is --color-surface-muted (grey-100), not the ambient. The
-  //     token measures 2.79:1 there. grey-500 would clear it at 4.67:1 but is
-  //     --color-ink-muted, so the support series would tie the axis text.
-  //   - ChartRangeRows draws its band at opacity 0.35, which composites to
-  //     roughly 1.4:1 whatever the token is. Contrast there is a function of
-  //     the opacity, not the colour.
-  //
-  // Both need a component-level fix (a lighter card, or an opacity that is
-  // not 0.35), so they are recorded here rather than asserted.
   ['chart-neutral (grey-400 on cream-50)', P.grey400, P.cream50, 'graphic'],
+
+  // The same series where a consumer paints it on a card rather than on the
+  // ambient background. Both gaps this file used to record here rather than
+  // assert are now closed in the components, so both are assertions:
+  //
+  //   - ChartSmallMultiples fills its cards with --color-surface-muted, which
+  //     put the series at 2.79:1 with nothing in the chart having changed. The
+  //     card now re-points --color-chart-neutral to grey-450 for its subtree.
+  //     That is the pair below. grey-500 would also have cleared it, at 4.67:1,
+  //     but it is --color-ink-muted and the support series would have tied the
+  //     axis text.
+  //   - ChartRangeRows composited its band and whisker at opacity 0.35, landing
+  //     near 1.4:1 regardless of token. Both now draw at full opacity on
+  //     chart-neutral, so they are covered by the ambient pair above, and by
+  //     this one wherever a range row sits inside a card.
+  //
+  // Assert this against grey-100 and not the ambient: the whole point of the
+  // rung is the darker background, and checking it against cream-50 would pass
+  // for the wrong reason and let the card case regress unnoticed.
+  ['chart-neutral on a muted card (grey-450 on grey-100)', P.grey450, P.grey100, 'graphic'],
+
+  // Dark mode needs no second rung. --dark-chart-neutral is grey-300 and the
+  // dark card is navy-800, a pair already asserted below at the stricter
+  // 'normal' threshold, so the card case there is covered twice over.
 
   // Dark-beat inverse surface: cream text on navy-900
   ['inverse text (cream-50 on navy-900)', P.cream50, P.navy900, 'normal'],
