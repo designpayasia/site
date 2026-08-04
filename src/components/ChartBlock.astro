@@ -37,8 +37,8 @@ interface Segment {
   fallbackColumns: string[];
   fallbackRows: TableRow[];
   /** Footnote explaining a small-cohort suppression or aggregation choice for
-   *  this segment specifically — rendered with a fixed link to the data
-   *  safety policy. See the top-level `suppressionNote` prop for details. */
+   *  this segment specifically. ChartBlock does not render it — the section
+   *  route collects it. See the top-level `suppressionNote` prop for details. */
   suppressionNote?: string;
 }
 
@@ -98,8 +98,8 @@ interface Variant {
   fallbackColumns: string[];
   fallbackRows: TableRow[];
   /** Footnote explaining a small-cohort suppression or aggregation choice for
-   *  this variant specifically — rendered with a fixed link to the data
-   *  safety policy. See the top-level `suppressionNote` prop for details. */
+   *  this variant specifically. ChartBlock does not render it — the section
+   *  route collects it. See the top-level `suppressionNote` prop for details. */
   suppressionNote?: string;
 }
 
@@ -149,9 +149,25 @@ interface Props {
    * bare 1-7 bar labels give no sense of central tendency on their own.
    */
   averageLabel?: string;
-  /** Footnote explaining a small-cohort suppression or aggregation choice
-   *  (e.g. "Medians below n=10 are suppressed"). Rendered below the source/
-   *  evidence meta with a fixed link to `/docs/data-safety`. */
+  /**
+   * Footnote explaining a small-cohort suppression or aggregation choice
+   * (e.g. "Medians below n=10 are suppressed").
+   *
+   * ChartBlock accepts this but deliberately does not render it, on any of
+   * the three paths — plain, segmented, or variants. Charts render clean, and
+   * `src/pages/reports/[year]/[section].astro` collects every distinct note
+   * across the section (top level, plus each segment and variant), dedupes
+   * them, and prints the set once near the foot of the page with the link to
+   * `/docs/data-safety`. That was a site-owner decision, and it replaced a
+   * per-chart footnote that used to live here.
+   *
+   * The docstring used to describe the removed footnote, which reads as a
+   * silent-drop bug and has been reported as one. It is not: adding an inline
+   * render here would print every note twice on the nine plain charts and
+   * seven variant charts that carry one. Anything vendoring this component
+   * outside the section route has to collect the notes itself — the component
+   * will not do it.
+   */
   suppressionNote?: string;
   segments?: Segment[];
   defaultSegmentLabel?: string;
@@ -209,7 +225,8 @@ const {
   rangeRows,
   rangeAxisTickLabels,
   averageLabel,
-  suppressionNote,
+  // suppressionNote is intentionally not destructured: the section route
+  // renders it, not this component. See the prop's docstring above.
   hideTable = false,
   tableMode,
 } = Astro.props;
@@ -268,7 +285,6 @@ const segmentedViews = hasSegments
         caption,
         summary,
         averageLabel,
-        suppressionNote,
         fallbackColumns,
         fallbackRows: normalizedFallbackRows,
         renderedBars,
@@ -299,10 +315,6 @@ const variantViews = hasVariants
         ...variant,
         sourceLabel: variantSourceLabel,
         sourceUrl: variantSourceUrl,
-        // Falls through to the base chart's note when this variant has none
-        // of its own — mirrors the sourceLabel/sourceUrl fallback above, so a
-        // top-level suppressionNote on a variants chart is never dropped.
-        suppressionNote: variant.suppressionNote ?? suppressionNote,
         showSource: !isSelfHostedSource(variantSourceUrl, reportPath),
         renderedBars: normalizeBars(variant.bars),
         fallbackRows: normalizeTableRows(variant.fallbackRows),
